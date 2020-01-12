@@ -1,0 +1,477 @@
+\begin{thebibliography}{}
+
+\bibitem[{Alaziz} et~al., 2017]{Alaziz17}
+{Alaziz}, M., {Jia}, Z., {Howard}, R., {Lin}, X., and {Zhang}, Y. (2017).
+\newblock {MotionTree: A Tree-Based In-Bed Body Motion Classification System
+  Using Load-Cells}.
+\newblock In {\em {2017 IEEE/ACM International Conference on Connected Health:
+  Applications, Systems and Engineering Technologies (CHASE)}}, pages 127--136.
+
+\bibitem[Angrisani and Napolitano, 2010]{Angrisani10}
+Angrisani, L. and Napolitano, A. (2010).
+\newblock Modulation quality measurement in wimax systems through a fully
+  digital signal processing approach.
+\newblock {\em IEEE Transactions on Instrumentation and Measurement},
+  59(9):2286--2302.
+
+\bibitem[Azam et~al., 2015]{Azam15}
+Azam, S., Chatzi, E., and Papadimitriou, C. (2015).
+\newblock A dual kalman filter approach for state estimation via output-only
+  acceleration measurements.
+\newblock {\em Mechanical Systems and Signal Processing}, 60-61:866--886.
+
+\bibitem[Ballo et~al., 2016]{Ballo16}
+Ballo, F., Gobbi, M., Mastinu, G., and Previati, G. (2016).
+\newblock {A six axis load cell for the analysis of the dynamic impact response
+  of a hybrid III dummy}.
+\newblock {\em Measurement}, 90:309--317.
+
+\bibitem[BIPM et~al., 2008]{GUM08}
+BIPM, IEC, IFCC, ILAC, ISO, IUPAC, IUPAP, and OIML (2008).
+\newblock {\em {Evaluation of measurement data - Guide to the expression of
+  uncertainty in measurement}}.
+\newblock (Geneva: International Organization for Standardization) (Joint
+  Committee for Guides in Metrology, JCGM 101:2008.).
+
+\bibitem[Boschetti et~al., 2013]{Boschetti13}
+Boschetti, G., Caracciolo, R., Richiedei, D., and Trevisani, A. (2013).
+\newblock {Model-based dynamic compensation of load cell response in weighing
+  machines affected by environmental vibrations}.
+\newblock {\em Mechanical Systems and Signal Processing}, 34(1--2):116--130.
+
+\bibitem[B{\"u}rmen et~al., 2009]{Burmen09}
+B{\"u}rmen, M., Pernu\v{s}, F., and Likar, B. (2009).
+\newblock {High-speed precision weighing of pharmaceutical capsules}.
+\newblock {\em Measurement Science and Technology}, 20(11):115203.
+
+\bibitem[Cai et~al., 2016]{Cai16}
+Cai, J., Qu, X., Xu, W., and Ye, G. (2016).
+\newblock {Robust recovery of complex exponential signals from random Gaussian
+  projections via low rank Hankel matrix reconstruction}.
+\newblock {\em Applied and Computational Harmonic Analysis}, 41(2):470--490.
+
+\bibitem[Casas et~al., 2016]{Casas16}
+Casas, O., Dalazen, R., and Balbinot, A. (2016).
+\newblock {3D load cell for measure force in a bicycle crank}.
+\newblock {\em Measurement}, 93:189--201.
+
+\bibitem[Cox and Siebert, 2006]{Cox06}
+Cox, M. and Siebert, B. (2006).
+\newblock {The use of a Monte Carlo method for evaluating uncertainty and
+  expanded uncertainty}.
+\newblock {\em Metrologia}, 43(4):S178.
+
+\bibitem[de~Castro et~al., 2019]{deCastro19}
+de~Castro, B., Baptista, F., and Ciampa, F. (2019).
+\newblock New signal processing approach for structural health monitoring in
+  noisy environments based on impedance measurements.
+\newblock {\em Measurement}, 137:155--167.
+
+\bibitem[D'Emilia et~al., 2016]{DEmilia16}
+D'Emilia, G., Gaspari, A., and Natale, E. (2016).
+\newblock Evaluation of aspects affecting measurement of three-axis
+  accelerometers.
+\newblock {\em Measurement}, 77:95--104.
+
+\bibitem[Dienstfrey and P.D., 2014]{Dienstfrey14}
+Dienstfrey, A. and P.D., H. (2014).
+\newblock {Analysis for dynamic metrology}.
+\newblock {\em Measurement Science and Technology}, 25(3):1--12.
+
+\bibitem[Diniz et~al., 2017]{Diniz17}
+Diniz, A., de~Almeida, M., Vianna, J., Oliveira, A., and Fabro, A. (2017).
+\newblock {Methodology for estimating measurement uncertainty in the dynamic
+  calibration of industrial temperature sensors}.
+\newblock {\em Journal of the Brazilian Society of Mechanical Sciences and
+  Engineering}, 39(3):1053--1060.
+
+\bibitem[Eichst{\"a}dt et~al., 2010]{Eichstadt10}
+Eichst{\"a}dt, S., Elster, C., T.J., E., and J.P., H. (2010).
+\newblock {Deconvolution filters for the analysis of dynamic measurement
+  processes: a tutorial}.
+\newblock {\em Metrologia}, 47(5):522--533.
+
+\bibitem[Eichst{\"a}dt et~al., 2016]{Eichstadt16b}
+Eichst{\"a}dt, S., Makarava, N., and Elster, C. (2016).
+\newblock {On the evaluation of uncertainties for state estimation with the
+  Kalman filter}.
+\newblock {\em Measurement Science and Technology}, 27(12):125009.
+
+\bibitem[Elster and Link, 2008]{Elster08}
+Elster, C. and Link, A. (2008).
+\newblock {Uncertainty evaluation for dynamic measurements modelled by a linear
+  time-invariant system}.
+\newblock {\em Metrologia}, 45(4):464.
+
+\bibitem[Elster et~al., 2007]{Elster07}
+Elster, C., Link, A., and Bruns, T. (2007).
+\newblock {Analysis of dynamic measurements and determination of time-dependent
+  measurement uncertainty using a second-order model}.
+\newblock {\em Measurements science and technology}, 18(12):3682--3687.
+
+\bibitem[Esward, 2016]{Esward16}
+Esward, T. (2016).
+\newblock {Investigating dynamic measurement applications through modelling and
+  simulation}.
+
+\bibitem[Esward et~al., 2009]{Esward09}
+Esward, T., Elster, C., and J.P., H. (2009).
+\newblock {Analysis of dynamic measurements: New challenges require new
+  solutions}.
+\newblock In {\em {In Proceedings of XIX IMEKO World Congress}}.
+
+\bibitem[Feiz and Rezghi, 2017]{Feiz17}
+Feiz, R. and Rezghi, M. (2017).
+\newblock {A splitting method for total least squares color image restoration
+  problem}.
+\newblock {\em Journal of Visual Communication and Image Representation},
+  46:48--57.
+
+\bibitem[Ferrero and Salicone, 2006]{Ferrero06}
+Ferrero, A. and Salicone, S. (2006).
+\newblock {Measurement uncertainty}.
+\newblock {\em IEEE Instrumentation Measurement Magazine}, 9(3):44--51.
+
+\bibitem[Guo et~al., 2018]{Guo18}
+Guo, G., Zhong, S., and Yao, L. (2018).
+\newblock {Sensitivity Effect of Single Load Cell on Total Output of a
+  Combinatorial Structure}.
+\newblock In Yao, L., Zhong, S., Kikuta, H., Juang, J.-G., and Anpo, M.,
+  editors, {\em Advanced Mechanical Science and Technology for the Industrial
+  Revolution 4.0}, pages 105--111. Springer Singapore.
+
+\bibitem[Hack and ten Caten, 2012]{daSilva12}
+Hack, P. d.~S. and ten Caten, C. (2012).
+\newblock {Measurement Uncertainty: Literature Review and Research Trends}.
+\newblock {\em IEEE Transactions on Instrumentation and Measurement},
+  61(8):2116--2124.
+
+\bibitem[Hale et~al., 2009]{Hale09}
+Hale, P., Dienstfrey, A., Wang, J., Williams, D., Lewandowski, A., Keenan, D.,
+  and Clement, T. (2009).
+\newblock {Traceable Waveform Calibration With a Covariance-Based Uncertainty
+  Analysis}.
+\newblock {\em IEEE Transactions on Instrumentation and Measurement},
+  58(10):3554--3568.
+
+\bibitem[Hammersley and Handscomb, 1975]{Hammersley75}
+Hammersley, J. and Handscomb, D. (1975).
+\newblock {\em Monte Carlo Methods}.
+\newblock Methuen's monographs on applied probability and statistics. Methuen.
+
+\bibitem[Hernandez, 2006]{Hernandez06}
+Hernandez, W. (2006).
+\newblock {Improving the Response of a Load Cell by Using Optimal Filtering}.
+\newblock {\em Sensors}, 6(7):697--711.
+
+\bibitem[Hessling, 2008]{Hessling08a}
+Hessling, J. (2008).
+\newblock {A novel method of dynamic correction in the time domain}.
+\newblock {\em Measurement Science and Technology}, 19(7):1--10.
+
+\bibitem[Hessling, 2010]{Hessling10}
+Hessling, J. (2010).
+\newblock {Metrology for non-stationary dynamic measurements}.
+\newblock In Sharma, M., editor, {\em {Advances in Measurement Systems}},
+  chapter~9, pages 221--256. InTech.
+
+\bibitem[Hessling, 2011]{Hessling11}
+Hessling, J. (2011).
+\newblock {Propagation of dynamic measurement uncertainty}.
+\newblock {\em Measurement Science and Technology}, 22(10):105105.
+
+\bibitem[Hessling, 2013a]{Hessling13a}
+Hessling, J. (2013a).
+\newblock {Deterministic Sampling for Propagating Model Covariance}.
+\newblock {\em SIAM/ASA Journal on Uncertainty Quantification}, 1(1):297--318.
+
+\bibitem[Hessling, 2013b]{Hessling13b}
+Hessling, J. (2013b).
+\newblock {Deterministic Sampling for Quantification of Modeling Uncertainty of
+  Signals}.
+\newblock In {Garc\'{\i}a M{\'a}rquez}, F. and Zaman, N., editors, {\em
+  {Digital Filters and Signal Processing}}, chapter~3, pages 53--79.
+  IntechOpen, Rijeka.
+
+\bibitem[Huang et~al., 2016]{Huang16}
+Huang, Q., Teng, Z., Tang, X., Lin, H., and Wen, H. (2016).
+\newblock {Mass Measurement Method for the Electronic Balance Based on
+  Continuous-Time Sigma-Delta Modulator}.
+\newblock {\em IEEE Transactions on Instrumentation and Measurement},
+  65(6):1300--1309.
+
+\bibitem[I., 2015]{Markovsky15ieee}
+I., M. (2015).
+\newblock {Comparison of adaptive and model-free methods for dynamic
+  measurement}.
+\newblock {\em IEEE Signal Proc. Letters}, 22:1094--1097.
+
+\bibitem[{International Recommendation OIML R 51 1}, 2006]{OIML_R51_1}
+{International Recommendation OIML R 51 1} (2006).
+\newblock {\em {Automatic catchweighing instruments Part 1: Metrological and
+  technical requirements - Tests}}.
+\newblock International Organization for Legal Metrology.
+
+\bibitem[Jafaripanah et~al., 2005]{Jafaripanah05}
+Jafaripanah, M., B.M., A.-H., and N.M., W. (2005).
+\newblock {Application of analog adaptive filters for dynamic sensor
+  compensation}.
+\newblock {\em IEEE Transactions on Instrumentation and Measurement},
+  54(1):245--251.
+
+\bibitem[Jia et~al., 2018]{Jia18}
+Jia, T., Wang, H., Shen, X., Jiang, Z., and He, K. (2018).
+\newblock {Target localization based on structured total least squares with
+  hybrid TDOA-AOA measurements}.
+\newblock {\em Signal Processing}, 143:211--221.
+
+\bibitem[Jing et~al., 2016]{Jing16}
+Jing, Y., Meng, Q., Qi, P., Zeng, M., and Liu, Y. (2016).
+\newblock Signal processing inspired from the olfactory bulb for electronic
+  noses.
+\newblock {\em Measurement Science and Technology}, 28(1):015105.
+
+\bibitem[Kesilmi{\c{s}} and Baran, 2016]{Kesilmis16}
+Kesilmi{\c{s}}, Z. and Baran, T. (2016).
+\newblock A geometric approach to beam type load cell response for fast
+  weighing.
+\newblock {\em MAPAN}, 31(2):153--158.
+
+\bibitem[Kiviet and Phillips, 2012]{Kiviet12high}
+Kiviet, J. and Phillips, G. (2012).
+\newblock {Higher-order asymptotic expansions of the least-squares estimation
+  bias in first-order dynamic regression models}.
+\newblock {\em Computational Statistics \& Data Analysis}, 56(11):3705--3729.
+
+\bibitem[Kiviet and Phillips, 2014]{Kiviet14improved}
+Kiviet, J. and Phillips, G. (2014).
+\newblock {Improved variance estimation of maximum likelihood estimators in
+  stable first-order dynamic regression models}.
+\newblock {\em Computational Statistics \& Data Analysis}, 76:424--448.
+
+\bibitem[{Kueppers} et~al., 2017]{Kueppers17}
+{Kueppers}, S., {Cetinkaya}, H., and {Pohl}, N. (2017).
+\newblock A compact 120 ghz sige:c based 2×8 fmcw mimo radar sensor for robot
+  navigation in low visibility environments.
+\newblock In {\em 2017 European Radar Conference (EURAD)}, pages 122--125.
+
+\bibitem[Lee et~al., 2016]{Lee16}
+Lee, W., Yoon, H., Han, C., Joo, K., and Park, K. (2016).
+\newblock Physiological signal monitoring bed for infants based on load-cell
+  sensors.
+\newblock {\em Sensors}, 16(3).
+
+\bibitem[Link and Elster, 2009]{Link09}
+Link, A. and Elster, C. (2009).
+\newblock {Uncertainty evaluation for IIR (infinite impulse response) filtering
+  using a state-space approach}.
+\newblock {\em Measurement Science and Technology}, 20(5):1--5.
+
+\bibitem[Link et~al., 2007]{Link07}
+Link, A., T{\"a}ubner, A., Wabinski, W., Bruns, T., and Elster, C. (2007).
+\newblock {Modelling accelerometers for transient signals using calibration
+  measurements upon sinusoidal excitation}.
+\newblock {\em Measurement}, 40(9--10):928--935.
+
+\bibitem[Markovsky, 2015]{Markovsky15cep}
+Markovsky, I. (2015).
+\newblock {An application of system identification in metrology}.
+\newblock {\em Control Engineering Practice}, 43:85--93.
+
+\bibitem[Markovsky and {Van Huffel}, 2007]{Markovsky07overview}
+Markovsky, I. and {Van Huffel}, S. (2007).
+\newblock {Overview of total least-squares methods}.
+\newblock {\em Signal Processing}, 87(10):2283--2302.
+
+\bibitem[Mastronardi and O{\rq}Leary, 2007]{Mastronardi07fast}
+Mastronardi, N. and O{\rq}Leary, D. (2007).
+\newblock {Fast robust regression algorithms for problems with Toeplitz
+  structure}.
+\newblock {\em Computational Statistics \& Data Analysis}, 52(2):1119--1131.
+
+\bibitem[Matthews et~al., 2014]{Matthews14}
+Matthews, C., Pennecchi, F., Eichst{\"a}dt, S., Malengo, A., Esward, T., Smith,
+  I., Elster, C., Knott, A., Arrh{\'e}n, F., and Lakka, A. (2014).
+\newblock {Mathematical modelling to support traceable dynamic calibration of
+  pressure sensors}.
+\newblock {\em Metrologia}, 51(3):326--338.
+
+\bibitem[Mayne, 2014]{Mayne14}
+Mayne, D. (2014).
+\newblock {Model predictive control: Recent developments and future promise}.
+\newblock {\em Automatica}, 50(12):2967--2986.
+
+\bibitem[Munther et~al., 2019]{Munther19}
+Munther, M., Moon, D., Kim, B., Han, J., Davami, K., and Meyyappan, M. (2019).
+\newblock Array of chemiresistors for single input multiple output (simo)
+  variation-tolerant all printed gas sensor.
+\newblock {\em Sensors and Actuators B: Chemical}, 299:126971.
+
+\bibitem[Nied{\'z}wiecki et~al., 2016]{Niedzwiecki16a}
+Nied{\'z}wiecki, M., Meller, M., and Pietrzak, P. (2016).
+\newblock {System identification based approach to dynamic weighing revisited}.
+\newblock {\em Mechanical Systems and Signal Processing}, 80:582--599.
+
+\bibitem[Nied{\'z}wiecki and Pietrzak, 2016]{Niedzwiecki16b}
+Nied{\'z}wiecki, M. and Pietrzak, P. (2016).
+\newblock {High-Precision FIR-Model-Based Dynamic Weighing System}.
+\newblock {\em IEEE Transactions on Instrumentation and Measurement},
+  65(10):2349--2359.
+
+\bibitem[Nocedal and Wright, 2006]{Nocedal06}
+Nocedal, J. and Wright, S. (2006).
+\newblock {\em {Numerical Optimization}}.
+\newblock Springer Verlag, New York, 2 edition.
+
+\bibitem[Ogorevc et~al., 2016]{Ogorevc16}
+Ogorevc, J., Bojkovski, J., Pu\v{s}nik, I., and Drnov\v{s}ek, J. (2016).
+\newblock {Dynamic measurements and uncertainty estimation of clinical
+  thermometers using Monte Carlo method}.
+\newblock {\em Measurement Science and Technology}, 27(9):1--14.
+
+\bibitem[Olmi, 2016]{Olmi16}
+Olmi, G. (2016).
+\newblock {Load Cell Training for the Students of Experimental Stress
+  Analysis}.
+\newblock {\em Experimental Techniques}, 40(3):1147--1161.
+
+\bibitem[Palanthandalam-Madapusi et~al., 2010]{Palanthandalam10parameter}
+Palanthandalam-Madapusi, H., {Van Pelt}, T., and Bernstein, D. (2010).
+\newblock {Parameter consistency and quadratically constrained
+  errors-in-variables least-squares identification}.
+\newblock {\em International Journal of Control}, 83(4):862--877.
+
+\bibitem[{Pan} et~al., 2018]{Pan18}
+{Pan}, Y., {Luo}, G., {Jin}, H., and {Cao}, W. (2018).
+\newblock {Direction-of-Arrival Estimation With ULA: A Spatial Annihilating
+  Filter Reconstruction Perspective}.
+\newblock {\em IEEE Access}, 6:23172--23179.
+
+\bibitem[Pietrzak et~al., 2014]{Pietrzak14}
+Pietrzak, P., Meller, M., and Nied{\'z}wiecki, M. (2014).
+\newblock {Dynamic mass measurement in checkweighers using a discrete
+  time-variant low-pass filter}.
+\newblock {\em Mechanical Systems and Signal Processing}, 48(1--2):67--76.
+
+\bibitem[{Pintelon} et~al., 1990]{Pintelon90}
+{Pintelon}, R., {Rolain}, Y., {Bossche}, M.~V., and {Schoukens}, J. (1990).
+\newblock {Towards an ideal data acquisition channel}.
+\newblock {\em IEEE Transactions on Instrumentation and Measurement},
+  39(1):116--120.
+
+\bibitem[Pintelon and Schoukens, 2012]{Pintelon12Book}
+Pintelon, R. and Schoukens, J. (2012).
+\newblock {\em {System Identification: A Frequency Domain Approach}}.
+\newblock IEEE Press, Piscataway, NJ, 2 edition.
+
+\bibitem[Piskorowski and Barcinski, 2008]{Piskorowski08}
+Piskorowski, J. and Barcinski, T. (2008).
+\newblock {Dynamic compensation of load cell response: A time-varying
+  approach}.
+\newblock {\em Mechanical Systems and Signal Processing}, 22(7):1694--1704.
+
+\bibitem[Quintana-Carapia et~al., 2019]{Quintana19}
+Quintana-Carapia, G., Markovsky, I., Pintelon, R., Zolt{\'a}n, P., and Verbeke,
+  D. (2019).
+\newblock {Bias and covariance of the least squares estimate of a structured
+  errors-in-variables problem}.
+\newblock {\em Computational Statistics and Data Analysis}, 1(1):1--2.
+
+\bibitem[Rhode et~al., 2014]{Rhode14recursive}
+Rhode, S., Usevich, K., Markovsky, I., and Gauterin, F. (2014).
+\newblock {A recursive restricted total least-squares algorithm}.
+\newblock {\em IEEE Transactions on Signal Processing}, 62(21):5652--5662.
+
+\bibitem[Rossander et~al., 2015]{Rossander15}
+Rossander, M., Dyachuk, E., Apelfr\¨ojd, S., Trolin, K., Goude, A., Bernhoff,
+  H., and Eriksson, S. (2015).
+\newblock Evaluation of a blade force measurement system for a vertical axis
+  wind turbine using load cells.
+\newblock {\em Energies}, 8(6):5973--5996.
+
+\bibitem[Saggin et~al., 2001]{Saggin01}
+Saggin, B., Debei, S., and Zaccariotto, M. (2001).
+\newblock {Dynamic error correction of a thermometer for atmospheric
+  measurements}.
+\newblock {\em Measurement}, 30(3):223--230.
+
+\bibitem[Shu, 1993]{Shu93}
+Shu, W. (1993).
+\newblock {Dynamic weighing under nonzero initial conditions}.
+\newblock {\em IEEE Transactions on Instrumentation and Measurement},
+  42(4):806--811.
+
+\bibitem[S{\"o}derstr{\"o}m, 2007]{Soderstrom07}
+S{\"o}derstr{\"o}m, T. (2007).
+\newblock {Errors-in-variables methods in system identification}.
+\newblock {\em Automatica}, 43(6):939--958.
+
+\bibitem[Stewart, 1990]{Stewart90SPT}
+Stewart, G. (1990).
+\newblock {Stochastic Perturbation Theory}.
+\newblock {\em SIAM Review}, 32(4):579--610.
+
+\bibitem[Tasaki et~al., 2007]{Tasaki07}
+Tasaki, R., Yamazaki, T., Ohnishi, H., Kobayashi, M., and Kurosu, S. (2007).
+\newblock {Continuous weighing on a multi-stage conveyor belt with FIR filter}.
+\newblock {\em Measurement}, 40(7--8):791--796.
+\newblock Precision Measurement of Force, Mass, and Torque.
+
+\bibitem[Tedea-Huntleigh, 2015]{tedea1004}
+Tedea-Huntleigh (2015).
+\newblock {Aluminum Single-Point Load Cell 1004}.
+\newblock \url{http://docs.vpgtransducers.com/?id=2831}.
+
+\bibitem[Ushiki et~al., 2013]{Ushiki13}
+Ushiki, K., Nishimori, K., Honma, N., and Makino, H. (2013).
+\newblock Intruder detection performance of simo and mimo sensors with same
+  number of channel responses.
+\newblock {\em IEICE Transactions}, 96-B:2499--2505.
+
+\bibitem[Vaccaro, 1994]{Vaccaro94}
+Vaccaro, R. (1994).
+\newblock {A Second-Order Perturbation Expansion for the SVD}.
+\newblock {\em SIAM J. Matrix Anal. Appl.}, 15(2):661--671.
+
+\bibitem[{Van Huffel} et~al., 2007]{VanHuffel07TLSeditorial}
+{Van Huffel}, S., Cheng, C., Mastronardi, N., Paige, C., and Kukush, A. (2007).
+\newblock {Total Least Squares and Errors-in-variables Modeling}.
+\newblock {\em Computational Statistics \& Data Analysis}, 52(2):1076--1079.
+
+\bibitem[{Van Huffel} and Vandewalle, 1991]{VanHuffel91Book}
+{Van Huffel}, S. and Vandewalle, J. (1991).
+\newblock {\em {The total least squares problem: computational aspects and
+  analysis}}.
+\newblock SIAM.
+
+\bibitem[Vlajic and Chijioke, 2016]{Vlajic16}
+Vlajic, N. and Chijioke, A. (2016).
+\newblock {Traceable dynamic calibration of force transducers by primary
+  means}.
+\newblock {\em Metrologia}, 53(4):S136.
+
+\bibitem[Wang et~al., 2014]{Wang14}
+Wang, L., Yan, Y., Hu, Y., and Qian, X. (2014).
+\newblock Rotational speed measurement through electrostatic sensing and
+  correlation signal processing.
+\newblock {\em IEEE Transactions on Instrumentation and Measurement},
+  63(5):1190--1199.
+
+\bibitem[Yamani et~al., 2018]{Yamani18}
+Yamani, K., Yamakawa, Y., and Yamazaki, T. (2018).
+\newblock Dynamic behavior of mass measurement system using load-cell (2nd
+  report) -effect of partial load distribution-.
+\newblock {\em Journal of Physics: Conference Series}, 1065:1--4.
+
+\bibitem[Yeredor and {De Moor}, 2004]{Yeredor04homogeneous}
+Yeredor, A. and {De Moor}, B. (2004).
+\newblock {On homogeneous least-squares problems and the inconsistency
+  introduced by mis-constraining}.
+\newblock {\em Computational Statistics \& Data Analysis}, 47(3):455--465.
+
+\bibitem[Zahradka et~al., 2018]{Zahradka18}
+Zahradka, N., Jeong, I., and Searson, P. (2018).
+\newblock Distinguishing positions and movements in bed from load cell signals.
+\newblock {\em Physiological Measurement}, 39(12):1--11.
+
+\end{thebibliography}

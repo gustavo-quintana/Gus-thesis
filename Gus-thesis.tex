@@ -1,0 +1,205 @@
+%%
+%% This code was generated from the thesis template of Adam Cooman--Evi Van Nechel.
+%% It has been adapted slightly by Gustavo Quintana.
+%% Compile with: pdflatex --shell-escape -synctex=1 -interaction=nonstopmode Gus-thesis.tex 
+%%
+\documentclass[english,british,BCOR=5mm,DIV=12,fontsize=10pt]{scrbook}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage[paperwidth=17cm,paperheight=24cm]{geometry}
+\geometry{verbose,tmargin=2.5cm,bmargin=3cm,lmargin=2.5cm,rmargin=2cm}
+\setcounter{secnumdepth}{1}
+\setcounter{tocdepth}{1}
+\setlength{\parskip}{\medskipamount}
+\setlength{\parindent}{0pt}
+\synctex=-1
+\usepackage{color}
+\definecolor{note_fontcolor}{rgb}{0.800781, 0.800781, 0.800781}
+\usepackage{babel, array, verbatim, float, booktabs, units, amsmath, amssymb, graphicx, tikz}
+\usepackage{mathdots, amsthm, textcomp, times, mathptmx, mathtools, bm, amsbsy}
+\usepackage[unicode=true,pdfusetitle, bookmarks=true, bookmarksnumbered=false, bookmarksopen=false, breaklinks=false,pdfborder={0 0 0}, pdfborderstyle={}, backref=false, colorlinks=false] {hyperref}
+\usepackage[outdir=./]{epstopdf}
+\usetikzlibrary{shapes,arrows,calc,patterns,decorations.pathmorphing,decorations.markings,positioning}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% Because html converters don't know tabularnewline
+\providecommand{\tabularnewline}{\\}
+%% The greyedout annotation environment
+\newenvironment{lyxgreyedout}
+  {\textcolor{note_fontcolor}\bgroup\ignorespaces}
+  {\ignorespacesafterend\egroup}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\input{config/preamble.tex}
+
+% to stop the compiler from complaining about the \it command in the references, I override it with the thing KOMA proposes.
+\renewcommand{\it}{\normalfont\itshape}
+
+% lyxgreyedout defined in latex
+\renewenvironment{lyxgreyedout}
+{\textcolor{red}\bgroup}{\egroup}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Start Document
+\makeatother
+
+\begin{document}
+{\footnotesize{}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Front cover
+%\includepdf[pages={1}]{Cover}
+\newpage{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% VUB title page 
+
+\titlepage{\fontfamily{pag}\selectfont % I use the ugly VUB font only for this title page
+	\hspace{-0.1cm}\includegraphics[width=0.4\columnwidth]{Extras/VUB_logo.pdf}
+	% \vspace{-1.7cm}
+	\hfill{}%
+	\begin{minipage}[t]{0.4\columnwidth}% 
+	\vspace{-1.4cm}
+		\begin{flushright}
+			{\footnotesize{}Department of }\\
+			{\footnotesize{}Fundamental Electricity}\\
+			{\footnotesize{}and Instrumentation (ELEC)}
+		\par\end{flushright}%
+	\end{minipage}
+
+
+	\vspace{1.5cm}
+	% I use purple and orange here for the color. In the preamble I have overwritten these colors to be VUB orange and VUB blue respectively
+	\textcolor{purple}{\footnotesize{}Thesis submitted in fulfillment of the requirements for the degree of}\\
+	\textcolor{purple}{\footnotesize{}Doctor in Engineering (Doctor in de Ingenieurswetenschappen) by}{\footnotesize\par}
+	\textcolor{orange}{\Large{}ir. Gustavo Quintana Carapia}{\Large\par}
+
+	\vspace{1cm}
+
+	\begin{flushleft}
+		\textcolor{purple}{\LARGE\noindent%\textcolor{purple}
+		\textbf{Statistical analysis and experimental validation of data-driven dynamic measurement methods}}\\
+	\par\end{flushleft}
+
+	\vfill{}
+
+	\begin{tabular}{@{}lll@{}}
+	\textbf{\small PROMOTERS}		& &	{\small prof. dr. ir. Ivan Markovsky}				\\
+				& &		{\footnotesize{}Vrije Universiteit Brussel, Belgium}\\[0.3em]
+				& &	\small prof. dr. ir. Rik Pintelon				\\
+				& &		{\footnotesize{}ELEC Department, Vrije Universiteit Brussel, Belgium.}	\\[0.3em]
+				\\
+	\textbf{\small MEMBERS OF THE JURY}	&	&\small prof. dr. ir. Patrick Guillaume (President)		\\
+				&	&{\footnotesize{}MECH Department, Vrije Universiteit Brussel, Belgium.}	\\[0.3em]
+				% &								\\
+				&	&\small prof. dr. ir. Roger Vounckx (Vice-President)				\\
+				&	&{\footnotesize{}ETRO Department, Vrije Universiteit Brussel, Belgium.}	\\[0.3em]
+				% &								\\
+				&	&\small dr. ir. Philippe Dreesen (Secretary)					\\
+				&	&{\footnotesize{}ELEC Department, Vrije Universiteit Brussel, Belgium.}				\\[0.3em]
+				% &								\\
+				&	&\small dr. ir. Nikolaos Deligiannis \\
+				&	&{\footnotesize{}ETRO Department, Vrije Universiteit Brussel, Belgium.} 			\\[0.3em]
+				% &								\\
+				&	&\small prof. dr. ir. Lyudmila Mihaylova 		\\
+				&	&{\footnotesize{}ACSE Department, University of Sheffield, United Kingdom.} \\
+								% &								\\
+				&	&\small prof. dr. ir. Stephane Chretien  		\\
+				&	&{\footnotesize{}ERIC Laboratory, University Lyon 2, France.} \\
+								% &								\\
+				&	&\small prof. dr. ir. Guillaume  Merc\`ere 		\\
+				&	&{\footnotesize{}LIAS Laboratory, Universit\'e de Poitiers, France.} \\
+\end{tabular}
+
+}
+
+\newpage{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Book details
+
+\pagenumbering{gobble}
+~\vfill{}
+
+% {\footnotesize{}ISBN: } \\% You need to apply online for an ISBN, this takes a couple of days
+{\footnotesize{}DOI: 10.13140/RG.2.2.27482.29129}\\ % I uploaded my thesis to researchgate to generate a DOI: if you remove it from ResearchGate, the DOI will no longer exist!
+{\footnotesize{}~}{\footnotesize\par}
+
+{\footnotesize{}University Press BVBA}\\
+{\footnotesize{}Rechtstro 2/001, 9185 Wachtebeke, Belgium }\\
+{\footnotesize{}https://www.universitypress.be/}\\
+{\footnotesize{}~}{\footnotesize\par}
+
+{\footnotesize{}Vrije Universiteit Brussel, dept. ELEC}\\
+{\footnotesize{}Pleinlaan 2, 1050 Brussel, Belgium}\\
+{\footnotesize{}http://vubirelec.be/}\\
+{\footnotesize{}~}{\footnotesize\par}
+
+{\footnotesize{}Cover design by ...}\\
+{\footnotesize{}Background image by ...}{\footnotesize\par}
+{\footnotesize{}~}{\footnotesize\par}
+
+{\footnotesize{}$\copyright$ February 2019 Gustavo Quintana Carapia.}\\
+{\footnotesize{}~}{\footnotesize\par}
+
+
+{\footnotesize{}All rights reserved. No parts of this document may be reproduced or transmitted in any form or by any means without the prior written permission of the authors.}{\footnotesize\par}
+
+{\footnotesize\par}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Acknowledgements
+\newpage{}
+% \shipout\null
+\pagenumbering{roman}
+
+\include{Extras/Acknowledgements}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  TOC and abbreviations list
+\tableofcontents{}
+
+% table of glossaries didn't work so I made a list of abbreviations manually
+\include{Extras/Abbreviations} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Thesis
+% CustomCommands.lyx contains my custom lyx math macros.
+\include{config/CustomCommands}
+
+\pagenumbering{arabic}
+
+\include{Summary/Summary}
+
+\include{ChapterIntroduction/ChapterIntroduction}
+
+%\part{Model driven filter design}\label{part:Filter}
+
+\include{ChapterPreliminaries/ChapterPreliminaries}
+
+\include{ChapterRampInput/ChapterRampInput}
+
+\include{ChapterStatisticalAnalysis/ChapterStatisticalAnalysis}
+
+\include{ChapterExperimentalValidation/ChapterExperimentalValidation}
+
+%\part{Figures of merit for~characterizing nonlinear~devices}\label{part:PA}
+
+
+\addtocontents{toc}{\vspace{2em}} \include{ChapterConclusion/ChapterConclusion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Start appendix
+ 
+
+\appendix
+\addtocontents{toc}{\vspace{0em}} \include{ChapterAppendices/ChapterAppendices}
+
+\include{Extras/ListofPublications}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Bibliography
+
+\addcontentsline{toc}{chapter}{Bibliography}
+
+\bibliographystyle{apalike} % wmaainf
+\bibliography{Gus-thesis}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Back cover
+\newpage{}
+\shipout\null
+%\includepdf[pages={2}]{Cover}
+
+\end{document}

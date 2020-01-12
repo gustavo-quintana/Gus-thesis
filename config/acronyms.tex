@@ -1,0 +1,60 @@
+
+\usepackage[toc,acronym,section=section,nonumberlist,xindy]{glossaries}
+\renewcommand*{\acronymname}{List of Abbreviations}
+
+\renewcommand{\newacronym}[4][]{\newglossaryentry{#2}{type=\acronymtype,
+name={#3},
+short={#3},
+long={#4},
+shortplural={#3\glspluralsuffix},
+longplural={#4\glspluralsuffix},
+description={#4},
+text={#3},
+first={#4~(#3)},
+plural={#3\glspluralsuffix},
+firstplural={#4\glspluralsuffix~(#3\glspluralsuffix)},
+#1}}
+
+\newacronym{BLA}{BLA}{Best Linear Approximation}
+\newacronym{MIMO}{MIMO}{Multiple-Input Multiple-Output}
+\newacronym{SISO}{SISO}{Single-Input Single-Output}
+\newacronym{PISPO}{PISPO}{Periodic-In Same Period-Out}
+\newacronym{FRF}{FRF}{Frequency Response Function}
+\newacronym{ADS}{ADS}{Advanced Design System}
+\newacronym{pdf}{pdf}{probability density function}
+\newacronym{PSD}{PSD}{Power Spectral Density}
+\newacronym{RMS}{RMS}{Root Mean Square}
+\newacronym{LTI}{LTI}{Linear Time-Invariant}
+\newacronym{RF}{RF}{Radio Frequency}
+\newacronym{WLAN}{WLAN}{Wireless Local Area Network}
+\newacronym{EM}{EM}{electromagnetic}
+\newacronym{DGS}{DGS}{Defected Ground Structure}
+\newacronym{RMSE}{RMSE}{Root Mean Square Error}
+\newacronym{TL}{TL}{transmission line}
+\newacronym{MC}{MC}{Monte Carlo}
+\newacronym{SC}{SC}{Stochastic Collocation}
+\newacronym{VF}{VF}{Vector Fitting}
+\newacronym{LHS}{LHS}{Latin Hypercube Sampling}
+\newacronym{QMC}{QMC}{Quasi Monte Carlo}
+\newacronym{RBF}{RBF}{Radial Basis Functions}
+\newacronym{PCBs}{PCBs}{Printed Circuit Boards}
+\newacronym{PDNs}{PDNs}{Power Distribution Networks}
+\newacronym{LDS}{LDS}{Low Discrepancy Sampling}
+\newacronym{LBTLS}{LBTLS}{Local Bootstrapped Total Least Squares}
+\newacronym{VNA}{VNA}{Vector Network Analyzer}
+\newacronym{FOMs}{FOMs}{Figures of Merit}
+\newacronym{FOM}{FOM}{Figure of Merit}
+\newacronym{SNR}{SNR}{Signal-to-Noise Ratio}
+\newacronym{SINAD}{SINAD}{Signal-to-Noise and Distortion ratio}
+\newacronym{ACPR}{ACPR}{Adjacent Channel Power Ratio}
+\newacronym{EVM}{EVM}{Error Vector Magnitude}
+\newacronym{NPR}{NPR}{Noise Power Ratio}
+\newacronym{DUT}{DUT}{Device Under Test}
+\newacronym{TOI}{TOI}{Third Order Intercept point}
+\newacronym{OFDM}{OFDM}{Orthogonal Frequency Division Multiplexing}
+\newacronym{LTE}{LTE}{Long Term Evolution}
+
+
+
+% \makeglossaries
+\makenoidxglossaries

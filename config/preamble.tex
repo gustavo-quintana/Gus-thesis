@@ -1,0 +1,136 @@
+% font used for the math
+\usepackage{mathptmx}
+% font used for the text
+\usepackage[nomath]{kpfonts}
+
+% The microtype package improves the spacing between words and letters. 
+\usepackage{microtype}
+
+\usepackage[all]{nowidow}
+
+% http://tex.stackexchange.com/questions/29973/more-than-one-optional-argument-for-newcommand
+\usepackage{xparse}
+
+% I remove some margin of the itemize list here I think.
+\usepackage{enumitem}
+% \setlist[itemize]{leftmargin=*}
+
+% this will only add equation numbers to equations that have been referenced
+% \usepackage{mathtools}
+\usepackage{color,soul}
+
+% this will make the bold omega available
+\usepackage{bm}
+
+% tables
+\usepackage{tabularx}
+
+% 
+\usepackage{calc}
+% tables 
+\usepackage{multirow}
+
+% figures and captions rotate 90 degrees
+\usepackage{adjustbox}
+
+% \thisfloatpagestyle{empty} for large figures/tables
+\usepackage{floatpag}
+
+% symbols for checkmarks
+\usepackage{bbding}
+
+% to include frontpage
+\usepackage[final]{pdfpages}
+
+% floats stay in section
+\usepackage[section]{placeins}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% For the Matlab2tikz plots, I include tikz
+\usepackage{tikz}
+\usepackage{pgfplots} 
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=newest} 
+\pgfplotsset{plot coordinates/math parser=false} 
+\usetikzlibrary{plotmarks}
+\usepackage{grffile}
+% stuff for the font size tiks pictures, you need to patch a bug in matlab2tikz for this to work though.
+\pgfplotsset{every axis/.append style={font=\footnotesize}}
+\pgfplotsset{tick label style={font=\footnotesize}}
+
+% epsilon
+\DeclareSymbolFont{newfont}{OML}{cmm}{m}{it}% Computer Modern math font
+\DeclareMathSymbol{\Epsilon}{3}{newfont}{15}% Symbol 15
+
+
+% figurelength and figureheight for tikz figures
+\newlength\figureheight 
+\newlength\figurewidth 
+\setlength{\figurewidth}{0.8\columnwidth}
+\setlength{\figureheight}{0.3\columnwidth}
+\newlength\columnwidthex
+\setlength{\columnwidthex}{0.9\columnwidth}
+
+% \tikzify is used to create small tikz pictures in the lines of the text.
+% I use this to put markers in my figure captions
+% This code was provided to me by Jan Goos
+\newcommand{\tikzify}[1]{\protect\tikz[baseline=-0.55ex]{\protect\draw[line width = 1pt] #1;}}
+% \marker is used to add a specifiec marker in the text
+\newcommand{\marker}[2]{\tikzify{plot[mark=#2,mark size=2.5,mark options={color=#1}](0,0)}}
+\newcommand{\markerdot}[1]{\tikzify{plot[mark=*,mark size=1,mark options={color=#1}](0,0)}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% tables
+\let\mytoprule\toprule
+\renewcommand{\toprule}{\mytoprule[0.1 em]}
+\let\mybottomrule\bottomrule
+\renewcommand{\bottomrule}{\mybottomrule[0.1 em]}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% page contains the specific changes made to the koma template
+
+% set the page headers and footers in gray
+\usepackage{scrlayer-scrpage}
+\setkomafont{pageheadfoot}{\color{gray}\scslshape} %\textsl for italic
+
+% chapter formatting
+\addtokomafont{chapterprefix}{\raggedleft}
+\renewcommand*{\chapterformat}{%
+\mbox{\chapappifchapterprefix{\nobreakspace}%
+Chapter \thechapter\autodot}\enskip}
+
+% increase the line spacing
+\linespread{1.1}
+
+% set the footnotes in gray
+\definecolor{footnotecolor}{cmyk}{0,0,0,0.75}
+\setkomafont{footnote}{\color{footnotecolor}}
+
+% set the footnote line in gray
+\setkomafont{footnoterule}{\color{footnotecolor}}
+
+% set the page number in gray
+\addtokomafont{pagenumber}{\color{gray}\rmfamily}
+\definecolor{pagenrcolor}{cmyk}{0,0,0,0}
+\setkomafont{pagenumber}{\normalfont\bfseries\footnotesize\color{gray}}
+
+% make all the titles bold
+\setkomafont{disposition}{\normalfont\bfseries\fontfamily{pag}\selectfont}
+
+\renewcommand*\chapterheadstartvskip{\vspace*{.15\textheight}}
+\renewcommand*\chapterheadendvskip{\vspace*{.1\textheight}}
+\renewcommand*{\chapterformat}{\chapappifchapterprefix{\ }\thechapter\autodot\enskip}
+
+% define the VUB colors 
+% I overwrite orange with the VUB orange and purple with the VUB blue
+\definecolor{purple}{rgb}{0.007,0.25,0.51}
+\definecolor{orange}{rgb}{1,0.35,0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% all abbreviations and symbols
+\input{config/acronyms.tex}
+
+
+
+
+

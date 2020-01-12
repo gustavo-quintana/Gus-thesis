@@ -1,0 +1,58 @@
+%!TEX root = ..\Thesis.tex
+\chapter{AppendixStatisticalAnalysis} \label{chap:AppendixStatisticalAnalysis}
+
+\section{Appendix - Statistical analysis}
+
+\section*{Appendix 1. Derivation of bias and covariance expressions.}
+
+The bias and covariance of the least-squares (LS) estimate (\ref{eqn:xhatexp}) are obtained using the mathematical expectation in the definitions (\ref{eqn:biasdef}) and (\ref{eqn:covdef}).
+For an unstructured and uncorrelated EIV problem, the expected value, and the covariance of $\widehat{\mathbf{x}}$ are approximated by
+\begin{equation} \begin{aligned} \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\} & \approx \mathbf{x}  + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E}  \right\} \mathbf{x}, \quad \text{and}  \\ 
+\mathbf{C} \left( \widehat{\mathbf{x}} \right)  & \approx \mathbf{x} \mathbf{x}^\top + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \bm{\epsilon} \bm{\epsilon}^\top \mathbf{K} + \mathbf{K}^\top \mathbf{E} \mathbf{x} \mathbf{x}^\top \mathbf{E}^\top \mathbf{K} \right\} \mathbf{Q}^{-1} \\ 
+& + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E} \right\} \mathbf{x} \mathbf{x}^\top \\
+& + \mathbf{x} \mathbf{x}^\top \mathbb{E} \left\{ \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{E}^\top \mathbf{K} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E} \right\} \mathbf{Q}^{-1} - \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\} \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\}^\top , \label{eqn:EC_Eu} \end{aligned} \end{equation} 
+where we have considered the second order Taylor series approximation (\ref{eqn:TseriesExp}), and we have removed the terms of zero expected value, and the terms of order higher than 2.
+After an elementwise evaluation of the corresponding expected values in (\ref{eqn:EC_Eu}), the expressions result in 
+\begin{equation} \begin{aligned} \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\} & \approx \mathbf{x}  + \mathbf{b}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) = \mathbf{x}  +  \sigma_{\mathbf{E}}^2 \mathbf{Q}^{-1} \left( 2\mathbf{I} + 2n\mathbf{I} - T \mathbf{I} \right) \mathbf{x} , \quad \text{and} \\ 
+\mathbf{C}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) & \approx \sigma_{\bm{\epsilon}}^2 \ \mathbf{Q}^{-1} + \sigma_{\mathbf{E}}^2 \ \mathrm{trace} \left( \mathbf{x} \mathbf{x}^\top \right) \mathbf{Q}^{-1} - \sigma_{\mathbf{E}}^4 \left( 2 + 2n - T \right)^2 \ \mathbf{Q}^{-1} \mathbf{x} \mathbf{x}^\top \mathbf{Q}^{-1} , \end{aligned} \end{equation}
+from where equations (\ref{eqn:biasEu}) and (\ref{eqn:varEu}) are obtained.
+
+On the other hand, due to the correlation, the expressions that approximate the expected value of the LS estimate of the structured and EIV problem (\ref{eqn:min_ls}) have a different form:
+\begin{equation} \begin{aligned} \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\} & \approx \mathbf{x}  +  \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E}  \right\} \mathbf{x} \\ 
+& + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{E}^\top \bm{\epsilon} - \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \bm{\epsilon} - \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \bm{\epsilon} \right\} , \quad \text{and}  \\ 
+\mathbf{C} \left( \widehat{\mathbf{x}} \right)  & \approx \mathbf{x} \mathbf{x}^\top + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \bm{\epsilon} \bm{\epsilon}^\top \mathbf{K} + \mathbf{K}^\top \mathbf{E} \mathbf{x} \mathbf{x}^\top \mathbf{E}^\top \mathbf{K} - \mathbf{K}^\top \mathbf{E} \mathbf{x} \bm{\epsilon}^\top \mathbf{K} - \mathbf{K}^\top \bm{\epsilon} \mathbf{x}^\top \mathbf{E}^\top \mathbf{K} \right\} \mathbf{Q}^{-1}  \\
+& + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E} \right\} \mathbf{x} \mathbf{x}^\top \\
+& + \mathbf{x} \mathbf{x}^\top \mathbb{E} \left\{ \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{E}^\top \mathbf{K} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E} \right\} \mathbf{Q}^{-1} - \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\} \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\}^\top \\ 
+& + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{E}^\top \bm{\epsilon} - \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \bm{\epsilon} - \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \bm{\epsilon} \right\} \mathbf{x}^\top \\
+& + \mathbf{x} \mathbb{E} \left\{ \bm{\epsilon}^\top \mathbf{E} - \bm{\epsilon}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{E}^\top \mathbf{K} - \bm{\epsilon}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} \right\} \mathbf{Q}^{-1}. \label{eqn:EC_E} \end{aligned} \end{equation} 
+These expressions have the non zero expected value terms, up to the second order. 
+We have then
+\begin{equation} \begin{aligned} \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\} & = \mathbf{x} + \mathbf{b}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) \approx \mathbf{x}  +  \mathbf{Q}^{-1} \mathbf{K}^\top \underbrace{\mathbb{E} \left\{ \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} \right\}}_{\mathbf{B}_1} - \mathbf{Q}^{-1} \underbrace{\mathbb{E} \left\{ \mathbf{E}^\top \left( \mathbf{I} - \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \right) \mathbf{E} \right\}}_{\mathbf{B}_2} \mathbf{x} \\ 
+& - \mathbf{Q}^{-1} \mathbf{K}^\top \underbrace{\mathbb{E} \left\{ \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \bm{\epsilon} \right\}}_{\mathbf{B}_3} + \mathbf{Q}^{-1} \underbrace{\mathbb{E} \left\{ \mathbf{E}^\top \left( \mathbf{I} - \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \right) \bm{\epsilon} \right\}}_{\mathbf{B}_4} , \quad \text{and} \\ 
+\mathbf{C} \left( \widehat{\mathbf{x}} \right)  & \approx \mathbf{Q}^{-1} \mathbf{K}^\top \left( \underbrace{\mathbb{E} \left\{ \bm{\epsilon} \bm{\epsilon}^\top \right\}}_{\sigma_{\bm{\epsilon}}^2 \mathbf{I}_{T-n}}  + \underbrace{\mathbb{E} \left\{ \mathbf{E} \mathbf{x} \mathbf{x}^\top \mathbf{E}^\top \right\}}_{\mathbf{C}_1}  - \underbrace{\mathbb{E} \left\{  \mathbf{E} \mathbf{x} \bm{\epsilon}^\top \right\}}_{\mathbf{C}_2} - \underbrace{\mathbb{E} \left\{ \bm{\epsilon} \mathbf{x}^\top \mathbf{E}^\top \right\}}_{\mathbf{C}_2^\top} \right) \mathbf{K} \mathbf{Q}^{-1}  - \mathbf{b}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) \mathbf{b}_{\mathrm{p}}^\top \left( \widehat{\mathbf{x}} \right). \end{aligned} \end{equation} 
+from where the expressions (\ref{eqn:biasE}) and (\ref{eqn:varE}) are obtained.
+
+
+\section*{Appendix 2. Proof of Lemma \ref{lem:lemma1}}
+
+\begin{pf}
+In the first case considered in the lemma, the elements of the expected value $\mathbf{Z} = \mathbb{E} \left\{ \mathbf{E} \mathbf{A} \mathbf{E} \right\}$ are
+\begin{equation} z_{ij} = \mathbb{E} \left\{ \mathbf{E} \mathbf{A} \mathbf{E} \right\}_{ij} = \mathbb{E} \left\{ \mathbf{e}_i \mathbf{A} \mathbf{E}_j \right\} = \mathrm{tr} \left( \mathbf{A} \ \mathbb{E} \left\{ \mathbf{E}_j \mathbf{e}_i \right\} \right) , \end{equation}
+where $\mathbf{e}_i$, and $\mathbf{E}_j$ are the $i\text{-th}$ row, and the $j\text{-th}$ column of $\mathbf{E}$, for $i = 1, \ldots, T-n$, and $j = 2, \ldots, n+1$.
+The matrix $\mathbb{E} \left\{ \mathbf{E}_j \mathbf{e}_i \right\}$ is the product of $\sigma_{\bm{\epsilon}}^2$ times a matrix whose elements are 0 in the first column, 2 in the $(j-i-1) \text{-th}$ diagonal, and -1 in the $(j-i-2) \text{-th}$, and $(j-i) \text{-th}$ diagonals, with zeros elsewhere.
+By using the definition of the second differential operator, we express
+\begin{equation} \mathbb{E} \left\{ \mathbf{E}_j \mathbf{e}_i \right\} = \sigma_{\bm{\epsilon}}^2 \begin{bmatrix} \mathbf{0}_{T-n} & \mathbf{D}_{T-n \times n}^{2, j-i} \end{bmatrix}. \end{equation}
+
+The proof of the other cases in the Lemma is similar. 
+For the second case, the elements of the expected value $\mathbf{Z} = \mathbb{E} \left\{ \mathbf{E}^\top \mathbf{A} \mathbf{E} \right\}$ are
+\begin{equation} z_{ij} = \mathbb{E} \left\{ \mathbf{E}^\top \mathbf{A} \mathbf{E} \right\}_{ij} = \mathbb{E} \left\{ \mathbf{e}_i \mathbf{A} \mathbf{E}_j \right\} = \mathrm{tr} \left( \mathbf{A} \ \mathbb{E} \left\{ \mathbf{E}_j \mathbf{e}_i \right\} \right) , \end{equation}
+where now $\mathbf{e}_i$ is the $i\text{-th}$ row of $\mathbf{E}^\top$, and $\mathbf{E}_j$ is the $j\text{-th}$ column of $\mathbf{E}$, for $i = 2, \ldots, n+1$, and $j = 2, \ldots, n+1$.
+The matrix $\mathbb{E} \left\{ \mathbf{E}_j \mathbf{e}_i \right\}$ is $\sigma_{\bm{\epsilon}}^2$ times a matrix whose elements are 2 in the $(j-i) \text{-th}$ diagonal, and -1 in the $(j-i-1) \text{-th}$ and $(j-i+1) \text{-th}$ diagonals, with zeros elsewhere.
+Therefore we have
+\begin{equation} \mathbb{E} \left\{ \mathbf{E}_j \mathbf{e}_i \right\} = \sigma_{\bm{\epsilon}}^2 \mathbf{D}_{T-n \times T-n}^{2,j-i+1}. \end{equation}
+
+The expected values that involve the vector $\bm{\epsilon}$ are especial cases of the previous cases. 
+The vector $\bm{\epsilon}$ in the expected values $\mathbb{E} \left\{ \mathbf{E} \mathbf{A} \epsilon \right\}$, $\mathbb{E} \left\{ \mathbf{E}^\top \mathbf{A} \epsilon \right\}$, and $\mathbb{E} \left\{ \mathbf{E} \mathbf{A} \bm{\epsilon}^\top \right\}$ is
+\begin{equation} \bm{\epsilon} = \begin{bmatrix} \epsilon(n+1) & \epsilon(n+2) & \cdots & \epsilon(T) \end{bmatrix}^\top, \end{equation}
+as it is imposed by the input estimation method formulation.
+\end{pf}

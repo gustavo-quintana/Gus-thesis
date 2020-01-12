@@ -1,0 +1,42 @@
+%!TEX root = ..\Thesis.tex
+\chapter{AppendixRampInput} \label{chap:AppendixRampInput}
+
+
+\section{Appendix - Ramp input}
+
+
+The entries of the Jacobian matrix are the first order partial derivatives of the residual error $\mathbf{r}$ with respect to the optimization variables.
+The state space representation of the weighing model allows to find the analytical expression of the Jacobian.
+The partial derivative of the residual error $\mathbf{r}$ with respect to the optimization variable $a$ is 
+\begin{equation} \mathbf{J}_a=\dfrac{\partial \mathbf{r}}{\partial a} = \dfrac{\partial \widehat{y}}{\partial a} = \begin{bmatrix} 1 & 0  \end{bmatrix} \dfrac{\partial \mathbf{x}}{\partial a} = \begin{bmatrix} 1 & 0  \end{bmatrix} \mathbf{x}_a \end{equation}
+where we use $\mathbf{x}_a = \partial \mathbf{x}/ \partial a$ to simplify the notation. 
+Now, from the derivative of the state equation, we have
+\begin{equation} \begin{aligned} 
+    & \dot{\mathbf{x}}_a = \begin{bmatrix} 0 & 1 \\ \frac{-k_{\mathrm{s}}}{a t + b + m} & \frac{-(a + k_{\mathrm{d}})}{a t + b + m} \end{bmatrix} \mathbf{x}_a 
+    + \begin{bmatrix} 0 & 0 \\ \frac{k_{\mathrm{s}} t}{(a t + b + m)^2} & \frac{k_{\mathrm{d}} t - b - m}{(a t + b + m)^2} \end{bmatrix} \mathbf{x} 
+    - \frac{t \ \delta(t)}{(a t + b + m)^2} \mathbf{x}_{\text{ini}}   . 
+\end{aligned} \end{equation}
+Then, the partial derivative of the error $\mathbf{r}$ with respect to the optimization variable $a$ results in an additional dynamic system.
+
+By repeating the procedure, we obtain the partial derivatives with respect to $b$ as follows: 
+\begin{equation} \begin{aligned} 
+    & \dot{\mathbf{x}}_b = \begin{bmatrix} 0 & 1 \\ \frac{-k_{\mathrm{s}}}{a t + b + m} & \frac{-(a + k_{\mathrm{d}})}{a t + b + m} \end{bmatrix} \mathbf{x}_b 
+    + \begin{bmatrix} 0 & 0 \\ \frac{k_{\mathrm{s}}}{(a t + b + m)^2} & \frac{a+k_{\mathrm{d}}}{(a t + b + m)^2} \end{bmatrix} \mathbf{x} 
+ - \frac{\delta(t) }{(a t + b + m)^2}  \mathbf{x}_{\text{ini}} ,
+ \\ & \mathbf{J}_b = \begin{bmatrix} 1 & 0 \end{bmatrix} \mathbf{x}_b . 
+\end{aligned} \end{equation}
+The partial derivatives of the error $\mathbf{r}$ with respect to the initial conditions yield the following two Jacobians
+\begin{equation} \begin{aligned}
+    & \dot{\mathbf{x}}_{\mathbf{x}_{\text{ini,1}}} = \begin{bmatrix} 0 & 1 \\ \frac{-k_{\mathrm{s}}}{a t + b + m} & \frac{-(a + k_{\mathrm{d}})}{a t + b + m} \end{bmatrix} \mathbf{x}_{\mathbf{x}_{\text{ini,1}}} + \begin{bmatrix} \frac{\delta(t)}{a t + b + m} \\ 0 \end{bmatrix} , \\
+    & \mathbf{J}_{\mathbf{x}_{\text{ini,1}}} = \begin{bmatrix} 1 & 0 \end{bmatrix} \mathbf{x}_{\mathbf{x}_{\text{ini,1}}}.
+\end{aligned} \end{equation}
+and
+\begin{equation} \begin{aligned}
+    & \dot{\mathbf{x}}_{\mathbf{x}_{\text{ini,2}}} = \begin{bmatrix} 0 & 1 \\ \frac{-k_{\mathrm{s}}}{a t + b + m} & \frac{-(a+k_{\mathrm{d}})}{a t + b + m} \end{bmatrix} \mathbf{x}_{\mathbf{x}_{\text{ini,2}}} + \begin{bmatrix} 0 \\ \frac{\delta(t)}{a t + b + m} \end{bmatrix} ,  \\
+    & \mathbf{J}_{\mathbf{x}_{\text{ini,2}}}=\begin{bmatrix} 1 & 0 \end{bmatrix} \mathbf{x}_{\mathbf{x}_{\text{ini,2}}}.
+\end{aligned} \end{equation}
+
+The Jacobian matrix is constructed using the responses of the additional dynamic systems  
+\begin{equation} \begin{aligned} \mathbf{J} &= \begin{bmatrix} \mathbf{J}_a & \mathbf{J}_b & \mathbf{J}_{\mathbf{x}_{\text{ini,1}}} & \mathbf{J}_{\mathbf{x}_{\text{ini,2}}} \end{bmatrix} \end{aligned} \end{equation}
+
+

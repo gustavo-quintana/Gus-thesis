@@ -1,0 +1,108 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\citation{Saggin01}
+\citation{Matthews14}
+\citation{Link07}
+\citation{Vlajic16}
+\citation{Hessling08a}
+\citation{Shu93}
+\citation{Boschetti13}
+\citation{Eichstadt10}
+\citation{Hessling08a}
+\citation{Boschetti13}
+\citation{Niedzwiecki16b}
+\citation{Tasaki07}
+\citation{Shu93}
+\citation{Pietrzak14}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Ramp input estimation method}{27}{chapter.4}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{chap:RampInput}{{4}{27}{Ramp input estimation method}{chapter.4}{}}
+\citation{Markovsky15cep}
+\citation{Markovsky15ieee}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Introduction - Ramp input}{28}{section.4.1}\protected@file@percent }
+\citation{Tasaki07}
+\citation{Pietrzak14}
+\citation{Mayne14}
+\citation{Quintana19}
+\citation{Hessling13a}
+\citation{Hessling13b}
+\citation{Pintelon12Book}
+\@writefile{toc}{\contentsline {subsection}{\nonumberline Affine input estimation problem}{30}{section*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\nonumberline Problem}{30}{section*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\nonumberline Motivating example}{30}{section*.16}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces  A second order mass-spring-damper model represents the dynamic weighing system. The dynamics of the system depend on the affine input. The weighing system is time-varying when the applied input changes with respect to time.}}{31}{figure.4.1}\protected@file@percent }
+\newlabel{fig:msd_system}{{4.1}{31}{A second order mass-spring-damper model represents the dynamic weighing system. The dynamics of the system depend on the affine input. The weighing system is time-varying when the applied input changes with respect to time}{figure.4.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Solution methods}{31}{section.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\nonumberline Subspace method}{32}{section*.17}\protected@file@percent }
+\newlabel{eqn:min_ewrls}{{4.2}{32}{Subspace method}{equation.4.2.2}{}}
+\newlabel{eqn:LS}{{4.3}{32}{Subspace method}{equation.4.2.3}{}}
+\citation{Nocedal06}
+\citation{Pintelon12Book}
+\@writefile{toc}{\contentsline {subsection}{\nonumberline Maximum-likelihood method}{33}{section*.18}\protected@file@percent }
+\newlabel{Alg1}{{4.2}{33}{Maximum-likelihood method}{section*.18}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\nonumberline Covariance of the ML method estimates}{33}{section*.19}\protected@file@percent }
+\newlabel{eqn:covOpt}{{4.4}{33}{Covariance of the ML method estimates}{equation.4.2.4}{}}
+\citation{Pietrzak14}
+\@writefile{toc}{\contentsline {subsubsection}{\nonumberline ML affine input estimation example}{34}{section*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\nonumberline Time-varying compensation filter}{34}{section*.21}\protected@file@percent }
+\citation{OIML_R51_1}
+\newlabel{eqn:tv_optim}{{4.9}{35}{Time-varying compensation filter}{equation.4.2.9}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Simulation results}{35}{section.4.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces   The sensor transient response $y$ to an affine input excitation $u = at+b$ is processed by the estimation methods to estimate the parameters $a$ and $b$. In the figure we observe an example of the input estimate $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle u$}\mathaccent "0362{u}$ obtained with the subspace method. The input parameters are calculated from $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle u$}\mathaccent "0362{u}$ using linear regression.}}{36}{figure.4.2}\protected@file@percent }
+\newlabel{fig:sensor_weight}{{4.2}{36}{The sensor transient response $y$ to an affine input excitation $u = at+b$ is processed by the estimation methods to estimate the parameters $a$ and $b$. In the figure we observe an example of the input estimate $\widehat {u}$ obtained with the subspace method. The input parameters are calculated from $\widehat {u}$ using linear regression}{figure.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\nonumberline Results of the subspace method}{36}{section*.22}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces   The relative errors of the affine input parameters estimation decrease as the subspace method processes more samples. The relative errors of the estimates $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle a$}\mathaccent "0362{a}$ and $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle b$}\mathaccent "0362{b}$ are smaller than 5 \% after 400 and 500 samples, respectively ($T_s = 0.1$ ms). }}{37}{figure.4.3}\protected@file@percent }
+\newlabel{fig:rele_dd_40dB_s1}{{4.3}{37}{The relative errors of the affine input parameters estimation decrease as the subspace method processes more samples. The relative errors of the estimates $\widehat {a}$ and $\widehat {b}$ are smaller than 5 \% after 400 and 500 samples, respectively ($T_s = 0.1$ ms)}{figure.4.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces   The minimum value of the estimation relative errors obtained with the subspace method is less than 2 \% regardless of the SNR between 20 dB and 60 dB. }}{37}{figure.4.4}\protected@file@percent }
+\newlabel{fig:rele_SNR_dd_10000}{{4.4}{37}{The minimum value of the estimation relative errors obtained with the subspace method is less than 2 \% regardless of the SNR between 20 dB and 60 dB}{figure.4.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces The values of the forgetting factor $\lambda $ and the samples shift $\tau $ that configure the subspace method for the different values of SNR. These values were obtained after calibration of the method and fixed during the simulation study.}}{38}{table.4.1}\protected@file@percent }
+\newlabel{table:lambdas}{{4.1}{38}{The values of the forgetting factor $\lambda $ and the samples shift $\tau $ that configure the subspace method for the different values of SNR. These values were obtained after calibration of the method and fixed during the simulation study}{table.4.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces   When the SNR of the sensor response is 40 dB, the mean squared errors of the slope estimate $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle a$}\mathaccent "0362{a}$ and the interception estimate $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle b$}\mathaccent "0362{b}$, obtained by the subspace method, are two orders of magnitude above the theoretical minimum variance given by the Cram\'er-Rao lower bound.}}{39}{figure.4.5}\protected@file@percent }
+\newlabel{fig:CRLB_MSE_ab_dd_40dB_MC_10000}{{4.5}{39}{When the SNR of the sensor response is 40 dB, the mean squared errors of the slope estimate $\widehat {a}$ and the interception estimate $\widehat {b}$, obtained by the subspace method, are two orders of magnitude above the theoretical minimum variance given by the Cram\'er-Rao lower bound}{figure.4.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces   The Cram\'er-Rao lower bounds of the estimates $\mathrm  {CRLB}_a$ and $\mathrm  {CRLB}_b$ determine the minimum uncertainty that can be achieved and increases with the measurement noise. The empirical mean squared errors $\mathrm  {MSE}_{\mathaccentV {hat}05E{a}}$ and $\mathrm  {MSE}_{\mathaccentV {hat}05E{b}}$ are near to the Cram\'er-Rao lower bounds within one order of magnitude for SNR smaller than 30 dB, and within two orders of magnitude for SNR between 40 dB and 60 dB. }}{39}{figure.4.6}\protected@file@percent }
+\newlabel{fig:CRLB_MSE_SNR_ab_dd_MC_10000}{{4.6}{39}{The Cram\'er-Rao lower bounds of the estimates $\mathrm {CRLB}_a$ and $\mathrm {CRLB}_b$ determine the minimum uncertainty that can be achieved and increases with the measurement noise. The empirical mean squared errors $\mathrm {MSE}_{\hat {a}}$ and $\mathrm {MSE}_{\hat {b}}$ are near to the Cram\'er-Rao lower bounds within one order of magnitude for SNR smaller than 30 dB, and within two orders of magnitude for SNR between 40 dB and 60 dB}{figure.4.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces  The maximum values of the estimation mean squared errors observed when the subspace method processed the sensor transient responses caused by ramp excitations of masses 0.1, 0.3, 0.5, and 1.0 kg, that last 0.05, 0.1 and 0.5 s, with signal to noise ratios in the interval [20 dB, 60 dB] occur mainly at 40 dB and for lower SNR. There is an increment in the MSE values when the ramp excitation is faster.}}{40}{table.4.2}\protected@file@percent }
+\newlabel{table:differentmasses}{{4.2}{40}{The maximum values of the estimation mean squared errors observed when the subspace method processed the sensor transient responses caused by ramp excitations of masses 0.1, 0.3, 0.5, and 1.0 kg, that last 0.05, 0.1 and 0.5 s, with signal to noise ratios in the interval [20 dB, 60 dB] occur mainly at 40 dB and for lower SNR. There is an increment in the MSE values when the ramp excitation is faster}{table.4.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces  A sensitivity analysis of the subspace method was conducted by adding uncertainty to the ramp input. The speed $\sigma _{\mathrm  {s}}$, and the input parameters $\sigma _{\mathrm  {s}}$ uncertainties are 0\%, 5\%, and 10\% of their true values. The table shows the maximum values of the estimates uncertainty. The speed uncertainty causes a smaller spread of the estimates than the input parameters uncertainty.}}{40}{table.4.3}\protected@file@percent }
+\newlabel{table:dd_sensitivity}{{4.3}{40}{A sensitivity analysis of the subspace method was conducted by adding uncertainty to the ramp input. The speed $\sigma _{\mathrm {s}}$, and the input parameters $\sigma _{\mathrm {s}}$ uncertainties are 0\%, 5\%, and 10\% of their true values. The table shows the maximum values of the estimates uncertainty. The speed uncertainty causes a smaller spread of the estimates than the input parameters uncertainty}{table.4.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\nonumberline Results of the maximum-likelihood method}{41}{section*.23}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces   The affine input parameters and the sensor initial conditions are estimated with the ML method. After three iterations the relative errors of the estimates are smaller than 5 \%. }}{41}{figure.4.7}\protected@file@percent }
+\newlabel{fig:rele_lo_40dB_s10}{{4.7}{41}{The affine input parameters and the sensor initial conditions are estimated with the ML method. After three iterations the relative errors of the estimates are smaller than 5 \%}{figure.4.7}{}}
+\citation{OIML_R51_1}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces   The variances of the ML estimates are calculated using the information provided by the analytic Jacobian. The variances of the affine input parameters estimates decrease faster than the variances of the initial conditions estimates. }}{42}{figure.4.8}\protected@file@percent }
+\newlabel{fig:cov_lo_40dB_s1}{{4.8}{42}{The variances of the ML estimates are calculated using the information provided by the analytic Jacobian. The variances of the affine input parameters estimates decrease faster than the variances of the initial conditions estimates}{figure.4.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\nonumberline Results of the time-varying filter}{42}{section*.24}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces   The relative errors of the time-varying filter estimation converge slower than with the subspace method. The relative errors of $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle a$}\mathaccent "0362{a}$ and $\setbox \z@ \hbox {\mathsurround \z@ $\textstyle b$}\mathaccent "0362{b}$ are smaller than 5 \% only after 800 and 950 samples, respectively. With the subspace method the relative errors are below 5 \% after 400 and 500 samples. }}{43}{figure.4.9}\protected@file@percent }
+\newlabel{fig:rele_tv_40dB_s1}{{4.9}{43}{The relative errors of the time-varying filter estimation converge slower than with the subspace method. The relative errors of $\widehat {a}$ and $\widehat {b}$ are smaller than 5 \% only after 800 and 950 samples, respectively. With the subspace method the relative errors are below 5 \% after 400 and 500 samples}{figure.4.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\nonumberline Discussion of the observed results}{43}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}Conclusions}{45}{section.4.4}\protected@file@percent }
+\@setckpt{ChapterRampInput/ChapterRampInput}{
+\setcounter{page}{47}
+\setcounter{equation}{11}
+\setcounter{enumi}{0}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{4}
+\setcounter{section}{4}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{9}
+\setcounter{table}{3}
+\setcounter{float@type}{4}
+\setcounter{parentequation}{0}
+\setcounter{Item}{0}
+\setcounter{Hfootnote}{0}
+\setcounter{bookmark@seq@number}{0}
+\setcounter{AM@survey}{0}
+\setcounter{su@anzahl}{0}
+\setcounter{LT@tables}{1}
+\setcounter{LT@chunks}{4}
+\setcounter{section@level}{1}
+}

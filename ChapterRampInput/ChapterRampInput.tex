@@ -1,0 +1,603 @@
+
+
+\glsresetall
+
+\chapter{Ramp input estimation method}\label{chap:RampInput}
+
+\begin{quote}
+\emph{The results of this chapter ...}\vfill{}
+\end{quote}
+
+
+\section{Introduction  - Ramp input}
+
+Measurements estimate the unknown value of a physical quantity, namely the measurand.
+The to-be-measured physical quantity is applied as an input signal to a sensor. 
+The sensor is a dynamical system and its output changes as a consequence of the input excitation and the sensor initial conditions.
+The goal of a measurement is to estimate accurately the measurand value using the sensor transient response.
+The transient response of a stable sensor decays to a steady state response.
+In steady state, the most accurate estimation of the input true value is simply found using the sensor static gain.
+However, the steady state is reached in theory after an infinite period of time and in practice we require fast estimations.
+The trade-off between accuracy and speed exists in all measurements.
+
+The measurand can be assumed to be constant or variable during the measurement.
+A dynamic measurement is present when the fluctuations of the measurand impact on the input estimation.
+A typical example of a dynamic measurement problem is a low-bandwidth sensor excited with a fast changing input.
+Some characteristics of the input, like the minimum or maximum or the effects of the environment on the measured quantity, occur in small periods of time.  
+The detection of the input characteristics is needed in several scientific and industrial applications such as measurements of temperature \cite{Saggin01}, pressure \cite{Matthews14}, acceleration \cite{Link07}, force \cite{Vlajic16, Hessling08a} and mass \cite{Shu93, Boschetti13}.
+
+The solution to dynamic measurement problems is non-trivial.
+An approach is to add a dynamical system to compensate the sensor transient response, inverting the effects of the sensor dynamics.
+The purpose of such a compensator is to reduce the transient time.
+The sensor dynamics are considered in the design of finite and infinite impulse response compensation digital filters based on deconvolution \cite{Eichstadt10} or synthesized to correct dynamic errors \cite{Hessling08a}. 
+The model-based deconvolution design of compensators implies that the measurand true value should be known a-priori for certain applications, such as mass determinations \cite{Boschetti13, Niedzwiecki16b}.
+In the literature most of the measurements systems are assumed linear time-invariant, but the compensation digital filters can be linear \cite{Tasaki07},  nonlinear \cite{Shu93} or time-varying \cite{Pietrzak14}.
+
+The digital signal processors enable a different approach where the input estimation can be obtained with algorithms that do not necessarily recreate the dynamics of a system.
+One of the authors of this paper proposed a data-driven signal processing method that estimates the measurand true value using subspace techniques \cite{Markovsky15cep, Markovsky15ieee}.
+The subspace estimation method bypasses the model identification step to estimate the unknown input directly from the response data.
+This method was developed to estimate inputs modeled as step functions of unknown scaling level.
+We extended the subspace input estimation method to estimate the parameters of inputs that vary at a constant rate.
+
+The inputs that vary at a constant rate are found in applications where the measurand activates the sensor gradually. 
+An example of this activation is the measurement of mass while the to-be-weighted object is transported by a conveyor belt, and the profile of the input is a saturated ramp.
+Current solutions to the weighing in motion are low pass filters that estimate the mass using the saturated ramp \cite{Tasaki07, Pietrzak14}.
+The signal processing affine input estimation methods are motivated by the need to obtain the mass of the object from the ramp before it reaches saturation.
+The ramp is parameterized as a straight line model where the slope and the interception are the parameters of interest.
+
+This paper describes a subspace method for the estimation of the affine input parameters.
+This method is a recursive algorithm that can be implemented in real-time since it has low computational cost.
+The subspace method is independent of the sensor model and, therefore, it is suitable for a variety of applications.
+The dynamic weighing is one of the applications and was chosen as an implementation example.
+The effectiveness of the method is evaluated in a simulation study.
+The performance of the proposed method is compared to that of a maximum-likelihood (ML) estimation method based on local-optimization and a time-varying compensation filter.
+%We found that the subspace method obtains the slope estimate from the sensor transient response using the same assumptions of the data-driven step input estimation method.
+
+The ML method resembles the model predictive control approach in the sense that a cost function is minimized iteratively to optimize the parameters of a sensor model using the observed sensor response in a receding time horizon \cite{Mayne14}.
+The difference is that the ML method aims to estimate the unknown value of the affine input parameters instead of identifying a model and controlling the dynamic system.
+The ML method is more appropriate for off-line processing of the sensor transient response.
+Nevertheless, the ML method can estimate the parameters of the affine input, the parameters of a sensor model, and the initial conditions of the sensor.
+
+The uncertainty of the subspace method is assessed using a Taylor expansion of the estimate and Monte Carlo random sampling approach \cite{Quintana19}.
+The Monte Carlo approach requires a large set of generated random samples, and for simple systems it is the recommended method.
+There exists a deterministic sampling approach to study the uncertainty propagation of complex systems \cite{Hessling13a, Hessling13b}. 
+Deterministic sampling aims to represent the minimal statistical information that is relevant to the uncertainty estimation in a finite set.
+The uncertainty of the ML method is assessed using the derivatives of the residual error that constructs the to-be-minimized cost function.
+The covariance of the optimization method estimate is found using the inverse of the Hessian matrix \cite{Pintelon12Book}.
+
+
+
+
+
+\subsection{Affine input estimation problem}
+
+The affine input is modeled as a straight line $u = {a} t + {b}$ with parameters the slope $a$ and the interception $b$.
+The affine input estimation problem is formulated as a signal processing problem as follows. 
+
+
+\paragraph{Problem} 
+Given the sequence of measured output observations $\mathbf{y} = \left( y(1),\ldots,y(T)\right), y(t) \in {\rm I\!R}$, of a stable linear time-invariant system of order $n$, and static gain $\gamma$, generated by an affine input $u = \widebar{a} t + \widebar{b}$, estimate the parameters of the affine input, \textit{i.e.,} find the values of the parameters $\widehat{a}, \widehat{b} \in {\rm I\!R}$ such that $\widehat{u} = \widehat{a} t + \widehat{b}$ approximates $u$.
+The measured observations $\mathbf{y} = \widebar{\mathbf{y}} + \bm{\epsilon}$ are exact sensor responses $\widebar{\mathbf{y}}$ perturbed by additive noise  $\bm{\epsilon}$ assumed to be independent and normally distributed of zero mean and given variance $\sigma_{\epsilon}^2$.
+
+\paragraph{Motivating example}
+Dynamic weighing is an application example where the affine input can be observed.
+The weighing of objects in a conveyor belt gives the sensor input an ideal straight line profile when the conveyor belt moves at a constant speed.
+The straight line represents the mass coming gradually into the weighing scale sensor in the conveyor belt.
+The mass can be estimated from the slope $a$ of the straight line model. 
+The mechanical vibrations of the conveyor belt perturb the input and the sensor response is affected by measurement noise.
+The interest is to estimate the mass of the object using the sensor response observations.
+
+Consider the weighing scale modeled as a second order mass-spring-damper system, such as the one shown in the diagram of Figure \ref{fig:msd_system}.
+The application of an affine input turns the linear time-invariant system into a linear time-varying system, whose
+dynamics depends on the input $u(t) = \widebar{a} t + \widebar{b}$, as it is described by the differential equation:
+\begin{equation} \dfrac{d}{dt} \left( \left( \widebar{a} t + \widebar{b} + m \right) \dfrac{dy}{dt} \right) + k_{\mathrm{d}} \dfrac{dy}{dt} + k_{\mathrm{s}} y = \left( \widebar{a} t + \widebar{b} + m \right) g \end{equation}
+where $m$ is the mass of the scale, $k_{\mathrm{d}}$ is the damping constant, $k_{\mathrm{s}}$ is the elasticity constant, and $g = 9.81$ $\mathrm{m/s}^2$ is the gravitational acceleration. 
+
+The weighing system admits a state space representation where the states $x_1=y$ and $x_2=\dot{y}$ are the position and the speed of the weighing scale: 
+\[ \dot{\mathbf{x}} = \begin{bmatrix} 0 & 1 \\ \dfrac{-k_{\mathrm{s}}}{\widebar{a} t + \widebar{b} + m} & \dfrac{-(k_{\mathrm{d}} + \widebar{a})}{\widebar{a} t + \widebar{b} + m} \end{bmatrix} \mathbf{x} + \begin{bmatrix} 0 \\ g \end{bmatrix},  \quad y = \begin{bmatrix} 1 & 0  \end{bmatrix} \mathbf{x} . \]
+
+
+\begin{figure}[htb!]
+\centering
+
+\begin{tikzpicture}[every node/.style={draw,outer sep=0pt,thick}]
+\tikzstyle{spring}=[thick,decorate,decoration={zigzag,pre length=0.3cm,post length=0.3cm,segment length=6}]
+\tikzstyle{damper}=[thick,decoration={markings,  
+  mark connection node=dmp,
+  mark=at position 0.5 with 
+  {
+    \node (dmp) [thick,inner sep=0pt,transform shape,rotate=-90,minimum width=15pt,minimum height=3pt,draw=none] {};
+    \draw [thick] ($(dmp.north east)+(2pt,0)$) -- (dmp.south east) -- (dmp.south west) -- ($(dmp.north west)+(2pt,0)$);
+    \draw [thick] ($(dmp.north)+(0,-5pt)$) -- ($(dmp.north)+(0,5pt)$);
+  }
+}, decorate]
+\tikzstyle{ground}=[fill,pattern=north east lines,draw=none,minimum width=0.63cm,minimum height=0.3cm]
+
+\node (M) [minimum width=2.5cm,minimum height=0.05cm] {$m$};
+\node (Mu) [minimum width=2.5cm,minimum height=0.75cm,yshift=0.57cm] {$u(t)$};
+
+\node (ground1) at (M.south) [ground,yshift=-1.5cm,xshift=-0.625cm,anchor=north] {};
+\draw (ground1.north west) -- (ground1.north east);
+\draw [spring] (ground1.north) -- ($(M.south east)!(ground1.north)!(M.south west)$);
+
+\node (groundc) at (M.south) [ground,yshift=-1.5cm,anchor=north] {}; 
+\draw (groundc.north west) -- (groundc.north east);
+
+\node (ground2) at (M.south) [ground,yshift=-1.5cm,xshift=0.625cm,anchor=north] {};
+\draw (ground2.north west) -- (ground2.north east);
+\draw [damper] (ground2.north) -- ($(M.south east)!(ground2.north)!(M.south west)$);
+
+\node[draw=none,fill=none] at (-0.9cm,-1cm) {$k_{\mathrm{s}}$};
+\node[draw=none,fill=none] at (0.15cm,-1cm) {$k_{\mathrm{d}}$};
+\node[draw=none,fill=none] at (2.0cm,1.0cm) {$y$};
+\draw [-latex,thick]  ++(2.2cm,-1cm) -- +(0cm,2.25cm);
+
+\draw [-latex,thick] (M.east) ++(0,0) -- +(1cm,0);
+\draw [line width=0.25mm] (2.2cm,-1cm) -- (2.2cm,1cm);
+\draw [line width=0.25mm] (2.1cm,-1cm) -- (2.3cm,-1cm);
+\draw [line width=0.25mm] (2.1cm,1cm) -- (2.3cm,1cm);
+\draw [line width=0.25mm] (2.1cm,-0.5cm) -- (2.3cm,-0.5cm);
+\draw [line width=0.25mm] (2.1cm,0.5cm) -- (2.3cm,0.5cm);
+\draw [line width=0.25mm] (2.15cm,-0.25cm) -- (2.25cm,-0.25cm);
+\draw [line width=0.25mm] (2.15cm,0.25cm) -- (2.25cm,0.25cm);
+\draw [line width=0.25mm] (2.15cm,-0.75cm) -- (2.25cm,-0.75cm);
+\draw [line width=0.25mm] (2.15cm,0.75cm) -- (2.25cm,0.75cm);
+\draw [line width=0.25mm] (2.1cm,0cm) -- (2.3cm,0cm);
+
+\end{tikzpicture}
+
+\caption{\label{fig:msd_system} A second order mass-spring-damper model represents the dynamic weighing system. The dynamics of the system depend on the affine input. The weighing system is time-varying when the applied input changes with respect to time.} 
+\end{figure}
+
+In this paper we use the dynamic weighing example to illustrate the implementation of the affine input estimation methods.
+
+
+
+\section{Solution methods}
+
+In this section we describe the proposed subspace method to solve the affine input estimation problem.
+The method is motivated by the step input estimation method that is formulated as a structured errors-in-variables (EIV) problem and is solved using recursive least squares (RLS).
+The exponentially weighted recursive least squares (EWRLS) is a generalization of RLS that allows the extension of the estimation method to reconstruct the affine input.
+
+A maximum-likelihood (ML) method that performs simultaneous system identification and input estimation is described and its results are used as reference to compare the subspace method results.
+
+An example of the subspace method is illustrated with a weighing system.
+An existing time-varying (TV) compensation filter that was designed for weighing applications is described briefly.
+This TV filter is also used to compare the results of the proposed subspace method.
+
+
+\subsection{Subspace method}
+
+RLS is a special case of the EWRLS that can solve the minimization problem (\ref{eqn:min_ls}).
+The minimization problem is a structured EIV problem and its EWRLS solution is equivalent to 
+\begin{equation} \widehat{\mathbf{x}} = \underset{\mathbf{x}}{\mathrm{argmin}} \ \left\Vert \mathbf{W}^{1/2} \left( \mathbf{y} - \mathbf{K} \mathbf{x} \right) \right\Vert^2_2 . \label{eqn:min_ewrls} \end{equation}
+where $\mathbf{y}$, $\widehat{\mathbf{x}}$, and $\mathbf{K}$ are defined in (\ref{eqn:min_ls}) and (\ref{eqn:matrix}) and
+$\mathbf{W} \in \mathbb{R}^{(T-n) \times (T-n)}$ is a diagonal matrix of descending powers of the weight $\lambda \in [0, 1)$, \textit{i.e.}, $W = \mathrm{diag}\left(\lambda^{T-n}, \ldots, \lambda^2, \lambda^1 \right)$.
+The weight $\lambda$ is a data selection forgetting factor since it enables to apply different weights to the residuals $\mathbf{y} - \mathbf{K} \mathbf{x}$.
+When $\lambda=1$, we have the same solution as RLS.
+When $\lambda<1$, the older residuals are weighted with lower values than the residuals of recent observations.
+In this way, the solution of the minimization problem depends more on new data. 
+
+The profile of an affine input excitation can be reconstructed by solving the structured errors-in-variables problem  (\ref{eqn:min_ewrls}) where $y$ is the corresponding response of a stable dynamic system, $\mathbf{K}$ is constructed from the output observations, and $\lambda<1$.
+
+After the affine input $\widehat{u}$ has been estimated, the affine input parameters $a$ and $b$ are estimated by fitting $\widehat{u}$ to the straight line $\widehat{u} = a t + b$ using linear regression, as follows
+\begin{equation} 
+  \begin{bmatrix} 1 & 1  \\ \vdots & \vdots \\ T-\tau+1 & 1 \end{bmatrix} 
+  \begin{bmatrix} \widehat{a} \\ \widehat{b}  \end{bmatrix} = 
+  \begin{bmatrix} \widehat{u}(\tau) \\ \vdots \\ \widehat{u}(T) \end{bmatrix} \label{eqn:LS}
+\end{equation}
+where $\tau$ is a number of samples used as a tuning parameter that counteracts the time delay that exists when a LTI system is excited with an affine input $u$.
+The subspace method can process online the sensor response to the affine excitation.
+For each new observation $y(t)$, the estimation $\widehat{u}$ is updated followed by the update of the slope $\widehat{a}$ and the interception $\widehat{b}$.
+The values of the tuning parameters $\lambda$ and $\tau$ can be obtained in the calibration of the method using the response of the sensor.
+
+The subspace method estimates the input applied to a dynamic system directly from the caused transient response.
+This is a recursive method that can be implemented in real time to estimate the input  using low cost digital signal processors.
+The method is a model-free approach and can be used in a variety of physical measurements.
+The method  tracks any arbitrary time-varying input and can estimate the parameters of the input when it is associated to a particular input model.
+
+
+
+\subsection{Maximum-likelihood method}
+Using a model of the sensor, the ML method estimates the sensor initial conditions and the parameters of the applied affine input.
+The affine input parameters $a$ and $b$ are the slope and the interception of the straight line model $u = at + b$.
+
+Algorithm \ref{Alg1} lists the steps of the proposed ML method.
+This is an iterative minimization method that uses the Jacobian of the residual error function $\mathbf{r} = \widehat{\mathbf{y}} - \mathbf{y}$ to search the direction that minimizes the difference between the measured sensor response $\mathbf{y}$ and the simulated response $\widehat{\mathbf{y}}$.
+
+\begin{algorithm}
+\caption{ML Affine input estimation.}\label{Alg1}
+\begin{algorithmic}
+  \REQUIRE{$\mathbf{y}$, and sensor model parameters}{}
+  \STATE {Initialize $\mathbf{\theta} = (a, b, \mathbf{x}_{\text{ini}})$}{}
+  \FOR{each $N$ observations of $\mathbf{y}$}{}
+  \STATE {Simulate model response $\widehat{\mathbf{y}}(\mathbf{\theta})$}{}
+  \STATE {Compute error $\mathbf{r}(\mathbf{\theta}) = \mathbf{y} - \widehat{\mathbf{y}}(\mathbf{\theta})$}{}
+  \STATE {Minimize $\mathbf{r}^\top \mathbf{r}$ over $\mathbf{\theta}$}{}
+  \STATE {\hspace{0.5cm}  using analytic Jacobian $\partial \mathbf{r} / \partial \mathbf{\theta}$}{}
+  \STATE {Update $\mathbf{\theta}$}{}
+\ENDFOR
+\ENSURE {Optimized parameters $\widehat{a}, \widehat{b}$, and $\widehat{\mathbf{x}}_{\text{ini}}$}{}
+
+\end{algorithmic}
+\end{algorithm}
+
+To initialize the optimization variables $a$, $b$, and $\mathbf{x}_{\text{ini}}$,
+we use the subspace estimation method using at least the first $2n+2$ samples.
+With the initial affine input parameters we simulate a sensor excitation and, since we are using few samples, we have an approximation of the initial conditions.
+The optimization variables updates are computed every $N$ new observations.
+The minimization can be done using the Levenberg-Marquardt algorithm \cite{Nocedal06}. 
+
+
+\subsubsection{Covariance of the ML method estimates}
+
+The ML method simulates a dynamic system, and computes the Jacobian of the residual error in each iteration.
+The analytic formulation of the Jacobian benefits the estimation method in two ways: it speeds up the minimization and gives direct access to the variance of the estimates.
+The covariance matrix of the ML estimates can be expressed as \cite{Pintelon12Book}
+\begin{equation} \mathbf{Cov} \left( \widehat{x} \right) = \left( \left( \dfrac{\partial \mathbf{r} }{ \partial \mathbf{\theta} } \right)^\top \left( \dfrac{\partial \mathbf{r} }{ \partial \mathbf{\theta} } \right) \right)^{-1}. \label{eqn:covOpt} \end{equation}
+
+
+\subsubsection{ML affine input estimation example}
+We use the previously described dynamic weighing system to illustrate the ML method.
+In this case, the formulation of the problem is: 
+ \begin{equation} \begin{aligned}
+     & \text{Minimize} \quad \text{over} \ a, b, \mathbf{x}_{\text{ini}} \quad \mathbf{r}^T \mathbf{r} \text{, subject to:} \\ & \ \dot{\mathbf{x}} = \begin{bmatrix} 0 & 1 \\ \frac{-k_{\mathrm{s}}}{a t + b + m} & \frac{-(a + k_{\mathrm{d}})}{a t + b + m} \end{bmatrix} \mathbf{x} + \begin{bmatrix} 0 & \frac{x_{\text{ini,1}}}{a t + b + m} \\ g & \frac{x_{\text{ini,2}}}{a t + b + m}  \end{bmatrix} \begin{bmatrix} 1 \\ \delta(t)  \end{bmatrix}, \\ & \ \widehat{y} = \begin{bmatrix} 1 & 0  \end{bmatrix} \mathbf{x} .  
+ \end{aligned} \end{equation}
+where $a$, $b$ are the affine input parameters, $m$, $k_{\mathrm{d}}$, and $k_{\mathrm{s}}$ are the model parameters, the model states $\mathbf{x}$ are the position and the speed of the weighing scale, the difference between the sensor response $\mathbf{y}$ and the simulated response $\widehat{\mathbf{y}}$ is the residual $\mathbf{r} = \widehat{\mathbf{y}} - \mathbf{y}$.  
+The model initial conditions $\mathbf{x}_{\text{ini}}$ are considered optimization variables
+and appear in the augmented column of the input matrix. 
+
+The analytic Jacobian for the weighing system example is described in the appendix.
+
+\subsection{Time-varying compensation filter}
+The time-varying (TV) filter described in \cite{Pietrzak14} was designed to compensate the measured responses of a conveyor weighing system, considering they are modeled as a saturated ramp.
+The TV filter consists of three low-pass infinite impulse response (IIR) filters in cascade, where the $i-\mathrm{th}$ IIR filter is given by
+\begin{equation} \widehat{y}_i(t) + k_1(t) \widehat{y}_i(t-1) = k_2(t) \left( \widehat{y}_{i-1}(t) + \widehat{y}_{i-1}(t-1) \right) \end{equation}
+for $i = 1,\ldots,3$ and $t=0,\ldots,T$.
+The sensor response is fed to the filter, then $\widehat{y}_0(t) = y(t)$, and the output of the TV filter $\widehat{u}_\mathrm{ltv}(t) = \widehat{y}_3(t)$ is an estimation of the affine input.
+Since in our case we are processing only the ramp without the saturation, the estimates $\widehat{a}_\mathrm{ltv}$ and $\widehat{b}_\mathrm{ltv}$ of the input parameters are obtained by fitting a straight line to the estimated input $\widehat{u}_\mathrm{ltv}$ using linear regression.
+
+The time-varying coefficients $k_1(t)$ and $k_2(t)$ are computed from
+\begin{equation} k_1(t) = \frac{f_c(t) - \frac{k_3}{\pi T_s}}{f_c(t) + \frac{k_3}{\pi T_s}}, \quad k_2(t) = \frac{1 + k_1(t)}{2} , \quad k_3 = \sqrt{ \sqrt[3]{2}  - 1} \end{equation}
+where $T_s$ is the sampling time and $f_c(t)$ is a heuristic "cutoff" frequency
+\begin{equation} f_c(t) = f_u + \left( f_l - f_u \right) \beta^{\left( t-1 \right) /  \alpha \left( T-1 \right) } \end{equation}
+that changes between the lower $f_l$ and upper $f_u$ limits, where the coefficient $\beta$ is lower than one, and $\alpha$ is the decay rate. 
+The lower frequency value $f_l$ and the coefficient $\beta$ are fixed and the variables $f_u$ and $\alpha$ are optimized off-line by solving the minimization problem 
+\begin{equation} \mathrm{minimize} \ \quad \ \mathrm{over} \ f_u, \alpha \ \quad \ \mathrm{max} \left( \dfrac{\mu_{\widetilde{a}_{\mathrm{ltv}}}}{\mu_{\mathrm{spec}}}, \dfrac{\mu_{\widetilde{b}_{\mathrm{ltv}}}}{\mu_{\mathrm{spec}}}, \dfrac{\sigma_{\widetilde{a}_{\mathrm{ltv}}}}{\sigma_{\mathrm{spec}}}, \dfrac{\sigma_{\widetilde{b}_{\mathrm{ltv}}}}{\sigma_{\mathrm{spec}}} \right) + \mathrm{max} \left( \dfrac{\eta_{i}}{T} \right) \label{eqn:tv_optim} \end{equation}
+where $\mu_{\widetilde{a}_\mathrm{ltv}}$, $\mu_{\widetilde{b}_\mathrm{ltv}}$, $\sigma_{\widetilde{a}_\mathrm{ltv}}$ and $\sigma_{\widetilde{b}_\mathrm{ltv}}$ are the mean values and the standard deviations of the estimation errors $\widetilde{a}_\mathrm{ltv} = \widehat{a}_\mathrm{ltv} - \widebar{a}$, and $\widetilde{a}_\mathrm{ltv} = \widehat{b}_\mathrm{ltv} - \widebar{b}$, and where $\widebar{a}$ and $\widebar{b}$ are the true values of the input parameters.
+The values $\mu_{\mathrm{spec}}$ and $\sigma_{\mathrm{spec}}$ are specified in the OIML recommendation R51 \cite{OIML_R51_1} for mass measurements that use a conveyor belt.
+
+\section{Simulation results}
+The results of the affine input parameters estimation are discussed in this section.
+We performed a simulation study using the weighing system presented as an example.
+We compared the performance of the proposed subspace method to a conventional time-varying (TV) filter, that was conceived for weighing applications, and to the maximum-likelihood (ML) method.
+
+A second order weighing system was excited with an affine input to get the transient response.
+The parameters of the weighing system are $m = 15$ g, $d = 5.5$ Ns/m and $k = 10250$ N/m.
+The applied affine input $u = 100 t + 10$ represents a mass that changes from $10$ g to $110$ g, at a constant rate, in a time interval of $0.1$ s.
+This change of mass represents one example of the weighing input in a conveyor weighing system when an object of 100 g is measured while it is moving at constant speed.
+The sensor response is acquired using sampling time $T_s = 0.1$ ms.
+In Figure \ref{fig:sensor_weight} the input $u$ is represented with the dotted line, the oscillatory curve is the corresponding sensor ramp response $y$, and $\widehat{u}_{\mathrm{}}$ is a typical input estimate obtained with the subspace method.
+
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\columnwidth]{./ChapterRampInput/fig/Fig_2.pdf} 
+\caption{ \label{fig:sensor_weight} The sensor transient response $y$ to an affine input excitation $u = at+b$ is processed by the estimation methods to estimate the parameters $a$ and $b$. In the figure we observe an example of the input estimate $\widehat{u}$ obtained with the subspace method. The input parameters are calculated from $\widehat{u}$ using linear regression.}
+\end{figure}
+
+In each simulation, the sensor response was perturbed with an independent realization of additive normally distributed measurement noise.
+The added perturbation noise has signal-to-noise ratios (SNR) in the interval [20 dB, 60 dB], values that are realistic in practical applications.
+The SNR is defined as the ratio of signal power to the noise power, that is equivalent to the root-mean-square value of the true signal to the variance of the perturbation noise, and in dB is given as
+
+\begin{equation} \mathrm{SNR} = 20 \log_{10}{\dfrac{\dfrac{1}{T}\int\limits_0^T{\widebar{y}(t)^2 d t}}{\sigma_{\bm{\epsilon}}}} \end{equation}  
+
+
+\subsection{Results of the subspace method}
+
+
+The subspace method processed online the sensor transient response.
+The first estimation was obtained with $2n+1$ samples.
+The method updated recursively the value of the estimated parameters for each new collected sample, using the forgetting factor $\lambda$ listed in Table \ref{table:lambdas}.
+In Figure \ref{fig:rele_dd_40dB_s1} we observe the relative errors of the estimates $\widehat{a}$ and $\widehat{b}$ obtained when SNR = 40 dB. 
+The relative errors are smaller than 5 \% after 400 and 500 samples are processed, i.e., 0.04 s and 0.05 s, respectively.
+As more samples are collected, the parameter estimation improves.
+Figure \ref{fig:rele_SNR_dd_10000} shows the final value of the relative errors, found at $t=0.1$ s, for the different SNR values considered.
+The relative errors are smaller than 2 \% regardless of the measurement noise level.
+
+\begin{table}[h!]
+\centering
+\caption{The values of the forgetting factor $\lambda$ and the samples shift $\tau$ that configure the subspace method for the different values of SNR. These values were obtained after calibration of the method and fixed during the simulation study.}
+\begin{tabular}{|c c c c c c|} 
+ \hline
+ SNR \ [dB] & 20 & 30 & 40 & 50 & 60 \\ [0.5ex] 
+ \hline
+ $\lambda$ & 0.939 & 0.940 & 0.955 & 0.959 & 0.959 \\ % forgetting factor
+ $\tau$ \  & 15 & 15 & 17 & 14 & 20 \\ [0.5ex] % [\mathrm{samples}]
+ \hline
+\end{tabular}
+\label{table:lambdas}
+\end{table}
+
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\columnwidth]{./ChapterRampInput/fig/Fig_3.pdf} 
+\caption{ \label{fig:rele_dd_40dB_s1} The relative errors of the affine input parameters estimation decrease as the subspace method processes more samples. The relative errors of the estimates $\widehat{a}$ and $\widehat{b}$ are smaller than 5 \% after 400 and 500 samples, respectively ($T_s = 0.1$ ms). }
+\end{figure}
+
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\columnwidth]{./ChapterRampInput/fig/Fig_4.pdf} 
+\caption{ \label{fig:rele_SNR_dd_10000} The minimum value of the estimation relative errors obtained with the subspace method is less than 2  \% regardless of the SNR between 20 dB and 60 dB. }
+\end{figure}
+
+The Cram\'er-Rao lower bound (CRLB) of the errors-in-variables problem formulated by the subspace method was numerically computed for different sample size using Equation (\ref{eqn:FIM}).
+The CRLB is the minimum variance that the estimates $\widehat{a}$ and $\widehat{b}$ can have.
+The average of $10^4$ runs with independent noise realizations allows to find the empirical mean squared error (MSE) of the estimates, defined as
+\begin{equation} \mathrm{MSE}_{\widehat{a}} = \left(b_{\mathrm{p}}\left( \widehat{a} \right) \right)^2 + v_{\mathrm{p}} \left( \widehat{a} \right), \quad \text{and} \quad  \mathrm{MSE}_{\widehat{b}} = ( b_{\mathrm{p}} ( \widehat{b} ) )^2 + v_{\mathrm{p}} ( \widehat{b} ), \end{equation}
+where $b_{\mathrm{p}} \left( \widehat{a} \right)$ and $b_{\mathrm{p}} ( \widehat{b} )$ are the bias, and $v_{\mathrm{p}} \left( \widehat{a} \right)$ and $v_{\mathrm{p}} ( \widehat{b} )$ are the variances of the input parameters.
+Figure \ref{fig:CRLB_MSE_ab_dd_40dB_MC_10000} shows that the mean squared errors $\mathrm{MSE}_{\hat{a}}$ and $\mathrm{MSE}_{\hat{b}}$ are near to their theoretical minimum $\mathrm{CRLB}_{a}$ and $\mathrm{CRLB}_{b}$ within two orders of magnitude, when SNR = 40 dB.
+Figure \ref{fig:CRLB_MSE_SNR_ab_dd_MC_10000} shows the final value of the Cram\'er-Rao lower bounds and the empirical mean-squared errors, found at $t=0.1$ s, for the different SNR values considered.
+Both $\mathrm{MSE}_{\hat{a}}$ and $\mathrm{MSE}_{\hat{b}}$ are less than one order of magnitude near to $\mathrm{CRLB}_a$ and $\mathrm{CRLB}_{b}$, respectively, for SNR $\leq 30$ dB.
+The difference increases for larger SNR but the maximum is two orders of magnitude for SNR = 60 dB.
+
+Table \ref{table:differentmasses} shows a comparative view of the estimation mean-squared-errors maximum values when the ramp that excites the sensor corresponds to different masses and time durations. 
+For each mass and duration, the sensor responses were perturbed with measurement noise of SNR in the interval [20 dB, 60 dB].
+The sensor parameters and sampling frequency are fixed and are the same described in the first paragraph of this section.
+The maximum values of the MSE are mainly found at low SNR values between 20 and 40 dB.
+The higher levels of noise increase the uncertainty of the estimation defined in terms of the MSE.
+For fast ramp excitations, the MSE's increase considerably.
+The used sampling frequency constrains the estimation method effectiveness for the ramp input duration of 0.05 s or shorter and there it is recommended to use  a higher sampling frequency that will reduce the estimation MSE.
+
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\columnwidth]{./ChapterRampInput/fig/Fig_5.pdf} 
+\caption{ \label{fig:CRLB_MSE_ab_dd_40dB_MC_10000} When the SNR of the sensor response is 40 dB, the mean squared errors of the slope estimate $\widehat{a}$ and the interception estimate $\widehat{b}$, obtained by the subspace method, are two orders of magnitude above the theoretical minimum variance given by the Cram\'er-Rao lower bound.}
+\end{figure}
+
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\columnwidth]{./ChapterRampInput/fig/Fig_6.pdf} 
+\caption{ \label{fig:CRLB_MSE_SNR_ab_dd_MC_10000} The Cram\'er-Rao lower bounds of the estimates $\mathrm{CRLB}_a$ and $\mathrm{CRLB}_b$ determine the minimum uncertainty that can be achieved and increases with the measurement noise. 
+The empirical mean squared errors $\mathrm{MSE}_{\hat{a}}$ and $\mathrm{MSE}_{\hat{b}}$ are near to the Cram\'er-Rao lower bounds within one order of magnitude for SNR smaller than 30 dB, and within two orders of magnitude for SNR between 40 dB and 60 dB. }
+\end{figure}
+
+
+
+\begin{table}[h!]
+\centering
+\caption{ The maximum values of the estimation mean squared errors observed when the subspace method processed the sensor transient responses caused by ramp excitations of masses 0.1, 0.3, 0.5, and 1.0 kg, that last 0.05, 0.1 and 0.5 s, with signal to noise ratios in the interval [20 dB, 60 dB] occur mainly at 40 dB and for lower SNR. There is an increment in the MSE values when the ramp excitation is faster.}
+ 
+\begin{tabular}{|L|L L L L L|} 
+ \hline
+ \mathrm{Time \ [s]} & \mathrm{Mass \ [kg]} & 0.1 & 0.3 & 0.5 & 1.0 \\ [0.5ex] 
+ \hline
+ 0.05 & \hspace{7.5mm} \mathrm{MSE}_{\hat{a}}: & 3.55\mathrm{x}10^{0} (@40 \ \mathrm{dB}) & 13.5\mathrm{x}10^{0} (@50 \ \mathrm{dB}) & 3.80\mathrm{x}10^{0} (@20 \ \mathrm{dB}) & 8.29\mathrm{x}10^{0}  (@50 \ \mathrm{dB}) \\ 
+ & \hspace{7.5mm} \mathrm{MSE}_{\hat{b}}: & 3.10\mathrm{x}10^{-3} (@40 \ \mathrm{dB})  & 1.11\mathrm{x}10^{-2} (@40  \ \mathrm{dB}) & 1.07\mathrm{x}10^{-2} (@40  \ \mathrm{dB}) & 1.92\mathrm{x}10^{-2} (@60  \ \mathrm{dB})\\
+ 0.1 & \hspace{7.5mm} \mathrm{MSE}_{\hat{a}}: & 3.08\mathrm{x}10^{-2} (@30 \ \mathrm{dB}) & 1.16\mathrm{x}10^{0} (@40  \ \mathrm{dB}) & 8.34\mathrm{x}10^{-1} (@60 \ \mathrm{dB}) & 1.27\mathrm{x}10^{0} (@50  \ \mathrm{dB}) \\
+ & \hspace{7.5mm} \mathrm{MSE}_{\hat{b}}: & 5.99\mathrm{x}10^{-5} (@30 \ \mathrm{dB}) & 1.17\mathrm{x}10^{-1} (@50  \ \mathrm{dB}) & 2.10\mathrm{x}10^{-2} (@40  \ \mathrm{dB}) & 3.76\mathrm{x}10^{-2} (@40  \ \mathrm{dB}) \\
+ 0.5 & \hspace{7.5mm} \mathrm{MSE}_{\hat{a}}: & 3.03\mathrm{x}10^{-2} (@20 \ \mathrm{dB}) & 2.98\mathrm{x}10^{-1} (@20  \ \mathrm{dB}) & 3.25\mathrm{x}10^{0} (@20 \ \mathrm{dB}) & 8.60\mathrm{x}10^{-2} (@20  \ \mathrm{dB}) \\
+ & \hspace{7.5mm} \mathrm{MSE}_{\hat{b}}: & 3.10\mathrm{x}10^{-5} (@50 \ \mathrm{dB}) & 9.86\mathrm{x}10^{-4} (@40 \ \mathrm{dB}) & 2.06\mathrm{x}10^{-5} (@50 \ \mathrm{dB}) & 1.74\mathrm{x}10^{-5} (@20 \ \mathrm{dB}) \\ [0.5ex] % [\mathrm{samples}]
+ \hline
+\end{tabular}
+\
+\label{table:differentmasses}
+\end{table}
+
+A numerical sensitivity analysis of the subspace method was conducted by adding uncertainty to ramp input generation and looking into the estimation results. 
+The uncertainty $\sigma_{\mathrm{s}}$ of the speed in which the ramp increases, and the uncertainties of the input parameters, represented by $\sigma_{a,b}$, were selected to be 0\%, 5\% and 10\% of their true values.
+A Monte Carlo simulation with $10^4$ runs was performed for each SNR and the maximum values of the estimation uncertainty are shown in Table \ref{table:dd_sensitivity}. 
+According to these results, the input parameters uncertainties $\sigma_{a,b}$ affect more the uncertainty of the estimation than the speed uncertainty $\sigma_{\mathrm{s}}$. 
+The parameter that is more affected by the input parameters uncertainty is the interception $\widehat{b}$, since the uncertainty of the slope $\widehat{a}$ is smaller.
+
+
+\begin{table}[h!]
+\centering
+\caption{ A sensitivity analysis of the subspace method was conducted by adding uncertainty to the ramp input. The speed $\sigma_{\mathrm{s}}$, and the input parameters $\sigma_{\mathrm{s}}$ uncertainties are 0\%, 5\%, and 10\% of their true values. The table shows the maximum values of the estimates uncertainty. The speed uncertainty causes a smaller spread of the estimates than the input parameters uncertainty.}
+ 
+\begin{tabular}{|C| C C C C|} 
+\hline  
+ &  & \sigma_{\mathrm{s}}: \hspace{4mm} 0\% & \hspace{8.1mm} 5\% & \hspace{8.1mm} 10\% \\ [0.5ex] 
+ \hline
+ \sigma_{{a},{b}}: \hspace{1.6mm} 0\% & \widehat{a} \ [\mathrm{kg/s}] & 0.990 \pm 9.6 \% \ (@50 \ \mathrm{dB}) &  0.999 \pm 8.2 \% \ (@20 \ \mathrm{dB}) & 0.996 \pm 8.2 \% \ (@50 \ \mathrm{dB}) \\ 
+  & \widehat{b} \ \mathrm{[g]} & \hspace{-1.75mm} 10.0 \pm 10.3 \% \ (@20 \ \mathrm{dB}) & 9.91 \pm 14.2 \% \ (@30 \ \mathrm{dB}) &  9.99 \pm 21.7 \% \ (@60 \ \mathrm{dB}) \\ 
+ \hspace{6.65mm} 5\% & \widehat{a} \ [\mathrm{kg/s}] & 0.994 \pm 9.7 \% \ (@50 \ \mathrm{dB}) & 0.993 \pm 11.3 \% \ (@20 \ \mathrm{dB}) & 0.997 \pm 8.0 \% \ (@50 \ \mathrm{dB}) \\  
+  & \widehat{b} \ \mathrm{[g]} & 9.98 \pm 22.4 \% \ (@50 \ \mathrm{dB}) & \hspace{-1.75mm} 10.02 \pm 33.2 \% \ (@30 \ \mathrm{dB}) & 9.94 \pm 16.6 \% \ (@50 \ \mathrm{dB}) \\ 
+\hspace{4.88mm} 10\% & \widehat{a} \ [\mathrm{kg/s}] & 1.00 \pm 20.3 \% \ (@40 \ \mathrm{dB}) & 1.00 \pm 22.0 \% \ (@50 \ \mathrm{dB}) & 0.996 \pm 17.7 \% \ (@40 \ \mathrm{dB}) \\    
+ & \widehat{b} \ \mathrm{[g]} & 9.97 \pm 46.8 \% \ (@40 \ \mathrm{dB}) & 9.78 \pm 58.8 \% \ (@50 \ \mathrm{dB}) & 9.91 \pm 41.6 \% \ (@40 \ \mathrm{dB}) \\ [0.5ex] 
+\hline
+\end{tabular}
+\
+\label{table:dd_sensitivity}
+\end{table}
+
+
+
+
+
+\subsection{Results of the maximum-likelihood method}
+The maximum-likelihood (ML) method processed off-line the sensor transient response.
+The ML method used the first 50 samples to initialize the optimization variables and updated the variables every $N = 1$ sample.
+In Figure \ref{fig:rele_dd_40dB_s1} are shown the relative errors of the estimates $\widehat{a}$, $\widehat{b}$, $\widehat{x}_{\mathrm{ini,1}}$, and $\widehat{x}_{\mathrm{ini,2}}$.
+The convergence of the ML estimates gives relative errors below 5 \% after three iterations.
+The largest relative error observed is in the scale velocity $\widehat{x}_{\mathrm{ini,2}}$ estimate, which is more sensitive than the other optimization variables.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\columnwidth]{./ChapterRampInput/fig/Fig_7.pdf} 
+\caption{ \label{fig:rele_lo_40dB_s10} The affine input parameters and the sensor initial conditions are estimated with the ML method. After three iterations the relative errors of the estimates are smaller than 5 \%.  }
+\end{figure}
+
+Using the analytic Jacobian and Equation (\ref{eqn:covOpt}), we computed the covariance of the estimate.
+In Figure \ref{fig:cov_lo_40dB_s1} are shown the variances of the optimization variables taken from the diagonal of the covariance matrix. 
+We can see that the variances of $\widehat{a}$ and $\widehat{b}$ decrease faster than the variances of $\widehat{x}_{\mathrm{ini,1}}$ and $\widehat{x}_{\mathrm{ini,2}}$ as more samples are processed.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\columnwidth]{./ChapterRampInput/fig/Fig_8.pdf} 
+\caption{ \label{fig:cov_lo_40dB_s1} The variances of the ML estimates are calculated using the information provided by the analytic Jacobian. The variances of the affine input parameters estimates decrease faster than the variances of the initial conditions estimates.  }
+\end{figure}
+
+The ML method is  computationally more expensive than the subspace method because the ML method simulates the response of a sensor model to optimize the input parameters and the sensor initial conditions.
+
+A typical run of the ML method takes 30 s to complete.
+With this execution time, the ML estimation can only be performed offline.
+Nevertheless, the ML method objectives are to give the best estimation possible and to serve as a reference to assess the results of the other methods.
+An efficient implementation of the ML method to make it feasible for real-time implementation is not trivial and requires additional research that is considered a topic for future research.
+
+A numerical sensitivity analysis of the ML method was conducted by adding uncertainty to the ramp input, and to the parameters of the time-varying model. 
+The ramp input was perturbed with uncertainty of the speed in which the ramp increases $\sigma_{\mathrm{s}}$, and with uncertainty on the input parameters $\sigma_{a,b}$. 
+The perturbation uncertainty of the model parameters $m$, $d$, and $k$ is represented by $\sigma_{m,d,k}$. 
+The perturbation uncertainty was simulated by adding normally distributed random noise with standard deviation equal to 0\%, 5\% and 10\% of the corresponding true values of the perturbed parameters.
+A Monte Carlo simulation with $10^3$ runs was conducted for each SNR in the SNR innterval of interest, and in Table \ref{table:ml_sensitivity} are shown the maximum values of the observed estimation uncertainties. 
+The results show that the speed uncertainty $\sigma_{\mathrm{s}}$ has a small impact on the estimation uncertainty.
+On the contrary, the input parameters uncertainties $\sigma_{a,b}$, and the uncertainties of the model parameters $\sigma_{m,d,k}$ cause a large increment in the uncertainty of the estimation.
+
+\begin{comment}
+
+\begin{table}[h!]
+\centering
+\caption{ A sensitivity analysis of the ML method was conducted by adding uncertainty to ramp input, and to the model parameters. The perturbation uncertainty was selected with standard deviation of 0\%, 5\%, and 10\% of the parameters true values. The observed maximum estimation uncertainties are shown in the table. The speed uncertainty $\sigma_{\mathrm{s}}$ affects less the input estimation, but the uncertainties of the input parameters $\sigma_{a,b}$, and the model parameters $\sigma_{m,d,k}$ cause an increase of the estimation parameters spread around their mean values.}
+ 
+\begin{tabular}{|C| C C C C|} 
+\hline  
+ &  & \sigma_{\mathrm{s}} \hspace{10mm} 0\% & \hspace{15mm} 5\% & \hspace{14mm} 10\% \\ [0.5ex] 
+\hline
+\sigma_{{a},{b}} \hspace{5.6mm} 0\% & \widehat{a} \ [\mathrm{kg/s}] & 0.999 \pm 0.7 \% \ (@20 \ \mathrm{dB}) & 1.0 \pm 0.7 \% \ (@20 \ \mathrm{dB}) & 0.999 \pm 0.4 \% \ (@30 \ \mathrm{dB}) \\ 
+& \widehat{b} \ \mathrm{[g]} & \hspace{-1.75mm} 10.0 \pm 1.1 \% \ (@20 \ \mathrm{dB}) & 9.99 \pm 1.1 \% \ (@20 \ \mathrm{dB}) & 10.0 \pm 0.5 \% \ (@30 \ \mathrm{dB}) \\
+& \widehat{x}_{\mathrm{ini,1}} \ \mathrm{[g]} & \hspace{-1.75mm} 0.1 \pm 0.6 \% \ (@40 \ \mathrm{dB}) & 0.1 \pm 0.6 \% \ (@20 \ \mathrm{dB}) &  0.1 \pm 0.2 \% \ (@30 \ \mathrm{dB}) \\
+& \widehat{x}_{\mathrm{ini,2}} \ \mathrm{[g/s]} & \hspace{-1.75mm} 0.1 \pm 122 \% \ (@40 \ \mathrm{dB}) & 0.1 \pm 130 \% \ (@40 \ \mathrm{dB}) &  0.09 \pm 38 \% \ (@50 \ \mathrm{dB}) \\
+  
+\hspace{11.375mm} 5\% & \widehat{a} \ [\mathrm{kg/s}] & 1.0 \pm 9.0 \% \ (@50 \ \mathrm{dB}) & 0.997 \pm 5.2 \% \ (@40 \ \mathrm{dB}) & 1.0 \pm 5.6 \% \ (@40 \ \mathrm{dB}) \\  
+& \widehat{b} \ \mathrm{[g]} & 9.88 \pm 25.4 \% \ (@50 \ \mathrm{dB}) & 9.97 \pm 5.2 \% \ (@20 \ \mathrm{dB}) & 10.01 \pm 4.7 \% \ (@40 \ \mathrm{dB}) \\ 
+& \widehat{x}_{\mathrm{ini,1}} \ \mathrm{[g]} & \hspace{-1.75mm} 0.1 \pm 0.6 \% \ (@20 \ \mathrm{dB}) & 0.1 \pm 0.57 \% \ (@20 \ \mathrm{dB}) & 0.1 \pm 6.24 \% \ (@30 \ \mathrm{dB}) \\
+& \widehat{x}_{\mathrm{ini,2}} \ \mathrm{[g/s]} & \hspace{-1.75mm} 0.1 \pm 116 \% \ (@40 \ \mathrm{dB}) & 0.09 \pm 128 \% \ (@40 \ \mathrm{dB}) & 0.11 \pm 115 \% \ (@40 \ \mathrm{dB}) \\
+  
+\hspace{9.595mm} 10\% & \widehat{a} \ [\mathrm{kg/s}] & 1.00 \pm 10.4 \% \ (@30 \ \mathrm{dB}) & 0.995 \pm 10.3 \% \ (@20 \ \mathrm{dB}) & 0.996 \pm 10.3 \% \ (@20 \ \mathrm{dB}) \\    
+& \widehat{b} \ \mathrm{[g]} & 9.94 \pm 10.5 \% \ (@20 \ \mathrm{dB}) & 9.96 \pm 10.4 \% \ (@20 \ \mathrm{dB}) & 10.0 \pm 10.5 \% \ (@20 \ \mathrm{dB}) \\
+& \widehat{x}_{\mathrm{ini,1}} \ \mathrm{[g]} & \hspace{-1.75mm} 0.1 \pm 0.6 \% \ (@20 \ \mathrm{dB}) & 0.1 \pm 0.6 \% \ (@20 \ \mathrm{dB}) & 0.1 \pm 0.6 \% \ (@20 \ \mathrm{dB}) \\
+& \widehat{x}_{\mathrm{ini,2}} \ \mathrm{[g/s]} & \hspace{-1.75mm} 0.11 \pm 108 \% \ (@50 \ \mathrm{dB}) & 0.11 \pm 110 \% \ (@40 \ \mathrm{dB}) & 0.1 \pm 137 \% \ (@50 \ \mathrm{dB}) \\
+ 
+\sigma_{{m},{d},{k}}  \hspace{2mm} 0\% & \widehat{a} \ [\mathrm{kg/s}] & 0.999 \pm 0.7 \% \ (@20 \ \mathrm{dB}) & 1.0 \pm 0.69 \% \ (@20 \ \mathrm{dB}) & 1.0 \pm 0.33 \% \ (@30 \ \mathrm{dB}) \\ 
+& \widehat{b} \ \mathrm{[g]} & \hspace{-1.75mm} 10.0 \pm 1.1 \% \ (@20 \ \mathrm{dB}) & 10.0 \pm 1.13 \% \ (@20 \ \mathrm{dB}) &  10.0 \pm 0.46 \% \ (@30 \ \mathrm{dB}) \\
+& \widehat{x}_{\mathrm{ini,1}} \ \mathrm{[g]} & \hspace{-1.75mm} 0.1 \pm 0.6 \% \ (@40 \ \mathrm{dB}) & 0.1 \pm 0.19 \% \ (@30 \ \mathrm{dB}) &  0.1 \pm 0.18 \% \ (@30 \ \mathrm{dB}) \\
+& \widehat{x}_{\mathrm{ini,2}} \ \mathrm{[g/s]} & \hspace{-1.75mm} 0.1 \pm 122 \% \ (@40 \ \mathrm{dB}) & 0.1 \pm 130 \% \ (@40 \ \mathrm{dB}) & 0.09 \pm 38 \% \ (@50 \ \mathrm{dB}) \\
+  
+\hspace{11.375mm} 5\% & \widehat{a} \ [\mathrm{kg/s}] & 0.994 \pm 15.3 \% \ (@20g \ \mathrm{dB}) & 1.0 \pm 0.7 \% \ (@20 \ \mathrm{dB}) & 1.01 \pm 21.5 \% \ (@20 \ \mathrm{dB}) \\  
+& \widehat{b} \ \mathrm{[g]} & 10.3 \pm 79.4 \% \ (@20 \ \mathrm{dB}) & 10.0 \pm 1.2 \% \ (@20 \ \mathrm{dB}) & 9.91 \pm 19.0 \% \ (@20 \ \mathrm{dB}) \\ 
+& \widehat{x}_{\mathrm{ini,1}} \ \mathrm{[g]} & \hspace{-1.75mm} 0.1 \pm 0.2 \% \ (@30 \ \mathrm{dB}) & 0.1 \pm 0.6 \% \ (@20 \ \mathrm{dB}) & 0.1 \pm 0.19 \% \ (@20 \ \mathrm{dB}) \\
+& \widehat{x}_{\mathrm{ini,2}} \ \mathrm{[g/s]} & \hspace{-1.75mm} 0.10 \pm 113 \% \ (@40 \ \mathrm{dB}) & 0.1 \pm 119 \% \ (@40 \ \mathrm{dB}) & 0.11 \pm 323 \% \ (@30 \ \mathrm{dB}) \\
+  
+\hspace{9.595mm} 10\% & \widehat{a} \ [\mathrm{kg/s}] & 1.01 \pm 22 \% \ (@30 \ \mathrm{dB}) & 1.01 \pm 16.0 \% \ (@30 \ \mathrm{dB}) & 0.987 \pm 28 \% \ (@50 \ \mathrm{dB}) \\    
+& \widehat{b} \ \mathrm{[g]} & 0.1 \pm 26 \% \ (@30 \ \mathrm{dB}) & 9.93 \pm 14.8 \% \ (@30 \ \mathrm{dB}) & 10.4 \pm 93 \% \ (@50 \ \mathrm{dB}) \\ 
+& \widehat{x}_{\mathrm{ini,1}} \ \mathrm{[g]} & \hspace{-1.75mm} 0.1 \pm 0.6 \% \ (@20 \ \mathrm{dB}) & 0.1 \pm 0.6 \% \ (@20 \ \mathrm{dB}) &  0.1 \pm 0.6 \% \ (@20 \ \mathrm{dB}) \\
+& \widehat{x}_{\mathrm{ini,2}} \ \mathrm{[g/s]} & \hspace{-1.75mm} 0.1 \pm 121 \% \ (@40 \ \mathrm{dB}) & 0.09 \pm 136 \% \ (@40 \ \mathrm{dB}) & 0.11 \pm 111 \% \ (@40 \ \mathrm{dB}) \\
+[0.5ex] 
+\hline
+\end{tabular}
+\
+\label{table:ml_sensitivity}
+\end{table}
+
+\end{comment}
+
+
+
+\subsection{Results of the time-varying filter}
+
+We fixed the frequency lower value $f_l=0.01$ Hz and the base $\beta = 0.01$. 
+The upper value $f_u$ and the decay rate $\alpha$ were found using optimization (\ref{eqn:tv_optim}). 
+We chose the values $\mu_{\mathrm{spec}}=0.5$ and $\sigma_{\mathrm{spec}}=0.24$ as they are specified in the OIML recommendation \cite{OIML_R51_1} for a mass of 100 g measured in a conveyor belt.
+The optimized values of the frequency upper value and the decay rate, using a dataset of 100 transient responses, were $f_u = 26.94$ Hz and $\alpha = 5.71$.
+
+Figure \ref{fig:rele_tv_40dB_s1} shows the relative errors of the estimates $\widehat{a}$ and $\widehat{b}$ computed with the TV filter after processing the sensor transient response.
+The relative error of the slope estimate is below 5 \% after 300 samples but the relative error of the interception estimate is near 10 \%.
+The convergence rate of the estimate $\widehat{a}$ was similar to that of the subspace method.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\columnwidth]{./ChapterRampInput/fig/Fig_9.pdf} 
+\caption{ \label{fig:rele_tv_40dB_s1} The relative errors of the time-varying filter estimation converge slower than with the subspace method. 
+The relative errors of $\widehat{a}$ and $\widehat{b}$ are smaller than 5 \% only after 800 and 950 samples, respectively.
+With the subspace method the relative errors are below 5 \% after 400 and 500 samples. }
+\end{figure}
+
+
+
+\subsection{Discussion of the observed results}
+
+The subspace method obtains an estimation of the affine input parameters with a recursive least squares solution of a structured errors-in-variables problem.
+Updating the parameter estimates without matrix inversion simplifies the method implementation on digital signal processors of low cost.
+The price we pay by computing the least squares solution of an errors-in-variables problem is an increase in the bias of the estimates.
+Nevertheless, the empirical mean squared errors of the estimates are at most two orders of magnitude larger than the Cram\'er-Rao lower bound, meaning that the estimates uncertainty is low, even when the SNR is lower than 40 dB.
+
+
+The proposed subspace method is a general method that can be used in different applications, with realistic signal-to-noise ratios. 
+It is suitable not only for mass measurements.
+The weighing example shows that the subspace method can be used even when the measurement system is linear time-varying.
+
+It was shown that the time-varying (TV) compensation filter can be modified to estimate the mass only from the increasing section of the saturated ramp, without the need of processing the saturation part.
+The modified TV filter can be implemented in real-time as the subspace method after a previous off-line coefficients optimization stage with sensor measured data.
+Nevertheless, the estimation results of the subspace method are better than the TV filter since they are twice as fast and one order of magnitude more acurate.
+
+The subspace method can estimate the affine input parameters from the sensor response using few parameters, the sensor order $n$, the sensor static gain $\gamma$, and the RLS forgetting factor $\lambda$.
+The subspace method does not necessarily requires optimization of $\lambda$ using a dataset of measured sensor responses.
+It is required to tune $\lambda$ online during the calibration of the system and later $\lambda$ remains fixed during the measurements.
+
+The results of the sensitivity analysis show how the uncertainty of the subspace method estimates is affected when the ramp input is subject to perturbation.
+The impact on the uncertainty on the slope $\widehat{a}$ and the interception $\widehat{b}$ parameters is different.
+The ramp speed uncertainty $\sigma_{\mathrm{s}}$ is added to the uncertainty of the parameter $\widehat{b}$, but does not contribute to the uncertainty of the parameter $\widehat{a}$.
+On the other hand, the ramp parameters uncertainty ramp speed uncertainty $\sigma_{a,b}$ is added to the uncertainty of the estimates of both parameters $\widehat{a}$ and $\widehat{b}$.
+This is not surprising since the estimation parameters are linked to the ramp input parameters.
+
+The maximum-likelihood (ML) method is an approach that requires larger computational resources.
+This is an iterative method and in each iteration computes a simulation of a dynamic system followed by the evaluation of the residual error Jacobian matrix.
+The advantage of the ML method is that we can estimate simultaneously sensor parameters and the initial conditions of the sensor.
+In the weighing case presented as an illustrative example it was not possible to incorporate other parameters of the sensor because they are not identifiable.
+According to the estimation relative errors, that are lower than 0.01 after 100 samples, from there on the ML method estimates are near to the true values and we may not require to run the method along all the measurement period.
+With only the first 100 samples we have an accurate parameter estimation and variance assessment.
+
+However, the main drawback of the ML method that prevents online implementations is the required computational power to iteratively simulate the response of a sensor model.
+It takes an average of 30 s to complete an estimation with the ML method, and this time is too large for fast changing inputs.
+The development of an efficient ML method, suitable for real-time implementation, is not straightforward, and is proposed for future research.
+
+The results of the sensitivity analysis of the ML method show that the uncertainty of the ramp input speed $\sigma_{\mathrm{s}}$ does not have an impact on the estimates uncertainty.
+Similar to the subspace case, the uncertainty of the ramp input parameters $\sigma_{a,b}$ is additive to the uncertainty of the estimated parameters $\widehat{a}$ and $\widehat{b}$, but does not contribute to the uncertainty of the first element of the initial conditions.
+On the other hand, the estimates uncertainty is affected by the perturbation on the model parameters $\sigma_{m,d,k}$.
+It is observed that the uncertainty of the estimated parameters $\widehat{a}$ and $\widehat{b}$ increases two and three times the uncertainty of the model parameters.
+This implies that we need to have an accurate model of the dynamic system to have a small uncertainty on the estimated input parameters.
+Unfortunately, the uncertainty of the second element of the inital conditions is always very high and this is not because of the perturbation of the ramp speed or the model parameters. 
+This issue requires more investigation to see if it is due the identifiability of the parameter in the particular example we have.
+
+
+\section{Conclusions}
+
+An adaptive subspace method was proposed for the estimation of affine input parameters given the measurement of the caused sensor transient response. 
+The subspace estimation method is a recursive method that allows online implementation.
+This method tracks the input of a system, using exponential forgetting, to process the system response.
+The subspace method is model-free and estimates directly the input parameters without identifying a sensor model.
+Therefore, it can be applied to the measurement of different physical magnitudes.
+In the specific weighing example described in the manuscript, the input is an affine function.
+The method is also applicable when the sensor is time-varying.
+The subspace method is computationally cheap, simple and suitable for implementation on digital signal processor of low computational power. 
+
+A maximum-likelihood estimator based on local optimization was designed to obtain a comparative reference for the other methods.
+The maximum-likelihood method estimates the affine input parameters and also model parameters and the sensor's initial conditions.
+This method simulates, in a receding horizon scheme, the response of a sensor model to estimate the input and minimizes the sum of the squares of the residual between the measured and the estimated responses.
+The main drawback of the maximum-likelihood method is its computational cost and efficient implementation of the method is left for future work.
+
+A linear time-invariant weighing system is used as an test example for the estimation methods.
+The weighing system becomes time-varying when an affine input excites the system.
+The estimation methods are compared in a simulation study where the time-varying sensor response is perturbed by measurement noise, that is assumed white of zero mean and known variance.
+The subspace method results are also compared to those of an existing digital time-varying filter.
+The coefficients of the time-varying filter require offline optimization.
+The estimation results obtained with the subspace method converges two times faster and is one order of magnitude smaller than those obtained with the time-varying filter.
+The empirical mean squared errors of the subspace method estimation is two orders of magnitude larger than the theoretical minimum given by the Cr\'amer-Rao Lower bound.
+
+Future work of this research is the practical implementation of the subspace method for real-time measurements.
+
+\newpage

@@ -1,0 +1,18 @@
+%!TEX root = ..\Thesis.tex
+\chapter{AppendixExperimentalValidation} \label{chap:AppendixExperimentalValidation}
+
+
+\section{Appendix - Experimental validation}
+
+Proof of Lemma \ref{lem:lemma1}. 
+
+In the first case considered in the lemma,
+the elements of the expected value $\mathbf{A} = \mathbb{E} \left\{ \mathbf{E} \mathbf{H} \mathbf{E} \right\}$ are
+\[ a_{ij} = \mathbb{E} \left\{ \mathbf{E} \mathbf{H} \mathbf{E} \right\}_{ij} = \mathbb{E} \left\{ \mathbf{E}_i^\top \mathbf{H} \mathbf{E}_j \right\} = \mathrm{tr} \left( \mathbf{H} \ \mathbb{E} \left\{ \mathbf{E}_j \mathbf{E}_i^\top \right\} \right) , \]
+where $\mathbf{E}_i^\top$ is the $i\text{-th}$ row and $\mathbf{E}_j$ is the $j\text{-th}$ column of $\mathbf{E}$, for $i = 1, \ldots, T-n$, and $j = 2, \ldots, n+1$.
+The matrix $\mathbb{E} \left\{ \mathbf{E}_j \mathbf{E}_i^\top \right\}$ is the product of $\sigma_{\epsilon}^2$ times a matrix whose elements are 0 in the first column, 2 in the $(j-i-1) \text{-th}$ diagonal, and -1 in the $(j-i-2) \text{-th}$ and $(j-i) \text{-th}$ diagonals, and zeros elsewhere.
+Using the notation of the second differential operator we express
+\[ \mathbb{E} \left\{ \mathbf{E}_j \mathbf{E}_i^\top \right\} = \sigma_{\epsilon}^2 \begin{bmatrix} \mathbf{0}_{T-n} & \mathbf{D}_{T-n \times n}^{2, j-i} \end{bmatrix}. \]
+
+The other cases in the Lemma can be proven similarly.
+

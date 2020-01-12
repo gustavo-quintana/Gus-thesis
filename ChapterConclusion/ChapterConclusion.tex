@@ -1,0 +1,80 @@
+%!TEX root = ..\Thesis.tex
+\glsresetall
+
+\chapter[Conclusions and future work]{Conclusions and \linebreak future work} \label{chap:concl}
+
+\vfill{}
+
+In this final chapter, we first summarize the contributions made to both parts of the thesis: \textbf{Part \ref{part:Filter}} and \textbf{Part \ref{part:PA}}. Then, we propose
+some possible further improvements to extend this work in future research.
+
+\newpage
+\section*{Conclusions}
+
+
+\section{Conclusions - Ramp input}
+
+An adaptive subspace method was proposed for the estimation of affine input parameters given the measurement of the caused sensor transient response. 
+The subspace estimation method is a recursive method that allows online implementation.
+This method tracks the input of a system, using exponential forgetting, to process the system response.
+The subspace method is model-free and estimates directly the input parameters without identifying a sensor model.
+Therefore, it can be applied to the measurement of different physical magnitudes.
+In the specific weighing example described in the manuscript, the input is an affine function.
+The method is also applicable when the sensor is time-varying.
+The subspace method is computationally cheap, simple and suitable for implementation on digital signal processor of low computational power. 
+
+A maximum-likelihood estimator based on local optimization was designed to obtain a comparative reference for the other methods.
+The maximum-likelihood method estimates the affine input parameters and also model parameters and the sensor's initial conditions.
+This method simulates, in a receding horizon scheme, the response of a sensor model to estimate the input and minimizes the sum of the squares of the residual between the measured and the estimated responses.
+The main drawback of the maximum-likelihood method is its computational cost and efficient implementation of the method is left for future work.
+
+A linear time-invariant weighing system is used as an test example for the estimation methods.
+The weighing system becomes time-varying when an affine input excites the system.
+The estimation methods are compared in a simulation study where the time-varying sensor response is perturbed by measurement noise, that is assumed white of zero mean and known variance.
+The subspace method results are also compared to those of an existing digital time-varying filter.
+The coefficients of the time-varying filter require offline optimization.
+The estimation results obtained with the subspace method converges two times faster and is one order of magnitude smaller than those obtained with the time-varying filter.
+The empirical mean squared errors of the subspace method estimation is two orders of magnitude larger than the theoretical minimum given by the Cr\'amer-Rao Lower bound.
+
+Future work of this research is the practical implementation of the subspace method for real-time measurements.
+
+\section{Conclusions - Statistical analysis}
+
+ We conducted a statistical analysis of a structured errors-in-variables (EIV) estimation problem with correlation to find the first and second moments of its least-squares solution.
+This estimation problem occurs in metrology when we estimate the value of a measurand directly from the sensor transient response.
+The data-driven estimation of the physical quantity is formulated as a structured EIV problem with correlation that uses the observed transient response to construct both the regression matrix and the regressor.
+The real-time implementation of the method uses a recursive least squares algorithm that is simple and has low computational complexity.
+The assessment of the uncertainty is done using the estimate bias and variance.
+
+The conducted statistical analysis produced expressions that predict the estimate bias and variance for given sample size and perturbation level of the observed response.
+The Monte Carlo simulation validated the predictions.
+We compared the results of solving an unstructured and uncorrelated EIV problem with a structured and correlated EIV problem to understand how the structure and the correlation impacts in the estimation.
+We found that the predictions in the structured case are more susceptible to perturbations.
+This is due to the two approximations involved, a second-order Taylor series expansion of the estimate, and the substitution of perturbed data on the prediction expressions.
+The relative error results indicate that the estimate bias, and variance are predicted using the derived expressions, and the observed data.
+The mean squared error of the estimate is close to the results of the maximum likelihood estimate given by the Cram\'er-Rao lower bound.
+
+The bias and variance can be accurately predicted, provided that the Taylor series expansion is valid.
+This constraint has to be taken into account to ensure the effectiveness of the method in practical applications.
+In the example, it was observed that when the SNR lies outside the validity region, the bias and variance estimation was at most three times larger than the empirical values.
+
+The methodology presented in this paper can be applied to estimate the uncertainty of the solutions to other structured EIV problems.
+The bias and variance expressions obtained after the statistical analysis depend on each specific structure.
+
+\section{Conclusions - Experimental validation}
+
+In this paper we investigated the statistical properties of a data-driven step input estimation method in a real-life application.
+The step input estimation method is a structured and correlated errors-in-variables problem that is solved with recursive least squares.
+A statistical analysis was conducted using the ordinary least squares condensed notation. 
+This statistical analysis of the input estimate provides expressions that approximate the estimation bias and variance assuming that the measurement noise is Gaussian white noise. 
+The variance approximation is useful to assess the uncertainty of the input estimate.
+In simulation we observed that the mean squared error of the input estimate is close to the theoretical minimum that uses the Cr\'amer-Rao lower bound for biased estimators.
+Since the data-driven step input estimation method is not statistically efficient, there is room for improvement. This is a topic for future research.
+In the practical experiments, the measurement noise is not white.
+The noise variance obtained from the sensor steady state response underestimates the measurement noise variance, that was observed 5 dB larger in the power spectrum due to nonlinearities of the sensor.
+Considering this difference in the measurement noise variance, we introduced a conservative bound of the measurement noise variance so that the first and second moments of the input estimate are more accurately predicted.
+Using the variance approximation, we can assess the uncertainty of the input estimate with respect to the number of samples processed by the data-driven step input estimation method.
+The step input estimation method is useful in practical applications where the whiteness assumption of the measurement noise is not fulfilled. 
+
+\section*{Future work}
+text
