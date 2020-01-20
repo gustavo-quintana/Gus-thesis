@@ -1,0 +1,84 @@
+*.sublime-workspace
+*.aux
+*.dvi
+*.fdb_latexmk
+*.fls
+*.log
+Cover.pdf
+IM-19-21688-final-version.pdf 
+IM-19-21688-final-version.tex
+MEAS-D-19-00094-R3_without_marked_changes.tex
+MEAS-D-19-00094_R3.pdf
+myMEASpaper.pdf
+CSDA-D-19-00251_R2_without_marked_changes.tex
+CSDA-D-19-00251R2.pdf
+myCSDApaper.pdf
+ChapterRampInput/fig_large/*.pdf
+ChapterRampInput/fig_small/*.pdf
+ChapterExperimentalValidation/fig_large/*.pdf
+ChapterExperimentalValidation/fig_small/*.pdf
+ChapterStatisticalAnalysis/fig_large/*.pdf
+ChapterStatisticalAnalysis/fig_small/*.pdf
+*.synctex.gz
+*.toc
+*.bbl
+*.blg
+*.bcf
+*.out
+*.run.xml
+*.synctex.gz(busy)
+*.lof
+*.lot
+vc.tex
+README.html
+*.auxlock
+*.figlist
+phdthesis.makefile
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.lol
+*.sbl
+*.slg
+*.slo
+*.sls
+*.xdy
+*.loe
+*.snm
+*.nav
+*.mw
+*.tmb
+*.lyx~
+\#*
+*.bib.bak
+Thumbs.db
+*.ds
+*.cdslck
+*.md5
+*.asv
+*.mat
+*.m
+*.emf
+*.eps
+*.tmp
+
+# Word temporary
+~$*.doc*
+
+# Word Auto Backup File
+Backup of *.doc*
+
+# Excel temporary
+~$*.xls*
+
+# Excel Backup File
+*.xlk
+
+# PowerPoint temporary
+~$*.ppt*
+
+# Visio autosave temporary files
+*.~vsd*
