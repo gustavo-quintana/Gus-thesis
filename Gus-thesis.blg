@@ -1,57 +1,60 @@
 This is BibTeX, Version 0.99d (TeX Live 2019/W32TeX)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: Gus-thesis.aux
+The style file: plainnat.bst
 A level-1 auxiliary file: Extras/Acknowledgements.aux
 A level-1 auxiliary file: Extras/Abbreviations.aux
 A level-1 auxiliary file: config/CustomCommands.aux
 A level-1 auxiliary file: Summary/Summary.aux
 A level-1 auxiliary file: ChapterIntroduction/ChapterIntroduction.aux
 A level-1 auxiliary file: ChapterPreliminaries/ChapterPreliminaries.aux
-A level-1 auxiliary file: ChapterRampInput/ChapterRampInput.aux
 A level-1 auxiliary file: ChapterStatisticalAnalysis/ChapterStatisticalAnalysis.aux
 A level-1 auxiliary file: ChapterExperimentalValidation/ChapterExperimentalValidation.aux
+A level-1 auxiliary file: ChapterRampInput/ChapterRampInput.aux
 A level-1 auxiliary file: ChapterConclusion/ChapterConclusion.aux
+A level-1 auxiliary file: ChapterAppendices/ChapterAppendices.aux
 A level-1 auxiliary file: Extras/ListofPublications.aux
-The style file: apalike.bst
 Database file #1: Gus-thesis.bib
-You've used 80 entries,
-            1935 wiz_defined-function locations,
-            1006 strings with 17826 characters,
-and the built_in function-call counts, 33988 in all, are:
-= -- 3360
-> -- 1442
-< -- 45
-+ -- 491
-- -- 484
-* -- 3065
-:= -- 5873
-add.period$ -- 244
-call.type$ -- 80
-change.case$ -- 634
-chr.to.int$ -- 79
-cite$ -- 80
-duplicate$ -- 1180
-empty$ -- 2366
-format.name$ -- 606
-if$ -- 6585
+Warning--I didn't find a database entry for "Hessling06"
+You've used 72 entries,
+            2773 wiz_defined-function locations,
+            1166 strings with 19524 characters,
+and the built_in function-call counts, 36981 in all, are:
+= -- 3488
+> -- 2152
+< -- 37
++ -- 728
+- -- 655
+* -- 3260
+:= -- 5799
+add.period$ -- 326
+call.type$ -- 72
+change.case$ -- 430
+chr.to.int$ -- 71
+cite$ -- 144
+duplicate$ -- 1496
+empty$ -- 2858
+format.name$ -- 765
+if$ -- 7659
 int.to.chr$ -- 2
-int.to.str$ -- 0
-missing$ -- 84
-newline$ -- 403
-num.names$ -- 246
-pop$ -- 497
+int.to.str$ -- 1
+missing$ -- 76
+newline$ -- 476
+num.names$ -- 290
+pop$ -- 682
 preamble$ -- 1
-purify$ -- 638
+purify$ -- 362
 quote$ -- 0
-skip$ -- 880
+skip$ -- 1138
 stack$ -- 0
-substring$ -- 2685
-swap$ -- 123
-text.length$ -- 7
+substring$ -- 1663
+swap$ -- 95
+text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 468
+type$ -- 762
 warning$ -- 0
-while$ -- 298
+while$ -- 334
 width$ -- 0
-write$ -- 1042
+write$ -- 1156
+(There was 1 warning)

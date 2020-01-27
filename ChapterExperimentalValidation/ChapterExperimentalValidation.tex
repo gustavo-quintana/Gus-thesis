@@ -2,16 +2,33 @@
 \glsresetall
 
 \chapter{Experimental validation of the step input estimation method }\label{chap:ExperimentalValidation}
-% \begin{quote}
-% \emph{The results of this chapter are based on the \cite{VanNechel2018}.}\vfill{}
-% \end{quote}
-\vfill{}
 
+\begin{quote}
+\emph{The results of this chapter ...}\vfill{}
+\end{quote}
 
  
- 
- \section{Introduction  - Experimental validation}
+ \section{Introduction}
 
+A measurement is a dynamic process. 
+The sensor is a dynamic system that experiments changes after an input excitation.
+The sensor output is first a transient state response and followed by a steady state response.
+
+The influence of the input is observed in the sensor output, and thus it makes sense to estimate the input using the sensor response.
+When the sensor reaches its steady-state, the input is a straightforwardly estimated from the sensor output making use of the sensor static gain.
+To obtain a fast estimation, the sensor transient response must be considered instead of the steady state response.
+
+A common approach is to filter the sensor transient response with another dynamic system to reduce the sensor transient time by inverting the sensor dynamics.
+To design such a compensator system it is necessary a sensor model.
+A different approach uses digital signal processing methods that are independent of the sensor model.
+One of these methods is the data-driven method that estimates the unknown level of step inputs by processing the sensor step response. 
+To assess the uncertainty of the data-driven step input estimation method, a experimental validation of this method was conducted in a real-life metrology application. 
+This chapter describes the measurement experiments with a weighing sensor system and discuss the results observed.
+The results are put in perspective to simulations and consider the measurement noise that is additive to the response of the sensor. 
+
+The experimental results validate the data-driven step input estimation method, and indicate in which intervals of SNR and sample size the effectiveness of the method is guaranteed.
+
+\begin{comment}
  In this paper we consider that a measurement is a dynamic process, where an input excites a dynamic system, the sensor, and causes a dynamic transient response that also depends on the initial conditions of the sensor.
 The to-be-measured quantity is an unknown input that excites the sensor.
 The consequent transient response is further processed to estimate quickly the measurand value.
@@ -20,26 +37,26 @@ The steady-state response of the sensor, that exists after the stabilization of 
 A compensator is an additional dynamic system that acts on the transient response aiming to reduce the sensor transient time.
 The compensation is motivated by the need of inverting the sensor dynamic effects to recreate the input.
 The convolution of the compensator impulse response with the sensor transient response yields the input estimate.
-Therefore, the design of a compensator is based on the sensor model and requires a deconvolution \cite{Eichstadt10}.
-Examples of input estimation using compensation of the sensor transient response include a recursive estimation of the compensator parameters \cite{Shu93}, 
-finite impulse response (FIR) \cite{Elster07, Niedzwiecki16b} filters and 
-infinite impulse response (IIR) filters \cite{Pintelon90, Elster08}.
+Therefore, the design of a compensator is based on the sensor model and requires a deconvolution \citep{Eichstadt10}.
+Examples of input estimation using compensation of the sensor transient response include a recursive estimation of the compensator parameters \citep{Shu93}, 
+finite impulse response (FIR) \citep{Elster07, Niedzwiecki16b} filters and 
+infinite impulse response (IIR) filters \citep{Pintelon90, Elster08}.
 The filters in these works estimate in real-time the unknown input value.
 
 An alternative to the compensation approach is to use digital signal processing methods that are independent of the sensor model.
-A data-driven method that estimates the unknown level of step inputs by processing the sensor step response was introduced in \cite{Markovsky15ieee}. 
+A data-driven method that estimates the unknown level of step inputs by processing the sensor step response was introduced in \citep{Markovsky15ieee}. 
 This data-driven input estimation method avoids the sensor modeling stage and estimates directly the input.
 This method reduces the estimation time compared to a conventional compensator.
-The step input estimation method performance was demonstrated by simulations and experiments on a digital signal processor (DSP) of low cost \cite{Markovsky15cep}.
+The step input estimation method performance was demonstrated by simulations and experiments on a digital signal processor (DSP) of low cost \citep{Markovsky15cep}.
 The uncertainty of the step input estimation method has not been assessed before.
 
-To validate the input estimation methods it is necessary to assess the uncertainty associated with their estimates \cite{daSilva12, Ferrero06}.
-There are uncertainty propagation studies for model-based compensators such as the FIR and IIR filters for acceleration measurements where the uncertainty is computed in real time \cite{Elster07, Elster08, Link09}.
+To validate the input estimation methods it is necessary to assess the uncertainty associated with their estimates \citep{daSilva12, Ferrero06}.
+There are uncertainty propagation studies for model-based compensators such as the FIR and IIR filters for acceleration measurements where the uncertainty is computed in real time \citep{Elster07, Elster08, Link09}.
 In these works, the uncertainty expression is based on the transfer function or state space representations of the LTI sensor and filter systems.
-Another way to assess the measurement uncertainty is by observing the results of multiple practical measurements as it is described in \cite{Pietrzak14} for mass and in \cite{Ogorevc16} for temperature sensors.
-A deconvolution method is implemented to estimate the input waveform in \cite{Hale09} and the uncertainty is obtained from the input estimate covariance. 
-The impact that the signal processing data-driven dynamic error correction has on the uncertainty is investigated in \cite{Saggin01}. 
-A statistical analysis of the data-driven step input estimation method \cite{Markovsky15cep} was investigated in \cite{Quintana19} and the method uncertainty was obtained with a Monte Carlo simulation study. 
+Another way to assess the measurement uncertainty is by observing the results of multiple practical measurements as it is described in \citep{Pietrzak14} for mass and in \citep{Ogorevc16} for temperature sensors.
+A deconvolution method is implemented to estimate the input waveform in \citep{Hale09} and the uncertainty is obtained from the input estimate covariance. 
+The impact that the signal processing data-driven dynamic error correction has on the uncertainty is investigated in \citep{Saggin01}. 
+A statistical analysis of the data-driven step input estimation method \citep{Markovsky15cep} was investigated in \citep{Quintana19} and the method uncertainty was obtained with a Monte Carlo simulation study. 
 
 This paper provides an uncertainty assessment of the data-driven step input estimation method in a real-life application.
 The measurements were conducted in a weighing system based on a load cell sensor.
@@ -48,14 +65,15 @@ We found that the mean squared error of the input estimate is near the Cram\'er-
 A confidence interval is provided for the input estimate in terms of the number of samples required to satisfy the accuracy specifications of the user. 
 
 The novelty of the paper is threefold.
-First, using the results of \cite{Quintana19}, that describes a statistical analysis of structured errors in variables (EIV) problems, in this paper we describe the statistical properties of a the data-driven step input estimation method in both simulation and a real-life experiments.
+First, using the results of \citep{Quintana19}, that describes a statistical analysis of structured errors in variables (EIV) problems, in this paper we describe the statistical properties of a the data-driven step input estimation method in both simulation and a real-life experiments.
 Second, this manuscript also presents the Cram\'er-Rao lower bound for unbiased estimators of the structured and correlated EIV problem that the step input estimation method formulates.
 Using this bound we have the minimum mean-squared error (MSE) for this estimation problem that we use compare with the MSE computed from the predictions obtained after the statistical analysis.
 The third novelty in this manuscript is the model order selection for the step input estimation method where we use the MSE to select the order that provides the smaller MSE with the lowest computational complexity.
+\end{comment}
 
 
 
-\section{SIMULATION RESULTS} 
+\section{Simulation results} 
 
 A Monte Carlo (MC) simulation was conducted to test the bias and covariance expressions (\ref{eqn:biasST}) and (\ref{eqn:varST}).
 The MC simulation performed $N_{MC} = 10^4$ runs of the data-driven step input estimation with different realizations of the measurement noise $\bm{\epsilon}$.
@@ -173,7 +191,7 @@ In a calibration stage, during the setup of the estimation method, the user can 
 \caption{ Orders $n$ that provide local minima for the MSE of the step input estimate. It is recommended to use the order that gives the first minimum when there is a difference of small order of magnitude with respect to the MSE at the second minimum.} 
 \label{Tbl:orders} 
 \centering
-\begin{tabular}{ |c|c c c c| } 
+\begin{tabular}{c|c c c c} 
 \hline
 SNR [dB] & 30 & 40 & 50 & 60 \\
 \hline
@@ -201,9 +219,9 @@ These results suggest that, during the setup of the estimation method, we have t
 %\end{figure}
 
 
-\section{PRACTICAL IMPLEMENTATION} 
+\section{Practical implementation} 
 An experimental setup was constructed to test the step input estimation method.
-The implementation is a weighing system that uses a load cell Tedea Huntleigh 1004 \cite{tedea1004}.
+The implementation is a weighing system that uses a load cell Tedea Huntleigh 1004 \citep{tedea1004}.
 The maximum rating of the load cell is 600 g.
 A cylindrical aluminium object of 138.32 g of mass was used to excite the load cell.
 This value was found by calibration using a balance KERN PCB 200-2 that has an uncertainty of 0.01 g.
@@ -406,7 +424,7 @@ The step input estimation method is a structured and correlated errors-in-variab
 A statistical analysis was conducted using the ordinary least squares condensed notation. 
 This statistical analysis of the input estimate provides expressions that approximate the estimation bias and variance assuming that the measurement noise is Gaussian white noise. 
 The variance approximation is useful to assess the uncertainty of the input estimate.
-In simulation we observed that the mean squared error of the input estimate is close to the theoretical minimum that uses the Cr\'amer-Rao lower bound for biased estimators.
+In simulation we observed that the mean squared error of the input estimate is close to the theoretical minimum that uses the Cram\'er-Rao lower bound for biased estimators.
 Since the data-driven step input estimation method is not statistically efficient, there is room for improvement. This is a topic for future research.
 In the practical experiments, the measurement noise is not white.
 The noise variance obtained from the sensor steady state response underestimates the measurement noise variance, that was observed 5 dB larger in the power spectrum due to nonlinearities of the sensor.

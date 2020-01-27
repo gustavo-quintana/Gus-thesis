@@ -3,46 +3,60 @@
 \glsresetall
 
 \chapter{Statistical Analysis}\label{chap:StatisticalAnalysis}
+
 \begin{quote}
 \emph{The results of this chapter ...}\vfill{}
 \end{quote}
 
 
 
-\section{Introduction  - Statistical analysis}
+\section{Introduction}
 
+The linear estimation problems with perturbation in both the regression matrix and the regressor are errors-in-variables (EIV) problems.
+To evaluate the properties of the solution to an EIV problem it is often required to calculate the statistical moments of the estimate.
+The calculation of the estimate statistical moments demands a larger effort when the regression matrix of a EIV problem is structured, and when is correlated to the regressor.
 
-Errors-in-variables (EIV) are linear estimation problems in which the regression matrix and the regressor are perturbed \cite{VanHuffel91Book}, \cite{Markovsky07overview}.
+Structured total least squares and structured total maximum likelihood are two examples of methods that solve structured EIV problems, but that require large computational resources.
+For online applications where a real-time solution of the structured EIV problem is desired, the recursive least-squares (RLS) method is a suboptimal but computationally cheaper estimator.
+
+To obtain the statistical moments of the RLS estimation for a structured and correlated EIV problem, and to assess the estimate uncertainty, that have not been obtained before, a statistical analysis was conducted.
+
+This chapter describes the methodology and the results of the statistical analysis.
+The mathematical expectation of the RLS estimate, approximated by a second-order Taylor series expansion, allows a quantification of the first and second-order moments of the LS estimate.
+The results of the statistical analysis provide an insight of the impact that the structure of the regression matrix and the correlation between the regression matrix and the regressor perturbations have on the uncertainty of the RLS estimate.
+
+\begin{comment}
+Errors-in-variables (EIV) are linear estimation problems in which the regression matrix and the regressor are perturbed \citep{VanHuffel91Book}, \citep{Markovsky07overview}.
 In structured EIV problems, the regression matrix has a given structure that depends on the problem formulation.
-Hankel, Toeplitz, or other application-specific matrices appear in problems of metrology \cite{Markovsky15cep}, system identification \cite{Soderstrom07}, image restoration \cite{Feiz17}, nuclear magnetic resonance spectroscopy \cite{Cai16}, direction-of-arrival estimation \cite{Pan18}, and time-of-arrival estimation \cite{Jia18}.
+Hankel, Toeplitz, or other application-specific matrices appear in problems of metrology \citep{Markovsky15cep}, system identification \citep{Soderstrom07}, image restoration \citep{Feiz17}, nuclear magnetic resonance spectroscopy \citep{Cai16}, direction-of-arrival estimation \citep{Pan18}, and time-of-arrival estimation \citep{Jia18}.
 
 In metrology, the direct estimation of the input from the sensor transient response is formulated as a structured EIV problem.
 The only observed signal is the sensor output.
-To estimate a step input, the regression matrix, and the regressor are built from the step response observations \cite{Markovsky15cep}, and
+To estimate a step input, the regression matrix, and the regressor are built from the step response observations \citep{Markovsky15cep}, and
 the structure in the regression matrix is block-Hankel.
-This data-driven estimation methodology reduces the estimation time of the classical two-stage approach where a sensor model is first identified, and later the input is estimated using the sensor model \cite{Azam15, Niedzwiecki16a}.
+This data-driven estimation methodology reduces the estimation time of the classical two-stage approach where a sensor model is first identified, and later the input is estimated using the sensor model \citep{Azam15, Niedzwiecki16a}.
 %The problem is EIV because the perturbation of the sensor response gets into the regression matrix.
 
 Total least-squares (TLS) is the typical estimator for unstructured EIV problems and is consistent when the perturbations have zero mean, and the covariance is a given positive definite matrix.
-When the perturbations are i.i.d. normally distributed, the solution of the TLS is equivalent to that of the maximum likelihood estimator (ML) \cite{Markovsky07overview}. 
-For structured EIV problems, the TLS estimator does not give general results since each specific structure requires a particular treatment \cite{VanHuffel07TLSeditorial}, and the ML estimator leads to non-convex optimization problems where finding the global optimum is not guaranteed \cite{Rhode14recursive}.
+When the perturbations are i.i.d. normally distributed, the solution of the TLS is equivalent to that of the maximum likelihood estimator (ML) \citep{Markovsky07overview}. 
+For structured EIV problems, the TLS estimator does not give general results since each specific structure requires a particular treatment \citep{VanHuffel07TLSeditorial}, and the ML estimator leads to non-convex optimization problems where finding the global optimum is not guaranteed \citep{Rhode14recursive}.
 Moreover, the computational complexity of TLS and ML inhibits real-time implementation to solve structured EIV problems. 
 
 The least-squares (LS) estimator is a suboptimal but simple solution to structured EIV problems that admits a recursive form for easy real-time implementations.
 Some of the reported works that propose LS estimators for structured EIV problems include 
-the design of a fast algorithm for matrices with small displacement rank \cite{Mastronardi07fast},
-the study of the estimator consistency \cite{Palanthandalam10parameter},
-the determination of the bias, and the mean squared error of the parameter estimates in the identification of AR models \cite{Kiviet12high} \cite{Kiviet14improved}, and
-a discussion of the causes of bias and inconsistency in homogeneous estimators \cite{Yeredor04homogeneous}.
+the design of a fast algorithm for matrices with small displacement rank \citep{Mastronardi07fast},
+the study of the estimator consistency \citep{Palanthandalam10parameter},
+the determination of the bias, and the mean squared error of the parameter estimates in the identification of AR models \citep{Kiviet12high} \citep{Kiviet14improved}, and
+a discussion of the causes of bias and inconsistency in homogeneous estimators \citep{Yeredor04homogeneous}.
 
  In measurement applications, it is highly relevant to assess the uncertainty of the input estimate.
 The uncertainty of the reported LS estimators for structured EIV problems has not been addressed, and then, remains unknown.
-The estimator uncertainty is expressed using the estimation bias and covariance \cite{Pintelon12Book}.
+The estimator uncertainty is expressed using the estimation bias and covariance \citep{Pintelon12Book}.
 To know the LS estimator uncertainty, we quantified the bias and the covariance of the LS solution of EIV problems in the unstructured and structured cases. 
-This extends the perturbation analysis of the LS estimator of unstructured and uncorrelated problems that was investigated in \cite{Stewart90SPT} and in \cite{Vaccaro94}.
+This extends the perturbation analysis of the LS estimator of unstructured and uncorrelated problems that was investigated in \citep{Stewart90SPT} and in \citep{Vaccaro94}.
 This paper presents a study of the statistics of the LS estimate of unstructured and structured EIV problems. 
  We provide a discussion of the unstructured case as a reference, to get an insight of the impact that the structure of the regression matrix and the correlation between the regression matrix and the regressor perturbations have on the uncertainty of the LS estimate.
-The structured case is motivated by the metrology estimation problem \cite{Markovsky15cep}, where the EIV problem has a Hankel structure, and the perturbations are correlated.
+The structured case is motivated by the metrology estimation problem \citep{Markovsky15cep}, where the EIV problem has a Hankel structure, and the perturbations are correlated.
 The study of the metrology input estimate illustrates a methodology to conduct statistical analysis for any structured EIV problem.
 The mathematical expectation of the second-order Taylor series expansion of the LS estimate boils down to expressions that quantify the first and second-order moments of the LS estimate.
 Via Monte Carlo simulations, we validated the accuracy of the bias, and the covariance approximations.
@@ -50,7 +64,7 @@ The derived approximations predict the LS estimate bias, and the covariance, for
 The predicted variance gives the uncertainty of the LS estimate.
 We observed that, for the step input estimation problem, the mean squared error of the LS estimate is near to the minimum variance limit given by the Cram\'er-Rao lower bound of the structured EIV problem.
  By following this methodology, the bias and variance of the solutions of EIV problems with other structures is determined, and therefore, the uncertainty of the estimate.
-
+\end{comment}
 
 
 
@@ -108,7 +122,7 @@ and the covariance (\ref{eqn:covdef}) is approximated by
 \begin{equation} \begin{aligned} \mathbf{C}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) & \approx \sigma_{\bm{\epsilon}}^2 \ \mathbf{Q}^{-1} + \sigma_{\mathbf{E}}^2 \ \mathrm{trace} \left( \mathbf{x} \mathbf{x}^\top \right) \mathbf{Q}^{-1} - \sigma_{\mathbf{E}}^4 \left( 2 + 2n - T \right)^2 \ \mathbf{Q}^{-1} \mathbf{x} \mathbf{x}^\top \mathbf{Q}^{-1} , \end{aligned} \label{eqn:varEu} \end{equation}
 where the subscript $\mathrm{p}$ stands for prediction of the bias and covariance.
 The derivation of equations (\ref{eqn:biasEu}) and (\ref{eqn:varEu}) is described in Appendix 1.
-We use the results described in \cite{Vaccaro94} \S 3 and \cite{Stewart90SPT} \S 2.1 for the expected values of products of unstructured matrices with perturbations.
+We use the results described in \citep{Vaccaro94} \S 3 and \citep{Stewart90SPT} \S 2.1 for the expected values of products of unstructured matrices with perturbations.
 Equations (\ref{eqn:biasEu}) and (\ref{eqn:varEu}) depend on the unobservable true values $\mathbf{x}$, $\mathbf{K}$, and on the variance of the perturbations.
 The observed variables are $\widetilde{\mathbf{y}}$, $\widetilde{\mathbf{K}}$, and from them we compute $\widehat{\mathbf{x}}$.
 It is proposed to directly substitute the observed variables in the analytic expressions.
@@ -134,14 +148,11 @@ where $\mathbf{B}_1 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \mathbf{E}
 The derivation of equations (\ref{eqn:biasE}) and (\ref{eqn:varE}) is described in Appendix 1.
 The expected values $\mathbf{B}_1$, $\mathbf{B}_2$, $\mathbf{B}_3$, $\mathbf{B}_4$, $\mathbf{C}_1$ and $\mathbf{C}_2$ are obtained using the results of Lemma \ref{lem:lemma1}.
 
-\newtheorem{thm}{Theorem}
-\newtheorem{lem}[thm]{Lemma}
-\newproof{pf}{Proof}
 
-\small
+% \small    {\small}
 % <how to set font size here to 10 px ? />
 
-\begin{lem}{\small}\label{lem:lemma1}
+\begin{lem} \label{lem:lemma1}
 Let $\mathbf{E} \in {\rm I\!R}^{\left(T-n\right) \times \left(n+1\right)}$ be the partitioned matrix 
 \[ \mathbf{E} = \begin{bmatrix} \mathbf{0}_{T-n \times 1} & \bm{\mathcal{H}}(\bm{\epsilon}) \mathbf{D}_{n+1 \times n}^{1,0} \end{bmatrix}, \]
  where $\bm{\mathcal{H}}(\bm{\epsilon}) \in {\rm I\!R}^{\left(T-n\right) \times \left(n+1\right)}$ is the block-Hankel matrix of $T-n$ rows and $n$ columns
@@ -153,31 +164,31 @@ For a compatible deterministic matrix $\mathbf{A}$, or vector $\mathbf{a}$, the 
 \begin{equation*} \begin{aligned} 
 & \mathbb{E} \left\{ \mathbf{E} \mathbf{A} \mathbf{E} \right\} = \mathbf{Z}, \
 \text{where} \ \mathbf{z}_{i1} = \mathbf{0}, \ \text{and} \ 
-z_{ij} = \sigma_{\bm{\epsilon}}^2 \ \mathrm{Tr} \left( \mathbf{A} \begin{bmatrix} \mathbf{0}_{T-n} & \mathbf{D}_{T-n \times n}^{2, j-i} \end{bmatrix} \right), \
-\text{for} \ i = 1, \cdots, T-n, \ \text{and} \ j = 2, \cdots, n+1. \\
+z_{ij} = \sigma_{\bm{\epsilon}}^2 \ \mathrm{Tr} \left( \mathbf{A} \begin{bmatrix} \mathbf{0}_{T-n} & \mathbf{D}_{T-n \times n}^{2, j-i} \end{bmatrix} \right), \\
+& \quad \text{for} \ i = 1, \cdots, T-n, \ \text{and} \ j = 2, \cdots, n+1. \\
 & \mathbb{E} \left\{ \mathbf{E}^\top \mathbf{A} \mathbf{E} \right\} = \mathbf{Z}, \ 
 \text{where} \ \mathbf{z}_{1j} = \mathbf{0}, \ \mathbf{z}_{i1} = \mathbf{0}, \ \text{and} \ 
-z_{ij} = \sigma_{\bm{\epsilon}}^2 \ \mathrm{Tr} \left( \mathbf{A} \ \mathbf{D}_{T-n \times T-n}^{2, j-i+1} \right) , \
-\text{for} \ i = 2, \cdots, n+1, \ \text{and} \ j=2, \cdots, n+1 . \\ 
+z_{ij} = \sigma_{\bm{\epsilon}}^2 \ \mathrm{Tr} \left( \mathbf{A} \ \mathbf{D}_{T-n \times T-n}^{2, j-i+1} \right) , \\
+& \quad \text{for} \ i = 2, \cdots, n+1, \ \text{and} \ j=2, \cdots, n+1 . \\ 
 & \mathbb{E} \left\{ \mathbf{E} \mathbf{A} \mathbf{E}^\top \right\} = \mathbf{Z}, \
-\text{where} \ z_{ij} = \sigma_{\bm{\epsilon}}^2 \ \mathrm{Tr} \left( \mathbf{A} \begin{bmatrix} 0 & \mathbf{0}_{n}^\top \\ \mathbf{0}_{n} & \mathbf{D}_{n \times n}^{2, j-i+1} \end{bmatrix} \right), \
-\text{for} \ i = 1,\cdots,T-n, \ \text{and} \ j=1,\cdots,T-n. \\ 
+\text{where} \ z_{ij} = \sigma_{\bm{\epsilon}}^2 \ \mathrm{Tr} \left( \mathbf{A} \begin{bmatrix} 0 & \mathbf{0}_{n}^\top \\ \mathbf{0}_{n} & \mathbf{D}_{n \times n}^{2, j-i+1} \end{bmatrix} \right), \\
+& \quad \text{for} \ i = 1,\cdots,T-n, \ \text{and} \ j=1,\cdots,T-n. \\ 
 & \mathbb{E} \left\{ \mathbf{E} \mathbf{A} \bm{\epsilon} \right\} = \mathbf{z}, \
-\text{where} \ z_i = \sigma_{\bm{\epsilon}}^2 \ \mathrm{Tr} \left( \mathbf{A} \begin{bmatrix} \mathbf{0}_{T-n} & \mathbf{D}_{T-n \times n}^{1,n+1-i} \end{bmatrix} \right) , \
-\text{for} \ i = 1,\cdots,T-n . \\
+\text{where} \ z_i = \sigma_{\bm{\epsilon}}^2 \ \mathrm{Tr} \left( \mathbf{A} \begin{bmatrix} \mathbf{0}_{T-n} & \mathbf{D}_{T-n \times n}^{1,n+1-i} \end{bmatrix} \right) , \\
+& \quad \text{for} \ i = 1,\cdots,T-n . \\
 & \mathbb{E} \left\{ \mathbf{E}^\top \mathbf{A} \bm{\epsilon} \right\} = \mathbf{z}, \
-\text{where} \ z_1 = 0, \ \text{and} \ z_i = \sigma_{\bm{\epsilon}}^2 \ \mathrm{Tr} \left( \mathbf{A} \ \mathbf{D}_{T-n \times T-n}^{1, n+2-i} \right), \
-\text{for} \ i = 2,\cdots,n+1 . \\
+\text{where} \ z_1 = 0, \ \text{and} \ z_i = \sigma_{\bm{\epsilon}}^2 \ \mathrm{Tr} \left( \mathbf{A} \ \mathbf{D}_{T-n \times T-n}^{1, n+2-i} \right), \\
+& \quad \text{for} \ i = 2,\cdots,n+1 . \\
 & \mathbb{E} \left\{ \mathbf{E} \mathbf{a} \bm{\epsilon}^\top \right\} = \mathbf{Z}, \
-\text{where each column} \ \mathbf{Z}_{j} = - \sigma_{\bm{\epsilon}}^2 \ \mathbf{D}_{T-n \times n+1}^{1,-j} \mathbf{R}_{n+1} \ \mathbf{a} , \
-\text{for} \ j = 1,\cdots,T-n , \ \text{with} \ \mathbf{R}_{n+1} = \begin{bmatrix} & \mathbf{R}_n \\ 0 \end{bmatrix} , \\ & \quad
+\text{where each column} \ \mathbf{Z}_{j} = - \sigma_{\bm{\epsilon}}^2 \ \mathbf{D}_{T-n \times n+1}^{1,-j} \mathbf{R}_{n+1} \ \mathbf{a} , \\
+& \quad \text{for} \ j = 1,\cdots,T-n , \ \text{with} \ \mathbf{R}_{n+1} = \begin{bmatrix} & \mathbf{R}_n \\ 0 \end{bmatrix} , \\ & \quad
 \text{where} \ \mathbf{R}_n \ \text{is a reversal matrix.}
 \end{aligned} \end{equation*} 
 \end{lem}
 
 \normalsize
 
-The proof of the lemma is given in Appendix 2.
+The proof of the lemma is given in Appendix \ref{appendix:lemma1}.
 
 The matrices $\mathbf{B}_1$, $\mathbf{B}_2$, $\mathbf{B}_3$, $\mathbf{B}_4$, $\mathbf{C}_1$ and $\mathbf{C}_2$ are considered in the different cases of Lemma \ref{lem:lemma1}.
 Each expected value in the lemma is a matrix, or a vector, whose elements are found following the indicated operations.
@@ -196,12 +207,12 @@ where $\widetilde{\mathbf{B}}_1 = \mathbb{E} \Big\{ \mathbf{E} \widetilde{\mathb
 
 The Cram\'er-Rao lower bound (CRLB) provides the lower limit on the variance of the estimate
 \begin{equation} \mathrm{CRLB}(\mathbf{x}) = \left( \mathbf{I} + \frac{\partial \mathbf{b} (\widehat{\mathbf{x}}) }{\partial (\widehat{\mathbf{x}})} \right)^\top \mathbf{Fi}^{-1}(\mathbf{x}) \left( \mathbf{I} + \frac{\partial \mathbf{b} (\widehat{\mathbf{x}}) }{\partial (\widehat{\mathbf{x}})} \right), \label{eqn:CRLB} \end{equation}
-where $\mathbf{b} (\widehat{\mathbf{x}})$ is the bias of the estimate and $\mathbf{Fi}(\widehat{\mathbf{x}})$ is the Fisher information matrix \cite{Pintelon12Book}.
+where $\mathbf{b} (\widehat{\mathbf{x}})$ is the bias of the estimate and $\mathbf{Fi}(\widehat{\mathbf{x}})$ is the Fisher information matrix \citep{Pintelon12Book}.
 The Fisher information matrix is defined as the expected value of the Hessian of the negative likelihood function 
 \begin{equation} \mathbf{Fi}(x) = - \mathbb{E} \left\{ \frac{\partial ^2 l (\widehat{\mathbf{x}}) }{\partial \widehat{\mathbf{x}}^2 } \right\}, \end{equation}
 where the partial derivatives are evaluated in $\widehat{\mathbf{x}} = \mathbf{x}$.
 
-The minimization problem (\ref{eqn:min_ls}) is equivalent to a structured EIV problem that can be expressed as a linear in the measurements problem \cite{Pintelon12Book}
+The minimization problem (\ref{eqn:min_ls}) is equivalent to a structured EIV problem that can be expressed as a linear in the measurements problem \citep{Pintelon12Book}
 \begin{equation} e (\widehat{\mathbf{x}}, \widetilde{\mathbf{z}}) = \mathbf{M}_1( \widehat{\mathbf{x}} ) \ \widetilde{\mathbf{z}} = \begin{bmatrix} \mathbf{I}_{T-n} & - \widehat{\mathbf{x}}^T \otimes \mathbf{I}_{T-n} \end{bmatrix} \begin{bmatrix} \widetilde{\mathbf{y}} \\ \mathrm{vec} ( \widetilde{\mathbf{K}} ) \end{bmatrix} = 0 . \label{eqn:M1vecyK} \end{equation}
 where $\widetilde{\mathbf{z}} = \mathbf{z} + \epsilon_{\mathbf{z}}$.
 The CRB requires that the true model $\mathbf{M}_1( \mathbf{x} ) \ \mathbf{z} = 0$ exists.
@@ -209,7 +220,7 @@ Under the assumption of the measurement perturbation $\epsilon_{\mathbf{z}}$ bei
 \begin{equation} \ln{ l(\widetilde{\mathbf{z}}, \widehat{\mathbf{z}}, \widehat{\mathbf{x}}) } = - \frac{1}{2} \left( \widetilde{\mathbf{z}} - \widehat{\mathbf{z}} \right)^\top \mathbf{C}_{\mathbf{z}}^{-1} \left( \widetilde{\mathbf{z}} - \widehat{\mathbf{z}} \right) + \mathrm{constant}, \end{equation}
 where $\widehat{\mathbf{z}}$ are parameters of the measurements $\widetilde{\mathbf{z}}$ that have to be estimated and satisfy $\mathbf{M}_1( \widehat{\mathbf{x}} ) \ \widehat{\mathbf{z}} = 0$.
 The size of the Fisher information matrix $\mathbf{Fi}(\mathbf{x}, \mathbf{z})$ depends on the number of unknowns in $\widehat{\mathbf{z}}$ and grows with the sample size.
-Moreover, in Chapter 19 of \cite{Pintelon12Book} it is shown that the Fisher information matrix $\mathbf{Fi}(\mathbf{x})$ can be obtained from $\mathbf{Fi}(\mathbf{x}, \mathbf{z})$ after doing inversion by parts, giving
+Moreover, in Chapter 19 of \citep{Pintelon12Book} it is shown that the Fisher information matrix $\mathbf{Fi}(\mathbf{x})$ can be obtained from $\mathbf{Fi}(\mathbf{x}, \mathbf{z})$ after doing inversion by parts, giving
 \begin{equation} \mathbf{Fi}(\mathbf{x}) = \left( \frac{\partial e (\widehat{\mathbf{x}}, \mathbf{z}) }{\partial \mathbf{x} } \right)^\top \left( \mathbf{M}_1( \mathbf{x} ) \ \mathbf{C}_{\mathbf{z}} \ \mathbf{M}_1^\top( \mathbf{x} ) \right)^{-1} \left( \frac{\partial e (\widehat{\mathbf{x}}, \mathbf{z}) }{\partial \mathbf{x} } \right) 
  , \label{eqn:FIM} \end{equation} 
 where the partial derivatives are evaluated at the true values $\mathbf{x}$, and the covariance matrix of the measurements is
@@ -248,7 +259,7 @@ These settings are similar to those of the structured case, aiming to have compa
 
 The difference between the sample mean of the estimate $\widehat{\mathbf{x}}_{\left[1\right]}$ and its true value $\mathbf{x}_{\left[1\right]}$ is the empirical bias $b_\mathrm{e}$.
 \begin{equation} {b}_\mathrm{e} = \frac{1}{N_{\mathrm{MC}}} \sum_{i=1}^{N_{\mathrm{MC}}}{ \left( \widehat{\mathbf{x}}_{\left[1\right]} \right)_i -  \mathbf{x}_{\left[1\right]} } \approx \mu \left( \widehat{\mathbf{x}}_{\left[1\right]} \right) - \mathbf{x}_{\left[1\right]} . \end{equation}
-The standard deviation of the estimate $\widehat{\mathbf{x}}_{\left[1\right]}$ is used to obtain the standard error $\sigma_\mathrm{e}$ of the MC simulation, which decreases with respect to the square root of the number of MC runs $N_{\mathrm{MC}}$ \cite{Hammersley75}: 
+The standard deviation of the estimate $\widehat{\mathbf{x}}_{\left[1\right]}$ is used to obtain the standard error $\sigma_\mathrm{e}$ of the MC simulation, which decreases with respect to the square root of the number of MC runs $N_{\mathrm{MC}}$ \citep{Hammersley75}: 
 \begin{equation} \sigma_\mathrm{e} = \frac{ \sigma \left( \widehat{\mathbf{x}}_{\left[1\right]} \right) }{\sqrt{N_{\mathrm{MC}}}}, \quad \mathrm{where} \quad \sigma^2 \left( \widehat{\mathbf{x}}_{\left[1\right]} \right) = \frac{1}{N_{\mathrm{MC}}-1} \sum_{i=1}^{N_{\mathrm{MC}}}{ \left( \left( \widehat{\mathbf{x}}_{\left[1\right]} \right)_i - \mu \left( \widehat{\mathbf{x}}_{\left[1\right]} \right) \right)^2 } . \label{eqn:stderr} \end{equation}
 
 In each of the $N_{\mathrm{MC}}$ runs we also obtain the aproximations of the estimation bias $\mathbf{b}_{\widetilde{\mathrm{p}} \left[1\right]}$ and variance $\mathbf{C}_{\widetilde{\mathrm{p}} \left[1,1\right]}$  from observed data, using Equations (\ref{eqn:biasEuST}), and (\ref{eqn:varEuST}).
@@ -260,7 +271,7 @@ The standard error of the bias prediction $b_{\widetilde{\mathrm{p}}}$ is given 
 
 The predicted bias $b_{\mathrm{p}} = \mathbf{b}_{\mathrm{p} \left[1\right]}$ and variance $v_{\mathrm{p}} = \mathbf{C}_{\mathrm{p} \left[1,1\right]}$ from exact data are obtained with one evaluation of the expressions (\ref{eqn:biasEu}) and (\ref{eqn:varEu}). %for unstructured EIV problems, or expressions (\ref{eqn:biasST}) and (\ref{eqn:varST}) for the structured EIV problem.
 
-Figure \ref{bias_sigma_NMC_unstr_str_n2} shows the empirical bias and the bias predictions, with their corresponding standard errors, for the unstructured (plots in the left) and structured (plots in the right) EIV problems.
+Figure \ref{bias_sigma_NMC_unstr_str_n2} shows the empirical bias and the bias predictions, with their corresponding standard errors, for the unstructured (plots in the top) and structured (plots in the bottom) EIV problems.
 The simulation settings for the structured and correlated EIV problem are described in the following subsection.
 In the figure, it can be observed that the empirical bias $b_\mathrm{e}$ is proportional to the perturbation noise variance while the standard error $\sigma_\mathrm{e}$ is proportional to the perturbation noise standard deviation.
 The bias predictions $b_\mathrm{p}$ and $b_{\widetilde{\mathrm{p}}}$ are accurate since they coincide with the empirical bias $b_\mathrm{e}$ in all the SNR interval for unstructured EIV problems, 
@@ -269,16 +280,10 @@ The bias estimates are spread near their sample means.
 The uncertainty is smaller than the bias, therefore, the MC simulation is meaningful.
 
 \begin{figure}[htb!]
-    \centering
-%    \begin{minipage}{0.45\textwidth}
-%        \centering
-        \includegraphics[width=1\textwidth]{./ChapterStatisticalAnalysis/fig/Fig_1l.pdf} 
- %   \end{minipage}
- %   \begin{minipage}{0.45\textwidth}
-  %      \centering
-        \includegraphics[width=1\textwidth]{./ChapterStatisticalAnalysis/fig/Fig_1r.pdf} 
-   % \end{minipage}
-  \caption{ \label{bias_sigma_NMC_unstr_str_n2} We observe the results of the LS solutions for the unstructured (left) and the structured (right) EIV problems. These results are the empirical bias $b_{\mathrm{e}}$, the predicted bias from exact data $b_{\mathrm{p}}$, the predicted bias from observed data $b_{\widetilde{\mathrm{p}}}$, the empirical standard error $\sigma_{\mathrm{e}}$, and the standard error from the estimations using observed data $\sigma_{\widetilde{\mathrm{p}}}$. The estimation biases are proportional to the perturbation variance and the estimation standard errors are proportional to the perturbation standard deviation. Since the standard errors are smaller than the biases, the MC simulation is meaningful. }
+ \centering
+ \includegraphics[width=1\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_1.pdf} 
+  \caption{ \label{bias_sigma_NMC_unstr_str_n2} 
+  We observe the results of the LS solutions for the unstructured (top) and the structured (bottom) EIV problems. These results are the empirical bias $b_{\mathrm{e}}$, the predicted bias from exact data $b_{\mathrm{p}}$, the predicted bias from observed data $b_{\widetilde{\mathrm{p}}}$, the empirical standard error $\sigma_{\mathrm{e}}$, and the standard error from the estimations using observed data $\sigma_{\widetilde{\mathrm{p}}}$. The estimation biases are proportional to the perturbation variance and the estimation standard errors are proportional to the perturbation standard deviation. Since the standard errors are smaller than the biases, the MC simulation is meaningful. }
 \end{figure}
 
 The absolute and relative errors between the predicted and the empirical bias are shown in Figure \ref{fig:b_bt_abse_rele_unstr_e7}. 
@@ -290,16 +295,9 @@ In order to reveal the bias error, more Monte Carlo runs are needed to reduce th
 If $N_{\mathrm{MC}}$ is insufficient, the uncertainty of the Monte Carlo simulation hides the bias error and we see this increasing effect of the relative errors. 
 
 \begin{figure}[htb!]
-    \centering
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{./ChapterStatisticalAnalysis/fig/Fig_2l.pdf} 
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{./ChapterStatisticalAnalysis/fig/Fig_2r.pdf} 
-    \end{minipage}
-  \caption{ \label{fig:b_bt_abse_rele_unstr_e7} The MC simulation shows that when we solve an unstructured EIV problem with LS, the absolute errors (left) between the predicted bias and the empirical bias are proportional to the perturbation noise variance as it is expected, and the relative errors (right) are smaller than 5\% for SNR below 70 dB. The bias prediction computed from exact data ${b}_\mathrm{p}$ is very similar to that computed using observed data $b_{\widetilde{\mathrm{p}}}$. } 
+  \centering
+  \includegraphics[width=1\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_2.pdf} 
+  \caption{ \label{fig:b_bt_abse_rele_unstr_e7} The MC simulation shows that when we solve an unstructured EIV problem with LS, the absolute errors (top) between the predicted bias and the empirical bias are proportional to the perturbation noise variance as it is expected, and the relative errors (bottom) are smaller than 5\% for SNR below 70 dB. The bias prediction computed from exact data ${b}_\mathrm{p}$ is very similar to that computed using observed data $b_{\widetilde{\mathrm{p}}}$. } 
 \end{figure}
 
 The errors between the predicted and the empirical variance are shown in Figure \ref{fig:v_vt_abse_rele_unstr_e7}.
@@ -307,16 +305,9 @@ The absolute and relative errors decrease with respect to the perturbation varia
 The relative errors are lower than 5\% for SNR above 40 dB. 
 
 \begin{figure}[htb!]
-    \centering
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{./ChapterStatisticalAnalysis/fig/Fig_3l.pdf} 
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{./ChapterStatisticalAnalysis/fig/Fig_3r.pdf} 
-    \end{minipage}
-  \caption{ \label{fig:v_vt_abse_rele_unstr_e7} The MC simulation shows that when we solve an unstructured EIV problem with LS, the absolute errors (left) between the predicted variances and the empirical variance are proportional to the perturbation noise variance, and the relative errors (right) are smaller than 5\% for SNR higher that 40 dB. The variance prediction computed using exact data ${v}_\mathrm{p}$ is very similar to that computed from observed data $v_{\widetilde{\mathrm{p}}}$. } 
+  \centering
+  \includegraphics[width=1\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_3.pdf} 
+  \caption{ \label{fig:v_vt_abse_rele_unstr_e7} The MC simulation shows that when we solve an unstructured EIV problem with LS, the absolute errors (top) between the predicted variances and the empirical variance are proportional to the perturbation noise variance, and the relative errors (bottom) are smaller than 5\% for SNR higher that 40 dB. The variance prediction computed using exact data ${v}_\mathrm{p}$ is very similar to that computed from observed data $v_{\widetilde{\mathrm{p}}}$. } 
 \end{figure}
 
 Figure \ref{fig:bv_btvt_abse_rele_unstr_e7} shows the absolute and the relative errors between the predictions computed from observed data and those computed from exact data.
@@ -325,16 +316,9 @@ The bias and variance predictions, from either exact data or observed data, are 
 The substitution of observed data on the prediction formulas is a valid procedure that allows the prediction of the estimate statistics.
 
 \begin{figure}[htb!]
-    \centering
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{./ChapterStatisticalAnalysis/fig/Fig_4l.pdf} 
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{./ChapterStatisticalAnalysis/fig/Fig_4r.pdf} 
-    \end{minipage}
-  \caption{ \label{fig:bv_btvt_abse_rele_unstr_e7} The MC simulation shows that when we solve an unstructured EIV problem with LS, the absolute errors (left) between the prediction with observed data and the prediction with exact data are proportional to the perturbation noise variance. The use of observed data instead of exact data in the prediction formulas is valid when the SNR is above 35 dB since the relative errors (right) are smaller than 5\%. } 
+  \centering
+  \includegraphics[width=1\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_4.pdf} 
+  \caption{ \label{fig:bv_btvt_abse_rele_unstr_e7} The MC simulation shows that when we solve an unstructured EIV problem with LS, the absolute errors (top) between the prediction with observed data and the prediction with exact data are proportional to the perturbation noise variance. The use of observed data instead of exact data in the prediction formulas is valid when the SNR is above 35 dB since the relative errors (bottom) are smaller than 5\%. } 
 \end{figure}
 
 
@@ -348,13 +332,13 @@ Processing 200 samples ensures that the step input estimation is computed from t
 
 \begin{figure}[htb!]
 \centering
-\includegraphics[width=0.5\textwidth]{./ChapterStatisticalAnalysis/fig/Fig_5.pdf} 
+\includegraphics[width=1\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_5.pdf} 
 \caption{ \label{fig:y} The structured EIV problem is constructed with 200 samples of the step response to ensure that only transient data is used. The relative errors between the values of $\mathbf{y}$ and the steady state value are smaller than 2\% after 400 samples, as it is indicated with dashed lines. } 
 \end{figure}
 
 The empirical bias is the sample mean of the $N_{\mathrm{MC}}$ estimates minus the true value
  \begin{equation} {b}_\mathrm{e} = \frac{1}{N_{\mathrm{MC}}} \sum_{i=1}^{N_{\mathrm{MC}}}{ \widehat{u}_i - u } \approx \mu \left( \widehat{u} \right) - u. \end{equation}
-The standard error associated to this empirical bias estimation \cite{Hammersley75} is defined as 
+The standard error associated to this empirical bias estimation \citep{Hammersley75} is defined as 
 \begin{equation} \sigma_\mathrm{e} = \frac{\sigma \left( \widehat{u} \right) }{\sqrt{N_{\mathrm{MC}}}}, \quad \mathrm{where} \quad \sigma^2 \left( \widehat{u} \right) = \frac{1}{N_{\mathrm{MC}}-1} \sum_{i=1}^{N_{\mathrm{MC}}}{ \left( { \widehat{u}}_i - \mu \left( \widehat{u} \right) \right)^2 } . \end{equation} 
 
 The plots on the right side of Figure \ref{bias_sigma_NMC_unstr_str_n2} show the empirical bias, the bias predictions (\ref{eqn:biasE}) and (\ref{eqn:biasST}), and their corresponding standard errors, for the structured EIV problem.
@@ -369,16 +353,9 @@ It can be seen that the absolute errors are proportional to the perturbation var
 %Nevertheless, the perturbation SNR in practical applications is not high and is near 40 dB
 
 \begin{figure}[htb!]
-    \centering
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{./ChapterStatisticalAnalysis/fig/Fig_6l.pdf} 
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{./ChapterStatisticalAnalysis/fig/Fig_6r.pdf} 
-    \end{minipage}
-  \caption{ \label{fig:b_bt_abse_rele_str_e7} The MC simulation shows that when we solve a structured EIV problem with LS, the absolute errors (left) between the predicted bias and the empirical bias $b_{\mathrm{e}}$ are proportional to the perturbation noise variance, and the relative errors (right) are smaller than 5\% only for SNR above 40 dB.}
+  \centering
+  \includegraphics[width=1\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_6.pdf} 
+  \caption{ \label{fig:b_bt_abse_rele_str_e7} The MC simulation shows that when we solve a structured EIV problem with LS, the absolute errors (top) between the predicted bias and the empirical bias $b_{\mathrm{e}}$ are proportional to the perturbation noise variance, and the relative errors (bottom) are smaller than 5\% only for SNR above 40 dB.}
 \end{figure}
 
 
@@ -391,29 +368,15 @@ These absolute errors are also proportional to the perturbation noise variance, 
 the relative errors show that the bias and variance predictions from either of the two alternatives are equivalent for SNR higher than 45 dB.
 
 \begin{figure}[htb!]
-    \centering
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{./ChapterStatisticalAnalysis/fig/Fig_7l.pdf} 
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{./ChapterStatisticalAnalysis/fig/Fig_7r.pdf} 
-    \end{minipage}
-  \caption{ \label{fig:v_vt_abse_rele_str_e7} The MC simulation shows that when we solve a structured EIV problem with LS, the absolute errors (left) between the predicted and the empirical variance are proportional to the perturbation variance, and the relative errors (right) between the predicted and the empirical variance are smaller than 5\% for SNR above 45 dB. }
+  \centering
+  \includegraphics[width=1\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_7.pdf} 
+  \caption{ \label{fig:v_vt_abse_rele_str_e7} The MC simulation shows that when we solve a structured EIV problem with LS, the absolute errors (top) between the predicted and the empirical variance are proportional to the perturbation variance, and the relative errors (bottom) between the predicted and the empirical variance are smaller than 5\% for SNR above 45 dB. }
 \end{figure}
 
 \begin{figure}[htb!]
-    \centering
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{./ChapterStatisticalAnalysis/fig/Fig_8l.pdf} 
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{./ChapterStatisticalAnalysis/fig/Fig_8r.pdf} 
-    \end{minipage}
-  \caption{ \label{fig:bv_btvt_abse_rele_str_e7} The MC simulation shows that when we solve a structured EIV problem with LS, the absolute errors (left) between the predictions computed from observed data and those from exact data are proportional to the perturbation noise variance. According to the relative errors (right), the substitution is valid for SNR higher than 45 dB. } 
+  \centering
+  \includegraphics[width=1\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_8.pdf} 
+  \caption{ \label{fig:bv_btvt_abse_rele_str_e7} The MC simulation shows that when we solve a structured EIV problem with LS, the absolute errors (top) between the predictions computed from observed data and those from exact data are proportional to the perturbation noise variance. According to the relative errors (bottom), the substitution is valid for SNR higher than 45 dB. } 
 \end{figure}
 
 The simulation results show that the LS solution of the structured and correlated EIV problem is more sensitive to the perturbation.
@@ -431,9 +394,9 @@ This is due to the constraint violation of the Taylor series expansion.
 
 
 \begin{figure}[!htpb]
-\centering
-\includegraphics[width=0.5\textwidth]{./ChapterStatisticalAnalysis/fig/Fig_9.pdf}
-\caption{\label{fig:MSE_CRLB}
+  \centering
+  \includegraphics[width=1\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_9.pdf}
+  \caption{\label{fig:MSE_CRLB}
 The mean squared errors of the LS estimate are close to the Cram\'er-Rao lower bound. This is a positive indication of the goodness of the LS estimator for the structured EIV problem. The mean squared error of the empirical estimates is represented by $\mathrm{MSE}_{\mathrm{e}}$, and those of the predictions are $\mathrm{MSE}_{\mathrm{p}}$ and $\mathrm{MSE}_{\widetilde{\mathrm{p}}}$. The $\mathrm{MSE}_{\widetilde{\mathrm{p}}}$ is smaller than CRLB below 40 dB of SNR because of the introduced bias error, but the difference between $\mathrm{MSE}_{\widetilde{\mathrm{p}}}$ and the CRLB is lower than one order of magnitude.}
 \end{figure}
 
@@ -463,6 +426,7 @@ The bias and variance expressions obtained after the statistical analysis depend
 
 
 
+\begin{comment}
 
 \section{STATISTICAL ANALYSIS - Ramp input}
 
@@ -495,8 +459,8 @@ We have then
   \begin{equation} \begin{aligned} {\mathrm{\mathbf{Cov}}}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) & \approx \mathbf{K}^\dagger \mathbf{W} \left( \sigma_{\epsilon}^2 \mathbf{I}_{T-n} + \mathbf{C}_1 - \mathbf{C}_2 - \mathbf{C}_2^\top \right) \mathbf{W} \mathbf{K}^{\dagger \top} - \mathbf{b}_{\mathrm{p}} \left( \widehat{x} \right) \mathbf{b}_{\mathrm{p}}^\top \left( \widehat{x} \right), \end{aligned} \label{eqn:varST} \end{equation}
   where $\mathbf{B}_1 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \mathbf{W} \mathbf{E} \Big\}$, $\mathbf{B}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{W} \mathbf{P}_\perp \mathbf{E} \Big\}$, $\mathbf{B}_3 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \mathbf{W} \bm{\epsilon} \Big\}$, $\mathbf{B}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{W} \mathbf{P}_\perp \bm{\epsilon} \Big\}$, $\mathbf{C}_1 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\mathbf{x}} \widehat{\mathbf{x}}^\top \mathbf{E}^\top \Big\}$, $\mathbf{C}_2 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\mathbf{x}} \bm{\epsilon}^\top \Big\}$, and $\mathbf{P}_\perp = \mathbf{I} - \mathbf{K} \mathbf{K}^\dagger \mathbf{W}$. 
 
-  The results of the expected values $\mathbf{B}_1$, $\mathbf{B}_2$, $\mathbf{B}_3$, $\mathbf{B}_4$, $\mathbf{C}_1$, and $\mathbf{C}_2$, were described by the authors of this paper in \cite{Quintana19}.
-The bias and covariance were obtained to extend previous analysis conducted on EIV estimation problems without an imposed structure \cite{Vaccaro94, Stewart90SPT}.
+  The results of the expected values $\mathbf{B}_1$, $\mathbf{B}_2$, $\mathbf{B}_3$, $\mathbf{B}_4$, $\mathbf{C}_1$, and $\mathbf{C}_2$, were described by the authors of this paper in \citep{Quintana19}.
+The bias and covariance were obtained to extend previous analysis conducted on EIV estimation problems without an imposed structure \citep{Vaccaro94, Stewart90SPT}.
 It was shown that the bias and variance expressions (\ref{eqn:biasST}) and (\ref{eqn:varST}) are valid predictions of the first and second moments of the LS estimate of a Hankel structured EIV problem.
 The problem formulated by the step input estimation method belongs to this type of structured EIV problems and can use the derived expressions to find the bias and variance of the input estimate $\widehat{u}$.
 The bias of the estimate $\widehat{u}$ is the fist element of $\mathbf{b}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right)$ and the variance of $\widehat{u}$ is the first element in the main diagonal of $\mathrm{\mathbf{Cov}}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right)$.
@@ -504,7 +468,7 @@ The bias of the estimate $\widehat{u}$ is the fist element of $\mathbf{b}_{\math
 
 \subsubsection{Cram\'er-Rao lower bound of the structured EIV problem}
 
-To find the Cram\'er-Rao lower bound (CRLB) of the structured EIV estimation problem (\ref{eqn:min_ls}), we consider that this structured and correlated estimation problem can be expressed as a linear in the measurements problem \cite{Pintelon12Book}
+To find the Cram\'er-Rao lower bound (CRLB) of the structured EIV estimation problem (\ref{eqn:min_ls}), we consider that this structured and correlated estimation problem can be expressed as a linear in the measurements problem \citep{Pintelon12Book}
 \begin{equation} e (\widehat{\mathbf{x}}, \mathbf{z}) = \mathbf{M}_1( \widehat{\mathbf{x}} ) \ \mathbf{z} = \underbrace{\begin{bmatrix} \mathbf{I}_{T-n} & - \widehat{\mathbf{x}}^T \otimes \mathbf{I}_{T-n} \end{bmatrix}}_{\mathbf{M}_1( \widehat{\mathbf{x}} )} \underbrace{\begin{bmatrix} \mathbf{y} \\ \mathrm{vec} ( \mathbf{K} ) \end{bmatrix}}_{\mathbf{z}} = 0 . \label{eqn:M1vecyK} \end{equation}
 where $\mathbf{z} = \widebar{\mathbf{z}} + \bm{\epsilon}_{\mathbf{z}}$.
 To have the CRLB, it is necessary the existence of the true model $\mathbf{M}_1( \mathbf{x} ) \ \mathbf{z} = 0$.
@@ -512,7 +476,7 @@ The measurement perturbation $\bm{\epsilon}_{\mathbf{z}}$ is assumed to be norma
 \begin{equation} \ln{ l(\mathbf{z}, \widehat{\mathbf{z}}, \widehat{\mathbf{x}}) } = - \frac{1}{2} \left( \mathbf{z} - \widehat{\mathbf{z}} \right)^\top \mathbf{C}_{\mathbf{z}}^{-1} \left( \mathbf{z} - \widehat{\mathbf{z}} \right) + \mathrm{constant}, \end{equation}
 where the elements of $\widehat{\mathbf{z}}$ are the estimated parameters of the measurements $\mathbf{z}$,  that satisfy $\mathbf{M}_1(\widehat{\mathbf{x}}) \ \widehat{\mathbf{z}} = 0$.
 The size of the Fisher information matrix $\mathbf{Fi}(\mathbf{x}, \mathbf{z})$ depends on the number of unknowns in $\widehat{\mathbf{z}}$ and grows with the sample size.
-However, the Fisher information matrix $\mathbf{Fi}(\mathbf{x})$ is obtained from $\mathbf{Fi}(\mathbf{x}, \mathbf{z})$, by doing inversion by parts \cite{Pintelon12Book} \S 19, and can be expressed as  
+However, the Fisher information matrix $\mathbf{Fi}(\mathbf{x})$ is obtained from $\mathbf{Fi}(\mathbf{x}, \mathbf{z})$, by doing inversion by parts \citep{Pintelon12Book} \S 19, and can be expressed as  
 \begin{equation} \mathbf{Fi}(\mathbf{x}) = \left( \frac{\partial e (\widehat{\mathbf{x}}, \mathbf{z}) }{\partial \mathbf{x} } \right)^\top \left( \mathbf{M}_1( \mathbf{x} ) \mathbf{C}_{\mathbf{z}}  \mathbf{M}_1^\top( \mathbf{x} ) \right)^{-1}  \left( \frac{\partial e (\widehat{\mathbf{x}}, \mathbf{z}) }{\partial \mathbf{x} } \right) .
  \label{eqn:FIM}   \end{equation} 
 The partial derivatives are evaluated at the true values $\mathbf{x}$. 
@@ -555,15 +519,13 @@ Considering the structure of the EIV problem, the bias and the covariance of the
 \begin{equation} \begin{aligned} \mathrm{\mathbf{C}}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) & \approx \mathbf{K}^\dagger \left( \sigma_{\bm{\epsilon}}^2 \mathbf{I}_{T-n} + \mathbf{C}_1 - \mathbf{C}_2 - \mathbf{C}_2^\top \right) \mathbf{K}^{\dagger \top}, \end{aligned} \label{eqn:varE} \end{equation}
 where $\mathbf{B}_1 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \mathbf{E} \Big\}$, $\mathbf{B}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{P}_\perp \mathbf{E} \Big\}$, $\mathbf{B}_3 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \bm{\epsilon} \Big\}$, $\mathbf{B}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{P}_\perp \bm{\epsilon} \Big\}$, $\mathbf{C}_1 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{x} \mathbf{x}^\top \mathbf{E}^\top \Big\}$, \linebreak $\mathbf{C}_2 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{x} \bm{\epsilon}^\top \Big\}$, and $\mathbf{P}_\perp = \mathbf{I} - \mathbf{K} \mathbf{K}^\dagger$. 
 
-The expected values $\mathbf{B}_1$, $\mathbf{B}_2$, $\mathbf{B}_3$, $\mathbf{B}_4$, $\mathbf{C}_1$, and $\mathbf{C}_2$, were studied in \cite{Quintana19} and their results are described in the following Lemma:
+The expected values $\mathbf{B}_1$, $\mathbf{B}_2$, $\mathbf{B}_3$, $\mathbf{B}_4$, $\mathbf{C}_1$, and $\mathbf{C}_2$, were studied in \citep{Quintana19} and their results are described in Lemma \ref{lem:lemma1}:
 
-\newtheorem{thm}{Theorem}
-\newtheorem{lem}[thm]{Lemma}
 
-\normalsize % \small
+% \normalsize % \small
 %   <how to set font size here to 10 px ? />
 
-\begin{lem}{\small}\label{lem:lemma1}
+\begin{lem}
 Let $\mathbf{E}$ be the matrix defined in (\ref{eqn:matrixE}),
 constructed from samples of the i.i.d. normally distributed random variable $\bm{\epsilon} \sim \mathcal{N}(0, \sigma_\epsilon^2)$.
 For a compatible deterministic matrix $\mathbf{H}$, or vector $\mathbf{h}$, we have
@@ -604,14 +566,14 @@ We have then
 \begin{equation} \begin{aligned} \mathrm{\mathbf{C}}_{\widetilde{\mathrm{p}}} \left( \widehat{\mathbf{x}} \right) & \approx \widetilde{\mathbf{K}}^\dagger \left( \sigma_{\epsilon}^2 \mathbf{I}_{T-n} + \widetilde{\mathbf{C}}_1 - \widetilde{\mathbf{C}}_2 - \widetilde{\mathbf{C}}_2^\top \right) \widetilde{\mathbf{K}}^{\dagger \top}, \end{aligned} \label{eqn:varST} \end{equation}
 where $\widetilde{\mathbf{B}}_1 = \mathbb{E} \Big\{ \mathbf{E} \widetilde{\mathbf{K}}^\dagger \mathbf{E} \Big\}$, $\widetilde{\mathbf{B}}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \widetilde{\mathbf{P}}_\perp \mathbf{E} \Big\}$, $\widetilde{\mathbf{B}}_3 = \mathbb{E} \Big\{ \mathbf{E} \widetilde{\mathbf{K}}^\dagger \bm{\epsilon} \Big\}$, $\widetilde{\mathbf{B}}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \widetilde{\mathbf{P}}_\perp \bm{\epsilon} \Big\}$, $\widetilde{\mathbf{\mathbf{C}}}_1 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\mathbf{x}} \widehat{\mathbf{x}}^\top \mathbf{E}^\top \Big\}$, $\widetilde{\mathbf{C}}_2 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\mathbf{x}} \bm{\epsilon}^\top \Big\}$, and $\widetilde{\mathbf{P}}_\perp = \mathbf{I} - \widetilde{\mathbf{K}} \widetilde{\mathbf{K}}^\dagger$. 
 
-The bias and covariance were obtained to extend previous analysis conducted on EIV estimation problems without an imposed structure \cite{Vaccaro94, Stewart90SPT}.
+The bias and covariance were obtained to extend previous analysis conducted on EIV estimation problems without an imposed structure \citep{Vaccaro94, Stewart90SPT}.
 It was shown that the bias and variance expressions (\ref{eqn:biasST}) and (\ref{eqn:varST}) are good predictions of the first and second moments of the LS estimate of a Hankel structured EIV problem.
 The problem formulated by the step input estimation method belongs to this type of structured EIV problems and the derived expressions can be used to find the bias and variance of the input estimate $\widehat{u}$.
 The bias and variance predictions approximate the empirical bias and variance.
 
 The assessment of the uncertainty of the estimate $\widehat{\mathbf{x}}$ is obtained from the covariance matrix $\mathrm{\mathbf{C}}_{\widetilde{\mathrm{p}}} \left( \widehat{\mathbf{x}} \right)$. In this way, the uncertainty of the step input estimate $\widehat{u}$ is described by the variance in the first element on the diagonal of $\mathrm{\mathbf{C}}_{\widetilde{\mathrm{p}}} \left( \widehat{\mathbf{x}} \right)$.
 
-In the rest of this section we describe the Cram\'er-Rao lower bound (CRB) of the structured EIV estimation problem (\ref{eqn:min_ls}), that can be expressed as a linear in the measurements problem \cite{Pintelon12Book}
+In the rest of this section we describe the Cram\'er-Rao lower bound (CRB) of the structured EIV estimation problem (\ref{eqn:min_ls}), that can be expressed as a linear in the measurements problem \citep{Pintelon12Book}
 \begin{equation} e (\widehat{\mathbf{x}}, \widetilde{\mathbf{z}}) = \mathbf{M}_1( \widehat{\mathbf{x}} ) \ \widetilde{\mathbf{z}} = \begin{bmatrix} \mathbf{I}_{T-n} & - \widehat{\mathbf{x}}^T \otimes \mathbf{I}_{T-n} \end{bmatrix} \begin{bmatrix} \widetilde{\mathbf{y}} \\ \mathrm{vec} ( \widetilde{\mathbf{K}} ) \end{bmatrix} = 0 . \label{eqn:M1vecyK} \end{equation}
 where $\widetilde{\mathbf{z}} = \mathbf{z} + \epsilon_{\mathbf{z}}$.
 The CRB requires that the true model $\mathbf{M}_1( \mathbf{x} ) \ \mathbf{z} = 0$ exists.
@@ -619,7 +581,7 @@ Under the assumption of the measurement perturbation $\epsilon_{\mathbf{z}}$ bei
 \begin{equation} \ln{ l(\widetilde{\mathbf{z}}, \widehat{\mathbf{z}}, \widehat{\mathbf{x}}) } = - \frac{1}{2} \left( \widetilde{\mathbf{z}} - \widehat{\mathbf{z}} \right)^\top \mathbf{C}_{\mathbf{z}}^{-1} \left( \widetilde{\mathbf{z}} - \widehat{\mathbf{z}} \right) + \mathrm{constant}, \end{equation}
 where $\widehat{\mathbf{z}}$ are parameters of the measurements $\widetilde{\mathbf{z}}$ that have to be estimated and satisfy $\mathbf{M}_1( \widehat{\mathbf{x}} ) \ \widehat{\mathbf{z}} = 0$.
 The size of the Fisher information matrix $\mathbf{Fi}(\mathbf{x}, \mathbf{z})$ depends on the number of unknowns in $\widehat{\mathbf{z}}$ and grows with the sample size.
-Moreover, in Chapter 19 of \cite{Pintelon12Book} it is shown that the Fisher information matrix $\mathbf{Fi}(\mathbf{x})$ can be obtained from $\mathbf{Fi}(\mathbf{x}, \mathbf{z})$ after doing inversion by parts, giving
+Moreover, in Chapter 19 of \citep{Pintelon12Book} it is shown that the Fisher information matrix $\mathbf{Fi}(\mathbf{x})$ can be obtained from $\mathbf{Fi}(\mathbf{x}, \mathbf{z})$ after doing inversion by parts, giving
 \begin{equation} \mathbf{Fi}(\mathbf{x}) = \left( \frac{\partial e (\widehat{\mathbf{x}}, \mathbf{z}) }{\partial \mathbf{x} } \right)^\top \left( \mathbf{M}_1( \mathbf{x} ) \mathbf{C}_{\mathbf{z}}  \mathbf{M}_1^\top( \mathbf{x} ) \right)^{-1}  \left( \frac{\partial e (\widehat{\mathbf{x}}, \mathbf{z}) }{\partial \mathbf{x} } \right) 
  \label{eqn:FIM}   \end{equation} 
 where the partial derivatives are evaluated at the true values $\mathbf{x}$, and the covariance matrix of the measurements is
@@ -635,6 +597,7 @@ and} \\
 The Cram\'er-Rao lower bound for an biased estimator of the minimization problem (\ref{eqn:min_ls}) is given by
 \begin{equation} \mathrm{CRB}_{\mathrm{b}}(\mathbf{x}) = \left( \mathbf{I}_{n+1} + \frac{\partial \mathbf{b} \left( \widehat{\mathbf{x}} \right) }{\partial \mathbf{x} } \right)^\top \mathbf{Fi}^{-1}(\mathbf{x}) \left( \mathbf{I}_{n+1} + \frac{\partial \mathbf{b} \left( \widehat{\mathbf{x}} \right) }{\partial \mathbf{x} } \right), \label{eqn:CRB_EIV} \end{equation} 
 and for an unbiased estimator it is $\mathrm{CRB}_{\mathrm{ub}}(\mathbf{x}) = \mathbf{Fi}^{-1}(\mathbf{x})$
+\end{comment}
 
 
 

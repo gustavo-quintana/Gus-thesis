@@ -9,8 +9,26 @@
 \end{quote}
 
 
-\section{Introduction  - Ramp input}
+\section{Introduction}
 
+The goal of a measurement is to accurately estimate the input value using the sensor transient response.
+The input might vary during the measurement being the simplest case the input that changes with a constant rate, described with an affine function.
+The inputs that vary at a constant rate activate the sensor gradually. 
+An affine input estimation method is needed to estimate the slope and the interception parameters of the affine function.
+
+This chapter describes two signal processing methods for the estimation of affine input parameters.
+These methods are a data-driven subspace method and a maximum-likelihood (ML) estimation method based on local-optimization.
+The subspace is a recursive method independent of the sensor model, and the ML method iteratively minimizes a cost function using a simulated sensor response in a receding time horizon.
+
+In this chapter, the dynamic weighing is chosen as an implementation example.
+The dynamic weighing of an affine input is an interesting metrology application because the affine input turns a linear time invariant sensor model into a time-varying sensor model.
+The affine input estimation methods provide an insight on the properties of the dynamic measurement of time-varying inputs.
+
+The effectiveness and the uncertainty of the methods are evaluated with simulation studies.
+The uncertainty is assessed, for the subspace method, using a Taylor expansion of the exponentially weighted recursive least squares estimate, and
+for the ML method, using the derivatives of the residual error obtained from the to-be-minimized cost function.
+
+\begin{comment}
 Measurements estimate the unknown value of a physical quantity, namely the measurand.
 The to-be-measured physical quantity is applied as an input signal to a sensor. 
 The sensor is a dynamical system and its output changes as a consequence of the input excitation and the sensor initial conditions.
@@ -65,6 +83,7 @@ Deterministic sampling aims to represent the minimal statistical information tha
 The uncertainty of the ML method is assessed using the derivatives of the residual error that constructs the to-be-minimized cost function.
 The covariance of the optimization method estimate is found using the inverse of the Hessian matrix \cite{Pintelon12Book}.
 
+\end{comment}
 
 
 
@@ -282,7 +301,7 @@ In Figure \ref{fig:sensor_weight} the input $u$ is represented with the dotted l
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=\columnwidth]{./ChapterRampInput/fig/Fig_2.pdf} 
+\includegraphics[width=1\columnwidth]{./ChapterRampInput/fig/Fig_2.pdf} 
 \caption{ \label{fig:sensor_weight} The sensor transient response $y$ to an affine input excitation $u = at+b$ is processed by the estimation methods to estimate the parameters $a$ and $b$. In the figure we observe an example of the input estimate $\widehat{u}$ obtained with the subspace method. The input parameters are calculated from $\widehat{u}$ using linear regression.}
 \end{figure}
 
@@ -308,7 +327,7 @@ The relative errors are smaller than 2 \% regardless of the measurement noise le
 \begin{table}[h!]
 \centering
 \caption{The values of the forgetting factor $\lambda$ and the samples shift $\tau$ that configure the subspace method for the different values of SNR. These values were obtained after calibration of the method and fixed during the simulation study.}
-\begin{tabular}{|c c c c c c|} 
+\begin{tabular}{c| c c c c c} 
  \hline
  SNR \ [dB] & 20 & 30 & 40 & 50 & 60 \\ [0.5ex] 
  \hline
@@ -322,14 +341,14 @@ The relative errors are smaller than 2 \% regardless of the measurement noise le
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=\columnwidth]{./ChapterRampInput/fig/Fig_3.pdf} 
+\includegraphics[width=1\columnwidth]{./ChapterRampInput/fig/Fig_3.pdf} 
 \caption{ \label{fig:rele_dd_40dB_s1} The relative errors of the affine input parameters estimation decrease as the subspace method processes more samples. The relative errors of the estimates $\widehat{a}$ and $\widehat{b}$ are smaller than 5 \% after 400 and 500 samples, respectively ($T_s = 0.1$ ms). }
 \end{figure}
 
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=\columnwidth]{./ChapterRampInput/fig/Fig_4.pdf} 
+\includegraphics[width=1\columnwidth]{./ChapterRampInput/fig/Fig_4.pdf} 
 \caption{ \label{fig:rele_SNR_dd_10000} The minimum value of the estimation relative errors obtained with the subspace method is less than 2  \% regardless of the SNR between 20 dB and 60 dB. }
 \end{figure}
 
@@ -354,14 +373,14 @@ The used sampling frequency constrains the estimation method effectiveness for t
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=\columnwidth]{./ChapterRampInput/fig/Fig_5.pdf} 
+\includegraphics[width=1\columnwidth]{./ChapterRampInput/fig/Fig_5.pdf} 
 \caption{ \label{fig:CRLB_MSE_ab_dd_40dB_MC_10000} When the SNR of the sensor response is 40 dB, the mean squared errors of the slope estimate $\widehat{a}$ and the interception estimate $\widehat{b}$, obtained by the subspace method, are two orders of magnitude above the theoretical minimum variance given by the Cram\'er-Rao lower bound.}
 \end{figure}
 
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=\columnwidth]{./ChapterRampInput/fig/Fig_6.pdf} 
+\includegraphics[width=1\columnwidth]{./ChapterRampInput/fig/Fig_6.pdf} 
 \caption{ \label{fig:CRLB_MSE_SNR_ab_dd_MC_10000} The Cram\'er-Rao lower bounds of the estimates $\mathrm{CRLB}_a$ and $\mathrm{CRLB}_b$ determine the minimum uncertainty that can be achieved and increases with the measurement noise. 
 The empirical mean squared errors $\mathrm{MSE}_{\hat{a}}$ and $\mathrm{MSE}_{\hat{b}}$ are near to the Cram\'er-Rao lower bounds within one order of magnitude for SNR smaller than 30 dB, and within two orders of magnitude for SNR between 40 dB and 60 dB. }
 \end{figure}
@@ -372,21 +391,26 @@ The empirical mean squared errors $\mathrm{MSE}_{\hat{a}}$ and $\mathrm{MSE}_{\h
 \centering
 \caption{ The maximum values of the estimation mean squared errors observed when the subspace method processed the sensor transient responses caused by ramp excitations of masses 0.1, 0.3, 0.5, and 1.0 kg, that last 0.05, 0.1 and 0.5 s, with signal to noise ratios in the interval [20 dB, 60 dB] occur mainly at 40 dB and for lower SNR. There is an increment in the MSE values when the ramp excitation is faster.}
  
-\begin{tabular}{|L|L L L L L|} 
+\begin{tabular}{L|L L L L} 
  \hline
- \mathrm{Time \ [s]} & \mathrm{Mass \ [kg]} & 0.1 & 0.3 & 0.5 & 1.0 \\ [0.5ex] 
+ & \mathrm{Mass} & \\ [0.5ex] 
+ \mathrm{Time} & 0.1 \ kg & 0.3 \ kg & 0.5 \ kg & 1.0 \ kg \\ 
  \hline
- 0.05 & \hspace{7.5mm} \mathrm{MSE}_{\hat{a}}: & 3.55\mathrm{x}10^{0} (@40 \ \mathrm{dB}) & 13.5\mathrm{x}10^{0} (@50 \ \mathrm{dB}) & 3.80\mathrm{x}10^{0} (@20 \ \mathrm{dB}) & 8.29\mathrm{x}10^{0}  (@50 \ \mathrm{dB}) \\ 
- & \hspace{7.5mm} \mathrm{MSE}_{\hat{b}}: & 3.10\mathrm{x}10^{-3} (@40 \ \mathrm{dB})  & 1.11\mathrm{x}10^{-2} (@40  \ \mathrm{dB}) & 1.07\mathrm{x}10^{-2} (@40  \ \mathrm{dB}) & 1.92\mathrm{x}10^{-2} (@60  \ \mathrm{dB})\\
- 0.1 & \hspace{7.5mm} \mathrm{MSE}_{\hat{a}}: & 3.08\mathrm{x}10^{-2} (@30 \ \mathrm{dB}) & 1.16\mathrm{x}10^{0} (@40  \ \mathrm{dB}) & 8.34\mathrm{x}10^{-1} (@60 \ \mathrm{dB}) & 1.27\mathrm{x}10^{0} (@50  \ \mathrm{dB}) \\
- & \hspace{7.5mm} \mathrm{MSE}_{\hat{b}}: & 5.99\mathrm{x}10^{-5} (@30 \ \mathrm{dB}) & 1.17\mathrm{x}10^{-1} (@50  \ \mathrm{dB}) & 2.10\mathrm{x}10^{-2} (@40  \ \mathrm{dB}) & 3.76\mathrm{x}10^{-2} (@40  \ \mathrm{dB}) \\
- 0.5 & \hspace{7.5mm} \mathrm{MSE}_{\hat{a}}: & 3.03\mathrm{x}10^{-2} (@20 \ \mathrm{dB}) & 2.98\mathrm{x}10^{-1} (@20  \ \mathrm{dB}) & 3.25\mathrm{x}10^{0} (@20 \ \mathrm{dB}) & 8.60\mathrm{x}10^{-2} (@20  \ \mathrm{dB}) \\
- & \hspace{7.5mm} \mathrm{MSE}_{\hat{b}}: & 3.10\mathrm{x}10^{-5} (@50 \ \mathrm{dB}) & 9.86\mathrm{x}10^{-4} (@40 \ \mathrm{dB}) & 2.06\mathrm{x}10^{-5} (@50 \ \mathrm{dB}) & 1.74\mathrm{x}10^{-5} (@20 \ \mathrm{dB}) \\ [0.5ex] % [\mathrm{samples}]
+\multicolumn{1}{l|}{0.05 \ s} & \\
+ \multicolumn{1}{r|}{\hspace{1mm} \mathrm{MSE}_{\hat{a}} \ [g^2]} & 3.5\mathrm{x}10^{0}_{(@40 \ \mathrm{dB})} & 13.5\mathrm{x}10^{0}_{(@50 \ \mathrm{dB})} & 3.8\mathrm{x}10^{0}_{(@20 \ \mathrm{dB})} & 8.3\mathrm{x}10^{0}_{(@50 \ \mathrm{dB})} \\ 
+\multicolumn{1}{r|}{\hspace{1mm}\mathrm{MSE}_{\hat{b}} \ [g^2]} &  3.1\mathrm{x}10^{-3}_{(@40 \ \mathrm{dB})}  & 1.1\mathrm{x}10^{-2}_{(@40 \ \mathrm{dB})} & 1.1\mathrm{x}10^{-2}_{(@40 \ \mathrm{dB})} & 1.9\mathrm{x}10^{-2}_{(@60 \ \mathrm{dB})} \\
+\multicolumn{1}{l|}{0.1 \ s} & \\
+ \multicolumn{1}{r|}{\hspace{1mm}\mathrm{MSE}_{\hat{a}} \ [g^2]} & 3.1\mathrm{x}10^{-2}_{(@30 \ \mathrm{dB})} & 1.1\mathrm{x}10^{0}_{(@40 \ \mathrm{dB})} & 8.3\mathrm{x}10^{-1}_{(@60 \ \mathrm{dB})} & 1.3\mathrm{x}10^{0}_{(@50 \ \mathrm{dB})} \\
+\multicolumn{1}{r|}{\hspace{1mm} \mathrm{MSE}_{\hat{b}} \ [g^2]} & 6.0\mathrm{x}10^{-5}_{(@30 \ \mathrm{dB})} & 1.2\mathrm{x}10^{-1}_{(@50 \ \mathrm{dB})} & 2.1\mathrm{x}10^{-2}_{(@40 \ \mathrm{dB})} & 3.7\mathrm{x}10^{-2}_{(@40 \ \mathrm{dB})} \\
+\multicolumn{1}{l|}{0.5 \ s} & \\
+ \multicolumn{1}{r|}{\hspace{1mm} \mathrm{MSE}_{\hat{a}} \ [g^2]} & 3.0\mathrm{x}10^{-2}_{(@20 \ \mathrm{dB})} & 3.0\mathrm{x}10^{-1}_{(@20 \ \mathrm{dB})} & 3.2\mathrm{x}10^{0}_{(@20 \ \mathrm{dB})} & 8.6\mathrm{x}10^{-2}_{(@20 \ \mathrm{dB})} \\
+\multicolumn{1}{r|}{\hspace{1mm} \mathrm{MSE}_{\hat{b}} \ [g^2]} & 3.1\mathrm{x}10^{-5}_{(@50 \ \mathrm{dB})} & 9.8\mathrm{x}10^{-4}_{(@40 \ \mathrm{dB})} & 2.0\mathrm{x}10^{-5}_{(@50 \ \mathrm{dB})} & 1.7\mathrm{x}10^{-5}_{(@20 \ \mathrm{dB})} \\ [0.5ex] % [\mathrm{samples}]
  \hline
 \end{tabular}
 \
 \label{table:differentmasses}
 \end{table}
+
 
 A numerical sensitivity analysis of the subspace method was conducted by adding uncertainty to ramp input generation and looking into the estimation results. 
 The uncertainty $\sigma_{\mathrm{s}}$ of the speed in which the ramp increases, and the uncertainties of the input parameters, represented by $\sigma_{a,b}$, were selected to be 0\%, 5\% and 10\% of their true values.
@@ -399,23 +423,25 @@ The parameter that is more affected by the input parameters uncertainty is the i
 \centering
 \caption{ A sensitivity analysis of the subspace method was conducted by adding uncertainty to the ramp input. The speed $\sigma_{\mathrm{s}}$, and the input parameters $\sigma_{\mathrm{s}}$ uncertainties are 0\%, 5\%, and 10\% of their true values. The table shows the maximum values of the estimates uncertainty. The speed uncertainty causes a smaller spread of the estimates than the input parameters uncertainty.}
  
-\begin{tabular}{|C| C C C C|} 
+\begin{tabular}{C| C C C} 
 \hline  
- &  & \sigma_{\mathrm{s}}: \hspace{4mm} 0\% & \hspace{8.1mm} 5\% & \hspace{8.1mm} 10\% \\ [0.5ex] 
+& \sigma_{\mathrm{s}} \\ [0.5ex] 
+\sigma_{{a},{b}}  & 0\% & 5\% & 10\% \\  
  \hline
- \sigma_{{a},{b}}: \hspace{1.6mm} 0\% & \widehat{a} \ [\mathrm{kg/s}] & 0.990 \pm 9.6 \% \ (@50 \ \mathrm{dB}) &  0.999 \pm 8.2 \% \ (@20 \ \mathrm{dB}) & 0.996 \pm 8.2 \% \ (@50 \ \mathrm{dB}) \\ 
-  & \widehat{b} \ \mathrm{[g]} & \hspace{-1.75mm} 10.0 \pm 10.3 \% \ (@20 \ \mathrm{dB}) & 9.91 \pm 14.2 \% \ (@30 \ \mathrm{dB}) &  9.99 \pm 21.7 \% \ (@60 \ \mathrm{dB}) \\ 
- \hspace{6.65mm} 5\% & \widehat{a} \ [\mathrm{kg/s}] & 0.994 \pm 9.7 \% \ (@50 \ \mathrm{dB}) & 0.993 \pm 11.3 \% \ (@20 \ \mathrm{dB}) & 0.997 \pm 8.0 \% \ (@50 \ \mathrm{dB}) \\  
-  & \widehat{b} \ \mathrm{[g]} & 9.98 \pm 22.4 \% \ (@50 \ \mathrm{dB}) & \hspace{-1.75mm} 10.02 \pm 33.2 \% \ (@30 \ \mathrm{dB}) & 9.94 \pm 16.6 \% \ (@50 \ \mathrm{dB}) \\ 
-\hspace{4.88mm} 10\% & \widehat{a} \ [\mathrm{kg/s}] & 1.00 \pm 20.3 \% \ (@40 \ \mathrm{dB}) & 1.00 \pm 22.0 \% \ (@50 \ \mathrm{dB}) & 0.996 \pm 17.7 \% \ (@40 \ \mathrm{dB}) \\    
- & \widehat{b} \ \mathrm{[g]} & 9.97 \pm 46.8 \% \ (@40 \ \mathrm{dB}) & 9.78 \pm 58.8 \% \ (@50 \ \mathrm{dB}) & 9.91 \pm 41.6 \% \ (@40 \ \mathrm{dB}) \\ [0.5ex] 
+ \multicolumn{1}{l|}{0\%} \\
+ \multicolumn{1}{l|}{\hspace{2mm} \widehat{a} \ [\mathrm{kg/s}]} & 1.0 \pm 9.6 \%_{(@50 \ \mathrm{dB})} &  1.0 \pm 8.2 \%_{(@20 \ \mathrm{dB})} & 1.0 \pm 8.2 \%_{(@50 \ \mathrm{dB})} \\ 
+ \multicolumn{1}{l|}{\hspace{2mm} \widehat{b} \ \mathrm{[g]}} & 10.0 \pm 10.3 \%_{(@20 \ \mathrm{dB})} & 9.9 \pm 14.2 \%_{(@30 \ \mathrm{dB})} &  10.0 \pm 21.7 \%_{(@60 \ \mathrm{dB})} \\ 
+ \multicolumn{1}{l|}{5\%} \\
+ \multicolumn{1}{l|}{\hspace{2mm} \widehat{a} \ [\mathrm{kg/s}]} & 1.0 \pm 9.7 \%_{(@50 \ \mathrm{dB})} & 1.0 \pm 11.3 \%_{(@20 \ \mathrm{dB})} & 1.0 \pm 8.0 \%_{(@50 \ \mathrm{dB})} \\  
+ \multicolumn{1}{l|}{\hspace{2mm} \widehat{b} \ \mathrm{[g]}} & 10.0 \pm 22.4 \%_{(@50 \ \mathrm{dB})} & 10.0 \pm 33.2 \%_{(@30 \ \mathrm{dB})} & 9.9 \pm 16.6 \%_{(@50 \ \mathrm{dB})} \\ 
+\multicolumn{1}{l|}{10\%} \\
+\multicolumn{1}{l|}{\hspace{2mm} \widehat{a} \ [\mathrm{kg/s}]} & 1.0 \pm 20.3 \%_{(@40 \ \mathrm{dB})} & 1.0 \pm 22.0 \%_{(@50 \ \mathrm{dB})} & 1.0 \pm 17.7 \%_{(@40 \ \mathrm{dB})} \\    
+ \multicolumn{1}{l|}{\hspace{2mm} \widehat{b} \ \mathrm{[g]}} & 9.9 \pm 46.8 \%_{(@40 \ \mathrm{dB})} & 9.8 \pm 58.8 \%_{(@50 \ \mathrm{dB})} & 9.9 \pm 41.6 \%_{(@40 \ \mathrm{dB})} \\ [0.5ex] 
 \hline
 \end{tabular}
 \
 \label{table:dd_sensitivity}
 \end{table}
-
-
 
 
 
@@ -428,7 +454,7 @@ The largest relative error observed is in the scale velocity $\widehat{x}_{\math
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=\columnwidth]{./ChapterRampInput/fig/Fig_7.pdf} 
+\includegraphics[width=1\columnwidth]{./ChapterRampInput/fig/Fig_7.pdf} 
 \caption{ \label{fig:rele_lo_40dB_s10} The affine input parameters and the sensor initial conditions are estimated with the ML method. After three iterations the relative errors of the estimates are smaller than 5 \%.  }
 \end{figure}
 
@@ -438,7 +464,7 @@ We can see that the variances of $\widehat{a}$ and $\widehat{b}$ decrease faster
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=\columnwidth]{./ChapterRampInput/fig/Fig_8.pdf} 
+\includegraphics[width=1\columnwidth]{./ChapterRampInput/fig/Fig_8.pdf} 
 \caption{ \label{fig:cov_lo_40dB_s1} The variances of the ML estimates are calculated using the information provided by the analytic Jacobian. The variances of the affine input parameters estimates decrease faster than the variances of the initial conditions estimates.  }
 \end{figure}
 
@@ -520,7 +546,7 @@ The convergence rate of the estimate $\widehat{a}$ was similar to that of the su
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=\columnwidth]{./ChapterRampInput/fig/Fig_9.pdf} 
+\includegraphics[width=1\columnwidth]{./ChapterRampInput/fig/Fig_9.pdf} 
 \caption{ \label{fig:rele_tv_40dB_s1} The relative errors of the time-varying filter estimation converge slower than with the subspace method. 
 The relative errors of $\widehat{a}$ and $\widehat{b}$ are smaller than 5 \% only after 800 and 950 samples, respectively.
 With the subspace method the relative errors are below 5 \% after 400 and 500 samples. }
@@ -596,7 +622,7 @@ The estimation methods are compared in a simulation study where the time-varying
 The subspace method results are also compared to those of an existing digital time-varying filter.
 The coefficients of the time-varying filter require offline optimization.
 The estimation results obtained with the subspace method converges two times faster and is one order of magnitude smaller than those obtained with the time-varying filter.
-The empirical mean squared errors of the subspace method estimation is two orders of magnitude larger than the theoretical minimum given by the Cr\'amer-Rao Lower bound.
+The empirical mean squared errors of the subspace method estimation is two orders of magnitude larger than the theoretical minimum given by the Cram\'er-Rao Lower bound.
 
 Future work of this research is the practical implementation of the subspace method for real-time measurements.
 

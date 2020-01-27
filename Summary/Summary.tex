@@ -1,7 +1,31 @@
 %!TEX root = ..\Thesis.tex
 \chapter{Summary} \label{chap:Summary}
 
+\vspace{-1.2cm}
 
+Sensors are dynamical systems and the physical quantity is the input excitation.
+To have fast measurements, the input must be estimated during the sensor transient state.
+Otherwise, users have to wait for the sensor steady state when the response is proportional to the input through the sensor static gain.
+One approach to get fast input estimation is filtering the sensor transient response with another dynamical system aiming to reconstruct the input and to compensate the estimation time.
+Another approach is processing the transient response on a digital signal processor (DSP).
+Compensators are model based and DSPs allow model free methods that can reduce the estimation time.
+
+There exists a model-free method that directly estimates the step input level from the sensor step response.
+This method was formulated as a Hankel structured errors-in-variables (EIV) problem where the regression matrix and the regressor are correlated.
+The structured EIV problem is solved with recursive least-squares to allow real-time implementation.
+The range of application of this step input estimation method is wide because it is independent from sensor models.
+
+The stochastic properties of the step input estimation method are unknown and are not straightforwardly evident.
+To validate the method for metrology applications, we studied the estimate uncertainty by doing a statistical analysis of the step input estimation.
+The estimate uncertainty can be defined in terms of the estimate bias and variance.
+The statistical analysis of the estimation method yields expressions that predict the estimate first and second moments.
+
+We computed the Cram\'er-Rao bound of the structured EIV problem to determine the minimum theoretical variance of the estimate.
+This bound was compared to the estimate mean squared error (MSE) in simulations and in experiments with temperature and weighing sensors.
+It was found that the input estimation is biased but with small variance, and that the estimate MSE is less than one order of magnitude larger than the Cram\'er-Rao bound.
+In the practice, the step input estimation method was found to be robust when the Gaussian and white measurement noise assumption was not satisfied.
+
+\begin{comment}
 \section{Summary - Ramp input}
 
 A measurement is a dynamical process that aims to estimate the true value of a measurand.
@@ -45,3 +69,7 @@ Recently, a signal processing method was proposed to avoid the identification st
 This data-driven step input estimation method requires only the order of the sensor dynamics and the sensor static gain.
 To validate the data-driven step input estimation method, in this paper, the uncertainty of the input estimate is studied and illustrated on simulation and real-life weighing measurements.
 It was found that the predicted mean-squared error of the input estimate is close to an approximate Cram\'er-Rao lower bound for biased estimators.
+\end{comment}
+
+
+%\newpage

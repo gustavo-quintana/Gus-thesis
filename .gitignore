@@ -1,9 +1,9 @@
-*.sublime-workspace
-*.aux
+*.sublime-workspace 
 *.dvi
 *.fdb_latexmk
 *.fls
 *.log
+*.aux
 Cover.pdf
 IM-19-21688-final-version.pdf 
 IM-19-21688-final-version.tex

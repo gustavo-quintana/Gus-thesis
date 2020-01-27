@@ -3,23 +3,27 @@
 %% It has been adapted slightly by Gustavo Quintana.
 %% Compile with: pdflatex --shell-escape -synctex=1 -interaction=nonstopmode Gus-thesis.tex 
 %%
-\documentclass[english,british,BCOR=5mm,DIV=12,fontsize=10pt]{scrbook}
+\documentclass[english, british, BCOR=5mm, DIV=12, fontsize=10pt]{scrbook}
 \usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
-\usepackage[paperwidth=17cm,paperheight=24cm]{geometry}
-\geometry{verbose,tmargin=2.5cm,bmargin=3cm,lmargin=2.5cm,rmargin=2cm}
-\setcounter{secnumdepth}{1}
-\setcounter{tocdepth}{1}
+\usepackage[paperwidth=17cm, paperheight=24cm]{geometry}
+\geometry{verbose, tmargin=2.5cm, bmargin=3cm, lmargin=2.5cm, rmargin=2cm}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
 \setlength{\parskip}{\medskipamount}
 \setlength{\parindent}{0pt}
 \synctex=-1
 \usepackage{color}
 \definecolor{note_fontcolor}{rgb}{0.800781, 0.800781, 0.800781}
-\usepackage{babel, array, verbatim, float, booktabs, units, amsmath, amssymb, graphicx, tikz}
-\usepackage{mathdots, amsthm, textcomp, times, mathptmx, mathtools, bm, amsbsy}
-\usepackage[unicode=true,pdfusetitle, bookmarks=true, bookmarksnumbered=false, bookmarksopen=false, breaklinks=false,pdfborder={0 0 0}, pdfborderstyle={}, backref=false, colorlinks=false] {hyperref}
+\usepackage{amsmath, amssymb, amsthm, amsbsy, array, babel, booktabs, bm, float, graphicx, mathdots, mathptmx, mathtools, newproof, textcomp, times, units, verbatim}
+\usepackage[unicode=true,pdfusetitle, bookmarks=true, bookmarksnumbered=false, bookmarksopen=false, breaklinks=true,pdfborder={0 0 0}, pdfborderstyle={}, backref=false, colorlinks=false] {hyperref}
 \usepackage[outdir=./]{epstopdf}
+\usepackage{tikz, circuitikz}
 \usetikzlibrary{shapes,arrows,calc,patterns,decorations.pathmorphing,decorations.markings,positioning}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newproof{pf}{Proof}
 
 \makeatletter
 
@@ -40,6 +44,10 @@
 % lyxgreyedout defined in latex
 \renewenvironment{lyxgreyedout}
 {\textcolor{red}\bgroup}{\egroup}
+
+%\hyphenation{Lon-g-las-t-na-me}
+\usepackage[square]{natbib}
+\bibliographystyle{plainnat} % wmaainf  apalike
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Start Document
 \makeatother
@@ -171,11 +179,11 @@
 
 \include{ChapterPreliminaries/ChapterPreliminaries}
 
-\include{ChapterRampInput/ChapterRampInput}
-
 \include{ChapterStatisticalAnalysis/ChapterStatisticalAnalysis}
 
 \include{ChapterExperimentalValidation/ChapterExperimentalValidation}
+
+\include{ChapterRampInput/ChapterRampInput}
 
 %\part{Figures of merit for~characterizing nonlinear~devices}\label{part:PA}
 
@@ -193,8 +201,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Bibliography
 
 \addcontentsline{toc}{chapter}{Bibliography}
-
-\bibliographystyle{apalike} % wmaainf
+ 
 \bibliography{Gus-thesis}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Back cover
