@@ -2,15 +2,16 @@
 
 \glsresetall
 
-\chapter{Statistical Analysis}\label{chap:StatisticalAnalysis}
+\chapter{Statistical Analysis} \label{chap:StatisticalAnalysis}
 
 \begin{quote}
-\emph{The results of this chapter ...}\vfill{}
+\emph{The results of this chapter were published in Quintana Carapia, G., Markovsky, I. Pintelon, R., Csurcsia, P.Z., and Verbeke, D., "Bias and covariance of the least squares estimate in a structured errors-in-variables problem", Computational Statistics & Data Analysis journal, Vol. 144, 2020, ISSN 0167-9473, doi:10.1016/j.csda.2019.106893. \nocite{QuintanaCSDA} }\vfill{}
 \end{quote}
 
 
+\vfill{}
 
-\section{Introduction}
+%\section{Introduction}
 
 The linear estimation problems with perturbation in both the regression matrix and the regressor are errors-in-variables (EIV) problems.
 To evaluate the properties of the solution to an EIV problem it is often required to calculate the statistical moments of the estimate.
@@ -68,15 +69,14 @@ We observed that, for the step input estimation problem, the mean squared error 
 
 
 
-\section{Statistical analysis}
+\section{Statistical analysis of the data-driven step input estimation method}
 
-
-For an overdetermined system of linear equations, the least-squares (LS) solution is given by
+For an overdetermined system of linear equations, constructed by the data-driven step input estimation method (\ref{eqn:min_seiv}), the least-squares (LS) solution is given by
 \begin{equation} \widehat{\mathbf{x}} = \widetilde{\mathbf{K}}^\dagger \widetilde{\mathbf{y}} = ( \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{K}} )^{-1} \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{y}} , \label{eqn:xhat} \end{equation}
 where $\widetilde{\mathbf{K}}^\dagger$ is the pseudo-inverse of $\widetilde{\mathbf{K}}$.
-The objective of the statistical analysis is to obtain the bias and the covariance of the solution $\widehat{\mathbf{x}}$.
+The objective of the statistical analysis is to obtain the bias and the covariance of the solution $\widehat{\mathbf{x}}$ to the structured and correlated EIV problem (\ref{eqn:ddsiemnd}).
 The bias and the covariance are computed using the mathematical expectation operator $\mathbb{E}\{\cdot\}$.
-First we substitute (\ref{eqn:y0plusnoise}) and (\ref{eqn:K0plusnoise}) in (\ref{eqn:xhat}) obtaining
+First we substitute the expressions (\ref{eqn:y0plusnoise}) and (\ref{eqn:K0plusnoise}) in Equation (\ref{eqn:xhat}) to obtain
 \begin{equation*} \widehat{\mathbf{x}} = \left( (\mathbf{K}+\mathbf{E})^\top (\mathbf{K}+\mathbf{E})  \right)^{-1} (\mathbf{K}+\mathbf{E})^\top (\mathbf{y}+\bm{\epsilon}), \end{equation*} 
 which is equivalent to
 \begin{equation} \widehat{\mathbf{x}} = \left( \mathbf{I} + \mathbf{M} \right)^{-1} \mathbf{Q}^{-1} (\mathbf{K}+\mathbf{E})^\top (\mathbf{y}+\bm{\epsilon}), \label{eqn:1steq} \end{equation} 
@@ -136,7 +136,7 @@ In order to have a prediction of the estimate bias and covariance, the variances
 \subsection{Bias and covariance of the LS estimator for a structured EIV problem with noise correlation}
 
 This subsection describes the statistics of a structured EIV problem with correlation between the perturbations of the regression matrix and the regressor. 
-The structured EIV problem is given by the step input estimation method (\ref{eqn:min_ls}).
+The structured EIV problem is given by the step input estimation method (\ref{eqn:min_seiv}).
 The correlation is a consequence of the construction of the block-Hankel matrix in the regression matrix $\widetilde{\mathbf{K}}$ with the first difference of the elements in the regressor $\widetilde{\mathbf{y}}$.
 
 The mathematical expectation operator is applied to the Taylor series expansion of the LS estimate (\ref{eqn:xhatexp}).
@@ -212,7 +212,7 @@ The Fisher information matrix is defined as the expected value of the Hessian of
 \begin{equation} \mathbf{Fi}(x) = - \mathbb{E} \left\{ \frac{\partial ^2 l (\widehat{\mathbf{x}}) }{\partial \widehat{\mathbf{x}}^2 } \right\}, \end{equation}
 where the partial derivatives are evaluated in $\widehat{\mathbf{x}} = \mathbf{x}$.
 
-The minimization problem (\ref{eqn:min_ls}) is equivalent to a structured EIV problem that can be expressed as a linear in the measurements problem \citep{Pintelon12Book}
+The minimization problem (\ref{eqn:min_seiv}) is a structured EIV problem that can be expressed as a linear in the measurements problem \citep{Pintelon12Book}
 \begin{equation} e (\widehat{\mathbf{x}}, \widetilde{\mathbf{z}}) = \mathbf{M}_1( \widehat{\mathbf{x}} ) \ \widetilde{\mathbf{z}} = \begin{bmatrix} \mathbf{I}_{T-n} & - \widehat{\mathbf{x}}^T \otimes \mathbf{I}_{T-n} \end{bmatrix} \begin{bmatrix} \widetilde{\mathbf{y}} \\ \mathrm{vec} ( \widetilde{\mathbf{K}} ) \end{bmatrix} = 0 . \label{eqn:M1vecyK} \end{equation}
 where $\widetilde{\mathbf{z}} = \mathbf{z} + \epsilon_{\mathbf{z}}$.
 The CRB requires that the true model $\mathbf{M}_1( \mathbf{x} ) \ \mathbf{z} = 0$ exists.
@@ -227,7 +227,7 @@ where the partial derivatives are evaluated at the true values $\mathbf{x}$, and
 \begin{equation} \mathbf{C}_{\mathbf{z}} = \sigma_{\epsilon}^2 \begin{bmatrix} \mathbf{I}_{T-n} & \mathbf{0}_{T-n} & \mathbf{D}_{T-n \times T-n}^{1,n} & \mathbf{D}_{T-n \times T-n}^{1,n-1} & \cdots & \mathbf{D}_{T-n \times T-n}^{1,1} \\ \mathbf{0}_{T-n} & \mathbf{0}_{T-n} & \mathbf{0}_{T-n} & \mathbf{0}_{T-n} & \cdots & \mathbf{0}_{T-n} \\ \left( \mathbf{D}_{T-n \times T-n}^{1,n} \right)^\top & \mathbf{0}_{T-n} & \mathbf{D}_{T-n \times T-n}^{2,1} & \mathbf{D}_{T-n \times T-n}^{2,0} & \cdots & \mathbf{D}_{T-n \times T-n}^{2,2-n} \\ \left( \mathbf{D}_{T-n \times T-n}^{1,n-1} \right)^\top & \mathbf{0}_{T-n} & \mathbf{D}_{T-n \times T-n}^{2,2} & \mathbf{D}_{T-n \times T-n}^{2,1} & \cdots & \mathbf{D}_{T-n \times T-n}^{2,3-n} \\ \vdots & \vdots & \vdots & \vdots & & \vdots \\ \left( \mathbf{D}_{T-n \times T-n}^{1,1} \right)^\top & \mathbf{0}_{T-n} & \mathbf{D}_{T-n \times T-n}^{2,n} & \mathbf{D}_{T-n \times T-n}^{2,n-1} & \cdots & \mathbf{D}_{T-n \times T-n}^{2,1} \end{bmatrix} .
  \label{eqn:Cz} \end{equation} 
 
-The Cram\'er-Rao lower bound for an biased estimator of the minimization problem (\ref{eqn:min_ls}) is given by
+The Cram\'er-Rao lower bound for an biased estimator of the minimization problem (\ref{eqn:min_seiv}) is given by
 \begin{equation} \mathrm{CRB}_{\mathrm{b}}(\mathbf{x}) = \left( \mathbf{I}_{n+1} + \frac{\partial \mathbf{b} \left( \widehat{\mathbf{x}} \right) }{\partial \mathbf{x} } \right)^\top \ \mathbf{Fi}^{-1}(\mathbf{x}) \ \left( \mathbf{I}_{n+1} + \frac{\partial \mathbf{b} \left( \widehat{\mathbf{x}} \right) }{\partial \mathbf{x} } \right), \label{eqn:CRB_EIV} \end{equation} 
 and for an unbiased estimator it is $\mathrm{CRB}_{\mathrm{ub}}(\mathbf{x}) = \mathbf{Fi}^{-1}(\mathbf{x})$.
 
@@ -235,7 +235,7 @@ and for an unbiased estimator it is $\mathrm{CRB}_{\mathrm{ub}}(\mathbf{x}) = \m
 \section{Simulation results}
 
 Two Monte Carlo (MC) simulation studies were conducted to test the obtained bias and variance formulas.
-One MC simulation was devoted to the unstructured EIV problem and the other to the structured EIV problem that corresponds to the step input estimation method (\ref{eqn:min_ls}).
+One MC simulation was devoted to the unstructured EIV problem and the other to the structured EIV problem that corresponds to the step input estimation method (\ref{eqn:min_seiv}).
 The MC simulations performed $N_{MC} = 10^6$ runs of the LS estimator with different realizations of the perturbation $[\begin{matrix} \mathbf{E} & \bm{\epsilon}] \end{matrix}$.
 In the structured EIV problem the perturbation $\mathbf{E}$ is correlated with $\bm{\epsilon}$.
 The perturbations variance was selected to have a signal-to-noise ratio (SNR) in the interval [30 dB, 80 dB], according to 
@@ -324,7 +324,7 @@ The substitution of observed data on the prediction formulas is a valid procedur
 
 \subsection{Monte Carlo simulation results for a structured EIV problem with correlated perturbations}
 
-The MC simulation of the structured EIV problem (\ref{eqn:min_ls}) solution was conducted processing $T = 200$ samples of the transient response $\widetilde{\mathbf{y}}$ generated by a linear time invariant system of order $n = 2$, after a step input excitation with $u = 1 \ \mathrm{units}$, where the units represent any physical quantity. 
+The MC simulation of the structured EIV problem (\ref{eqn:ddsiemnd}) solution was conducted processing $T = 200$ samples of the transient response $\widetilde{\mathbf{y}}$ generated by a linear time invariant system of order $n = 2$, after a step input excitation with $u = 1 \ \mathrm{units}$, where the units represent any physical quantity. 
 The processed step response is shown in Figure \ref{fig:y}.
 The steady state response of the system is reached after 400 samples because from there on the relative error between the instantaneous values of the transient response and the steady-state response value is smaller than 2\%.
 Processing 200 samples ensures that the step input estimation is computed from transient data only.

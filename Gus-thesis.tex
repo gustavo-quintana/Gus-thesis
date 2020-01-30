@@ -6,7 +6,7 @@
 \documentclass[english, british, BCOR=5mm, DIV=12, fontsize=10pt]{scrbook}
 \usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
-\usepackage[paperwidth=17cm, paperheight=24cm]{geometry}
+\usepackage[paperwidth=17cm, paperheight=24cm]{geometry} % \usepackage[hmargin=1.5cm, textheight=25cm]{geometry}
 \geometry{verbose, tmargin=2.5cm, bmargin=3cm, lmargin=2.5cm, rmargin=2cm}
 \setcounter{secnumdepth}{2}
 \setcounter{tocdepth}{2}
@@ -15,15 +15,19 @@
 \synctex=-1
 \usepackage{color}
 \definecolor{note_fontcolor}{rgb}{0.800781, 0.800781, 0.800781}
-\usepackage{amsmath, amssymb, amsthm, amsbsy, array, babel, booktabs, bm, float, graphicx, mathdots, mathptmx, mathtools, newproof, textcomp, times, units, verbatim}
-\usepackage[unicode=true,pdfusetitle, bookmarks=true, bookmarksnumbered=false, bookmarksopen=false, breaklinks=true,pdfborder={0 0 0}, pdfborderstyle={}, backref=false, colorlinks=false] {hyperref}
+\usepackage{amsfonts, amsmath, amssymb, amsthm, amsbsy, array, babel, booktabs, bm, float, graphicx, lineno, mathdots, mathptmx, mathtools, newproof, pgf, subcaption, textcomp, times, units, verbatim, xcolor}
+\usepackage[unicode=true, pdfusetitle, bookmarks=true, bookmarksnumbered=false, bookmarksopen=false, breaklinks=true, pdfborder={0 0 0}, pdfborderstyle={}, backref=false, colorlinks=false]{hyperref}
 \usepackage[outdir=./]{epstopdf}
 \usepackage{tikz, circuitikz}
-\usetikzlibrary{shapes,arrows,calc,patterns,decorations.pathmorphing,decorations.markings,positioning}
+\usetikzlibrary{shapes, arrows, calc, patterns, decorations.pathmorphing, decorations.markings, positioning}
 
 \newtheorem{thm}{Theorem}
 \newtheorem{lem}[thm]{Lemma}
 \newproof{pf}{Proof}
+
+\DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
+
+\usepackage{algorithm, algorithmic}
 
 \makeatletter
 

@@ -1,6 +1,8 @@
 %!TEX root = ..\Thesis.tex
 \chapter{Introduction} \label{chap:Introduction}
 
+\vfill{}
+
 % Context:Metrology One of the objectives in metrology is the estimation of the true value of physical quantities.
 A measurement is a dynamical process and a sensor is a dynamical system.
 The physical quantities of interest are the inputs of the system, and the outputs are the electrical signals collected from the sensor.
@@ -170,7 +172,7 @@ The study presented in this thesis illustrates a methodology to conduct statisti
 I derived expresions that quantify the bias and covariance by obtaining the mathematical expectation of the LS estimate approximated by the second-order Taylor series expansion.
 Using Monte Carlo simulations, I validated the accuracy of the bias and covariance expressions.
 These expressions estimate the bias and covariance that the data-driven step input estimation method will exhibit for given sample size and perturbation level.
-I compared the mean squared error of the LS estimate to the minimum variance specified by the Cram\'er-Rao lower bound of the structured EIV problem, to determine the conditions in which the data-driven step input estimation method is appropriate for practical applications.
+I compared the mean squared error of the LS estimate to the minimum variance specified by the Cram\'er-Rao lower bound of the structured EIV problem, to determine the conditions in which the data-driven step input estimation method is appropriate for practical applications \citep{QuintanaCSDA}.
 
 
 \subsection{Experimental validation}
@@ -226,9 +228,9 @@ The signal from the load cell sensor in the weighing system is conditioned using
 The signal conditioning amplifier has a low-pass filter to prevent aliasing noise.
 The observed measurement noise has non-white noise properties, mainly due to the characteristics of the load cell sensor.
 One of the assumptions of the step input estimation method formulation is that the measurement noise is Gaussian white. 
-Nevertheless, the estimation results show that the method is still able to provide useful input estimations.
+Nevertheless, the estimation results show that the method is still able to provide useful input estimations \citep{QuintanaTIM}.
 
-The empirical bias an covariance obtained after repeating the weighing experiment was compared to the bias and covariance estimations obtained in the previous research work \citep{Quintana19}, and to the minimal variance given by the  Cram\'er-Rao lower bound (CRLB) of the structured EIV problem.
+The empirical bias an covariance obtained after repeating the weighing experiment was compared to the bias and covariance estimations obtained in the previous research work \citep{QuintanaCSDA}, and to the minimal variance given by the  Cram\'er-Rao lower bound (CRLB) of the structured EIV problem.
 I found that the mean squared error (MSE) of the step input estimate is near the CRLB, and the distance between the MSE and the CRLB provides a confidence interval for the input estimate with respect to the level of the measurement noise. 
 
  
@@ -243,8 +245,8 @@ An example of this affine activation is the measurement of mass while the to-be-
 Current solutions to the weighing in motion are low pass filters that estimate the mass using the saturated part of the input \citep{Tasaki07, Pietrzak14}.
 The signal processing affine input estimation methods are motivated by the need to obtain the mass of the object from the ramp before it reaches saturation.
 
-The proposed data-driven method for the estimation of the affine input parameters.
-The affine input is parameterized as a straight line model where the slope and the interception are the parameters of interest.
+In the proposed data-driven method for the estimation of the affine input \citep{QuintanaMEAS},
+the affine input is parameterized as a straight line model where the slope and the interception are the parameters of interest.
 The data-driven affine input estimation method formulates a structured errors-invariables (EIV) problem, similar to the one fourmulated for the step input estimation.
 An exponential weight is added to the recursive least squares.
 This is a forgetting factor that considers that the newer samples are more relevant for the input parameters estimation.

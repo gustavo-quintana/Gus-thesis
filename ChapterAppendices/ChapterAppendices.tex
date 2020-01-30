@@ -8,7 +8,7 @@
 \vfill{} 
 
 
-\section{Appendix - Derivation of bias and covariance expressions.  \label{appendix:biascovSEIV}}
+\section{Appendix - Derivation of bias and covariance expressions.  \label{appendix:biascovSEIV} }
 
 The bias and covariance of the least-squares (LS) estimate (\ref{eqn:xhatexp}) are obtained using the mathematical expectation in the definitions (\ref{eqn:biasdef}) and (\ref{eqn:covdef}).
 For an unstructured and uncorrelated EIV problem, the expected value, and the covariance of $\widehat{\mathbf{x}}$ are approximated by
@@ -22,7 +22,7 @@ After an elementwise evaluation of the corresponding expected values in (\ref{eq
 \mathbf{C}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) & \approx \sigma_{\bm{\epsilon}}^2 \ \mathbf{Q}^{-1} + \sigma_{\mathbf{E}}^2 \ \mathrm{trace} \left( \mathbf{x} \mathbf{x}^\top \right) \mathbf{Q}^{-1} - \sigma_{\mathbf{E}}^4 \left( 2 + 2n - T \right)^2 \ \mathbf{Q}^{-1} \mathbf{x} \mathbf{x}^\top \mathbf{Q}^{-1} , \end{aligned} \end{equation}
 from where equations (\ref{eqn:biasEu}) and (\ref{eqn:varEu}) are obtained.
 
-On the other hand, due to the correlation, the expressions that approximate the expected value of the LS estimate of the structured and EIV problem (\ref{eqn:min_ls}) have a different form:
+On the other hand, due to the correlation, the expressions that approximate the expected value of the LS estimate of the structured and correlated EIV problem (\ref{eqn:ddsiemnd}) have a different form:
 \begin{equation} \begin{aligned} \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\} & \approx \mathbf{x}  +  \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E}  \right\} \mathbf{x} \\ 
 & + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{E}^\top \bm{\epsilon} - \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \bm{\epsilon} - \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \bm{\epsilon} \right\} , \quad \text{and}  \\ 
 \mathbf{C} \left( \widehat{\mathbf{x}} \right)  & \approx \mathbf{x} \mathbf{x}^\top + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \bm{\epsilon} \bm{\epsilon}^\top \mathbf{K} + \mathbf{K}^\top \mathbf{E} \mathbf{x} \mathbf{x}^\top \mathbf{E}^\top \mathbf{K} - \mathbf{K}^\top \mathbf{E} \mathbf{x} \bm{\epsilon}^\top \mathbf{K} - \mathbf{K}^\top \bm{\epsilon} \mathbf{x}^\top \mathbf{E}^\top \mathbf{K} \right\} \mathbf{Q}^{-1}  \\
@@ -39,7 +39,7 @@ from where the expressions (\ref{eqn:biasE}) and (\ref{eqn:varE}) are obtained.
 
 
 
-\section{Appendix - Proof of Lemma \ref{lem:lemma1} \label{appendix:lemma1}} 
+\section{Appendix - Proof of Lemma \ref{lem:lemma1} \label{appendix:lemma1} } 
 
 \begin{pf}
 In the first case considered in the lemma, the elements of the expected value $\mathbf{Z} = \mathbb{E} \left\{ \mathbf{E} \mathbf{A} \mathbf{E} \right\}$ are
@@ -63,8 +63,8 @@ The vector $\bm{\epsilon}$ in the expected values $\mathbb{E} \left\{ \mathbf{E}
 as it is imposed by the input estimation method formulation.
 \qed \end{pf}
 
-\section{Appendix - Jacobians in Ramp input ML estimation  \label{appendix:Jacobians}}
 
+\section{Appendix - Jacobians in affine input estimation by ML method \label{appendix:Jacobians} }
 
 The entries of the Jacobian matrix are the first order partial derivatives of the residual error $\mathbf{r}$ with respect to the optimization variables.
 The state space representation of the weighing model allows to find the analytical expression of the Jacobian.
