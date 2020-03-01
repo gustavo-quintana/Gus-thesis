@@ -15,46 +15,44 @@ A level-1 auxiliary file: ChapterConclusion/ChapterConclusion.aux
 A level-1 auxiliary file: ChapterAppendices/ChapterAppendices.aux
 A level-1 auxiliary file: Extras/ListofPublications.aux
 Database file #1: Gus-thesis.bib
-Warning--I didn't find a database entry for "Hessling06"
-You've used 72 entries,
+You've used 75 entries,
             2773 wiz_defined-function locations,
-            1166 strings with 19524 characters,
-and the built_in function-call counts, 36981 in all, are:
-= -- 3488
-> -- 2152
-< -- 37
-+ -- 728
-- -- 655
-* -- 3260
-:= -- 5799
-add.period$ -- 326
-call.type$ -- 72
-change.case$ -- 430
-chr.to.int$ -- 71
-cite$ -- 144
-duplicate$ -- 1496
-empty$ -- 2858
-format.name$ -- 765
-if$ -- 7659
-int.to.chr$ -- 2
+            1180 strings with 19601 characters,
+and the built_in function-call counts, 38410 in all, are:
+= -- 3618
+> -- 2231
+< -- 39
++ -- 756
+- -- 679
+* -- 3386
+:= -- 6020
+add.period$ -- 336
+call.type$ -- 75
+change.case$ -- 447
+chr.to.int$ -- 73
+cite$ -- 150
+duplicate$ -- 1557
+empty$ -- 2976
+format.name$ -- 794
+if$ -- 7954
+int.to.chr$ -- 3
 int.to.str$ -- 1
-missing$ -- 76
-newline$ -- 476
-num.names$ -- 290
-pop$ -- 682
+missing$ -- 79
+newline$ -- 492
+num.names$ -- 302
+pop$ -- 710
 preamble$ -- 1
-purify$ -- 362
+purify$ -- 376
 quote$ -- 0
-skip$ -- 1138
+skip$ -- 1181
 stack$ -- 0
-substring$ -- 1663
-swap$ -- 95
+substring$ -- 1731
+swap$ -- 100
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 762
+type$ -- 795
 warning$ -- 0
-while$ -- 334
+while$ -- 348
 width$ -- 0
-write$ -- 1156
-(There was 1 warning)
+write$ -- 1197

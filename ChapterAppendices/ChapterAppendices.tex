@@ -1,45 +1,50 @@
 %!TEX root = ..\Thesis.tex
 \glsresetall
 
-\chapter{Appendices }\label{chap:Appendices}
+\chapter{Appendices}\label{chap:Appendices}
 % \begin{quote}
 % \emph{The results of this chapter are based on the \cite{VanNechel2018}.}\vfill{}
 % \end{quote}
 \vfill{} 
 
 
-\section{Appendix - Derivation of bias and covariance expressions.  \label{appendix:biascovSEIV} }
+\section{Derivation of bias and covariance expressions.  \label{appendix:biascovSEIV} }
 
 The bias and covariance of the least-squares (LS) estimate (\ref{eqn:xhatexp}) are obtained using the mathematical expectation in the definitions (\ref{eqn:biasdef}) and (\ref{eqn:covdef}).
-For an unstructured and uncorrelated EIV problem, the expected value, and the covariance of $\widehat{\mathbf{x}}$ are approximated by
-\begin{equation} \begin{aligned} \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\} & \approx \mathbf{x}  + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E}  \right\} \mathbf{x}, \quad \text{and}  \\ 
-\mathbf{C} \left( \widehat{\mathbf{x}} \right)  & \approx \mathbf{x} \mathbf{x}^\top + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \bm{\epsilon} \bm{\epsilon}^\top \mathbf{K} + \mathbf{K}^\top \mathbf{E} \mathbf{x} \mathbf{x}^\top \mathbf{E}^\top \mathbf{K} \right\} \mathbf{Q}^{-1} \\ 
-& + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E} \right\} \mathbf{x} \mathbf{x}^\top \\
-& + \mathbf{x} \mathbf{x}^\top \mathbb{E} \left\{ \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{E}^\top \mathbf{K} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E} \right\} \mathbf{Q}^{-1} - \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\} \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\}^\top , \label{eqn:EC_Eu} \end{aligned} \end{equation} 
+For an unstructured and uncorrelated EIV problem, the expected value, and the covariance of $\widehat{\bm{\theta}}$ are approximated by
+\begin{equation} \begin{aligned} \mathbb{E} \left\{ \widehat{\bm{\theta}} \right\} & \approx \bm{\theta}  + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E}  \right\} \bm{\theta}, \quad \text{and}  \\ 
+\mathbf{C} \left( \widehat{\bm{\theta}} \right)  & \approx \bm{\theta} \bm{\theta}^\top + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \bm{\epsilon} \bm{\epsilon}^\top \mathbf{K} + \mathbf{K}^\top \mathbf{E} \bm{\theta} \bm{\theta}^\top \mathbf{E}^\top \mathbf{K} \right\} \mathbf{Q}^{-1} \\ 
+& + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E} \right\} \bm{\theta} \bm{\theta}^\top \\
+& + \bm{\theta} \bm{\theta}^\top \mathbb{E} \left\{ \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{E}^\top \mathbf{K} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E} \right\} \mathbf{Q}^{-1} \\
+& \quad - \mathbb{E} \left\{ \widehat{\bm{\theta}} \right\} \mathbb{E} \left\{ \widehat{\bm{\theta}} \right\}^\top , \label{eqn:EC_Eu} \end{aligned} \end{equation} 
 where we have considered the second order Taylor series approximation (\ref{eqn:TseriesExp}), and we have removed the terms of zero expected value, and the terms of order higher than 2.
 After an elementwise evaluation of the corresponding expected values in (\ref{eqn:EC_Eu}), the expressions result in 
-\begin{equation} \begin{aligned} \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\} & \approx \mathbf{x}  + \mathbf{b}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) = \mathbf{x}  +  \sigma_{\mathbf{E}}^2 \mathbf{Q}^{-1} \left( 2\mathbf{I} + 2n\mathbf{I} - T \mathbf{I} \right) \mathbf{x} , \quad \text{and} \\ 
-\mathbf{C}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) & \approx \sigma_{\bm{\epsilon}}^2 \ \mathbf{Q}^{-1} + \sigma_{\mathbf{E}}^2 \ \mathrm{trace} \left( \mathbf{x} \mathbf{x}^\top \right) \mathbf{Q}^{-1} - \sigma_{\mathbf{E}}^4 \left( 2 + 2n - T \right)^2 \ \mathbf{Q}^{-1} \mathbf{x} \mathbf{x}^\top \mathbf{Q}^{-1} , \end{aligned} \end{equation}
+\begin{equation} \begin{aligned} \mathbb{E} \left\{ \widehat{\bm{\theta}} \right\} & \approx \bm{\theta}  + \mathbf{b}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) = \bm{\theta}  +  \sigma_{\mathbf{E}}^2 \mathbf{Q}^{-1} \left( 2\mathbf{I} + 2n\mathbf{I} - T \mathbf{I} \right) \bm{\theta} , \quad \text{and} \\ 
+\mathbf{C}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \sigma_{\bm{\epsilon}}^2 \ \mathbf{Q}^{-1} + \sigma_{\mathbf{E}}^2 \ \mathrm{trace} \left( \bm{\theta} \bm{\theta}^\top \right) \mathbf{Q}^{-1} - \sigma_{\mathbf{E}}^4 \left( 2 + 2n - T \right)^2 \ \mathbf{Q}^{-1} \bm{\theta} \bm{\theta}^\top \mathbf{Q}^{-1} , \end{aligned} \end{equation}
 from where equations (\ref{eqn:biasEu}) and (\ref{eqn:varEu}) are obtained.
 
 On the other hand, due to the correlation, the expressions that approximate the expected value of the LS estimate of the structured and correlated EIV problem (\ref{eqn:ddsiemnd}) have a different form:
-\begin{equation} \begin{aligned} \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\} & \approx \mathbf{x}  +  \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E}  \right\} \mathbf{x} \\ 
-& + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{E}^\top \bm{\epsilon} - \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \bm{\epsilon} - \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \bm{\epsilon} \right\} , \quad \text{and}  \\ 
-\mathbf{C} \left( \widehat{\mathbf{x}} \right)  & \approx \mathbf{x} \mathbf{x}^\top + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \bm{\epsilon} \bm{\epsilon}^\top \mathbf{K} + \mathbf{K}^\top \mathbf{E} \mathbf{x} \mathbf{x}^\top \mathbf{E}^\top \mathbf{K} - \mathbf{K}^\top \mathbf{E} \mathbf{x} \bm{\epsilon}^\top \mathbf{K} - \mathbf{K}^\top \bm{\epsilon} \mathbf{x}^\top \mathbf{E}^\top \mathbf{K} \right\} \mathbf{Q}^{-1}  \\
-& + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E} \right\} \mathbf{x} \mathbf{x}^\top \\
-& + \mathbf{x} \mathbf{x}^\top \mathbb{E} \left\{ \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{E}^\top \mathbf{K} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E} \right\} \mathbf{Q}^{-1} - \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\} \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\}^\top \\ 
-& + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{E}^\top \bm{\epsilon} - \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \bm{\epsilon} - \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \bm{\epsilon} \right\} \mathbf{x}^\top \\
-& + \mathbf{x} \mathbb{E} \left\{ \bm{\epsilon}^\top \mathbf{E} - \bm{\epsilon}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{E}^\top \mathbf{K} - \bm{\epsilon}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} \right\} \mathbf{Q}^{-1}. \label{eqn:EC_E} \end{aligned} \end{equation} 
+\begin{equation} \begin{aligned} \mathbb{E} \left\{ \widehat{\bm{\theta}} \right\} & \approx \bm{\theta}  +  \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E}  \right\} \bm{\theta} \\ 
+& \quad + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{E}^\top \bm{\epsilon} - \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \bm{\epsilon} - \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \bm{\epsilon} \right\} , \quad \text{and}  \\ 
+\mathbf{C} \left( \widehat{\bm{\theta}} \right)  & \approx \bm{\theta} \bm{\theta}^\top \\
+& \quad + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \bm{\epsilon} \bm{\epsilon}^\top \mathbf{K} + \mathbf{K}^\top \mathbf{E} \bm{\theta} \bm{\theta}^\top \mathbf{E}^\top \mathbf{K} - \mathbf{K}^\top \mathbf{E} \bm{\theta} \bm{\epsilon}^\top \mathbf{K} - \mathbf{K}^\top \bm{\epsilon} \bm{\theta}^\top \mathbf{E}^\top \mathbf{K} \right\} \mathbf{Q}^{-1}  \\
+& \quad + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E} \right\} \bm{\theta} \bm{\theta}^\top \\
+& \quad + \bm{\theta} \bm{\theta}^\top \mathbb{E} \left\{ \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{E}^\top \mathbf{K} + \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} - \mathbf{E}^\top \mathbf{E} \right\} \mathbf{Q}^{-1} \\
+& \quad - \mathbb{E} \left\{ \widehat{\bm{\theta}} \right\} \mathbb{E} \left\{ \widehat{\bm{\theta}} \right\}^\top \\ 
+& \quad + \mathbf{Q}^{-1} \mathbb{E} \left\{ \mathbf{E}^\top \bm{\epsilon} - \mathbf{K}^\top \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \bm{\epsilon} - \mathbf{E}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \bm{\epsilon} \right\} \bm{\theta}^\top \\
+& \quad + \bm{\theta} \mathbb{E} \left\{ \bm{\epsilon}^\top \mathbf{E} - \bm{\epsilon}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{E}^\top \mathbf{K} - \bm{\epsilon}^\top \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} \right\} \mathbf{Q}^{-1}. \label{eqn:EC_E} \end{aligned} \end{equation} 
 These expressions have the non zero expected value terms, up to the second order. 
 We have then
-\begin{equation} \begin{aligned} \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\} & = \mathbf{x} + \mathbf{b}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) \approx \mathbf{x}  +  \mathbf{Q}^{-1} \mathbf{K}^\top \underbrace{\mathbb{E} \left\{ \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} \right\}}_{\mathbf{B}_1} - \mathbf{Q}^{-1} \underbrace{\mathbb{E} \left\{ \mathbf{E}^\top \left( \mathbf{I} - \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \right) \mathbf{E} \right\}}_{\mathbf{B}_2} \mathbf{x} \\ 
-& - \mathbf{Q}^{-1} \mathbf{K}^\top \underbrace{\mathbb{E} \left\{ \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \bm{\epsilon} \right\}}_{\mathbf{B}_3} + \mathbf{Q}^{-1} \underbrace{\mathbb{E} \left\{ \mathbf{E}^\top \left( \mathbf{I} - \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \right) \bm{\epsilon} \right\}}_{\mathbf{B}_4} , \quad \text{and} \\ 
-\mathbf{C} \left( \widehat{\mathbf{x}} \right)  & \approx \mathbf{Q}^{-1} \mathbf{K}^\top \left( \underbrace{\mathbb{E} \left\{ \bm{\epsilon} \bm{\epsilon}^\top \right\}}_{\sigma_{\bm{\epsilon}}^2 \mathbf{I}_{T-n}}  + \underbrace{\mathbb{E} \left\{ \mathbf{E} \mathbf{x} \mathbf{x}^\top \mathbf{E}^\top \right\}}_{\mathbf{C}_1}  - \underbrace{\mathbb{E} \left\{  \mathbf{E} \mathbf{x} \bm{\epsilon}^\top \right\}}_{\mathbf{C}_2} - \underbrace{\mathbb{E} \left\{ \bm{\epsilon} \mathbf{x}^\top \mathbf{E}^\top \right\}}_{\mathbf{C}_2^\top} \right) \mathbf{K} \mathbf{Q}^{-1}  - \mathbf{b}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) \mathbf{b}_{\mathrm{p}}^\top \left( \widehat{\mathbf{x}} \right). \end{aligned} \end{equation} 
+\begin{equation} \begin{aligned} \mathbb{E} \left\{ \widehat{\bm{\theta}} \right\} & = \bm{\theta} + \mathbf{b}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) \\
+& \approx \bm{\theta}  +  \mathbf{Q}^{-1} \mathbf{K}^\top \underbrace{\mathbb{E} \left\{ \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{E} \right\}}_{\mathbf{B}_1} - \mathbf{Q}^{-1} \underbrace{\mathbb{E} \left\{ \mathbf{E}^\top \left( \mathbf{I} - \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \right) \mathbf{E} \right\}}_{\mathbf{B}_2} \bm{\theta} \\ 
+& \quad \ \ \ - \mathbf{Q}^{-1} \mathbf{K}^\top \underbrace{\mathbb{E} \left\{ \mathbf{E} \mathbf{Q}^{-1} \mathbf{K}^\top \bm{\epsilon} \right\}}_{\mathbf{B}_3} + \mathbf{Q}^{-1} \underbrace{\mathbb{E} \left\{ \mathbf{E}^\top \left( \mathbf{I} - \mathbf{K} \mathbf{Q}^{-1} \mathbf{K}^\top \right) \bm{\epsilon} \right\}}_{\mathbf{B}_4} , \quad \text{and} \\ 
+\mathbf{C} \left( \widehat{\bm{\theta}} \right)  & \approx \mathbf{Q}^{-1} \mathbf{K}^\top \left( \underbrace{\mathbb{E} \left\{ \bm{\epsilon} \bm{\epsilon}^\top \right\}}_{\sigma_{\bm{\epsilon}}^2 \mathbf{I}_{T-n}}  + \underbrace{\mathbb{E} \left\{ \mathbf{E} \bm{\theta} \bm{\theta}^\top \mathbf{E}^\top \right\}}_{\mathbf{C}_1}  - \underbrace{\mathbb{E} \left\{  \mathbf{E} \bm{\theta} \bm{\epsilon}^\top \right\}}_{\mathbf{C}_2} - \underbrace{\mathbb{E} \left\{ \bm{\epsilon} \bm{\theta}^\top \mathbf{E}^\top \right\}}_{\mathbf{C}_2^\top} \right) \mathbf{K} \mathbf{Q}^{-1} \\
+& \quad - \mathbf{b}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) \mathbf{b}_{\mathrm{p}}^\top \left( \widehat{\bm{\theta}} \right). \end{aligned} \end{equation} 
 from where the expressions (\ref{eqn:biasE}) and (\ref{eqn:varE}) are obtained.
 
 
 
-\section{Appendix - Proof of Lemma \ref{lem:lemma1} \label{appendix:lemma1} } 
+\section{Proof of Lemma \ref{lem:lemma1} \label{appendix:lemma1} } 
 
 \begin{pf}
 In the first case considered in the lemma, the elements of the expected value $\mathbf{Z} = \mathbb{E} \left\{ \mathbf{E} \mathbf{A} \mathbf{E} \right\}$ are
@@ -64,38 +69,39 @@ as it is imposed by the input estimation method formulation.
 \qed \end{pf}
 
 
-\section{Appendix - Jacobians in affine input estimation by ML method \label{appendix:Jacobians} }
+\section[Calculation of Jacobian matrices in the affine input ML estimation method]{Calculation of Jacobian matrices \linebreak in the affine input ML estimation method \label{appendix:Jacobians} }
 
 The entries of the Jacobian matrix are the first order partial derivatives of the residual error $\mathbf{r}$ with respect to the optimization variables.
-The state space representation of the weighing model allows to find the analytical expression of the Jacobian.
+The state-space representation of the weighing model allows to find the analytical expression of the Jacobian.
 The partial derivative of the residual error $\mathbf{r}$ with respect to the optimization variable $a$ is 
-\begin{equation} \mathbf{J}_a=\dfrac{\partial \mathbf{r}}{\partial a} = \dfrac{\partial \widehat{y}}{\partial a} = \begin{bmatrix} 1 & 0  \end{bmatrix} \dfrac{\partial \mathbf{x}}{\partial a} = \begin{bmatrix} 1 & 0  \end{bmatrix} \mathbf{x}_a \end{equation}
-where we use $\mathbf{x}_a = \partial \mathbf{x}/ \partial a$ to simplify the notation. 
+\begin{equation} \mathbf{J}_a=\dfrac{\partial \mathbf{r}}{\partial a} = \dfrac{\partial \widehat{ \mathbf{y} }}{\partial a} = \begin{bmatrix} 1 & 0  \end{bmatrix} \dfrac{\partial \mathbf{x}}{\partial a} = \begin{bmatrix} 1 & 0  \end{bmatrix} \mathbf{x}_a \end{equation}
+where we use $\mathbf{x}_a = \partial \mathbf{x} / \partial a$ to simplify the notation. 
 Now, from the derivative of the state equation, we have
 \begin{equation} \begin{aligned} 
     & \dot{\mathbf{x}}_a = \begin{bmatrix} 0 & 1 \\ \frac{-k_{\mathrm{s}}}{a t + b + m} & \frac{-(a + k_{\mathrm{d}})}{a t + b + m} \end{bmatrix} \mathbf{x}_a 
-    + \begin{bmatrix} 0 & 0 \\ \frac{k_{\mathrm{s}} t}{(a t + b + m)^2} & \frac{k_{\mathrm{d}} t - b - m}{(a t + b + m)^2} \end{bmatrix} \mathbf{x} 
-    - \frac{t \ \delta(t)}{(a t + b + m)^2} \mathbf{x}_{\text{ini}}   . 
+    + \begin{bmatrix} 0 & 0 \\ \frac{k_{\mathrm{s}} t}{(a t + b + m)^2} & \frac{k_{\mathrm{d}} t - b - m}{(a t + b + m)^2} \end{bmatrix} \mathbf{x} , \\
+    & \mathrm{with} \quad  \mathbf{x}_a(0) = \begin{bmatrix} 0 \\ 0 \end{bmatrix}. 
 \end{aligned} \end{equation}
-Then, the partial derivative of the error $\mathbf{r}$ with respect to the optimization variable $a$ results in an additional dynamic system.
+Then, the partial derivative of the residual error $\mathbf{r}$ with respect to the optimization variable $a$ results in an additional dynamic system.
 
 By repeating the procedure, we obtain the partial derivatives with respect to $b$ as follows: 
 \begin{equation} \begin{aligned} 
     & \dot{\mathbf{x}}_b = \begin{bmatrix} 0 & 1 \\ \frac{-k_{\mathrm{s}}}{a t + b + m} & \frac{-(a + k_{\mathrm{d}})}{a t + b + m} \end{bmatrix} \mathbf{x}_b 
-    + \begin{bmatrix} 0 & 0 \\ \frac{k_{\mathrm{s}}}{(a t + b + m)^2} & \frac{a+k_{\mathrm{d}}}{(a t + b + m)^2} \end{bmatrix} \mathbf{x} 
- - \frac{\delta(t) }{(a t + b + m)^2}  \mathbf{x}_{\text{ini}} ,
- \\ & \mathbf{J}_b = \begin{bmatrix} 1 & 0 \end{bmatrix} \mathbf{x}_b . 
+    + \begin{bmatrix} 0 & 0 \\ \frac{k_{\mathrm{s}}}{(a t + b + m)^2} & \frac{a+k_{\mathrm{d}}}{(a t + b + m)^2} \end{bmatrix} \mathbf{x}  ,
+ \\ & \mathbf{J}_b = \begin{bmatrix} 1 & 0 \end{bmatrix} \mathbf{x}_b, \quad \mathrm{with} \quad  \mathbf{x}_b(0) = \begin{bmatrix} 0 \\ 0 \end{bmatrix} . 
 \end{aligned} \end{equation}
-The partial derivatives of the error $\mathbf{r}$ with respect to the initial conditions yield the following two Jacobians
+
+The partial derivatives of the residual error $\mathbf{r}$ with respect to the initial conditions yield 
 \begin{equation} \begin{aligned}
-    & \dot{\mathbf{x}}_{\mathbf{x}_{\text{ini,1}}} = \begin{bmatrix} 0 & 1 \\ \frac{-k_{\mathrm{s}}}{a t + b + m} & \frac{-(a + k_{\mathrm{d}})}{a t + b + m} \end{bmatrix} \mathbf{x}_{\mathbf{x}_{\text{ini,1}}} + \begin{bmatrix} \frac{\delta(t)}{a t + b + m} \\ 0 \end{bmatrix} , \\
-    & \mathbf{J}_{\mathbf{x}_{\text{ini,1}}} = \begin{bmatrix} 1 & 0 \end{bmatrix} \mathbf{x}_{\mathbf{x}_{\text{ini,1}}}.
+    & \dot{\mathbf{x}}_{\mathbf{x}_{\text{ini,1}}} = \begin{bmatrix} 0 & 1 \\ \frac{-k_{\mathrm{s}}}{a t + b + m} & \frac{-(a + k_{\mathrm{d}})}{a t + b + m} \end{bmatrix} \mathbf{x}_{\mathbf{x}_{\text{ini,1}}}  , \\
+    & \mathbf{J}_{\mathbf{x}_{\text{ini,1}}} = \begin{bmatrix} 1 & 0 \end{bmatrix} \mathbf{x}_{\mathbf{x}_{\text{ini,1}}}, \quad \mathrm{with} \quad  \mathbf{x}_{\text{ini,1}}(0) = \begin{bmatrix} 1 \\ 0 \end{bmatrix} 
 \end{aligned} \end{equation}
 and
 \begin{equation} \begin{aligned}
-    & \dot{\mathbf{x}}_{\mathbf{x}_{\text{ini,2}}} = \begin{bmatrix} 0 & 1 \\ \frac{-k_{\mathrm{s}}}{a t + b + m} & \frac{-(a+k_{\mathrm{d}})}{a t + b + m} \end{bmatrix} \mathbf{x}_{\mathbf{x}_{\text{ini,2}}} + \begin{bmatrix} 0 \\ \frac{\delta(t)}{a t + b + m} \end{bmatrix} ,  \\
-    & \mathbf{J}_{\mathbf{x}_{\text{ini,2}}}=\begin{bmatrix} 1 & 0 \end{bmatrix} \mathbf{x}_{\mathbf{x}_{\text{ini,2}}}.
+    & \dot{\mathbf{x}}_{\mathbf{x}_{\text{ini,2}}} = \begin{bmatrix} 0 & 1 \\ \frac{-k_{\mathrm{s}}}{a t + b + m} & \frac{-(a+k_{\mathrm{d}})}{a t + b + m} \end{bmatrix} \mathbf{x}_{\mathbf{x}_{\text{ini,2}}}  ,  \\
+    & \mathbf{J}_{\mathbf{x}_{\text{ini,2}}} = \begin{bmatrix} 1 & 0 \end{bmatrix} \mathbf{x}_{\mathbf{x}_{\text{ini,2}}}, \quad \mathrm{with} \quad  \mathbf{x}_{\text{ini,2}}(0) = \begin{bmatrix} 0 \\ 1 \end{bmatrix} .
 \end{aligned} \end{equation}
+The last two additional dynamic systems are identical, except by their initialization.  
 
 The Jacobian matrix is constructed using the responses of the additional dynamic systems  
 \begin{equation} \begin{aligned} \mathbf{J} &= \begin{bmatrix} \mathbf{J}_a & \mathbf{J}_b & \mathbf{J}_{\mathbf{x}_{\text{ini,1}}} & \mathbf{J}_{\mathbf{x}_{\text{ini,2}}} \end{bmatrix} \end{aligned} \end{equation}

@@ -1,0 +1,186 @@
+\documentclass[11pt]{article}
+\date{\vspace{-10ex}}
+
+\usepackage{lineno,hyperref}
+\modulolinenumbers[5]
+
+\usepackage{amsmath, amsfonts, mathtools, hyperref, tikz, pgf, subcaption, mathdots, color, bm}
+\usepackage[a4paper, total={6.5in, 9.0in}]{geometry}
+\usepackage{mathptmx, epsfig, amssymb, amsthm, setspace, hanging}
+
+
+
+\begin{document}
+
+
+\title{Author' response to the promotors' reports on the first draft of the thesis document.} 
+
+\maketitle
+
+\hspace{-0.6cm}We appreciate the referees useful suggestions.
+In this document we quote in \textbf{bold} face the comments from the reports.
+Our replies are in normal face.
+The passages quoted from the revised manuscript are highlighted in \color{blue}blue\color{black}.
+
+\section*{Reviewer 1}
+
+
+
+\begin{enumerate}
+
+
+\item \textbf{I find the current version of the paper to be a strong improvement over the original form. There are, however, several points where the paper can be improved to make it more attractive and informative for the readers.}
+
+Thank you for your suggestions in the previous report, which helped us to improve the manuscript.
+
+\item \textbf{I am still missing a derivation of (13), (14) as well as (17), (18). As a potential
+reader I would prefer to see the derivations in an appendix, instead of just
+trusting the authors. A reserve plan would be to issue a technical report,
+made publically available on the web, with the full derivations.}
+
+The derivation of the bias and covariance expressions has been added in Appendix 1.
+
+\item \textbf{In page 3, eq (2). Say that this is the LS solution, and preferably give also the underlying system of equations, that is $\tilde{y}=\tilde{K}x$ , for possible reference in the text (for example just before eq (6)). Further, already here it is appropriate to state and explain that a recursive solution is desired, and hence an LS estimate is examined (even if it has some bias). It is a bit too late and too meagre to just state this in passing at p 4, line 61.}
+
+The paragraph after equation 5 has been modified as follows:
+
+\color{blue} 
+The underlying system of equations $\widetilde{\mathbf{y}} = \widetilde{\mathbf{K}} \mathbf{x}$ in the minimization problem (2)  is an errors-in-variables (EIV) problem with Hankel structure.
+For metrology applications, the least-squares (LS) solution of the system of equations offers a simple alternative, in its recursive form, to implement the estimation method in real-time.
+The LS solution is examined even when it may have some bias because the perturbation errors in $\widetilde{\mathbf{K}}$ are correlated to the perturbations in $\widetilde{\mathbf{y}}$.
+\color{black}
+
+\item \textbf{In page 4, line 61. Help the reader and give a comment why the classical LS results do not apply.}
+
+The sentence has been modified as follows:
+
+\color{blue} 
+The classical LS results for the bias and the covariance cannot be invoked because LS assumes that the additive perturbation only affects the regressor, and that there is no correlation between the regressor and the regression matrix.
+\color{black}
+
+
+\item \textbf{In page 4, around eq (9) and (10). The current presentation is not good. It is not enough that the spectral radius is smaller than one for the approximation in (9) to be accurate [think of a case where the radius is 0.99, for example]. I find it much better to start with assuming that the SNR is high (enough).
+Then one can conclude that E and M are small, and that the approximation (beginning of a convergent series expansion (9)) makes sense. You may add that the neglected term is $O(\Vert M \Vert^3)$.}
+
+The description of the applied Taylor series expansion is now presented as:
+
+\color{blue}
+Applying a second-order Taylor expansion of the inverse matrix
+\begin{equation} (\mathbf{I} + \mathbf{M})^{-1} \approx \mathbf{I} - \mathbf{M} + \mathbf{M}^2, \tag{9} \end{equation} 
+ that is valid when the SNR is sufficiently high, and therefore $\mathbf{E}$ and $\mathbf{M}$ are small, satisfying the constraint on the spectral radius $\| \mathbf{M} \| < 1$. 
+ The neglected term in the Taylor series expansion is of the order $O(\Vert M \Vert^3)$.
+We can express the estimate as
+\begin{equation} \widehat{\mathbf{x}} \approx \left( \mathbf{I} - \mathbf{M} + \mathbf{M}^2 \right) \mathbf{Q}^{-1} (\mathbf{K}+\mathbf{E})^\top (\mathbf{y}+\bm{\epsilon}). \tag{10} \end{equation} 
+\color{black}
+
+\item \textbf{In page 5, second line. Change 'approximation' to 'approximation (10)'.}
+
+The sentence now reads:
+
+\color{blue} 
+Now that the perturbation variables $\bm{\epsilon}$ and $\mathbf{E}$ are no longer inside an inverse matrix, we can compute the mathematical expectation of expressions derived from the Taylor series approximation (10) of $\widehat{\mathbf{x}}$. 
+\color{black} 
+
+\item  \textbf{In page 5, line 70. Change 'expansion' to 'approximation'.}
+
+The sentence now reads:
+
+\color{blue} 
+Moreover, the second-order approximation disregards moments of order four and higher.
+\color{black} 
+
+\item  \textbf{In page 5, eq (13). Should not the subscript E be in bold here?}
+
+Yes, the equation is now presented as:
+
+\color{blue} 
+\begin{equation} \mathbf{b}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) \approx \sigma_{\mathbf{E}}^2 \left( 2 + 2n - T \right) \mathbf{Q}^{-1} \mathbf{x} \tag{13} \end{equation}
+\color{black} 
+
+\item \textbf{In page 5, eq (13), (14). Comment at this stage what the subscript p stands for.}
+
+We have added the following sentence after equations (13) and (14):
+
+\color{blue} 
+Moreover, the second-order approximation disregards moments of order four and higher.
+\color{black} 
+
+\item \textbf{In page 9, line 104. I would find it more natural to write 'Thus' than 'Then' here.}
+
+The sentence now reads:
+
+\color{blue} 
+Thus, it is relevant to monitor the evolution of the largest $\mathbf{M}$ eigenvalue to detect the lower limit of the SNR for the predictions to be valid.
+
+\color{black} 
+
+\item \textbf{In page 12, line 152. It would be nice to present the response of the system as a
+graph.}
+
+The response of the system used to construct the structured EIV problem has been added in Figure 5.
+
+\item \textbf{In page 15, line 191. I would change 'predicted' $\rightarrow$ 'accurately predicted'.}
+
+The sentence now reads:
+
+\color{blue} 
+The bias and variance can be accurately predicted, provided that the Taylor series expansion is valid.
+\color{black} 
+
+\end{enumerate}
+
+
+\section*{Reviewer 2}
+
+\begin{enumerate}
+
+\item  \textbf{In my opinion, the updated version of the paper has clarified several aspects of the idea, but I would suggest that the equation and description in section IV (Simulation results), could be improved.}
+
+Thank you for your suggestions in the previous report, which helped us to improve the manuscript.
+
+Section 4 has been revised and improved to remove unnecesary redundancy and to clarify the discussion of the results.
+
+\end{enumerate}
+
+
+\section*{Editor}
+
+\begin{enumerate}
+
+\item \textbf{Follow all the editorial guidelines when you prepare the revised manuscript 
+(eg abstract in the third person and no statements like this paper etc.).}
+
+\begin{enumerate}
+
+\item \textbf{Delete the redundant terms "This paper" from the abstract.  E.g.}
+
+\begin{enumerate}
+
+\item \textbf{A structured errors-in-variables (EIV) problem arising in metrology is studied}.
+
+\item \textbf{Expressions to predict the bias and variance of LS estimators applied to unstructured and structured EIV problems are derived}.
+
+These sentences in the abstract have been modified accordingly.
+
+\end{enumerate}
+
+\item \textbf{Use the journal's citation style.}
+
+The format of the References Section has been revised accordingy to follow the journal style.
+
+\item \textbf{Delete the '2010 MSC: 00-01, 99-00'}
+
+This sentence has been removed.
+
+\end{enumerate}
+
+\item  \textbf{Have the paper proof read and corrected.}
+
+The manuscript has been proof read, and the necessary corrections have been done.
+
+\end{enumerate}
+
+
+
+\end{document}
+

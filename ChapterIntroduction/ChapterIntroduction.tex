@@ -4,46 +4,46 @@
 \vfill{}
 
 % Context:Metrology One of the objectives in metrology is the estimation of the true value of physical quantities.
-A measurement is a dynamical process and a sensor is a dynamical system.
+A measurement is a dynamic process, and a sensor is a dynamic system.
 The physical quantities of interest are the inputs of the system, and the outputs are the electrical signals collected from the sensor.
-The inputs interact with the sensor, and there are energy transferences between them that modify the sensor state.
-The sensor output response depends on the applied inputs, and on the sensor initial conditions.
+The inputs interact with the sensor, and there are energy transfers between them that modify the sensor state.
+The sensor output response depends on the applied inputs and on the sensor initial conditions.
 
 % Context:Tradeoff speed vs accuracy
-There is a trade-off between speed and accuracy in a measurement with a linear time invariant sensor.
-The input excitation drives the sensor into a transient state, that is followed by a steady state.
-During the sensor transient state, the response does not represent directly the input, but 
-in steady state, the sensor response is proportional to the input.
+There is a trade-off between speed and accuracy when measuring with a linear time-invariant sensor.
+The input excitation drives the sensor into a transient state, and when the transient response is below the noise level, we say that the sensor is in steady state.
+During the sensor transient state, the response does not directly represent the input, but 
+in steady state, the sensor response is proportional to the excitation.
 The input can be estimated accurately from the sensor steady state response using the sensor static gain.
-However, waiting for the steady state is not advisable for practical applications that need fast measurements.
-In these practical applications, the input must be estimated during the sensor transient state.
+However, waiting for the steady state is not always possible for practical applications that need fast measurements.
+In these practical applications, the input must be estimated during the transient state.
 
 % Context:Compensation systems, 
 One approach to get a fast input estimation is filtering the sensor transient response with another dynamical system that inverts the dynamics of the sensor.
-The filter output is an input estimate that compensates the measurement time.
-The transient duration of the compensation filter is smaller than that of the sensor.
-The compensator is designed to deconvolve the sensor response and is based on a sensor model.
+The filter output is an input estimate that compensates for the measurement time.
+The transient duration of the compensation filter should be smaller than that of the sensor.
+The compensator is designed after a sensor model to deconvolve the sensor response.
 
 % Context:Digital signal processing
-Another approach relies in the use of digital signal processors (DSP) to estimate the input value from the sensor transient response.
-DSPs offer an extra versatility level since they allow the implementation of methods that do not necessarily recreate dynamic systems, such as digital filters.
+Another approach relies on the use of digital signal processors (DSP) to estimate the input value from the sensor transient response.
+DSPs offer an extra versatility level since they allow to implement methods that do not necessarily simulate the dynamics of linear systems, such as digital filters.
 A suitable data-driven method in a DSP can provide faster input estimations than with the model-based compensators.
 
 % Context:Data-driven step input estimation method
 An example of a data-driven method devised for a DSP is the direct step input level estimation from the sensor step response \citep{Markovsky15cep}.
 This method formulates a Hankel structured errors-in-variables (EIV) problem with correlation.
 The regression matrix has a block-Hankel structure.
-The correlation exists because both the regression matrix and the regressor are constructed from the transient response perturbed by measurement noise.
-The measurement noise is assumed to have zero mean and given variance.
+The correlation exists because the transient response, perturbed by measurement noise, constructs both the regression matrix and the regressor.
+The measurement noise is assumed to have zero mean and finite variance.
 The method is implemented in real-time using a recursive least-squares (RLS) solution of the structured EIV problem.
 % Avoiding the model identification from input-output data and directly estimating the input from the transient response reduces the input estimation time and makes data-driven input estimation methods suitable for real-time 
 
 % Context:Data-driven methodology
 % The philosophy behind the estimation method is avoiding the explicit identification of a system model from input-output data and estimating directly the input from the transient response.
-The main advantage of the data-driven input estimation method is that it does not identify the sensor model but instead it directly estimates the input. 
-This differs from the classic two-stage methodology where the sensor model is first identified before the input is estimated.
-In this method, the output-error (OE) problem is converted into an EIV problem that is harder to solve, but the RLS solution is easy to compute.
-The range of application of the data-driven input estimation method is wide because it is independent of the sensor model.
+The main advantage of the data-driven input estimation method is that it does not identify the sensor model, but instead, it directly estimates the input. 
+The direct estimation differs from the standard two-stage methodology, that first identifies the sensor model and later estimates the input.
+In this approach, the output-error (OE) problem is converted into an EIV problem that is harder to solve, but the RLS solution is easy to compute.
+The range of application of the data-driven input estimation method is extensive because it is independent of the sensor model.
 The main disadvantage of the data-driven input estimation method is that its stochastic properties are not straightforwardly evident. 
 It is more complex to find the stochastic properties of EIV problems when they have structure and correlation.
 % Moreover, the online uncertainty assessment may not be feasible and we have to rely on confidence bounds.
@@ -52,35 +52,35 @@ It is more complex to find the stochastic properties of EIV problems when they h
 % Problem under study: Dynamic measurements
 % DM:Uncertainty assessment of data-driven input estimation methods
 % DM:Experimental validation of the data-driven step input estimation method
-The estimate uncertainty must be assessed to validate the estimation methods for metrology applications.
+The estimation uncertainty assessment is needed to validate the estimation methods for metrology applications.
 The uncertainty of the data-driven step input estimation method \citep{Markovsky15ieee} is unknown.
-The uncertainty can be defined in terms of the estimate bias and variance \citep{Pintelon12Book}, and these can be obtained by conducting an elementwise statistical analysis.
+The estimation bias and variance define the estimation uncertainty \citep{Pintelon12Book}, and they can be obtained by conducting an elementwise statistical analysis. 
 The validation of the step input estimation method requires also to demonstrate its effectiveness on real-life measurements.
-In real-life experiments, the experimens were conducted with sensors of temperature and mass.
-One challenge of using real-life data is that the noise may not fulfill the whiteness assumptions considered in the estimation problem formulation and in the statistical analysis.
+Temperature and mass sensors are suitable devices to make real-life measurement experiments.
+One challenge of using real-life data is that the noise may not fulfill the whiteness assumption considered in the estimation problem formulation and the statistical analysis.
 The simulation and experimental results permit to compare the performance of the step input estimation method.
 
 % DM:Estimation of affine input parameters
 The ideas behind the step input estimation method raise the curiosity towards the design of estimation methods for other input models.
-One of this input models is the ramp.
-The ramp input estimation method is, in addition, motivated by the dynamic weighing that is performed in conveyor systems.
+One of these input models is the ramp.
+The dynamic weighing, performed in conveyor systems, also motivates the ramp input estimation method.
 The dynamic weighing estimates the mass of materials or products during their transportation.
 Ideally, when the conveyor belt transports the materials at a constant speed, i.e., the weighing sensor is excited with a ramp profile. 
-The ramp is an affine input model that consists of two parameters, the slope and the interception.
+The ramp is an affine input model that consists of two parameters: the slope and the interception.
 The slope depends on the applied mass and can be used to estimate it from the transient response.
 An adaptation of the step input estimation method can estimate the parameters of affine inputs.
 
 % general preview of the thesis contents
-This thesis describes three works iniciated after the data-driven step input estimation method.
+This thesis describes three works initiated after the data-driven step input estimation method.
 The first work is a statistical analysis to elucidate the bias and the covariance of the estimate that this method provides.
-With these statistical moments, the estimate uncertainty is built and we can assess the effectiveness of the method.
+These statistical moments build the estimation uncertainty that appraises the effectiveness of the method.
    
  
 \section{State of the art}
 
-Recent studies in metrology deal with the dynamic process effects that exist in measurements.
-Processing the response of linear time invariant sensors to get fast and accurate input estimations motivates the need to estimate inherent dynamical errors \citep{Hessling06} and to develop methods for dynamic correction in time domain \citep{Hessling08a}.
-The industrial requeriments impose new challenges by increasing the number of sensors distributed in the production lines that provide feedback for quick decision taking to control autonomous activation \citep{Esward09}.  
+The scientific literature contains metrology studies that deal with the dynamic process effects on measurements.
+Processing the response of linear time-invariant sensors, to get fast and accurate input estimations, motivates the need to estimate inherent dynamical errors \citep{Hessling06} and to develop methods for dynamic correction in the time domain \citep{Hessling08a}.
+The industrial requirements impose new challenges by increasing the number of sensors distributed in the production lines that provide feedback for quick decision making to control autonomous activation \citep{Esward09}.  
 
 To implement the input estimation methods in the practice, the compensation filters based on deconvolution \citep{Eichstadt10} are the preferred methodology to develop 
 analog filters \citep{Jafaripanah05}, 
@@ -97,27 +97,27 @@ A list of measurement methods based on digital signal processors (DSP) include
 a study of the data-driven dynamic error correction and its impact on the measured temperature \citep{Saggin01},
 a modulation quality measurement of microwave access systems \citep{Angrisani10}, 
 a real-time rotational speed estimation using correlation \citep{Wang14},
-a development of an biology-inspired electronic nose \citep{Jing16},
+a development of a biology-inspired electronic nose \citep{Jing16},
 and impedance measurements for material damage estimation using cross-correlation \citep{deCastro19}.
-The data-driven step input estimation method \citep{Markovsky15cep} is added to this list, highlighting the fact that can be implemented for the measurement of different physical magnitudes bacause is model independent.
+The data-driven step input estimation method \citep{Markovsky15cep} is added to this list, highlighting the fact that it can be implemented for the measurement of different physical magnitudes because it is model-independent.
 
 
 % Uncertainty assessment 
-In metrology, each measurement is an estimation that can be modeled as a random variable.
-Every measurement is inherently perturbed by noise and, therefore, the input estimation is commonly expressed with its two first statistical moments \citep{Ferrero06}.
-In an effort to standardize the uncertainty assessment of the input estimation, a guideline \citep{GUM08}has been prepared and has a overall acceptance in the metrolgy community.
-A review of measurement uncertainty analysis of common use is presented in \citep{daSilva12}.
-The Monte Carlo method has been shown to be an effective uncertainty evaluation tool in \citep{Cox06},
-and supports the usefulness of simulation for quantifying measurement uncertainties by software \citep{Esward16}.
-Another example of the Monte Carlo method is the dynamic measurement uncertainty evaluation of clinical thermometers described in \citep{Ogorevc16}.
+In metrology, a measurement is an estimation, represented as a random variable.
+The measurement noise always exists, and therefore, the input estimation is commonly expressed with its two first statistical moments \citep{Ferrero06}.
+The guideline \citep{GUM08}, accepted by the metrology community, recommends the standardization of the uncertainty assessment.
+The typical measurement uncertainty analysis are reviewed in \citep{daSilva12}.
+The Monte Carlo method is a uncertainty evaluation tool \citep{Cox06},
+that supports the use of simulation techniques for quantifying measurement uncertainties \citep{Esward16}.
+Another example of the Monte Carlo method application is the dynamic measurement uncertainty evaluation of clinical thermometers described in \citep{Ogorevc16}.
 
 Nevertheless, researchers still pinpoint the need to study more the uncertainty assessment methods \citep{Esward09, Hessling10}.
-It is recommended to consider the uncertainties of all the measurement chain components \citep{Diniz17}, and to avoid the direct uncertainty propagation from the calibration towards the to-be-measured quantity.  
+Some recommend to consider the uncertainties of all the measurement chain components \citep{Diniz17}, and to avoid the direct uncertainty propagation from the calibration towards the to-be-measured quantity.  
 Methods for evaluating the uncertainty associated with the output of compensation filters have been investigated, such as for
 a discrete-time infinite-response filter in \citep{Link09},
 a discrete-time finite-response filter in \citep{Elster07, Elster08}, and
 the Kalman filter in \citep{Eichstadt16b}.
-All these works propagate the uncertanity through the filter but it is also necessary to upward the propagation up to the sensor model to include all systematic error contributions \citep{Hessling11}.
+All these works propagate the uncertainty through the filter, but it is also necessary to upward the propagation up to the sensor model to include all systematic error contributions \citep{Hessling11}.
 
 
 
@@ -125,33 +125,34 @@ All these works propagate the uncertanity through the filter but it is also nece
 
 % Preview of the thesis contents and location of the developed topics in relation to the state of the art 
 
-This thesis describes research work iniciated after the data-driven step input estimation method.
-This method was proposed for metrology applications but it lacked of an uncertainty assessment, and, therefore, its appropriateness was questionable.
-The first research work conducted is a statistical analysis to elucidate the bias and the covariance of the estimate that the data-driven step input estimation method provides.
-After obtaining these statistical moments, the estimate uncertainty is built, and the effectiveness of the method is evaluated.
-The second research work conducted is a series of experiments that aims to validate the data-driven step input estimation method in real-life applications.
+This thesis describes research work initiated after the data-driven step input estimation method.
+This method aims for metrology applications but it lacked an uncertainty assessment, and, therefore, its appropriateness was questionable.
+The first research work conducted was a statistical analysis to elucidate the bias and the covariance of the estimate that the data-driven step input estimation method provides.
+After obtaining these statistical moments, the estimation uncertainty was assessed, and the effectiveness of the method was evaluated.
+The second research work was a series of experiments conducted to validate the data-driven step input estimation method in real-life applications.
 The experiments were realizations of the step input excitation using temperature and mass sensors.
-The step input estimation method showed robustness when the measurement noise is not Gaussian and white as it was assumed in the theoretical analyses.
-The third research work conducted is the estimation of affine input parameters following the data-driven approach. 
-The data-driven method is proposed for real-time applications, and uses exponential weighing in the recursive least squares solution of a structured errors-in-variables problem, to give preference to recent samples over the older samples.
-The data-driven affine input estimation method methodology and performance is compared those of a maximum likelihood method based.
+The step input estimation method showed robustness when the measurement noise is not Gaussian and white, as it was assumed in the theoretical analyses.
+The third research work conducted was the estimation of affine input parameters following the data-driven approach for real-time applications. 
+The data-driven method uses exponential weighing in the recursive least-squares solution of a structured errors-in-variables problem, to give preference to recent samples over the older samples.
+The methodology and performance of the data-driven affine input estimation method were compared to those of a maximum likelihood method based.
 
 \subsection{Statistical analysis}
 
 The data-driven step input estimation method formulates a structured errors-in-variables (EIV) problem.
-In linear estimation EIV problems, the regression matrix and the regressor are perturbed by measurement noise \citep{VanHuffel91Book}, \citep{Markovsky07overview}.
+In linear estimation EIV problems, the measurement noise perturbs the regression matrix and the regressor \citep{VanHuffel91Book}, \citep{Markovsky07overview}.
 The regression matrix, in structured EIV problems, has a structure that depends on the problem formulation.
 The Hankel and Toeplitz matrices appear in problems of metrology \citep{Markovsky15cep}, system identification \citep{Soderstrom07}, image restoration \citep{Feiz17}, nuclear magnetic resonance spectroscopy \citep{Cai16}, direction-of-arrival estimation \citep{Pan18}, and time-of-arrival estimation \citep{Jia18}.
 
 The data-driven step input estimation method directly estimates the input from the sensor transient response. 
-The perturbations in the EIV problem of interest come from the sensor output, that is the only observed signal \citep{Markovsky15cep}, and is used to construct both the regression matrix and the regressor.
-The structure in this regression matrix is block-Hankel.
-The direct estimation is a data-driven methodology that reduces the input estimation time of the classical two-stage approach where a sensor model is first identified, and later the input is estimated using the sensor model \citep{Azam15, Niedzwiecki16a}.
+The perturbations in the EIV problem of interest come from the sensor output
+This is the only observed signal \citep{Markovsky15cep}, and it constructs both the regression matrix and the regressor.
+The structure in the regression matrix is block-Hankel.
+The direct estimation is a data-driven methodology that reduces the input estimation time of the classical two-stage approach that first identifies a sensor model and later estimates the input using the sensor model \citep{Azam15, Niedzwiecki16a}.
 
-Instead of using a total least-squares (TLS) solution of the structured EIV problem, the recursive least squares solution (RLS) is proposed to get the step input estimate. 
+Instead of using a total least-squares (TLS) solution of the structured EIV problem, the method proposes the recursive least-squares solution (RLS) to get the step input estimate. 
 The TLS solution of unstructured EIV problems is consistent when the perturbations have zero mean with a given positive definite covariance, and
-the TLS solution is equivalent to the maximum likelihood (ML) solution when the perturbations of the EIV problems are i.i.d. normally distributed \citep{Markovsky07overview}. 
-However, regarding structured EIV problems, the TLS estimator does not give general results since each structure requires a specific treatment \citep{VanHuffel07TLSeditorial}, and the ML estimator leads to non-convex optimization problems where the global optimum is not guaranteed \citep{Rhode14recursive}.
+the TLS solution is equivalent to the maximum likelihood (ML) solution when the disturbances of the EIV problems are i.i.d. normally distributed \citep{Markovsky07overview}. 
+However, regarding structured EIV problems, the TLS estimator does not give general results since each structure requires a specific treatment \citep{VanHuffel07TLSeditorial}, and the ML estimator leads to non-convex optimization problems where finding the global optimum is not guaranteed \citep{Rhode14recursive}.
 Moreover, the computational complexity of TLS and ML inhibits their real-time implementation.
 The least-squares (LS) estimator is a suboptimal but simple solution to structured EIV problems that admits a recursive form (RLS) suitable for real-time implementation.
 
@@ -164,15 +165,15 @@ a discussion of the causes of bias and inconsistency in homogeneous estimators \
 The literature does not address the uncertainty of the reported LS estimators for structured EIV problems.
 
 The uncertainty of an estimation method is expressed using the bias and covariance of the estimate \citep{Pintelon12Book}.
-To know the uncertainty of the data-driven step input estimation method, I quantified the bias and the covariance of the LS solution of EIV problems, for unstructured and structured cases. 
-This quantification extends the perturbation analysis of the LS estimator of unstructured and uncorrelated problems that was investigated in \citep{Stewart90SPT} and in \citep{Vaccaro94}.
-The analysis of the unstructured EIV case provides an insight of the impact that the structure of the regression matrix and the correlation between the regression matrix and the regressor perturbations have on the uncertainty of the LS estimate.
+To know the uncertainty of the data-driven step input estimation method, I quantified the bias and covariance of the LS solution of EIV problems, for unstructured and structured cases. 
+The bias and covariance quantification extend the perturbation analysis that investigated in \citep{Stewart90SPT} and in \citep{Vaccaro94}.
+The analysis of the two studied cases provides insight into the impact that the structure and the correlation have on the LS estimation uncertainty.
 The study presented in this thesis illustrates a methodology to conduct statistical analysis for any structured EIV problem.
 
-I derived expresions that quantify the bias and covariance by obtaining the mathematical expectation of the LS estimate approximated by the second-order Taylor series expansion.
+I derived expressions that quantify the bias and covariance by obtaining the mathematical expectation of the LS estimate approximated by the second-order Taylor series expansion.
 Using Monte Carlo simulations, I validated the accuracy of the bias and covariance expressions.
-These expressions estimate the bias and covariance that the data-driven step input estimation method will exhibit for given sample size and perturbation level.
-I compared the mean squared error of the LS estimate to the minimum variance specified by the Cram\'er-Rao lower bound of the structured EIV problem, to determine the conditions in which the data-driven step input estimation method is appropriate for practical applications \citep{QuintanaCSDA}.
+These expressions estimate the bias and covariance that the data-driven step input estimation method will exhibit for a given sample size and perturbation level.
+I compared the mean squared error of the LS estimate to the minimum variance specified by the Cram\'er-Rao lower bound of the structured EIV problem, to determine the conditions under which the data-driven step input estimation method is appropriate for practical applications \citep{QuintanaCSDA}.
 
 
 \subsection{Experimental validation}
@@ -187,12 +188,12 @@ Other methods for input estimation mainly compensate the sensor transient respon
 recursive estimation of the compensator parameters \citep{Shu93}, 
 finite impulse response (FIR) filtering \citep{Elster07}, \citep{Niedzwiecki16b} filters and 
 infinite impulse response (IIR) filtering \citep{Pintelon90}, \citep{Elster08}.
-The uncertainty propagation for these model-based compensators is based on the transfer function or state space representations of the LTI sensor and filter systems \citep{Link09}, \citep{Hale09}.
+The uncertainty propagation for these model-based compensators is based on the transfer function or state-space representations of the LTI sensor and filter systems \citep{Link09}, \citep{Hale09}.
 Another way to assess the measurement uncertainty is by observing the results of multiple practical measurements as it is described in \citep{Pietrzak14} for mass and in \citep{Ogorevc16} for temperature sensors.
 
 To validate the data-driven step input estimation method I built a weighing system setup based on a load cell sensor.
-The weighing setup was constructed to ensure repeatability and reproducibility along different experimental realizations.
-Load cell sensors are versatil devices that are found in 
+The weighing setup was constructed to ensure repeatability and reproducibility, along with different experimental realizations.
+Load cell sensors are versatile devices that are found in 
 heart and breathing physiological signal monitoring \citep{Lee16},
 clinical analysis of sleep quality \citep{Zahradka18},
 automobile safety studies \citep{Ballo16},
@@ -225,12 +226,12 @@ the combination of filters in cascade proposed in \citep{Niedzwiecki16a}.
 
 
 The signal from the load cell sensor in the weighing system is conditioned using operational amplifiers.
-The signal conditioning amplifier has a low-pass filter to prevent aliasing noise.
+The signal conditioning amplifier has a low-pass filter to prevent aliasing from the noise.
 The observed measurement noise has non-white noise properties, mainly due to the characteristics of the load cell sensor.
-One of the assumptions of the step input estimation method formulation is that the measurement noise is Gaussian white. 
+One of the assumptions of the step input estimation method formulation is that the measurement noise is Gaussian and white. 
 Nevertheless, the estimation results show that the method is still able to provide useful input estimations \citep{QuintanaTIM}.
 
-The empirical bias an covariance obtained after repeating the weighing experiment was compared to the bias and covariance estimations obtained in the previous research work \citep{QuintanaCSDA}, and to the minimal variance given by the  Cram\'er-Rao lower bound (CRLB) of the structured EIV problem.
+The empirical bias and covariance obtained after repeating the weighing experiment was compared to the bias and covariance estimations obtained in the previous research work \citep{QuintanaCSDA}, and to the minimal variance given by the  Cram\'er-Rao lower bound (CRLB) of the structured EIV problem.
 I found that the mean squared error (MSE) of the step input estimate is near the CRLB, and the distance between the MSE and the CRLB provides a confidence interval for the input estimate with respect to the level of the measurement noise. 
 
  
@@ -248,7 +249,7 @@ The signal processing affine input estimation methods are motivated by the need 
 In the proposed data-driven method for the estimation of the affine input \citep{QuintanaMEAS},
 the affine input is parameterized as a straight line model where the slope and the interception are the parameters of interest.
 The data-driven affine input estimation method formulates a structured errors-invariables (EIV) problem, similar to the one fourmulated for the step input estimation.
-An exponential weight is added to the recursive least squares.
+An exponential weight is added to the recursive least-squares.
 This is a forgetting factor that considers that the newer samples are more relevant for the input parameters estimation.
 The data-driven affine input estimation method is a recursive algorithm that can be implemented in real-time since it has low computational cost.
 

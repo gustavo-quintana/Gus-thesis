@@ -1,4 +1,4 @@
-\begin{thebibliography}{72}
+\begin{thebibliography}{75}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -70,7 +70,7 @@ M.G. Cox and B.R. Siebert.
 \newblock {The use of a Monte Carlo method for evaluating uncertainty and
   expanded uncertainty}.
 \newblock \emph{Metrologia}, 43\penalty0 (4):\penalty0 S178, 2006.
-\newblock URL \url{http://stacks.iop.org/0026-1394/43/i=4/a=S03}.
+\newblock \doi{10.1088/0026-1394/43/4/s03}.
 
 \bibitem[de~Castro et~al.(2019)de~Castro, Baptista, and Ciampa]{deCastro19}
 B.A. de~Castro, F.G. Baptista, and F.~Ciampa.
@@ -139,8 +139,6 @@ T.J. Esward.
 \newblock {Investigating dynamic measurement applications through modelling and
   simulation}, 2016.
 \newblock ISSN 01718096.
-\newblock URL
-  \url{https://www.degruyter.com/view/j/teme.2016.83.issue-10/teme-2015-0128/teme-2015-0128.xml}.
 
 \bibitem[Esward et~al.(2009)Esward, Elster, and J.P.]{Esward09}
 T.J. Esward, C.~Elster, and Hessling J.P.
@@ -198,6 +196,13 @@ W.~Hernandez.
 \newblock ISSN 1424-8220.
 \newblock \doi{10.3390/s6070697}.
 
+\bibitem[Hessling(2006)]{Hessling06}
+J.P. Hessling.
+\newblock A novel method of estimating dynamic measurement errors.
+\newblock \emph{Measurement Science and Technology}, 17\penalty0 (10):\penalty0
+  2740--2750, 2006.
+\newblock \doi{10.1088/0957-0233/17/10/028}.
+
 \bibitem[Hessling(2008)]{Hessling08a}
 J.P. Hessling.
 \newblock {A novel method of dynamic correction in the time domain}.
@@ -218,7 +223,7 @@ J.P. Hessling.
 \newblock {Propagation of dynamic measurement uncertainty}.
 \newblock \emph{Measurement Science and Technology}, 22\penalty0 (10):\penalty0
   105105, 2011.
-\newblock URL \url{http://stacks.iop.org/0957-0233/22/i=10/a=105105}.
+\newblock \doi{10.1088/0957-0233/22/10/105105}.
 
 \bibitem[Huang et~al.(2016)Huang, Teng, Tang, Lin, and Wen]{Huang16}
 Q.~Huang, Z.~Teng, X.~Tang, H.~Lin, and H.~Wen.
@@ -300,7 +305,7 @@ A.~Link and C.~Elster.
   using a state-space approach}.
 \newblock \emph{Measurement Science and Technology}, 20\penalty0 (5):\penalty0
   1--5, 2009.
-\newblock URL \url{http://stacks.iop.org/0957-0233/20/i=5/a=055104}.
+\newblock \doi{10.1088/0957-0233/20/5/055104}.
 
 \bibitem[Link et~al.(2007)Link, T{\"a}ubner, Wabinski, Bruns, and
   Elster]{Link07}
@@ -384,8 +389,6 @@ M.~Nied{\'z}wiecki, M.~Meller, and P.~Pietrzak.
   582--599, 2016.
 \newblock ISSN 0888-3270.
 \newblock \doi{10.1016/j.ymssp.2016.04.007}.
-\newblock URL
-  \url{http://www.sciencedirect.com/science/article/pii/S0888327016300450}.
 
 \bibitem[Nocedal and Wright(2006)]{Nocedal06}
 J.~Nocedal and S.~Wright.
@@ -438,8 +441,6 @@ P.~Pietrzak, M.~Meller, and M.~Nied{\'z}wiecki.
   (1--2):\penalty0 67--76, 2014.
 \newblock ISSN 0888-3270.
 \newblock \doi{10.1016/j.ymssp.2014.02.013}.
-\newblock URL
-  \url{http://www.sciencedirect.com/science/article/pii/S0888327014000715}.
 
 \bibitem[Pintelon and Schoukens(2012)]{Pintelon12Book}
 R.~Pintelon and J.~Schoukens.
@@ -456,15 +457,32 @@ R.~{Pintelon}, Y.~{Rolain}, M.~V. {Bossche}, and J.~{Schoukens}.
 \newblock ISSN 0018-9456.
 \newblock \doi{10.1109/19.50428}.
 
-\bibitem[Quintana-Carapia et~al.(2019)Quintana-Carapia, Markovsky, Pintelon,
-  Zolt{\'a}n, and Verbeke]{Quintana19}
+\bibitem[Quintana-Carapia and Markovsky(2020)]{QuintanaMEAS}
+G.~Quintana-Carapia and Markovsky.
+\newblock {Input parameters estimation from time-varying measurements}.
+\newblock \emph{Measurement}, 153\penalty0 (1):\penalty0 107418, 2020.
+\newblock ISSN 0263-2241.
+\newblock \doi{10.1016/j.measurement.2019.107418}.
+
+\bibitem[Quintana-Carapia et~al.(2019{\natexlab{a}})Quintana-Carapia,
+  Markovsky, Pintelon, Zolt{\'a}n, and Verbeke]{QuintanaCSDA}
 G.~Quintana-Carapia, I.~Markovsky, R.~Pintelon, P.~Zolt{\'a}n, and D.~Verbeke.
 \newblock {Bias and covariance of the least squares estimate of a structured
   errors-in-variables problem}.
 \newblock \emph{Computational Statistics and Data Analysis}, 144\penalty0
-  (106893):\penalty0 1--2, 2019.
+  (106893):\penalty0 1--2, 2019{\natexlab{a}}.
 \newblock ISSN 0167-9473.
 \newblock \doi{10.1016/j.csda.2019.106893}.
+
+\bibitem[Quintana-Carapia et~al.(2019{\natexlab{b}})Quintana-Carapia,
+  Markovsky, Pintelon, Zolt{\'a}n, and Verbeke]{QuintanaTIM}
+G.~Quintana-Carapia, I.~Markovsky, R.~Pintelon, P.~Zolt{\'a}n, and D.~Verbeke.
+\newblock {Experimental validation of a data-driven step input estimation
+  method for dynamic measurements}.
+\newblock \emph{IEEE Transactions on Instrumentation and Measurement},
+  1\penalty0 (1):\penalty0 1--1, 2019{\natexlab{b}}.
+\newblock ISSN 1557-9662.
+\newblock \doi{10.1109/TIM.2019.2951865}.
 
 \bibitem[Rhode et~al.(2014)Rhode, Usevich, Markovsky, and
   Gauterin]{Rhode14recursive}
@@ -520,8 +538,6 @@ R.~Tasaki, T.~Yamazaki, H.~Ohnishi, M.~Kobayashi, and S.~Kurosu.
 \newblock \emph{Measurement}, 40\penalty0 (7--8):\penalty0 791--796, 2007.
 \newblock ISSN 0263-2241.
 \newblock \doi{10.1016/j.measurement.2006.05.010}.
-\newblock URL
-  \url{http://www.sciencedirect.com/science/article/pii/S0263224106000959}.
 \newblock Precision Measurement of Force, Mass, and Torque.
 
 \bibitem[Tedea-Huntleigh(2015)]{tedea1004}

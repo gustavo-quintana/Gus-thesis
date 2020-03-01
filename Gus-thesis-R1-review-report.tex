@@ -1,0 +1,114 @@
+\documentclass[11pt]{article}
+\date{\vspace{-10ex}}
+
+\usepackage{lineno,hyperref}
+\modulolinenumbers[5]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Added lines by Gustavo Quintana to facilitate internal review process
+\usepackage{amsmath, amsfonts, mathtools, hyperref, tikz, pgf, subcaption, mathdots}
+\usepackage[a4paper, total={6.5in, 9in}]{geometry}
+\usepackage{setspace}
+\usetikzlibrary{shapes, arrows, calc, patterns, decorations.pathmorphing, decorations.markings, positioning, external}
+\tikzexternalize
+\tikzset{external/system call={pdflatex \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource" && pdftops -eps "\image.pdf"}}
+\tikzexternalize[shell escape=-enable-write18]
+\usepackage{algorithm, algorithmic}
+%\usepackage[noend]{algpseudocode}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+%\renewcommand{\algorithmicreturn}{\textbf{Initialize:}}
+
+\makeatletter
+\newcommand*\rel@kern[1]{\kern#1\dimexpr\macc@kerna}
+\newcommand*\widebar[1]{%
+  \begingroup
+  \def\mathaccent##1##2{%
+    \rel@kern{0.8}%
+    \overline{\rel@kern{-0.8}\macc@nucleus\rel@kern{0.2}}%
+    \rel@kern{-0.2}%
+  }%
+  \macc@depth\@ne
+  \let\math@bgroup\@empty \let\math@egroup\macc@set@skewchar
+  \mathsurround\z@ \frozen@everymath{\mathgroup\macc@group\relax}%
+  \macc@set@skewchar\relax
+  \let\mathaccentV\macc@nested@a
+  \macc@nested@a\relax111{#1}%
+  \endgroup
+}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% `Elsevier LaTeX' style
+%\bibliographystyle{elsarticle-num}
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\title{Promotors' reports on the first draft of the thesis document.} 
+
+\maketitle
+
+
+\section*{Ivan Markovsky}
+
+High level comments on the thesis draft:
+
+\begin{enumerate}
+
+\item Don't number the Summary along with the other chapters.
+
+\item EWRLS and TV are not standard acronyms. Don't use them.
+
+\item Reorganize the content so that there are only two levels in the
+table of contents (chapter and section). For example in the introduction
+either move 2.2.1. Statistical analysis, 2.2.2. Experimental validation,
+2.2.3. Affine input estimation to separate sections or don't show them
+in the table of contents.
+\item In Chapter 3. Preliminaries there is only one section. This is a sign
+of bad organization. The section heading should be the chapter heading,
+or else add other sections.
+\item  The introduction begins with two pages of text that as far as I see
+are not a summary of the chapter. This text should form a section on its
+own.
+\item  Apply in practice what you have learned in the course of Jean-luc
+Doumont. In particular, start every chapter with a short summary of what
+is in the chapter. Don't do this formally because it is a rule but try
+to convey the highlights of the chapter and the links among the sections
+in just 1/2 page.
+
+\end{enumerate}
+
+\section*{Rik Pintelon}
+
+
+
+\begin{enumerate}
+
+\item 
+
+
+\item 
+
+\item 
+
+\item 
+
+\item 
+
+\item 
+
+\item 
+
+\item 
+
+\item 
+
+\item 
+
+\item 
+
+\end{enumerate}
+
+\end{document}

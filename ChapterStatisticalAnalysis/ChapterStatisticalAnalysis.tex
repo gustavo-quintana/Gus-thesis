@@ -5,7 +5,7 @@
 \chapter{Statistical Analysis} \label{chap:StatisticalAnalysis}
 
 \begin{quote}
-\emph{The results of this chapter were published in Quintana Carapia, G., Markovsky, I. Pintelon, R., Csurcsia, P.Z., and Verbeke, D., "Bias and covariance of the least squares estimate in a structured errors-in-variables problem", Computational Statistics & Data Analysis journal, Vol. 144, 2020, ISSN 0167-9473, doi:10.1016/j.csda.2019.106893. \nocite{QuintanaCSDA} }\vfill{}
+\emph{The results of this chapter were published in Quintana Carapia, G., Markovsky, I. Pintelon, R., Csurcsia, P.Z., and Verbeke, D., "Bias and covariance of the least-squares estimate in a structured errors-in-variables problem", Computational Statistics & Data Analysis journal, Vol. 144, 2020, ISSN 0167-9473, doi:10.1016/j.csda.2019.106893. \nocite{QuintanaCSDA} }\vfill{}
 \end{quote}
 
 
@@ -17,10 +17,10 @@ The linear estimation problems with perturbation in both the regression matrix a
 To evaluate the properties of the solution to an EIV problem it is often required to calculate the statistical moments of the estimate.
 The calculation of the estimate statistical moments demands a larger effort when the regression matrix of a EIV problem is structured, and when is correlated to the regressor.
 
-Structured total least squares and structured total maximum likelihood are two examples of methods that solve structured EIV problems, but that require large computational resources.
+Structured total least-squares and structured total maximum likelihood are two examples of methods that solve structured EIV problems, but that require large computational resources.
 For online applications where a real-time solution of the structured EIV problem is desired, the recursive least-squares (RLS) method is a suboptimal but computationally cheaper estimator.
 
-To obtain the statistical moments of the RLS estimation for a structured and correlated EIV problem, and to assess the estimate uncertainty, that have not been obtained before, a statistical analysis was conducted.
+To obtain the statistical moments of the RLS estimation for a structured and correlated EIV problem, and to assess the estimation uncertainty, that have not been obtained before, a statistical analysis was conducted.
 
 This chapter describes the methodology and the results of the statistical analysis.
 The mathematical expectation of the RLS estimate, approximated by a second-order Taylor series expansion, allows a quantification of the first and second-order moments of the LS estimate.
@@ -61,7 +61,7 @@ The structured case is motivated by the metrology estimation problem \citep{Mark
 The study of the metrology input estimate illustrates a methodology to conduct statistical analysis for any structured EIV problem.
 The mathematical expectation of the second-order Taylor series expansion of the LS estimate boils down to expressions that quantify the first and second-order moments of the LS estimate.
 Via Monte Carlo simulations, we validated the accuracy of the bias, and the covariance approximations.
-The derived approximations predict the LS estimate bias, and the covariance, for given sample size and perturbation level.
+The derived approximations predict the LS estimation bias, and the covariance, for given sample size and perturbation level.
 The predicted variance gives the uncertainty of the LS estimate.
 We observed that, for the step input estimation problem, the mean squared error of the LS estimate is near to the minimum variance limit given by the Cram\'er-Rao lower bound of the structured EIV problem.
  By following this methodology, the bias and variance of the solutions of EIV problems with other structures is determined, and therefore, the uncertainty of the estimate.
@@ -72,14 +72,14 @@ We observed that, for the step input estimation problem, the mean squared error 
 \section{Statistical analysis of the data-driven step input estimation method}
 
 For an overdetermined system of linear equations, constructed by the data-driven step input estimation method (\ref{eqn:min_seiv}), the least-squares (LS) solution is given by
-\begin{equation} \widehat{\mathbf{x}} = \widetilde{\mathbf{K}}^\dagger \widetilde{\mathbf{y}} = ( \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{K}} )^{-1} \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{y}} , \label{eqn:xhat} \end{equation}
+\begin{equation} \widehat{\bm{\theta}} = \widetilde{\mathbf{K}}^\dagger \widetilde{\mathbf{y}} = ( \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{K}} )^{-1} \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{y}} , \label{eqn:xhat} \end{equation}
 where $\widetilde{\mathbf{K}}^\dagger$ is the pseudo-inverse of $\widetilde{\mathbf{K}}$.
-The objective of the statistical analysis is to obtain the bias and the covariance of the solution $\widehat{\mathbf{x}}$ to the structured and correlated EIV problem (\ref{eqn:ddsiemnd}).
+The objective of the statistical analysis is to obtain the bias and the covariance of the solution $\widehat{\bm{\theta}}$ to the structured and correlated EIV problem (\ref{eqn:ddsiemnd}).
 The bias and the covariance are computed using the mathematical expectation operator $\mathbb{E}\{\cdot\}$.
 First we substitute the expressions (\ref{eqn:y0plusnoise}) and (\ref{eqn:K0plusnoise}) in Equation (\ref{eqn:xhat}) to obtain
-\begin{equation*} \widehat{\mathbf{x}} = \left( (\mathbf{K}+\mathbf{E})^\top (\mathbf{K}+\mathbf{E})  \right)^{-1} (\mathbf{K}+\mathbf{E})^\top (\mathbf{y}+\bm{\epsilon}), \end{equation*} 
+\begin{equation*} \widehat{\bm{\theta}} = \left( (\mathbf{K}+\mathbf{E})^\top (\mathbf{K}+\mathbf{E})  \right)^{-1} (\mathbf{K}+\mathbf{E})^\top (\mathbf{y}+\bm{\epsilon}), \end{equation*} 
 which is equivalent to
-\begin{equation} \widehat{\mathbf{x}} = \left( \mathbf{I} + \mathbf{M} \right)^{-1} \mathbf{Q}^{-1} (\mathbf{K}+\mathbf{E})^\top (\mathbf{y}+\bm{\epsilon}), \label{eqn:1steq} \end{equation} 
+\begin{equation} \widehat{\bm{\theta}} = \left( \mathbf{I} + \mathbf{M} \right)^{-1} \mathbf{Q}^{-1} (\mathbf{K}+\mathbf{E})^\top (\mathbf{y}+\bm{\epsilon}), \label{eqn:1steq} \end{equation} 
 where 
 \begin{equation} \mathbf{Q} = \mathbf{K}^\top \mathbf{K}, \quad \text{and} \quad \mathbf{M} = \mathbf{Q}^{-1} ( \mathbf{K}^\top \mathbf{E} + \mathbf{E}^\top \mathbf{K} + \mathbf{E}^\top \mathbf{E} ). \end{equation} 
 Applying a second-order Taylor expansion of the inverse matrix
@@ -87,14 +87,14 @@ Applying a second-order Taylor expansion of the inverse matrix
 that is valid when the SNR is sufficiently high, and therefore $\mathbf{E}$ and $\mathbf{M}$ are small, satisfying the constraint on the spectral radius $\| \mathbf{M} \| < 1$. 
 The neglected term in the Taylor series expansion is of the order $O(\Vert M \Vert^3)$.
 We can express the estimate as
-\begin{equation} \widehat{\mathbf{x}} \approx \left( \mathbf{I} - \mathbf{M} + \mathbf{M}^2 \right) \mathbf{Q}^{-1} (\mathbf{K}+\mathbf{E})^\top (\mathbf{y}+\bm{\epsilon}). \label{eqn:xhatexp} \end{equation} 
+\begin{equation} \widehat{\bm{\theta}} \approx \left( \mathbf{I} - \mathbf{M} + \mathbf{M}^2 \right) \mathbf{Q}^{-1} (\mathbf{K}+\mathbf{E})^\top (\mathbf{y}+\bm{\epsilon}). \label{eqn:xhatexp} \end{equation} 
 
-Now that the perturbation variables $\bm{\epsilon}$ and $\mathbf{E}$ are no longer inside an inverse matrix, we can compute the mathematical expectation of expressions derived from the Taylor series approximation (\ref{eqn:xhatexp}) of $\widehat{\mathbf{x}}$. 
-The bias of the estimate $\widehat{\mathbf{x}}$ is obtained from
-\begin{equation} \mathbf{b} \left(\widehat{\mathbf{x}} \right) = \bm{\mu}\left(\widehat{\mathbf{x}} \right) - \mathbf{x}, \label{eqn:biasdef} \end{equation}
-where $\bm{\mu} \left(\widehat{\mathbf{x}} \right) = \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\}$, and $\mathbf{x} = \mathbf{K}^\dagger \mathbf{y} = \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{y}$ is the true value.
-The covariance of the estimate $\widehat{\mathbf{x}}$ is obtained from
-\begin{equation} \begin{aligned} \mathbf{C} \left( \widehat{\mathbf{x}} \right) & = \mathbb{E} \left\{ \left( \widehat{\mathbf{x}} - \bm{\mu} \right) \left( \widehat{\mathbf{x}} - \bm{\mu} \right)^\top \right\} . \end{aligned} \label{eqn:covdef} \end{equation} 
+Now that the perturbation variables $\bm{\epsilon}$ and $\mathbf{E}$ are no longer inside an inverse matrix, we can compute the mathematical expectation of expressions derived from the Taylor series approximation (\ref{eqn:xhatexp}) of $\widehat{\bm{\theta}}$. 
+The bias of the estimate $\widehat{\bm{\theta}}$ is obtained from
+\begin{equation} \mathbf{b} \left(\widehat{\bm{\theta}} \right) = \bm{\mu}\left(\widehat{\bm{\theta}} \right) - \bm{\theta}, \label{eqn:biasdef} \end{equation}
+where $\bm{\mu} \left(\widehat{\bm{\theta}} \right) = \mathbb{E} \left\{ \widehat{\bm{\theta}} \right\}$, and $\bm{\theta} = \mathbf{K}^\dagger \mathbf{y} = \mathbf{Q}^{-1} \mathbf{K}^\top \mathbf{y}$ is the true value.
+The covariance of the estimate $\widehat{\bm{\theta}}$ is obtained from
+\begin{equation} \begin{aligned} \mathbf{C} \left( \widehat{\bm{\theta}} \right) & = \mathbb{E} \left\{ \left( \widehat{\bm{\theta}} - \bm{\mu} \right) \left( \widehat{\bm{\theta}} - \bm{\mu} \right)^\top \right\} . \end{aligned} \label{eqn:covdef} \end{equation} 
 
 The terms derived from (\ref{eqn:xhatexp}) that do not contribute to the bias and to the covariance are filtered out by the mathematical expectation operator considering the following general rules that are valid regardless of the existence of structure in the regression problem: 
 \begin{itemize}
@@ -112,25 +112,25 @@ Comparing the expressions that result from the statistical analysis, we get an i
 \subsection{Bias and covariance of the LS estimator for an unstructured EIV problem with uncorrelated noise}
 % We consider the unstructured matrix $\mathbf{K} \in \mathbb{R}^{\left(T-n\right) \times \left(n+1\right)}$ with the same dimensions as the structured EIV case.
 
-First, the statistics of the least squares estimator (\ref{eqn:xhat}) of an unstructured EIV problem is discussed, 
+First, the statistics of the least-squares estimator (\ref{eqn:xhat}) of an unstructured EIV problem is discussed, 
 provided that the perturbations of the regression matrix and the regressor are i.i.d. normally distributed with zero mean, and variances $\sigma_{\mathbf{E}}^2$ and $\sigma_{\bm{\epsilon}}^2$, respectively.
 Therefore, the terms in the Taylor series expansion (\ref{eqn:xhatexp}) that contain products of $\mathbf{E}$ and $\bm{\epsilon}$ have zero expected value.
  After removing the terms without contribution to the bias, and to the covariance, with the mathematical expectation operator,
 the analytic approximation of the bias (\ref{eqn:biasdef}) is given by 
-\begin{equation} \begin{aligned} \mathbf{b}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) & \approx \sigma_{\mathbf{E}}^2 \left( 2 + 2n - T \right) \mathbf{Q}^{-1} \mathbf{x} , \end{aligned} \label{eqn:biasEu} \end{equation}
+\begin{equation} \begin{aligned} \mathbf{b}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \sigma_{\mathbf{E}}^2 \left( 2 + 2n - T \right) \mathbf{Q}^{-1} \bm{\theta} , \end{aligned} \label{eqn:biasEu} \end{equation}
 and the covariance (\ref{eqn:covdef}) is approximated by 
-\begin{equation} \begin{aligned} \mathbf{C}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) & \approx \sigma_{\bm{\epsilon}}^2 \ \mathbf{Q}^{-1} + \sigma_{\mathbf{E}}^2 \ \mathrm{trace} \left( \mathbf{x} \mathbf{x}^\top \right) \mathbf{Q}^{-1} - \sigma_{\mathbf{E}}^4 \left( 2 + 2n - T \right)^2 \ \mathbf{Q}^{-1} \mathbf{x} \mathbf{x}^\top \mathbf{Q}^{-1} , \end{aligned} \label{eqn:varEu} \end{equation}
+\begin{equation} \begin{aligned} \mathbf{C}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \sigma_{\bm{\epsilon}}^2 \ \mathbf{Q}^{-1} + \sigma_{\mathbf{E}}^2 \ \mathrm{trace} \left( \bm{\theta} \bm{\theta}^\top \right) \mathbf{Q}^{-1} - \sigma_{\mathbf{E}}^4 \left( 2 + 2n - T \right)^2 \ \mathbf{Q}^{-1} \bm{\theta} \bm{\theta}^\top \mathbf{Q}^{-1} , \end{aligned} \label{eqn:varEu} \end{equation}
 where the subscript $\mathrm{p}$ stands for prediction of the bias and covariance.
 The derivation of equations (\ref{eqn:biasEu}) and (\ref{eqn:varEu}) is described in Appendix 1.
 We use the results described in \citep{Vaccaro94} \S 3 and \citep{Stewart90SPT} \S 2.1 for the expected values of products of unstructured matrices with perturbations.
-Equations (\ref{eqn:biasEu}) and (\ref{eqn:varEu}) depend on the unobservable true values $\mathbf{x}$, $\mathbf{K}$, and on the variance of the perturbations.
-The observed variables are $\widetilde{\mathbf{y}}$, $\widetilde{\mathbf{K}}$, and from them we compute $\widehat{\mathbf{x}}$.
+Equations (\ref{eqn:biasEu}) and (\ref{eqn:varEu}) depend on the unobservable true values $\bm{\theta}$, $\mathbf{K}$, and on the variance of the perturbations.
+The observed variables are $\widetilde{\mathbf{y}}$, $\widetilde{\mathbf{K}}$, and from them we compute $\widehat{\bm{\theta}}$.
 It is proposed to directly substitute the observed variables in the analytic expressions.
-The substitution gives an approximation of the estimate bias and covariance using the observed data.
+The substitution gives an approximation of the estimation bias and covariance using the observed data.
 We have then
-\begin{equation} \begin{aligned} \widetilde{\mathbf{b}}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) & \approx \sigma_{\mathbf{E}}^2 \left( 2 + 2n - T \right) \widetilde{\mathbf{Q}}^{-1} \widehat{\mathbf{x}} , \end{aligned} \label{eqn:biasEuST} \end{equation}
-\begin{equation} \begin{aligned} \widetilde{\mathbf{C}}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) & \approx \sigma_\epsilon^2 \ \widetilde{\mathbf{Q}}^{-1} + \sigma_{\mathbf{E}}^2 \ \mathrm{trace} \left( \widehat{\mathbf{x}} \widehat{\mathbf{x}}^\top \right) \widetilde{\mathbf{Q}}^{-1} - \sigma_{\mathbf{E}}^4 \left( 2 + 2n - T \right)^2 \widetilde{\mathbf{Q}}^{-1} \widehat{\mathbf{x}} \widehat{\mathbf{x}}^\top \widetilde{\mathbf{Q}}^{-1} . \end{aligned} \label{eqn:varEuST} \end{equation}
-In order to have a prediction of the estimate bias and covariance, the variances $\sigma_{\mathbf{E}}^2$ and $\sigma_{\bm{\epsilon}}^2$ and the observed variables $\widetilde{\mathbf{y}}$, $\widetilde{\mathbf{K}}$, and $\widehat{\mathbf{x}}$ are needed.
+\begin{equation} \begin{aligned} \widetilde{\mathbf{b}}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \sigma_{\mathbf{E}}^2 \left( 2 + 2n - T \right) \widetilde{\mathbf{Q}}^{-1} \widehat{\bm{\theta}} , \end{aligned} \label{eqn:biasEuST} \end{equation}
+\begin{equation} \begin{aligned} \widetilde{\mathbf{C}}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \sigma_\epsilon^2 \ \widetilde{\mathbf{Q}}^{-1} + \sigma_{\mathbf{E}}^2 \ \mathrm{trace} \left( \widehat{\bm{\theta}} \widehat{\bm{\theta}}^\top \right) \widetilde{\mathbf{Q}}^{-1} - \sigma_{\mathbf{E}}^4 \left( 2 + 2n - T \right)^2 \widetilde{\mathbf{Q}}^{-1} \widehat{\bm{\theta}} \widehat{\bm{\theta}}^\top \widetilde{\mathbf{Q}}^{-1} . \end{aligned} \label{eqn:varEuST} \end{equation}
+In order to have a prediction of the estimation bias and covariance, the variances $\sigma_{\mathbf{E}}^2$ and $\sigma_{\bm{\epsilon}}^2$ and the observed variables $\widetilde{\mathbf{y}}$, $\widetilde{\mathbf{K}}$, and $\widehat{\bm{\theta}}$ are needed.
 
 
 \subsection{Bias and covariance of the LS estimator for a structured EIV problem with noise correlation}
@@ -141,10 +141,10 @@ The correlation is a consequence of the construction of the block-Hankel matrix 
 
 The mathematical expectation operator is applied to the Taylor series expansion of the LS estimate (\ref{eqn:xhatexp}).
 After removing the terms with negligible expected value, and considering the structure of matrix $\mathbf{K}$, the estimation bias (\ref{eqn:biasdef}) is approximated by 
-\begin{equation} \begin{aligned} \mathbf{b}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) & \approx \mathbf{Q}^{-1} \left( \left( \mathbf{K}^\top \mathbf{B}_1 - \mathbf{B}_2 \right) x - \left( \mathbf{K}^\top \mathbf{B}_3 - \mathbf{B}_4 \right) \right) , \end{aligned} \label{eqn:biasE} \end{equation}
+\begin{equation} \begin{aligned} \mathbf{b}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \mathbf{Q}^{-1} \left( \left( \mathbf{K}^\top \mathbf{B}_1 - \mathbf{B}_2 \right) x - \left( \mathbf{K}^\top \mathbf{B}_3 - \mathbf{B}_4 \right) \right) , \end{aligned} \label{eqn:biasE} \end{equation}
 whereas, the estimation covariance (\ref{eqn:covdef}) is approximated by 
-\begin{equation} \begin{aligned} \mathbf{C}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) & \approx \mathbf{K}^\dagger \left( \sigma_{\bm{\epsilon}}^2 \mathbf{I}_{T-n} + \mathbf{C}_1 - \mathbf{C}_2 - \mathbf{C}_2^\top \right) \mathbf{K}^{\dagger \top} - \mathbf{b}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) \mathbf{b}_{\mathrm{p}}^\top \left( \widehat{\mathbf{x}} \right) , \end{aligned} \label{eqn:varE} \end{equation}
-where $\mathbf{B}_1 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \mathbf{E} \Big\}$, $\mathbf{B}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{P}_\perp \mathbf{E} \Big\}$, $\mathbf{B}_3 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \bm{\epsilon} \Big\}$, $\mathbf{B}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{P}_\perp \bm{\epsilon} \Big\}$, $\mathbf{C}_1 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{x} \mathbf{x}^\top \mathbf{E}^\top \Big\}$, $\mathbf{C}_2 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{x} \bm{\epsilon}^\top \Big\}$, $\mathbf{P} = \mathbf{K} \mathbf{K}^\dagger$, and $\mathbf{P}_\perp = \mathbf{I} - \mathbf{P}$. 
+\begin{equation} \begin{aligned} \mathbf{C}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \mathbf{K}^\dagger \left( \sigma_{\bm{\epsilon}}^2 \mathbf{I}_{T-n} + \mathbf{C}_1 - \mathbf{C}_2 - \mathbf{C}_2^\top \right) \mathbf{K}^{\dagger \top} - \mathbf{b}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) \mathbf{b}_{\mathrm{p}}^\top \left( \widehat{\bm{\theta}} \right) , \end{aligned} \label{eqn:varE} \end{equation}
+where $\mathbf{B}_1 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \mathbf{E} \Big\}$, $\mathbf{B}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{P}_\perp \mathbf{E} \Big\}$, $\mathbf{B}_3 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \bm{\epsilon} \Big\}$, $\mathbf{B}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{P}_\perp \bm{\epsilon} \Big\}$, $\mathbf{C}_1 = \mathbb{E} \Big\{ \mathbf{E} \bm{\theta} \bm{\theta}^\top \mathbf{E}^\top \Big\}$, $\mathbf{C}_2 = \mathbb{E} \Big\{ \mathbf{E} \bm{\theta} \bm{\epsilon}^\top \Big\}$, $\mathbf{P} = \mathbf{K} \mathbf{K}^\dagger$, and $\mathbf{P}_\perp = \mathbf{I} - \mathbf{P}$. 
 The derivation of equations (\ref{eqn:biasE}) and (\ref{eqn:varE}) is described in Appendix 1.
 The expected values $\mathbf{B}_1$, $\mathbf{B}_2$, $\mathbf{B}_3$, $\mathbf{B}_4$, $\mathbf{C}_1$ and $\mathbf{C}_2$ are obtained using the results of Lemma \ref{lem:lemma1}.
 
@@ -195,41 +195,41 @@ Each expected value in the lemma is a matrix, or a vector, whose elements are fo
 These operations mainly compute the trace of a product of the corresponding deterministic matrix $\mathbf{A}$, and a matrix constructed from the finite differences matricial operator, which can be of first order $\mathbf{D}^{1}$ or of second order $\mathbf{D}^{2}$.
 The total number of operations in the computation of the bias and the covariance is $O\left( T^3 + n^2 \right)$, but this order can be reduced since the $\mathbf{D}$ matrices are sparse.
 
-The formulas for the bias and covariance (\ref{eqn:biasE}) and (\ref{eqn:varE}) depend on the perturbation variance and on the unobservable variables $\mathbf{x}$ and $\mathbf{K}$.
-The substitution of the observed variables in the expression gives an approximation of the estimate bias and covariance based on the observed system response.
+The formulas for the bias and covariance (\ref{eqn:biasE}) and (\ref{eqn:varE}) depend on the perturbation variance and on the unobservable variables $\bm{\theta}$ and $\mathbf{K}$.
+The substitution of the observed variables in the expression gives an approximation of the estimation bias and covariance based on the observed system response.
 We have then
-\begin{equation} \begin{aligned} \mathbf{b}_{\widetilde{\mathrm{p}}} \left( \widehat{\mathbf{x}} \right) & \approx \widetilde{\mathbf{Q}}^{-1} \left( \left( \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{B}}_1 - \widetilde{\mathbf{B}}_2 \right) \widehat{\mathbf{x}} - \left( \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{B}}_3 - \widetilde{\mathbf{B}}_4 \right) \right), \end{aligned} \label{eqn:biasST} \end{equation}
+\begin{equation} \begin{aligned} \mathbf{b}_{\widetilde{\mathrm{p}}} \left( \widehat{\bm{\theta}} \right) & \approx \widetilde{\mathbf{Q}}^{-1} \left( \left( \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{B}}_1 - \widetilde{\mathbf{B}}_2 \right) \widehat{\bm{\theta}} - \left( \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{B}}_3 - \widetilde{\mathbf{B}}_4 \right) \right), \end{aligned} \label{eqn:biasST} \end{equation}
 and
-\begin{equation} \begin{aligned} \mathbf{C}_{\widetilde{\mathrm{p}}} \left( \widehat{\mathbf{x}} \right) & \approx \widetilde{\mathbf{K}}^\dagger \left( \sigma_{\bm{\epsilon}}^2 \mathbf{I}_{T-n} + \widetilde{\mathbf{C}}_1 - \widetilde{\mathbf{C}}_2 - \widetilde{\mathbf{C}}_2^\top \right) \widetilde{\mathbf{K}}^{\dagger \top} - \mathbf{b}_{\widetilde{\mathrm{p}}} \left( \widehat{\mathbf{x}} \right) \mathbf{b}_{\widetilde{\mathrm{p}}}^\top \left( \widehat{\mathbf{x}} \right) , \end{aligned} \label{eqn:varST} \end{equation}
-where $\widetilde{\mathbf{B}}_1 = \mathbb{E} \Big\{ \mathbf{E} \widetilde{\mathbf{K}}^\dagger \mathbf{E} \Big\}$, $\widetilde{\mathbf{B}}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \widetilde{\mathbf{P}}_\perp \mathbf{E} \Big\}$, $\widetilde{\mathbf{B}}_3 = \mathbb{E} \Big\{ \mathbf{E} \widetilde{\mathbf{K}}^\dagger \bm{\epsilon} \Big\}$, $\widetilde{\mathbf{B}}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \widetilde{\mathbf{P}}_\perp \bm{\epsilon} \Big\}$, $\widetilde{\mathbf{C}}_1 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\mathbf{x}} \widehat{\mathbf{x}}^\top \mathbf{E}^\top \Big\}$, $\widetilde{\mathbf{C}}_2 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\mathbf{x}} \bm{\epsilon}^\top \Big\}$, $\widetilde{\mathbf{C}} = \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{K}}$, $\widetilde{\mathbf{P}} = \widetilde{\mathbf{K}} \widetilde{\mathbf{K}}^\dagger$, and $\widetilde{\mathbf{P}}_\perp = \mathbf{I} - \widetilde{\mathbf{P}}$.
+\begin{equation} \begin{aligned} \mathbf{C}_{\widetilde{\mathrm{p}}} \left( \widehat{\bm{\theta}} \right) & \approx \widetilde{\mathbf{K}}^\dagger \left( \sigma_{\bm{\epsilon}}^2 \mathbf{I}_{T-n} + \widetilde{\mathbf{C}}_1 - \widetilde{\mathbf{C}}_2 - \widetilde{\mathbf{C}}_2^\top \right) \widetilde{\mathbf{K}}^{\dagger \top} - \mathbf{b}_{\widetilde{\mathrm{p}}} \left( \widehat{\bm{\theta}} \right) \mathbf{b}_{\widetilde{\mathrm{p}}}^\top \left( \widehat{\bm{\theta}} \right) , \end{aligned} \label{eqn:varST} \end{equation}
+where $\widetilde{\mathbf{B}}_1 = \mathbb{E} \Big\{ \mathbf{E} \widetilde{\mathbf{K}}^\dagger \mathbf{E} \Big\}$, $\widetilde{\mathbf{B}}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \widetilde{\mathbf{P}}_\perp \mathbf{E} \Big\}$, $\widetilde{\mathbf{B}}_3 = \mathbb{E} \Big\{ \mathbf{E} \widetilde{\mathbf{K}}^\dagger \bm{\epsilon} \Big\}$, $\widetilde{\mathbf{B}}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \widetilde{\mathbf{P}}_\perp \bm{\epsilon} \Big\}$, $\widetilde{\mathbf{C}}_1 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\bm{\theta}} \widehat{\bm{\theta}}^\top \mathbf{E}^\top \Big\}$, $\widetilde{\mathbf{C}}_2 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\bm{\theta}} \bm{\epsilon}^\top \Big\}$, $\widetilde{\mathbf{C}} = \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{K}}$, $\widetilde{\mathbf{P}} = \widetilde{\mathbf{K}} \widetilde{\mathbf{K}}^\dagger$, and $\widetilde{\mathbf{P}}_\perp = \mathbf{I} - \widetilde{\mathbf{P}}$.
 
 \subsection{Cram\'er-Rao lower bound of the structured errors-in-variables problem}
 
 The Cram\'er-Rao lower bound (CRLB) provides the lower limit on the variance of the estimate
-\begin{equation} \mathrm{CRLB}(\mathbf{x}) = \left( \mathbf{I} + \frac{\partial \mathbf{b} (\widehat{\mathbf{x}}) }{\partial (\widehat{\mathbf{x}})} \right)^\top \mathbf{Fi}^{-1}(\mathbf{x}) \left( \mathbf{I} + \frac{\partial \mathbf{b} (\widehat{\mathbf{x}}) }{\partial (\widehat{\mathbf{x}})} \right), \label{eqn:CRLB} \end{equation}
-where $\mathbf{b} (\widehat{\mathbf{x}})$ is the bias of the estimate and $\mathbf{Fi}(\widehat{\mathbf{x}})$ is the Fisher information matrix \citep{Pintelon12Book}.
+\begin{equation} \mathrm{CRLB}(\bm{\theta}) = \left( \mathbf{I} + \frac{\partial \mathbf{b} (\widehat{\bm{\theta}}) }{\partial (\widehat{\bm{\theta}})} \right)^\top \mathbf{Fi}^{-1}(\bm{\theta}) \left( \mathbf{I} + \frac{\partial \mathbf{b} (\widehat{\bm{\theta}}) }{\partial (\widehat{\bm{\theta}})} \right), \label{eqn:CRLB} \end{equation}
+where $\mathbf{b} (\widehat{\bm{\theta}})$ is the bias of the estimate and $\mathbf{Fi}(\widehat{\bm{\theta}})$ is the Fisher information matrix \citep{Pintelon12Book}.
 The Fisher information matrix is defined as the expected value of the Hessian of the negative likelihood function 
-\begin{equation} \mathbf{Fi}(x) = - \mathbb{E} \left\{ \frac{\partial ^2 l (\widehat{\mathbf{x}}) }{\partial \widehat{\mathbf{x}}^2 } \right\}, \end{equation}
-where the partial derivatives are evaluated in $\widehat{\mathbf{x}} = \mathbf{x}$.
+\begin{equation} \mathbf{Fi}(x) = - \mathbb{E} \left\{ \frac{\partial ^2 l (\widehat{\bm{\theta}}) }{\partial \widehat{\bm{\theta}}^2 } \right\}, \end{equation}
+where the partial derivatives are evaluated in $\widehat{\bm{\theta}} = \bm{\theta}$.
 
 The minimization problem (\ref{eqn:min_seiv}) is a structured EIV problem that can be expressed as a linear in the measurements problem \citep{Pintelon12Book}
-\begin{equation} e (\widehat{\mathbf{x}}, \widetilde{\mathbf{z}}) = \mathbf{M}_1( \widehat{\mathbf{x}} ) \ \widetilde{\mathbf{z}} = \begin{bmatrix} \mathbf{I}_{T-n} & - \widehat{\mathbf{x}}^T \otimes \mathbf{I}_{T-n} \end{bmatrix} \begin{bmatrix} \widetilde{\mathbf{y}} \\ \mathrm{vec} ( \widetilde{\mathbf{K}} ) \end{bmatrix} = 0 . \label{eqn:M1vecyK} \end{equation}
+\begin{equation} e (\widehat{\bm{\theta}}, \widetilde{\mathbf{z}}) = \mathbf{M}_1( \widehat{\bm{\theta}} ) \ \widetilde{\mathbf{z}} = \begin{bmatrix} \mathbf{I}_{T-n} & - \widehat{\bm{\theta}}^T \otimes \mathbf{I}_{T-n} \end{bmatrix} \begin{bmatrix} \widetilde{\mathbf{y}} \\ \mathrm{vec} ( \widetilde{\mathbf{K}} ) \end{bmatrix} = 0 . \label{eqn:M1vecyK} \end{equation}
 where $\widetilde{\mathbf{z}} = \mathbf{z} + \epsilon_{\mathbf{z}}$.
-The CRB requires that the true model $\mathbf{M}_1( \mathbf{x} ) \ \mathbf{z} = 0$ exists.
+The CRB requires that the true model $\mathbf{M}_1( \bm{\theta} ) \ \mathbf{z} = 0$ exists.
 Under the assumption of the measurement perturbation $\epsilon_{\mathbf{z}}$ being normally distributed with covariance matrix $\mathbf{C}_{\mathbf{z}}$, the loglikelihood function of the structured EIV problem is
-\begin{equation} \ln{ l(\widetilde{\mathbf{z}}, \widehat{\mathbf{z}}, \widehat{\mathbf{x}}) } = - \frac{1}{2} \left( \widetilde{\mathbf{z}} - \widehat{\mathbf{z}} \right)^\top \mathbf{C}_{\mathbf{z}}^{-1} \left( \widetilde{\mathbf{z}} - \widehat{\mathbf{z}} \right) + \mathrm{constant}, \end{equation}
-where $\widehat{\mathbf{z}}$ are parameters of the measurements $\widetilde{\mathbf{z}}$ that have to be estimated and satisfy $\mathbf{M}_1( \widehat{\mathbf{x}} ) \ \widehat{\mathbf{z}} = 0$.
-The size of the Fisher information matrix $\mathbf{Fi}(\mathbf{x}, \mathbf{z})$ depends on the number of unknowns in $\widehat{\mathbf{z}}$ and grows with the sample size.
-Moreover, in Chapter 19 of \citep{Pintelon12Book} it is shown that the Fisher information matrix $\mathbf{Fi}(\mathbf{x})$ can be obtained from $\mathbf{Fi}(\mathbf{x}, \mathbf{z})$ after doing inversion by parts, giving
-\begin{equation} \mathbf{Fi}(\mathbf{x}) = \left( \frac{\partial e (\widehat{\mathbf{x}}, \mathbf{z}) }{\partial \mathbf{x} } \right)^\top \left( \mathbf{M}_1( \mathbf{x} ) \ \mathbf{C}_{\mathbf{z}} \ \mathbf{M}_1^\top( \mathbf{x} ) \right)^{-1} \left( \frac{\partial e (\widehat{\mathbf{x}}, \mathbf{z}) }{\partial \mathbf{x} } \right) 
+\begin{equation} \ln{ l(\widetilde{\mathbf{z}}, \widehat{\mathbf{z}}, \widehat{\bm{\theta}}) } = - \frac{1}{2} \left( \widetilde{\mathbf{z}} - \widehat{\mathbf{z}} \right)^\top \mathbf{C}_{\mathbf{z}}^{-1} \left( \widetilde{\mathbf{z}} - \widehat{\mathbf{z}} \right) + \mathrm{constant}, \end{equation}
+where $\widehat{\mathbf{z}}$ are parameters of the measurements $\widetilde{\mathbf{z}}$ that have to be estimated and satisfy $\mathbf{M}_1( \widehat{\bm{\theta}} ) \ \widehat{\mathbf{z}} = 0$.
+The size of the Fisher information matrix $\mathbf{Fi}(\bm{\theta}, \mathbf{z})$ depends on the number of unknowns in $\widehat{\mathbf{z}}$ and grows with the sample size.
+Moreover, in Chapter 19 of \citep{Pintelon12Book} it is shown that the Fisher information matrix $\mathbf{Fi}(\bm{\theta})$ can be obtained from $\mathbf{Fi}(\bm{\theta}, \mathbf{z})$ after doing inversion by parts, giving
+\begin{equation} \mathbf{Fi}(\bm{\theta}) = \left( \frac{\partial e (\widehat{\bm{\theta}}, \mathbf{z}) }{\partial \bm{\theta} } \right)^\top \left( \mathbf{M}_1( \bm{\theta} ) \ \mathbf{C}_{\mathbf{z}} \ \mathbf{M}_1^\top( \bm{\theta} ) \right)^{-1} \left( \frac{\partial e (\widehat{\bm{\theta}}, \mathbf{z}) }{\partial \bm{\theta} } \right) 
  , \label{eqn:FIM} \end{equation} 
-where the partial derivatives are evaluated at the true values $\mathbf{x}$, and the covariance matrix of the measurements is
+where the partial derivatives are evaluated at the true values $\bm{\theta}$, and the covariance matrix of the measurements is
 \begin{equation} \mathbf{C}_{\mathbf{z}} = \sigma_{\epsilon}^2 \begin{bmatrix} \mathbf{I}_{T-n} & \mathbf{0}_{T-n} & \mathbf{D}_{T-n \times T-n}^{1,n} & \mathbf{D}_{T-n \times T-n}^{1,n-1} & \cdots & \mathbf{D}_{T-n \times T-n}^{1,1} \\ \mathbf{0}_{T-n} & \mathbf{0}_{T-n} & \mathbf{0}_{T-n} & \mathbf{0}_{T-n} & \cdots & \mathbf{0}_{T-n} \\ \left( \mathbf{D}_{T-n \times T-n}^{1,n} \right)^\top & \mathbf{0}_{T-n} & \mathbf{D}_{T-n \times T-n}^{2,1} & \mathbf{D}_{T-n \times T-n}^{2,0} & \cdots & \mathbf{D}_{T-n \times T-n}^{2,2-n} \\ \left( \mathbf{D}_{T-n \times T-n}^{1,n-1} \right)^\top & \mathbf{0}_{T-n} & \mathbf{D}_{T-n \times T-n}^{2,2} & \mathbf{D}_{T-n \times T-n}^{2,1} & \cdots & \mathbf{D}_{T-n \times T-n}^{2,3-n} \\ \vdots & \vdots & \vdots & \vdots & & \vdots \\ \left( \mathbf{D}_{T-n \times T-n}^{1,1} \right)^\top & \mathbf{0}_{T-n} & \mathbf{D}_{T-n \times T-n}^{2,n} & \mathbf{D}_{T-n \times T-n}^{2,n-1} & \cdots & \mathbf{D}_{T-n \times T-n}^{2,1} \end{bmatrix} .
  \label{eqn:Cz} \end{equation} 
 
 The Cram\'er-Rao lower bound for an biased estimator of the minimization problem (\ref{eqn:min_seiv}) is given by
-\begin{equation} \mathrm{CRB}_{\mathrm{b}}(\mathbf{x}) = \left( \mathbf{I}_{n+1} + \frac{\partial \mathbf{b} \left( \widehat{\mathbf{x}} \right) }{\partial \mathbf{x} } \right)^\top \ \mathbf{Fi}^{-1}(\mathbf{x}) \ \left( \mathbf{I}_{n+1} + \frac{\partial \mathbf{b} \left( \widehat{\mathbf{x}} \right) }{\partial \mathbf{x} } \right), \label{eqn:CRB_EIV} \end{equation} 
-and for an unbiased estimator it is $\mathrm{CRB}_{\mathrm{ub}}(\mathbf{x}) = \mathbf{Fi}^{-1}(\mathbf{x})$.
+\begin{equation} \mathrm{CRB}_{\mathrm{b}}(\bm{\theta}) = \left( \mathbf{I}_{n+1} + \frac{\partial \mathbf{b} \left( \widehat{\bm{\theta}} \right) }{\partial \bm{\theta} } \right)^\top \ \mathbf{Fi}^{-1}(\bm{\theta}) \ \left( \mathbf{I}_{n+1} + \frac{\partial \mathbf{b} \left( \widehat{\bm{\theta}} \right) }{\partial \bm{\theta} } \right), \label{eqn:CRB_EIV} \end{equation} 
+and for an unbiased estimator it is $\mathrm{CRB}_{\mathrm{ub}}(\bm{\theta}) = \mathbf{Fi}^{-1}(\bm{\theta})$.
 
 
 \section{Simulation results}
@@ -241,11 +241,11 @@ In the structured EIV problem the perturbation $\mathbf{E}$ is correlated with $
 The perturbations variance was selected to have a signal-to-noise ratio (SNR) in the interval [30 dB, 80 dB], according to 
 \begin{equation} \mathrm{SNR} = 20 \log_{10}{ \dfrac{ \sqrt{ \dfrac{1}{T} \sum\limits_{t=1}^{T}{ y(t)^2 } } }{ \sigma_{ \bm{\epsilon}}} } . \end{equation} 
 For high enough SNR, the constraint $\| \mathbf{M} \| < 1$ is valid and the Taylor series expansion  (\ref{eqn:TseriesExp}) holds. 
-In this case, the derived expressions predict the LS estimate bias and variance.
+In this case, the derived expressions predict the LS estimation bias and variance.
 Thus, it is relevant to monitor the evolution of the largest $\mathbf{M}$ eigenvalue to detect the lower limit of the SNR  that allows the validity of the predictions.
 
-The MC simulations provide empirical values of the bias and variance, through the sample mean and sample variance of the LS estimate $\widehat{\mathbf{x}}$.
-The results presented in this Section focus the interest in the first element of $\widehat{\mathbf{x}}$, because in the structured EIV problem, the step input estimate is $\widehat{u} = \widehat{\mathbf{x}}_{\left[1\right]}$.
+The MC simulations provide empirical values of the bias and variance, through the sample mean and sample variance of the LS estimate $\widehat{\bm{\theta}}$.
+The results presented in this Section focus the interest in the first element of $\widehat{\bm{\theta}}$, because in the structured EIV problem, the step input estimate is $\widehat{u} = \widehat{\bm{\theta}}_{\left[1\right]}$.
 
 \subsection{Monte Carlo simulation results for an unstructured EIV problem with uncorrelated perturbations}
 
@@ -254,20 +254,20 @@ The exact data elements in the matrix $\mathbf{K} \in {\rm I\!R}^{\left(T-n\righ
 The to-be-estimated exact data is the vector $x = \begin{bmatrix} 1 & 2 & 3 \end{bmatrix}^\top$.
 The perturbations $\mathbf{E}$ and $\bm{\epsilon}$ are normally distributed with zero mean and variances subject to $\sigma_{\mathbf{E}}^2 = 2 \sigma_{\bm{\epsilon}}^2$.
 These settings are similar to those of the structured case, aiming to have comparable situations.
-%In the following results we focus our interest in the first element of the estimate $\widehat{\mathbf{x}}$.
+%In the following results we focus our interest in the first element of the estimate $\widehat{\bm{\theta}}$.
 
 
-The difference between the sample mean of the estimate $\widehat{\mathbf{x}}_{\left[1\right]}$ and its true value $\mathbf{x}_{\left[1\right]}$ is the empirical bias $b_\mathrm{e}$.
-\begin{equation} {b}_\mathrm{e} = \frac{1}{N_{\mathrm{MC}}} \sum_{i=1}^{N_{\mathrm{MC}}}{ \left( \widehat{\mathbf{x}}_{\left[1\right]} \right)_i -  \mathbf{x}_{\left[1\right]} } \approx \mu \left( \widehat{\mathbf{x}}_{\left[1\right]} \right) - \mathbf{x}_{\left[1\right]} . \end{equation}
-The standard deviation of the estimate $\widehat{\mathbf{x}}_{\left[1\right]}$ is used to obtain the standard error $\sigma_\mathrm{e}$ of the MC simulation, which decreases with respect to the square root of the number of MC runs $N_{\mathrm{MC}}$ \citep{Hammersley75}: 
-\begin{equation} \sigma_\mathrm{e} = \frac{ \sigma \left( \widehat{\mathbf{x}}_{\left[1\right]} \right) }{\sqrt{N_{\mathrm{MC}}}}, \quad \mathrm{where} \quad \sigma^2 \left( \widehat{\mathbf{x}}_{\left[1\right]} \right) = \frac{1}{N_{\mathrm{MC}}-1} \sum_{i=1}^{N_{\mathrm{MC}}}{ \left( \left( \widehat{\mathbf{x}}_{\left[1\right]} \right)_i - \mu \left( \widehat{\mathbf{x}}_{\left[1\right]} \right) \right)^2 } . \label{eqn:stderr} \end{equation}
+The difference between the sample mean of the estimate $\widehat{\bm{\theta}}_{\left[1\right]}$ and its true value $\bm{\theta}_{\left[1\right]}$ is the empirical bias $b_\mathrm{e}$.
+\begin{equation} {b}_\mathrm{e} = \frac{1}{N_{\mathrm{MC}}} \sum_{i=1}^{N_{\mathrm{MC}}}{ \left( \widehat{\bm{\theta}}_{\left[1\right]} \right)_i -  \bm{\theta}_{\left[1\right]} } \approx \mu \left( \widehat{\bm{\theta}}_{\left[1\right]} \right) - \bm{\theta}_{\left[1\right]} . \end{equation}
+The standard deviation of the estimate $\widehat{\bm{\theta}}_{\left[1\right]}$ is used to obtain the standard error $\sigma_\mathrm{e}$ of the MC simulation, which decreases with respect to the square root of the number of MC runs $N_{\mathrm{MC}}$ \citep{Hammersley75}: 
+\begin{equation} \sigma_\mathrm{e} = \frac{ \sigma \left( \widehat{\bm{\theta}}_{\left[1\right]} \right) }{\sqrt{N_{\mathrm{MC}}}}, \quad \mathrm{where} \quad \sigma^2 \left( \widehat{\bm{\theta}}_{\left[1\right]} \right) = \frac{1}{N_{\mathrm{MC}}-1} \sum_{i=1}^{N_{\mathrm{MC}}}{ \left( \left( \widehat{\bm{\theta}}_{\left[1\right]} \right)_i - \mu \left( \widehat{\bm{\theta}}_{\left[1\right]} \right) \right)^2 } . \label{eqn:stderr} \end{equation}
 
 In each of the $N_{\mathrm{MC}}$ runs we also obtain the aproximations of the estimation bias $\mathbf{b}_{\widetilde{\mathrm{p}} \left[1\right]}$ and variance $\mathbf{C}_{\widetilde{\mathrm{p}} \left[1,1\right]}$  from observed data, using Equations (\ref{eqn:biasEuST}), and (\ref{eqn:varEuST}).
 Similarly as before, we get the sample mean of the aproximations to have bias and variance predictions from observed data 
  \begin{equation} b_{\widetilde{\mathrm{p}}} = \frac{1}{N_{\mathrm{MC}}} \sum_{i=1}^{N_{\mathrm{MC}}}{ \left( \mathbf{b}_{\widetilde{\mathrm{p}} \left[1\right]} \right)_i } , \quad \mathrm{and} 
  \quad v_{\widetilde{\mathrm{p}}}  = \frac{1}{N_{\mathrm{MC}}} \sum_{i=1}^{N_{\mathrm{MC}}}{ \left( \mathbf{C}_{\widetilde{\mathrm{p}} \left[1,1\right]} \right)_i } . \end{equation} 
 The standard error of the bias prediction $b_{\widetilde{\mathrm{p}}}$ is given by
-\begin{equation} \sigma_{\widetilde{\mathrm{p}}} = \sqrt{ \frac{1}{N_{\mathrm{MC}} \left( N_{\mathrm{MC}}-1 \right)} \sum_{i=1}^{N_{\mathrm{MC}}} { \left( \left( \mathbf{b}_{\widetilde{\mathrm{p}} \left[1\right]} \right)_i - b_{\widetilde{\mathrm{p}}} \left( \widehat{\mathbf{x}}_{\left[1\right]} \right) \right)^2 } } . \end{equation}
+\begin{equation} \sigma_{\widetilde{\mathrm{p}}} = \sqrt{ \frac{1}{N_{\mathrm{MC}} \left( N_{\mathrm{MC}}-1 \right)} \sum_{i=1}^{N_{\mathrm{MC}}} { \left( \left( \mathbf{b}_{\widetilde{\mathrm{p}} \left[1\right]} \right)_i - b_{\widetilde{\mathrm{p}}} \left( \widehat{\bm{\theta}}_{\left[1\right]} \right) \right)^2 } } . \end{equation}
 
 The predicted bias $b_{\mathrm{p}} = \mathbf{b}_{\mathrm{p} \left[1\right]}$ and variance $v_{\mathrm{p}} = \mathbf{C}_{\mathrm{p} \left[1,1\right]}$ from exact data are obtained with one evaluation of the expressions (\ref{eqn:biasEu}) and (\ref{eqn:varEu}). %for unstructured EIV problems, or expressions (\ref{eqn:biasST}) and (\ref{eqn:varST}) for the structured EIV problem.
 
@@ -328,7 +328,7 @@ The MC simulation of the structured EIV problem (\ref{eqn:ddsiemnd}) solution wa
 The processed step response is shown in Figure \ref{fig:y}.
 The steady state response of the system is reached after 400 samples because from there on the relative error between the instantaneous values of the transient response and the steady-state response value is smaller than 2\%.
 Processing 200 samples ensures that the step input estimation is computed from transient data only.
-%In the following results we focus our interest in the first element of the estimate $\widehat{\mathbf{x}}_{\left[1\right]}$, where the step input level estimate $\widehat{u}$ is located.
+%In the following results we focus our interest in the first element of the estimate $\widehat{\bm{\theta}}_{\left[1\right]}$, where the step input level estimate $\widehat{u}$ is located.
 
 \begin{figure}[htb!]
 \centering
@@ -406,22 +406,22 @@ The mean squared errors of the LS estimate are close to the Cram\'er-Rao lower b
  We conducted a statistical analysis of a structured errors-in-variables (EIV) estimation problem with correlation to find the first and second moments of its least-squares solution.
 This estimation problem occurs in metrology when we estimate the value of a measurand directly from the sensor transient response.
 The data-driven estimation of the physical quantity is formulated as a structured EIV problem with correlation that uses the observed transient response to construct both the regression matrix and the regressor.
-The real-time implementation of the method uses a recursive least squares algorithm that is simple and has low computational complexity.
-The assessment of the uncertainty is done using the estimate bias and variance.
+The real-time implementation of the method uses a recursive least-squares algorithm that is simple and has low computational complexity.
+The assessment of the uncertainty is done using the estimation bias and variance.
 
-The conducted statistical analysis produced expressions that predict the estimate bias and variance for given sample size and perturbation level of the observed response.
+The conducted statistical analysis produced expressions that predict the estimation bias and variance for given sample size and perturbation level of the observed response.
 The Monte Carlo simulation validated the predictions.
 We compared the results of solving an unstructured and uncorrelated EIV problem with a structured and correlated EIV problem to understand how the structure and the correlation impacts in the estimation.
 We found that the predictions in the structured case are more susceptible to perturbations.
 This is due to the two approximations involved, a second-order Taylor series expansion of the estimate, and the substitution of perturbed data on the prediction expressions.
-The relative error results indicate that the estimate bias, and variance are predicted using the derived expressions, and the observed data.
+The relative error results indicate that the estimation bias, and variance are predicted using the derived expressions, and the observed data.
 The mean squared error of the estimate is close to the results of the maximum likelihood estimate given by the Cram\'er-Rao lower bound.
 
 The bias and variance can be accurately predicted, provided that the Taylor series expansion is valid.
 This constraint has to be taken into account to ensure the effectiveness of the method in practical applications.
 In the example, it was observed that when the SNR lies outside the validity region, the bias and variance estimation was at most three times larger than the empirical values.
 
-The methodology presented in this paper can be applied to estimate the uncertainty of the solutions to other structured EIV problems.
+The methodology presented in this chapter can be applied to estimate the uncertainty of the solutions to other structured EIV problems.
 The bias and variance expressions obtained after the statistical analysis depend on each specific structure.
 
 
@@ -434,52 +434,52 @@ The bias and variance expressions obtained after the statistical analysis depend
 \subsubsection{Statistical analysis of the subspace method}
 
 To obtain the first and second moments of the step input estimate $\widehat{u}$, we need to study the solution
-\begin{equation} \widehat{\mathbf{x}} = ( \mathbf{K}^\top \mathbf{W} \mathbf{K}  )^{-1} \mathbf{K}^\top \mathbf{W} \mathbf{y} , \label{eqn:xhat} \end{equation}
+\begin{equation} \widehat{\bm{\theta}} = ( \mathbf{K}^\top \mathbf{W} \mathbf{K}  )^{-1} \mathbf{K}^\top \mathbf{W} \mathbf{y} , \label{eqn:xhat} \end{equation}
 of the overdetermined structured errors-in-variables EIV problem (\ref{eqn:min_ewrls}).
 Using a second order Taylor series expansion of the inverse matrix we can approximate the LS solution as
-\begin{equation} \widehat{\mathbf{x}} \approx \left( \mathbf{I} - \mathbf{M} + \mathbf{M}^2 \right) \mathbf{C}^{-1} (\widebar{\mathbf{K}} + \mathbf{E})^\top \mathbf{W} (\widebar{\mathbf{y}} + \bm{\epsilon}). \label{eqn:xhatexp} \end{equation} 
+\begin{equation} \widehat{\bm{\theta}} \approx \left( \mathbf{I} - \mathbf{M} + \mathbf{M}^2 \right) \mathbf{C}^{-1} (\widebar{\mathbf{K}} + \mathbf{E})^\top \mathbf{W} (\widebar{\mathbf{y}} + \bm{\epsilon}). \label{eqn:xhatexp} \end{equation} 
 where 
 \begin{equation} \widebar{\mathbf{C}} = \widebar{\mathbf{K}}^\top \mathbf{W} \widebar{\mathbf{K}}, \quad \text{and} \quad \mathbf{M} = \widebar{\mathbf{C}}^{-1} ( \widebar{\mathbf{K}}^\top \mathbf{W} \mathbf{E} + \mathbf{E}^\top \mathbf{W} \widebar{\mathbf{K}} + \mathbf{E}^\top \mathbf{W} \mathbf{E} ). \end{equation} 
 
-The Taylor series approximation of $\widehat{\mathbf{x}}$ enables the calculation of the estimate bias and covariance since the measurement noise $\bm{\epsilon}$ and $\mathbf{E}$ are no more subject to matrix inversion. 
-The bias and the covariance of the estimate $\widehat{\mathbf{x}}$ are obtained from
-\begin{equation}  \mathbf{b} \left(\widehat{\mathbf{x}} \right) = \mathbf{\mu} - \widebar{\mathbf{x}}, \label{eqn:biasdef} \end{equation}
-\begin{equation} \begin{aligned} \mathrm{\mathbf{Cov}} \left( \widehat{\mathbf{x}} \right) & = \mathbb{E} \left\{ \left( \widehat{\mathbf{x}} - \mathbf{\mu} \right)  \left( \widehat{\mathbf{x}} - \mathbf{\mu} \right)^\top \right\} . \end{aligned} \label{eqn:covdef} \end{equation} 
-where $\mathbf{\mu} = \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\}$ is the expected value of the estimate and $\widebar{\mathbf{x}}$ is the true value. 
+The Taylor series approximation of $\widehat{\bm{\theta}}$ enables the calculation of the estimation bias and covariance since the measurement noise $\bm{\epsilon}$ and $\mathbf{E}$ are no more subject to matrix inversion. 
+The bias and the covariance of the estimate $\widehat{\bm{\theta}}$ are obtained from
+\begin{equation}  \mathbf{b} \left(\widehat{\bm{\theta}} \right) = \mathbf{\mu} - \widebar{\bm{\theta}}, \label{eqn:biasdef} \end{equation}
+\begin{equation} \begin{aligned} \mathrm{\mathbf{Cov}} \left( \widehat{\bm{\theta}} \right) & = \mathbb{E} \left\{ \left( \widehat{\bm{\theta}} - \mathbf{\mu} \right)  \left( \widehat{\bm{\theta}} - \mathbf{\mu} \right)^\top \right\} . \end{aligned} \label{eqn:covdef} \end{equation} 
+where $\mathbf{\mu} = \mathbb{E} \left\{ \widehat{\bm{\theta}} \right\}$ is the expected value of the estimate and $\widebar{\bm{\theta}}$ is the true value. 
 Considering the structure of the EIV problem, the bias and the covariance of the estimate approximation (\ref{eqn:xhatexp}) can be expressed as
-\begin{equation} \begin{aligned} \widebar{\mathbf{b}}_{\mathrm{p}} \left( \widehat{x} \right) & \approx \widebar{\mathbf{C}}^{-1} \left(  \left( \widebar{\mathbf{K}}^\top \mathbf{W} \widebar{\mathbf{B}}_1 - \widebar{\mathbf{B}}_2 \right) \mathbf{x} - \left( \widebar{\mathbf{K}}^\top \mathbf{W} \widebar{\mathbf{B}}_3 - \widebar{\mathbf{B}}_4 \right) \right), \end{aligned} \label{eqn:biasE} \end{equation}
-\begin{equation} \begin{aligned} \widebar{\mathrm{\mathbf{Cov}}}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) & \approx \widebar{\mathbf{K}}^\dagger \mathbf{W} \left( \sigma_{\epsilon}^2 \mathbf{I}_{T-n} + \widebar{\mathbf{C}}_1 - \widebar{\mathbf{C}}_2 - \widebar{\mathbf{C}}_2^\top \right) \mathbf{W} \widebar{\mathbf{K}}^{\dagger \top}  - \widebar{\mathbf{b}}_{\mathrm{p}} \left( \widehat{x} \right) \widebar{\mathbf{b}}_{\mathrm{p}}^\top \left( \widehat{x} \right), \end{aligned} \label{eqn:varE} \end{equation}
-where $\widebar{\mathbf{B}}_1 = \mathbb{E} \Big\{ \mathbf{E} \widebar{\mathbf{K}}^\dagger \mathbf{W} \mathbf{E} \Big\}$, $\widebar{\mathbf{B}}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{W} \widebar{\mathbf{P}}_\perp \mathbf{E} \Big\}$, $\widebar{\mathbf{B}}_3 = \mathbb{E} \Big\{ \mathbf{E} \widebar{\mathbf{K}}^\dagger \mathbf{W} \bm{\epsilon} \Big\}$, $\widebar{\mathbf{B}}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{W} \widebar{\mathbf{P}}_\perp \bm{\epsilon} \Big\}$, $\widebar{\mathbf{C}}_1 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{x} \mathbf{x}^\top \mathbf{E}^\top \Big\}$, \linebreak $\widebar{\mathbf{C}}_2 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{x} \bm{\epsilon}^\top \Big\}$, $\widebar{\mathbf{P}}_\perp = \mathbf{I} - \widebar{\mathbf{K}} \widebar{\mathbf{K}}^\dagger \mathbf{W}$, and $\mathbf{K}^\dagger$ is the pseudo-inverse matrix of $\mathbf{K}$. 
+\begin{equation} \begin{aligned} \widebar{\mathbf{b}}_{\mathrm{p}} \left( \widehat{x} \right) & \approx \widebar{\mathbf{C}}^{-1} \left(  \left( \widebar{\mathbf{K}}^\top \mathbf{W} \widebar{\mathbf{B}}_1 - \widebar{\mathbf{B}}_2 \right) \bm{\theta} - \left( \widebar{\mathbf{K}}^\top \mathbf{W} \widebar{\mathbf{B}}_3 - \widebar{\mathbf{B}}_4 \right) \right), \end{aligned} \label{eqn:biasE} \end{equation}
+\begin{equation} \begin{aligned} \widebar{\mathrm{\mathbf{Cov}}}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \widebar{\mathbf{K}}^\dagger \mathbf{W} \left( \sigma_{\epsilon}^2 \mathbf{I}_{T-n} + \widebar{\mathbf{C}}_1 - \widebar{\mathbf{C}}_2 - \widebar{\mathbf{C}}_2^\top \right) \mathbf{W} \widebar{\mathbf{K}}^{\dagger \top}  - \widebar{\mathbf{b}}_{\mathrm{p}} \left( \widehat{x} \right) \widebar{\mathbf{b}}_{\mathrm{p}}^\top \left( \widehat{x} \right), \end{aligned} \label{eqn:varE} \end{equation}
+where $\widebar{\mathbf{B}}_1 = \mathbb{E} \Big\{ \mathbf{E} \widebar{\mathbf{K}}^\dagger \mathbf{W} \mathbf{E} \Big\}$, $\widebar{\mathbf{B}}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{W} \widebar{\mathbf{P}}_\perp \mathbf{E} \Big\}$, $\widebar{\mathbf{B}}_3 = \mathbb{E} \Big\{ \mathbf{E} \widebar{\mathbf{K}}^\dagger \mathbf{W} \bm{\epsilon} \Big\}$, $\widebar{\mathbf{B}}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{W} \widebar{\mathbf{P}}_\perp \bm{\epsilon} \Big\}$, $\widebar{\mathbf{C}}_1 = \mathbb{E} \Big\{ \mathbf{E} \bm{\theta} \bm{\theta}^\top \mathbf{E}^\top \Big\}$, \linebreak $\widebar{\mathbf{C}}_2 = \mathbb{E} \Big\{ \mathbf{E} \bm{\theta} \bm{\epsilon}^\top \Big\}$, $\widebar{\mathbf{P}}_\perp = \mathbf{I} - \widebar{\mathbf{K}} \widebar{\mathbf{K}}^\dagger \mathbf{W}$, and $\mathbf{K}^\dagger$ is the pseudo-inverse matrix of $\mathbf{K}$. 
 
-The bias and covariance given by expressions (\ref{eqn:biasE}) and (\ref{eqn:varE}) depend on the unobservable true values $\widebar{\mathbf{x}}$ and $\widebar{\mathbf{K}}$.
-The measured observations are in the sensor step response $\mathbf{y}$, and from its observations we construct $\mathbf{K}$ and compute $\widehat{\mathbf{x}}$.
-The substitution of the measured data in the expressions gives an approximation of the estimate bias and covariance. 
+The bias and covariance given by expressions (\ref{eqn:biasE}) and (\ref{eqn:varE}) depend on the unobservable true values $\widebar{\bm{\theta}}$ and $\widebar{\mathbf{K}}$.
+The measured observations are in the sensor step response $\mathbf{y}$, and from its observations we construct $\mathbf{K}$ and compute $\widehat{\bm{\theta}}$.
+The substitution of the measured data in the expressions gives an approximation of the estimation bias and covariance. 
 We have then
-\begin{equation} \begin{aligned} \mathbf{b}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) & \approx \mathbf{C}^{-1} \left(  \left( \mathbf{K}^\top \mathbf{W} \mathbf{B}_1 - \mathbf{B}_2 \right) \widehat{\mathbf{x}} - \left( \mathbf{K}^\top \mathbf{W} \mathbf{B}_3 - \mathbf{B}_4 \right) \right), \end{aligned} \label{eqn:biasST} \end{equation}
-  \begin{equation} \begin{aligned} {\mathrm{\mathbf{Cov}}}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) & \approx \mathbf{K}^\dagger \mathbf{W} \left( \sigma_{\epsilon}^2 \mathbf{I}_{T-n} + \mathbf{C}_1 - \mathbf{C}_2 - \mathbf{C}_2^\top \right) \mathbf{W} \mathbf{K}^{\dagger \top} - \mathbf{b}_{\mathrm{p}} \left( \widehat{x} \right) \mathbf{b}_{\mathrm{p}}^\top \left( \widehat{x} \right), \end{aligned} \label{eqn:varST} \end{equation}
-  where $\mathbf{B}_1 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \mathbf{W} \mathbf{E} \Big\}$, $\mathbf{B}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{W} \mathbf{P}_\perp \mathbf{E} \Big\}$, $\mathbf{B}_3 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \mathbf{W} \bm{\epsilon} \Big\}$, $\mathbf{B}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{W} \mathbf{P}_\perp \bm{\epsilon} \Big\}$, $\mathbf{C}_1 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\mathbf{x}} \widehat{\mathbf{x}}^\top \mathbf{E}^\top \Big\}$, $\mathbf{C}_2 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\mathbf{x}} \bm{\epsilon}^\top \Big\}$, and $\mathbf{P}_\perp = \mathbf{I} - \mathbf{K} \mathbf{K}^\dagger \mathbf{W}$. 
+\begin{equation} \begin{aligned} \mathbf{b}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \mathbf{C}^{-1} \left(  \left( \mathbf{K}^\top \mathbf{W} \mathbf{B}_1 - \mathbf{B}_2 \right) \widehat{\bm{\theta}} - \left( \mathbf{K}^\top \mathbf{W} \mathbf{B}_3 - \mathbf{B}_4 \right) \right), \end{aligned} \label{eqn:biasST} \end{equation}
+  \begin{equation} \begin{aligned} {\mathrm{\mathbf{Cov}}}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \mathbf{K}^\dagger \mathbf{W} \left( \sigma_{\epsilon}^2 \mathbf{I}_{T-n} + \mathbf{C}_1 - \mathbf{C}_2 - \mathbf{C}_2^\top \right) \mathbf{W} \mathbf{K}^{\dagger \top} - \mathbf{b}_{\mathrm{p}} \left( \widehat{x} \right) \mathbf{b}_{\mathrm{p}}^\top \left( \widehat{x} \right), \end{aligned} \label{eqn:varST} \end{equation}
+  where $\mathbf{B}_1 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \mathbf{W} \mathbf{E} \Big\}$, $\mathbf{B}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{W} \mathbf{P}_\perp \mathbf{E} \Big\}$, $\mathbf{B}_3 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \mathbf{W} \bm{\epsilon} \Big\}$, $\mathbf{B}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{W} \mathbf{P}_\perp \bm{\epsilon} \Big\}$, $\mathbf{C}_1 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\bm{\theta}} \widehat{\bm{\theta}}^\top \mathbf{E}^\top \Big\}$, $\mathbf{C}_2 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\bm{\theta}} \bm{\epsilon}^\top \Big\}$, and $\mathbf{P}_\perp = \mathbf{I} - \mathbf{K} \mathbf{K}^\dagger \mathbf{W}$. 
 
   The results of the expected values $\mathbf{B}_1$, $\mathbf{B}_2$, $\mathbf{B}_3$, $\mathbf{B}_4$, $\mathbf{C}_1$, and $\mathbf{C}_2$, were described by the authors of this paper in \citep{Quintana19}.
 The bias and covariance were obtained to extend previous analysis conducted on EIV estimation problems without an imposed structure \citep{Vaccaro94, Stewart90SPT}.
 It was shown that the bias and variance expressions (\ref{eqn:biasST}) and (\ref{eqn:varST}) are valid predictions of the first and second moments of the LS estimate of a Hankel structured EIV problem.
 The problem formulated by the step input estimation method belongs to this type of structured EIV problems and can use the derived expressions to find the bias and variance of the input estimate $\widehat{u}$.
-The bias of the estimate $\widehat{u}$ is the fist element of $\mathbf{b}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right)$ and the variance of $\widehat{u}$ is the first element in the main diagonal of $\mathrm{\mathbf{Cov}}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right)$.
+The bias of the estimate $\widehat{u}$ is the fist element of $\mathbf{b}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right)$ and the variance of $\widehat{u}$ is the first element in the main diagonal of $\mathrm{\mathbf{Cov}}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right)$.
 
 
 \subsubsection{Cram\'er-Rao lower bound of the structured EIV problem}
 
 To find the Cram\'er-Rao lower bound (CRLB) of the structured EIV estimation problem (\ref{eqn:min_ls}), we consider that this structured and correlated estimation problem can be expressed as a linear in the measurements problem \citep{Pintelon12Book}
-\begin{equation} e (\widehat{\mathbf{x}}, \mathbf{z}) = \mathbf{M}_1( \widehat{\mathbf{x}} ) \ \mathbf{z} = \underbrace{\begin{bmatrix} \mathbf{I}_{T-n} & - \widehat{\mathbf{x}}^T \otimes \mathbf{I}_{T-n} \end{bmatrix}}_{\mathbf{M}_1( \widehat{\mathbf{x}} )} \underbrace{\begin{bmatrix} \mathbf{y} \\ \mathrm{vec} ( \mathbf{K} ) \end{bmatrix}}_{\mathbf{z}} = 0 . \label{eqn:M1vecyK} \end{equation}
+\begin{equation} e (\widehat{\bm{\theta}}, \mathbf{z}) = \mathbf{M}_1( \widehat{\bm{\theta}} ) \ \mathbf{z} = \underbrace{\begin{bmatrix} \mathbf{I}_{T-n} & - \widehat{\bm{\theta}}^T \otimes \mathbf{I}_{T-n} \end{bmatrix}}_{\mathbf{M}_1( \widehat{\bm{\theta}} )} \underbrace{\begin{bmatrix} \mathbf{y} \\ \mathrm{vec} ( \mathbf{K} ) \end{bmatrix}}_{\mathbf{z}} = 0 . \label{eqn:M1vecyK} \end{equation}
 where $\mathbf{z} = \widebar{\mathbf{z}} + \bm{\epsilon}_{\mathbf{z}}$.
-To have the CRLB, it is necessary the existence of the true model $\mathbf{M}_1( \mathbf{x} ) \ \mathbf{z} = 0$.
+To have the CRLB, it is necessary the existence of the true model $\mathbf{M}_1( \bm{\theta} ) \ \mathbf{z} = 0$.
 The measurement perturbation $\bm{\epsilon}_{\mathbf{z}}$ is assumed to be normally distributed with covariance matrix $\mathbf{C}_{\mathbf{z}}$, and then, the loglikelihood function of the structured and correlated EIV problem is
-\begin{equation} \ln{ l(\mathbf{z}, \widehat{\mathbf{z}}, \widehat{\mathbf{x}}) } = - \frac{1}{2} \left( \mathbf{z} - \widehat{\mathbf{z}} \right)^\top \mathbf{C}_{\mathbf{z}}^{-1} \left( \mathbf{z} - \widehat{\mathbf{z}} \right) + \mathrm{constant}, \end{equation}
-where the elements of $\widehat{\mathbf{z}}$ are the estimated parameters of the measurements $\mathbf{z}$,  that satisfy $\mathbf{M}_1(\widehat{\mathbf{x}}) \ \widehat{\mathbf{z}} = 0$.
-The size of the Fisher information matrix $\mathbf{Fi}(\mathbf{x}, \mathbf{z})$ depends on the number of unknowns in $\widehat{\mathbf{z}}$ and grows with the sample size.
-However, the Fisher information matrix $\mathbf{Fi}(\mathbf{x})$ is obtained from $\mathbf{Fi}(\mathbf{x}, \mathbf{z})$, by doing inversion by parts \citep{Pintelon12Book} \S 19, and can be expressed as  
-\begin{equation} \mathbf{Fi}(\mathbf{x}) = \left( \frac{\partial e (\widehat{\mathbf{x}}, \mathbf{z}) }{\partial \mathbf{x} } \right)^\top \left( \mathbf{M}_1( \mathbf{x} ) \mathbf{C}_{\mathbf{z}}  \mathbf{M}_1^\top( \mathbf{x} ) \right)^{-1}  \left( \frac{\partial e (\widehat{\mathbf{x}}, \mathbf{z}) }{\partial \mathbf{x} } \right) .
+\begin{equation} \ln{ l(\mathbf{z}, \widehat{\mathbf{z}}, \widehat{\bm{\theta}}) } = - \frac{1}{2} \left( \mathbf{z} - \widehat{\mathbf{z}} \right)^\top \mathbf{C}_{\mathbf{z}}^{-1} \left( \mathbf{z} - \widehat{\mathbf{z}} \right) + \mathrm{constant}, \end{equation}
+where the elements of $\widehat{\mathbf{z}}$ are the estimated parameters of the measurements $\mathbf{z}$,  that satisfy $\mathbf{M}_1(\widehat{\bm{\theta}}) \ \widehat{\mathbf{z}} = 0$.
+The size of the Fisher information matrix $\mathbf{Fi}(\bm{\theta}, \mathbf{z})$ depends on the number of unknowns in $\widehat{\mathbf{z}}$ and grows with the sample size.
+However, the Fisher information matrix $\mathbf{Fi}(\bm{\theta})$ is obtained from $\mathbf{Fi}(\bm{\theta}, \mathbf{z})$, by doing inversion by parts \citep{Pintelon12Book} \S 19, and can be expressed as  
+\begin{equation} \mathbf{Fi}(\bm{\theta}) = \left( \frac{\partial e (\widehat{\bm{\theta}}, \mathbf{z}) }{\partial \bm{\theta} } \right)^\top \left( \mathbf{M}_1( \bm{\theta} ) \mathbf{C}_{\mathbf{z}}  \mathbf{M}_1^\top( \bm{\theta} ) \right)^{-1}  \left( \frac{\partial e (\widehat{\bm{\theta}}, \mathbf{z}) }{\partial \bm{\theta} } \right) .
  \label{eqn:FIM}   \end{equation} 
-The partial derivatives are evaluated at the true values $\mathbf{x}$. 
+The partial derivatives are evaluated at the true values $\bm{\theta}$. 
 Thus, the covariance matrix of the measurements is
 
 \begin{equation} \mathbf{C}_{\mathbf{z}} = \sigma_{\epsilon}^2 \begin{bmatrix} \mathbf{I}_{T-n} & \mathbf{0}_{T-n} & \mathbf{D}_1 \\ \mathbf{0}_{T-n} & \mathbf{0}_{T-n} & \mathbf{0}_{T-n \times n \left( T-n \right)}  \\  \mathbf{D}_1^\top & \mathbf{0}_{n \left( T-n \right) \times T-n} & \mathbf{D}_2  \end{bmatrix}  \label{eqn:Cz} \end{equation} 
@@ -491,8 +491,8 @@ $\mathbf{D}_{r \times c}^{1,k}$ and $\mathbf{D}_{r \times c}^{2,k}$  are the fir
 \mathbf{D}_{2 \times 3}^{1,1} = \begin{bmatrix} 1 & -1 & 0 \\ 0 & 1 & -1 \end{bmatrix}, \ \mathrm{and} \quad \mathbf{D}_{3 \times 3}^{2,0} = \begin{bmatrix}-1 & 0 & 0 \\ 2 & -1 & 0 \\ - 1 & 2 & -1  \end{bmatrix} . \end{equation*}
  
 The Cram\'er-Rao lower bound for a biased estimator of the minimization problem (\ref{eqn:min_ls}) is 
-\begin{equation} \mathrm{CRLB}_{\mathrm{b}}(\mathbf{x}) = \left( \mathbf{I}_{n+1} + \frac{\partial \mathbf{b} \left( \widehat{\mathbf{x}} \right) }{\partial \mathbf{x} } \right)^\top \mathbf{Fi}^{-1}(\mathbf{x}) \left( \mathbf{I}_{n+1} + \frac{\partial \mathbf{b} \left( \widehat{\mathbf{x}} \right) }{\partial \mathbf{x} } \right), \label{eqn:CRB_EIV} \end{equation} 
-whereas for an unbiased estimator, it is $\mathrm{CRLB}_{\mathrm{ub}}(\mathbf{x}) = \mathbf{Fi}^{-1}(\mathbf{x})$.
+\begin{equation} \mathrm{CRLB}_{\mathrm{b}}(\bm{\theta}) = \left( \mathbf{I}_{n+1} + \frac{\partial \mathbf{b} \left( \widehat{\bm{\theta}} \right) }{\partial \bm{\theta} } \right)^\top \mathbf{Fi}^{-1}(\bm{\theta}) \left( \mathbf{I}_{n+1} + \frac{\partial \mathbf{b} \left( \widehat{\bm{\theta}} \right) }{\partial \bm{\theta} } \right), \label{eqn:CRB_EIV} \end{equation} 
+whereas for an unbiased estimator, it is $\mathrm{CRLB}_{\mathrm{ub}}(\bm{\theta}) = \mathbf{Fi}^{-1}(\bm{\theta})$.
 
 
 
@@ -501,23 +501,23 @@ whereas for an unbiased estimator, it is $\mathrm{CRLB}_{\mathrm{ub}}(\mathbf{x}
 \section{STATISTICAL ANALYSIS - Experimental validation}
 
 To obtain the first and second moments of the step input estimate $\widehat{u}$, we need to study the least-squares (LS) solution 
-\begin{equation} \widehat{\mathbf{x}} = \widetilde{\mathbf{K}}^\dagger \widetilde{\mathbf{y}} = ( \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{K}}  )^{-1} \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{y}} , \label{eqn:xhat} \end{equation}
+\begin{equation} \widehat{\bm{\theta}} = \widetilde{\mathbf{K}}^\dagger \widetilde{\mathbf{y}} = ( \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{K}}  )^{-1} \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{y}} , \label{eqn:xhat} \end{equation}
 of the overdetermined structured errors-in-variables EIV problem (\ref{eqn:min_ls}), 
 where $\widetilde{\mathbf{K}}^\dagger$ is the pseudo-inverse matrix of $\widetilde{\mathbf{K}}$.
 Using a second order Taylor series expansion of the inverse matrix we can approximate the LS solution as
-\begin{equation} \widehat{\mathbf{x}} \approx \left( \mathbf{I} - \mathbf{M} + \mathbf{M}^2 \right) \mathbf{Q}^{-1} (\mathbf{K}+\mathbf{E})^\top (\mathbf{y}+\bm{\epsilon}). \label{eqn:xhatexp} \end{equation} 
+\begin{equation} \widehat{\bm{\theta}} \approx \left( \mathbf{I} - \mathbf{M} + \mathbf{M}^2 \right) \mathbf{Q}^{-1} (\mathbf{K}+\mathbf{E})^\top (\mathbf{y}+\bm{\epsilon}). \label{eqn:xhatexp} \end{equation} 
 where 
 \begin{equation} \mathbf{Q} = \mathbf{K}^\top \mathbf{K}, \quad \text{and} \quad \mathbf{M} = \mathbf{Q}^{-1} ( \mathbf{K}^\top \mathbf{E} + \mathbf{E}^\top \mathbf{K} + \mathbf{E}^\top \mathbf{E} ). \end{equation} 
 
-The Taylor series approximation of $\widehat{\mathbf{x}}$ enables the calculation of the bias and covariance of $\widehat{\mathbf{x}}$ since the measurement noise $\bm{\epsilon}$ and $\mathbf{E}$ are no more subject to matrix inversion. 
-The bias and the covariance of the estimate $\widehat{\mathbf{x}}$ are obtained from
-\begin{equation}  \mathbf{b} \left(\widehat{\mathbf{x}} \right) = \mathbf{\mu} - \mathbf{x}, \label{eqn:biasdef} \end{equation}
-\begin{equation} \begin{aligned} \mathrm{\mathbf{C}} \left( \widehat{\mathbf{\mathbf{x}}} \right) & = \mathbb{E} \left\{ \left( \widehat{\mathbf{x}} - \mathbf{\mu} \right)  \left( \widehat{\mathbf{x}} - \mathbf{\mu} \right)^\top \right\} . \end{aligned} \label{eqn:covdef} \end{equation} 
-where $\mathbf{\mu} = \mathbb{E} \left\{ \widehat{\mathbf{x}} \right\}$, and $\mathbf{x} = \mathbf{K}^\dagger \mathbf{y}$ is the true value. 
+The Taylor series approximation of $\widehat{\bm{\theta}}$ enables the calculation of the bias and covariance of $\widehat{\bm{\theta}}$ since the measurement noise $\bm{\epsilon}$ and $\mathbf{E}$ are no more subject to matrix inversion. 
+The bias and the covariance of the estimate $\widehat{\bm{\theta}}$ are obtained from
+\begin{equation}  \mathbf{b} \left(\widehat{\bm{\theta}} \right) = \mathbf{\mu} - \bm{\theta}, \label{eqn:biasdef} \end{equation}
+\begin{equation} \begin{aligned} \mathrm{\mathbf{C}} \left( \widehat{\mathbf{\bm{\theta}}} \right) & = \mathbb{E} \left\{ \left( \widehat{\bm{\theta}} - \mathbf{\mu} \right)  \left( \widehat{\bm{\theta}} - \mathbf{\mu} \right)^\top \right\} . \end{aligned} \label{eqn:covdef} \end{equation} 
+where $\mathbf{\mu} = \mathbb{E} \left\{ \widehat{\bm{\theta}} \right\}$, and $\bm{\theta} = \mathbf{K}^\dagger \mathbf{y}$ is the true value. 
 Considering the structure of the EIV problem, the bias and the covariance of the approximation (\ref{eqn:xhatexp}) can be expressed as
-\begin{equation} \begin{aligned} \mathbf{b}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) & \approx \mathbf{Q}^{-1} \left(  \left( \mathbf{K}^\top \mathbf{B}_1 - \mathbf{B}_2 \right) \mathbf{x} - \left( \mathbf{K}^\top \mathbf{B}_3 - \mathbf{B}_4 \right) \right), \end{aligned} \label{eqn:biasE} \end{equation}
-\begin{equation} \begin{aligned} \mathrm{\mathbf{C}}_{\mathrm{p}} \left( \widehat{\mathbf{x}} \right) & \approx \mathbf{K}^\dagger \left( \sigma_{\bm{\epsilon}}^2 \mathbf{I}_{T-n} + \mathbf{C}_1 - \mathbf{C}_2 - \mathbf{C}_2^\top \right) \mathbf{K}^{\dagger \top}, \end{aligned} \label{eqn:varE} \end{equation}
-where $\mathbf{B}_1 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \mathbf{E} \Big\}$, $\mathbf{B}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{P}_\perp \mathbf{E} \Big\}$, $\mathbf{B}_3 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \bm{\epsilon} \Big\}$, $\mathbf{B}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{P}_\perp \bm{\epsilon} \Big\}$, $\mathbf{C}_1 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{x} \mathbf{x}^\top \mathbf{E}^\top \Big\}$, \linebreak $\mathbf{C}_2 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{x} \bm{\epsilon}^\top \Big\}$, and $\mathbf{P}_\perp = \mathbf{I} - \mathbf{K} \mathbf{K}^\dagger$. 
+\begin{equation} \begin{aligned} \mathbf{b}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \mathbf{Q}^{-1} \left(  \left( \mathbf{K}^\top \mathbf{B}_1 - \mathbf{B}_2 \right) \bm{\theta} - \left( \mathbf{K}^\top \mathbf{B}_3 - \mathbf{B}_4 \right) \right), \end{aligned} \label{eqn:biasE} \end{equation}
+\begin{equation} \begin{aligned} \mathrm{\mathbf{C}}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \mathbf{K}^\dagger \left( \sigma_{\bm{\epsilon}}^2 \mathbf{I}_{T-n} + \mathbf{C}_1 - \mathbf{C}_2 - \mathbf{C}_2^\top \right) \mathbf{K}^{\dagger \top}, \end{aligned} \label{eqn:varE} \end{equation}
+where $\mathbf{B}_1 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \mathbf{E} \Big\}$, $\mathbf{B}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{P}_\perp \mathbf{E} \Big\}$, $\mathbf{B}_3 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \bm{\epsilon} \Big\}$, $\mathbf{B}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{P}_\perp \bm{\epsilon} \Big\}$, $\mathbf{C}_1 = \mathbb{E} \Big\{ \mathbf{E} \bm{\theta} \bm{\theta}^\top \mathbf{E}^\top \Big\}$, \linebreak $\mathbf{C}_2 = \mathbb{E} \Big\{ \mathbf{E} \bm{\theta} \bm{\epsilon}^\top \Big\}$, and $\mathbf{P}_\perp = \mathbf{I} - \mathbf{K} \mathbf{K}^\dagger$. 
 
 The expected values $\mathbf{B}_1$, $\mathbf{B}_2$, $\mathbf{B}_3$, $\mathbf{B}_4$, $\mathbf{C}_1$, and $\mathbf{C}_2$, were studied in \citep{Quintana19} and their results are described in Lemma \ref{lem:lemma1}:
 
@@ -558,33 +558,33 @@ $\mathbf{D}_{r \times c}^{1,k}$ and $\mathbf{D}_{r \times c}^{2,k}$  are the fir
 
 A proof of the lemma is given in the Appendix.
 
-The bias and covariance given by expressions (\ref{eqn:biasE}) and (\ref{eqn:varE}) depend on the unobservable true values $\mathbf{x}$, $\mathbf{K}$.
-The measured variable is the sensor step response $\widetilde{\mathbf{y}}$, and from its observations we construct $\widetilde{\mathbf{K}}$ and compute $\widehat{\mathbf{x}}$.
+The bias and covariance given by expressions (\ref{eqn:biasE}) and (\ref{eqn:varE}) depend on the unobservable true values $\bm{\theta}$, $\mathbf{K}$.
+The measured variable is the sensor step response $\widetilde{\mathbf{y}}$, and from its observations we construct $\widetilde{\mathbf{K}}$ and compute $\widehat{\bm{\theta}}$.
 The substitution of the measured data in the expressions gives an approximation of the bias and covariance estimation.
 We have then
-\begin{equation} \begin{aligned} \mathbf{b}_{\widetilde{\mathrm{p}}} \left( \widehat{\mathbf{x}} \right) & \approx \widetilde{\mathbf{Q}}^{-1} \left(  \left( \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{B}}_1 - \widetilde{\mathbf{B}}_2 \right) \widehat{\mathbf{x}} - \left( \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{B}}_3 - \widetilde{\mathbf{B}}_4 \right) \right), \end{aligned} \label{eqn:biasST} \end{equation}
-\begin{equation} \begin{aligned} \mathrm{\mathbf{C}}_{\widetilde{\mathrm{p}}} \left( \widehat{\mathbf{x}} \right) & \approx \widetilde{\mathbf{K}}^\dagger \left( \sigma_{\epsilon}^2 \mathbf{I}_{T-n} + \widetilde{\mathbf{C}}_1 - \widetilde{\mathbf{C}}_2 - \widetilde{\mathbf{C}}_2^\top \right) \widetilde{\mathbf{K}}^{\dagger \top}, \end{aligned} \label{eqn:varST} \end{equation}
-where $\widetilde{\mathbf{B}}_1 = \mathbb{E} \Big\{ \mathbf{E} \widetilde{\mathbf{K}}^\dagger \mathbf{E} \Big\}$, $\widetilde{\mathbf{B}}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \widetilde{\mathbf{P}}_\perp \mathbf{E} \Big\}$, $\widetilde{\mathbf{B}}_3 = \mathbb{E} \Big\{ \mathbf{E} \widetilde{\mathbf{K}}^\dagger \bm{\epsilon} \Big\}$, $\widetilde{\mathbf{B}}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \widetilde{\mathbf{P}}_\perp \bm{\epsilon} \Big\}$, $\widetilde{\mathbf{\mathbf{C}}}_1 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\mathbf{x}} \widehat{\mathbf{x}}^\top \mathbf{E}^\top \Big\}$, $\widetilde{\mathbf{C}}_2 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\mathbf{x}} \bm{\epsilon}^\top \Big\}$, and $\widetilde{\mathbf{P}}_\perp = \mathbf{I} - \widetilde{\mathbf{K}} \widetilde{\mathbf{K}}^\dagger$. 
+\begin{equation} \begin{aligned} \mathbf{b}_{\widetilde{\mathrm{p}}} \left( \widehat{\bm{\theta}} \right) & \approx \widetilde{\mathbf{Q}}^{-1} \left(  \left( \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{B}}_1 - \widetilde{\mathbf{B}}_2 \right) \widehat{\bm{\theta}} - \left( \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{B}}_3 - \widetilde{\mathbf{B}}_4 \right) \right), \end{aligned} \label{eqn:biasST} \end{equation}
+\begin{equation} \begin{aligned} \mathrm{\mathbf{C}}_{\widetilde{\mathrm{p}}} \left( \widehat{\bm{\theta}} \right) & \approx \widetilde{\mathbf{K}}^\dagger \left( \sigma_{\epsilon}^2 \mathbf{I}_{T-n} + \widetilde{\mathbf{C}}_1 - \widetilde{\mathbf{C}}_2 - \widetilde{\mathbf{C}}_2^\top \right) \widetilde{\mathbf{K}}^{\dagger \top}, \end{aligned} \label{eqn:varST} \end{equation}
+where $\widetilde{\mathbf{B}}_1 = \mathbb{E} \Big\{ \mathbf{E} \widetilde{\mathbf{K}}^\dagger \mathbf{E} \Big\}$, $\widetilde{\mathbf{B}}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \widetilde{\mathbf{P}}_\perp \mathbf{E} \Big\}$, $\widetilde{\mathbf{B}}_3 = \mathbb{E} \Big\{ \mathbf{E} \widetilde{\mathbf{K}}^\dagger \bm{\epsilon} \Big\}$, $\widetilde{\mathbf{B}}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \widetilde{\mathbf{P}}_\perp \bm{\epsilon} \Big\}$, $\widetilde{\mathbf{\mathbf{C}}}_1 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\bm{\theta}} \widehat{\bm{\theta}}^\top \mathbf{E}^\top \Big\}$, $\widetilde{\mathbf{C}}_2 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\bm{\theta}} \bm{\epsilon}^\top \Big\}$, and $\widetilde{\mathbf{P}}_\perp = \mathbf{I} - \widetilde{\mathbf{K}} \widetilde{\mathbf{K}}^\dagger$. 
 
 The bias and covariance were obtained to extend previous analysis conducted on EIV estimation problems without an imposed structure \citep{Vaccaro94, Stewart90SPT}.
 It was shown that the bias and variance expressions (\ref{eqn:biasST}) and (\ref{eqn:varST}) are good predictions of the first and second moments of the LS estimate of a Hankel structured EIV problem.
 The problem formulated by the step input estimation method belongs to this type of structured EIV problems and the derived expressions can be used to find the bias and variance of the input estimate $\widehat{u}$.
 The bias and variance predictions approximate the empirical bias and variance.
 
-The assessment of the uncertainty of the estimate $\widehat{\mathbf{x}}$ is obtained from the covariance matrix $\mathrm{\mathbf{C}}_{\widetilde{\mathrm{p}}} \left( \widehat{\mathbf{x}} \right)$. In this way, the uncertainty of the step input estimate $\widehat{u}$ is described by the variance in the first element on the diagonal of $\mathrm{\mathbf{C}}_{\widetilde{\mathrm{p}}} \left( \widehat{\mathbf{x}} \right)$.
+The assessment of the uncertainty of the estimate $\widehat{\bm{\theta}}$ is obtained from the covariance matrix $\mathrm{\mathbf{C}}_{\widetilde{\mathrm{p}}} \left( \widehat{\bm{\theta}} \right)$. In this way, the uncertainty of the step input estimate $\widehat{u}$ is described by the variance in the first element on the diagonal of $\mathrm{\mathbf{C}}_{\widetilde{\mathrm{p}}} \left( \widehat{\bm{\theta}} \right)$.
 
 In the rest of this section we describe the Cram\'er-Rao lower bound (CRB) of the structured EIV estimation problem (\ref{eqn:min_ls}), that can be expressed as a linear in the measurements problem \citep{Pintelon12Book}
-\begin{equation} e (\widehat{\mathbf{x}}, \widetilde{\mathbf{z}}) = \mathbf{M}_1( \widehat{\mathbf{x}} ) \ \widetilde{\mathbf{z}} = \begin{bmatrix} \mathbf{I}_{T-n} & - \widehat{\mathbf{x}}^T \otimes \mathbf{I}_{T-n} \end{bmatrix} \begin{bmatrix} \widetilde{\mathbf{y}} \\ \mathrm{vec} ( \widetilde{\mathbf{K}} ) \end{bmatrix} = 0 . \label{eqn:M1vecyK} \end{equation}
+\begin{equation} e (\widehat{\bm{\theta}}, \widetilde{\mathbf{z}}) = \mathbf{M}_1( \widehat{\bm{\theta}} ) \ \widetilde{\mathbf{z}} = \begin{bmatrix} \mathbf{I}_{T-n} & - \widehat{\bm{\theta}}^T \otimes \mathbf{I}_{T-n} \end{bmatrix} \begin{bmatrix} \widetilde{\mathbf{y}} \\ \mathrm{vec} ( \widetilde{\mathbf{K}} ) \end{bmatrix} = 0 . \label{eqn:M1vecyK} \end{equation}
 where $\widetilde{\mathbf{z}} = \mathbf{z} + \epsilon_{\mathbf{z}}$.
-The CRB requires that the true model $\mathbf{M}_1( \mathbf{x} ) \ \mathbf{z} = 0$ exists.
+The CRB requires that the true model $\mathbf{M}_1( \bm{\theta} ) \ \mathbf{z} = 0$ exists.
 Under the assumption of the measurement perturbation $\epsilon_{\mathbf{z}}$ being normally distributed with covariance matrix $\mathbf{C}_{\mathbf{z}}$, the loglikelihood function of the structured EIV problem is
-\begin{equation} \ln{ l(\widetilde{\mathbf{z}}, \widehat{\mathbf{z}}, \widehat{\mathbf{x}}) } = - \frac{1}{2} \left( \widetilde{\mathbf{z}} - \widehat{\mathbf{z}} \right)^\top \mathbf{C}_{\mathbf{z}}^{-1} \left( \widetilde{\mathbf{z}} - \widehat{\mathbf{z}} \right) + \mathrm{constant}, \end{equation}
-where $\widehat{\mathbf{z}}$ are parameters of the measurements $\widetilde{\mathbf{z}}$ that have to be estimated and satisfy $\mathbf{M}_1( \widehat{\mathbf{x}} ) \ \widehat{\mathbf{z}} = 0$.
-The size of the Fisher information matrix $\mathbf{Fi}(\mathbf{x}, \mathbf{z})$ depends on the number of unknowns in $\widehat{\mathbf{z}}$ and grows with the sample size.
-Moreover, in Chapter 19 of \citep{Pintelon12Book} it is shown that the Fisher information matrix $\mathbf{Fi}(\mathbf{x})$ can be obtained from $\mathbf{Fi}(\mathbf{x}, \mathbf{z})$ after doing inversion by parts, giving
-\begin{equation} \mathbf{Fi}(\mathbf{x}) = \left( \frac{\partial e (\widehat{\mathbf{x}}, \mathbf{z}) }{\partial \mathbf{x} } \right)^\top \left( \mathbf{M}_1( \mathbf{x} ) \mathbf{C}_{\mathbf{z}}  \mathbf{M}_1^\top( \mathbf{x} ) \right)^{-1}  \left( \frac{\partial e (\widehat{\mathbf{x}}, \mathbf{z}) }{\partial \mathbf{x} } \right) 
+\begin{equation} \ln{ l(\widetilde{\mathbf{z}}, \widehat{\mathbf{z}}, \widehat{\bm{\theta}}) } = - \frac{1}{2} \left( \widetilde{\mathbf{z}} - \widehat{\mathbf{z}} \right)^\top \mathbf{C}_{\mathbf{z}}^{-1} \left( \widetilde{\mathbf{z}} - \widehat{\mathbf{z}} \right) + \mathrm{constant}, \end{equation}
+where $\widehat{\mathbf{z}}$ are parameters of the measurements $\widetilde{\mathbf{z}}$ that have to be estimated and satisfy $\mathbf{M}_1( \widehat{\bm{\theta}} ) \ \widehat{\mathbf{z}} = 0$.
+The size of the Fisher information matrix $\mathbf{Fi}(\bm{\theta}, \mathbf{z})$ depends on the number of unknowns in $\widehat{\mathbf{z}}$ and grows with the sample size.
+Moreover, in Chapter 19 of \citep{Pintelon12Book} it is shown that the Fisher information matrix $\mathbf{Fi}(\bm{\theta})$ can be obtained from $\mathbf{Fi}(\bm{\theta}, \mathbf{z})$ after doing inversion by parts, giving
+\begin{equation} \mathbf{Fi}(\bm{\theta}) = \left( \frac{\partial e (\widehat{\bm{\theta}}, \mathbf{z}) }{\partial \bm{\theta} } \right)^\top \left( \mathbf{M}_1( \bm{\theta} ) \mathbf{C}_{\mathbf{z}}  \mathbf{M}_1^\top( \bm{\theta} ) \right)^{-1}  \left( \frac{\partial e (\widehat{\bm{\theta}}, \mathbf{z}) }{\partial \bm{\theta} } \right) 
  \label{eqn:FIM}   \end{equation} 
-where the partial derivatives are evaluated at the true values $\mathbf{x}$, and the covariance matrix of the measurements is
+where the partial derivatives are evaluated at the true values $\bm{\theta}$, and the covariance matrix of the measurements is
 
 \begin{equation} \mathbf{C}_{\mathbf{z}} = \sigma_{\epsilon}^2 \begin{bmatrix} \mathbf{I}_{T-n} & \mathbf{0}_{T-n} & \mathbf{D}_1 \\ \mathbf{0}_{T-n} & \mathbf{0}_{T-n} & \mathbf{0}_{T-n \times n \left( T-n \right)}  \\  \mathbf{D}_1^\top & \mathbf{0}_{n \left( T-n \right) \times T-n} & \mathbf{D}_2  \end{bmatrix}  \label{eqn:Cz} \end{equation} 
 where
@@ -595,8 +595,8 @@ and} \\
 
 
 The Cram\'er-Rao lower bound for an biased estimator of the minimization problem (\ref{eqn:min_ls}) is given by
-\begin{equation} \mathrm{CRB}_{\mathrm{b}}(\mathbf{x}) = \left( \mathbf{I}_{n+1} + \frac{\partial \mathbf{b} \left( \widehat{\mathbf{x}} \right) }{\partial \mathbf{x} } \right)^\top \mathbf{Fi}^{-1}(\mathbf{x}) \left( \mathbf{I}_{n+1} + \frac{\partial \mathbf{b} \left( \widehat{\mathbf{x}} \right) }{\partial \mathbf{x} } \right), \label{eqn:CRB_EIV} \end{equation} 
-and for an unbiased estimator it is $\mathrm{CRB}_{\mathrm{ub}}(\mathbf{x}) = \mathbf{Fi}^{-1}(\mathbf{x})$
+\begin{equation} \mathrm{CRB}_{\mathrm{b}}(\bm{\theta}) = \left( \mathbf{I}_{n+1} + \frac{\partial \mathbf{b} \left( \widehat{\bm{\theta}} \right) }{\partial \bm{\theta} } \right)^\top \mathbf{Fi}^{-1}(\bm{\theta}) \left( \mathbf{I}_{n+1} + \frac{\partial \mathbf{b} \left( \widehat{\bm{\theta}} \right) }{\partial \bm{\theta} } \right), \label{eqn:CRB_EIV} \end{equation} 
+and for an unbiased estimator it is $\mathrm{CRB}_{\mathrm{ub}}(\bm{\theta}) = \mathbf{Fi}^{-1}(\bm{\theta})$
 \end{comment}
 
 
