@@ -4,27 +4,28 @@
 
 \chapter{Statistical Analysis} \label{chap:StatisticalAnalysis}
 
+
 \begin{quote}
+\vspace{-0.5cm}
 \emph{The results of this chapter were published in Quintana Carapia, G., Markovsky, I. Pintelon, R., Csurcsia, P.Z., and Verbeke, D., "Bias and covariance of the least-squares estimate in a structured errors-in-variables problem", Computational Statistics & Data Analysis journal, Vol. 144, 2020, ISSN 0167-9473, doi:10.1016/j.csda.2019.106893. \nocite{QuintanaCSDA} }\vfill{}
 \end{quote}
 
 
-\vfill{}
+%\vfill{}
 
 %\section{Introduction}
 
 The linear estimation problems with perturbation in both the regression matrix and the regressor are errors-in-variables (EIV) problems.
-To evaluate the properties of the solution to an EIV problem it is often required to calculate the statistical moments of the estimate.
-The calculation of the estimate statistical moments demands a larger effort when the regression matrix of a EIV problem is structured, and when is correlated to the regressor.
+It is required to calculate the statistical moments of the estimate to evaluate the properties of the solution of an EIV problem.
+The calculation of the estimate statistical moments demands a more considerable effort when the regression matrix of an EIV problem is structured, and when the regression matrix and the regressor are correlated.
 
 Structured total least-squares and structured total maximum likelihood are two examples of methods that solve structured EIV problems, but that require large computational resources.
-For online applications where a real-time solution of the structured EIV problem is desired, the recursive least-squares (RLS) method is a suboptimal but computationally cheaper estimator.
+For online applications, where a real-time solution of the structured EIV problem is imperative, the recursive least-squares (RLS) method provides a suboptimal but computationally cheaper online solution.
 
-To obtain the statistical moments of the RLS estimation for a structured and correlated EIV problem, and to assess the estimation uncertainty, that have not been obtained before, a statistical analysis was conducted.
-
+Statistical analysis is indispensable to obtain the statistical moments of the RLS solution for a structured and correlated EIV problem, and to assess the estimation uncertainty.
 This chapter describes the methodology and the results of the statistical analysis.
 The mathematical expectation of the RLS estimate, approximated by a second-order Taylor series expansion, allows a quantification of the first and second-order moments of the LS estimate.
-The results of the statistical analysis provide an insight of the impact that the structure of the regression matrix and the correlation between the regression matrix and the regressor perturbations have on the uncertainty of the RLS estimate.
+The statistical analysis results provide insight into the impact that the structure of the regression matrix and its correlation with the regressor has on the uncertainty of the RLS estimate.
 
 \begin{comment}
 Errors-in-variables (EIV) are linear estimation problems in which the regression matrix and the regressor are perturbed \citep{VanHuffel91Book}, \citep{Markovsky07overview}.

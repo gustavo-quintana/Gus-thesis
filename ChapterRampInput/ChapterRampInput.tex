@@ -4,32 +4,34 @@
 
 \chapter{Affine input estimation method}\label{chap:AffineInput}
 
+
 \begin{quote}
+\vspace{-0.5cm}
 \emph{The results of this chapter were published in Quintana Carapia, G., and Markovsky, I.,
 "Input parameters estimation from time-varying measurements", Measurement Journal, Vol. 153, 2020,
 ISSN 0263-2241, doi:10.1016/j.measurement.2019.107418. \nocite{QuintanaMEAS} }\vfill{}
 \end{quote}
 
-\vfill{}
+%\vfill{}
 
 %\section{Introduction}
 
-The goal of a measurement is to accurately estimate the input value using the sensor transient response.
-Here we consider the case where the input might vary during the measurement.
-The simplest case is when the input changes with a constant rate, and is described with an affine function.
+The goal of any measurement is accurately estimating the input using the response of the sensor in the transient state.
+Here we consider the case where the input varies during the measurement.
+The simplest case is when the input changes with a constant rate, such as being described with an affine function.
 The inputs that vary at a constant rate activate the sensor gradually. 
 An affine input estimation method is needed to estimate the slope and the intercept parameters of the affine function.
 
 This chapter describes two signal processing methods for estimating affine input parameters.
-These methods are a data-driven subspace method and a maximum-likelihood (ML) estimation method based on local-optimization.
+These methods are a data-driven subspace method and a maximum-likelihood (ML) estimation method based on local optimization.
 The subspace is a recursive method independent of the sensor model, and the ML method iteratively minimizes a cost function using a simulated sensor response in a receding time horizon.
 
-In this chapter, the dynamic weighing is chosen as an implementation example.
-The dynamic weighing of an affine input is an interesting metrology application because the affine input turns a linear time-invariant sensor model into a time-varying sensor model.
-The affine input estimation methods provide an insight on the properties of the dynamic measurement of time-varying inputs.
+In this chapter, the dynamic weighing is an implementation example.
+The dynamic weighing of an affine input is a demanding metrology application because the affine excitation turns the linear time-invariant weighing sensor into a time-varying system.
+Then, the affine input estimation methods provide insight into the properties of the dynamic measurement of time-varying inputs.
 
-The effectiveness and the uncertainty of the methods are evaluated with simulation studies.
-The uncertainty is assessed, for the subspace method, using a Taylor series expansion of the exponentially weighted recursive least-squares estimate, and
+The effectiveness and uncertainty of the proposed methods are evaluated with simulation studies.
+The uncertainty is assessed, for the adaptive data-driven method, using a Taylor series expansion of the EWRLS estimate, and
 for the ML method, using the derivatives of the residual error obtained from the to-be-minimized cost function.
 
 \begin{comment}

@@ -98,30 +98,30 @@
 
 	\begin{tabular}{@{}lll@{}}
 	\textbf{\small PROMOTERS}		& &	{\small prof. dr. ir. Ivan Markovsky}				\\
-				& &		{\footnotesize{}Vrije Universiteit Brussel, Belgium}\\[0.3em]
+				& &		{\footnotesize{}ELEC Department, Vrije Universiteit Brussel, Belgium}\\[0.3em]
 				& &	\small prof. dr. ir. Rik Pintelon				\\
-				& &		{\footnotesize{}ELEC Department, Vrije Universiteit Brussel, Belgium.}	\\[0.3em]
+				& &		{\footnotesize{}ELEC Department, Vrije Universiteit Brussel, Belgium}	\\[0.3em]
 				\\
 	\textbf{\small MEMBERS OF THE JURY}	&	&\small prof. dr. ir. Patrick Guillaume (President)		\\
-				&	&{\footnotesize{}MECH Department, Vrije Universiteit Brussel, Belgium.}	\\[0.3em]
+				&	&{\footnotesize{}MECH Department, Vrije Universiteit Brussel, Belgium}	\\[0.3em]
 				% &								\\
 				&	&\small prof. dr. ir. Roger Vounckx (Vice-President)				\\
-				&	&{\footnotesize{}ETRO Department, Vrije Universiteit Brussel, Belgium.}	\\[0.3em]
+				&	&{\footnotesize{}ETRO Department, Vrije Universiteit Brussel, Belgium}	\\[0.3em]
 				% &								\\
 				&	&\small dr. ir. Philippe Dreesen (Secretary)					\\
-				&	&{\footnotesize{}ELEC Department, Vrije Universiteit Brussel, Belgium.}				\\[0.3em]
+				&	&{\footnotesize{}ELEC Department, Vrije Universiteit Brussel, Belgium}				\\[0.3em]
 				% &								\\
 				&	&\small dr. ir. Nikolaos Deligiannis \\
-				&	&{\footnotesize{}ETRO Department, Vrije Universiteit Brussel, Belgium.} 			\\[0.3em]
+				&	&{\footnotesize{}ETRO Department, Vrije Universiteit Brussel, Belgium} 			\\[0.3em]
 				% &								\\
 				&	&\small prof. dr. ir. Lyudmila Mihaylova 		\\
-				&	&{\footnotesize{}ACSE Department, University of Sheffield, United Kingdom.} \\
+				&	&{\footnotesize{}ACSE Department, University of Sheffield, United Kingdom} \\
 								% &								\\
 				&	&\small prof. dr. ir. Stephane Chretien  		\\
-				&	&{\footnotesize{}ERIC Laboratory, University Lyon 2, France.} \\
+				&	&{\footnotesize{}ERIC Laboratory, University Lyon 2, France} \\
 								% &								\\
 				&	&\small prof. dr. ir. Guillaume  Merc\`ere 		\\
-				&	&{\footnotesize{}LIAS Laboratory, Universit\'e de Poitiers, France.} \\
+				&	&{\footnotesize{}LIAS Laboratory, Universit\'e de Poitiers, France} \\
 \end{tabular}
 
 }
@@ -146,11 +146,11 @@
 {\footnotesize{}http://vubirelec.be/}\\
 {\footnotesize{}~}{\footnotesize\par}
 
-{\footnotesize{}Cover design by ...}\\
-{\footnotesize{}Background image by ...}{\footnotesize\par}
-{\footnotesize{}~}{\footnotesize\par}
+%{\footnotesize{}Cover design by ...}\\
+%{\footnotesize{}Background image by ...}{\footnotesize\par}
+%{\footnotesize{}~}{\footnotesize\par}
 
-{\footnotesize{}$\copyright$ February 2019 Gustavo Quintana Carapia.}\\
+{\footnotesize{}$\copyright$ February 2020, Gustavo Quintana Carapia.}\\
 {\footnotesize{}~}{\footnotesize\par}
 
 
@@ -163,7 +163,7 @@
 % \shipout\null
 \pagenumbering{roman}
 
-\include{Extras/Acknowledgements}
+%\include{Extras/Acknowledgements}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  TOC and abbreviations list
 \tableofcontents{}
@@ -175,9 +175,9 @@
 % CustomCommands.lyx contains my custom lyx math macros.
 \include{config/CustomCommands}
 
-\pagenumbering{arabic}
+\include{Extras/Summary}
 
-\include{Summary/Summary}
+\pagenumbering{arabic}
 
 \include{ChapterIntroduction/ChapterIntroduction}
 
@@ -206,8 +206,10 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Bibliography
 
+\vspace{-0.5cm}
+
 \addcontentsline{toc}{chapter}{Bibliography}
- \vspace{-2cm}
+
 \bibliography{Gus-thesis}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Back cover

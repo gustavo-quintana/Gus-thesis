@@ -3,11 +3,13 @@
 
 \chapter{Experimental validation of the step input estimation method }\label{chap:ExperimentalValidation}
 
+
 \begin{quote}
+\vspace{-0.75cm}
 \emph{The results of this chapter were published in Quintana Carapia, G., Markovsky, I. Pintelon, R., Csurcsia, P.Z., and Verbeke, D., "Experimental validation of a data-driven step input estimation method for dynamic measurements", IEEE Transactions on Instrumentation and Measurement Journal, 2019, doi: 10.1109/TIM.2019.2951865. \nocite{QuintanaTIM} }\vfill{}
 \end{quote}
 
- \vfill{}
+%\vfill{}
 
 % \section{Introduction}
 
@@ -15,19 +17,20 @@ A measurement is a dynamic process.
 The sensor is a dynamic system that experiments changes after an input excitation.
 The sensor output is first a transient state response and followed by a steady state response.
 
-The influence of the input is observed in the sensor output, and thus it makes sense to estimate the input using the sensor response.
+The input excitation influences the sensor output, and thus it makes sense to estimate the input using the sensor response.
 When the sensor reaches its steady-state, the input is a straightforwardly estimated from the sensor output making use of the sensor static gain.
-To obtain a fast estimation, the sensor transient response must be considered instead of the steady state response.
+The sensor transient response must be considered, instead of the steady state response, to obtain a fast input estimation.
 
-A common approach is to filter the sensor transient response with another dynamic system to reduce the sensor transient time by inverting the sensor dynamics.
-To design such a compensator system it is necessary a sensor model.
+A common approach is to filter the sensor transient response with another dynamic system that inverts the sensor dynamics, aiming to compensate the sensor transient time.
+It is necessary to have a sensor model to design a compensator system. 
 A different approach uses digital signal processing methods that are independent of the sensor model.
 One of these methods is the data-driven method that estimates the unknown level of step inputs by processing the sensor step response. 
-To assess the uncertainty of the data-driven step input estimation method, a experimental validation of this method was conducted in a real-life metrology application. 
-This chapter describes the measurement experiments with a weighing sensor system and discuss the results observed.
+To assess the uncertainty of the data-driven step input estimation method, it processed step responses in a real-life metrology application. 
+This chapter describes the measurement experiments with a weighing sensor system and discusses the results observed.
 The results are put in perspective to simulations and consider the measurement noise that is additive to the response of the sensor. 
 
-The experimental results validate the data-driven step input estimation method, and indicate in which intervals of SNR and sample size the effectiveness of the method is guaranteed.
+The experimental results validate the data-driven step input estimation method and indicate in which intervals of SNR and sample size the method is reliable.
+
 
 
 \begin{comment}
