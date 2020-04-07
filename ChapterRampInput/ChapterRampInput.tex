@@ -1,5 +1,4 @@
-
-
+%!TEX root = ..\Gus-thesis.tex
 \glsresetall
 
 \chapter{Affine input estimation method}\label{chap:AffineInput}
@@ -16,7 +15,7 @@ ISSN 0263-2241, doi:10.1016/j.measurement.2019.107418. \nocite{QuintanaMEAS} }\v
 
 %\section{Introduction}
 
-The goal of any measurement is accurately estimating the input using the response of the sensor in the transient state.
+The goal of any measurement is accurately estimating the input using the response of the sensor in the transient regime.
 Here we consider the case where the input varies during the measurement.
 The simplest case is when the input changes with a constant rate, such as being described with an affine function.
 The inputs that vary at a constant rate activate the sensor gradually. 
@@ -31,7 +30,7 @@ The dynamic weighing of an affine input is a demanding metrology application bec
 Then, the affine input estimation methods provide insight into the properties of the dynamic measurement of time-varying inputs.
 
 The effectiveness and uncertainty of the proposed methods are evaluated with simulation studies.
-The uncertainty is assessed, for the adaptive data-driven method, using a Taylor series expansion of the EWRLS estimate, and
+The uncertainty is assessed, for the adaptive data-driven method, using a Taylor series expansion of the exponentially weighted recursive least-squares estimate, and
 for the ML method, using the derivatives of the residual error obtained from the to-be-minimized cost function.
 
 \begin{comment}
@@ -178,7 +177,7 @@ In this chapter we use the dynamic weighing example to illustrate the implementa
 
 This section describes the subspace method for solving the affine input estimation problem.
 The procedure is motivated by the step input estimation method that is formulated as a structured errors-in-variables (EIV) problem and is solved using recursive least-squares (RLS).
-The exponentially weighted recursive least-squares (EWRLS) is a generalization of RLS that allows for the extension of the estimation method to reconstruct the affine input.
+The exponentially weighted recursive least-squares is a generalization of RLS that allows for the extension of the estimation method to reconstruct the affine input.
 
 A maximum-likelihood (ML) method that performs simultaneous system identification and input estimation is described and its results are used as a reference for the subspace method results.
 
@@ -196,8 +195,8 @@ where $\widetilde{\mathbf{y}}$ is the observed affine response, $\widetilde{\mat
 the matrix $\bm{\Lambda} \in \mathbb{R}^{(T-n) \times (T-n)}$ is a diagonal matrix of descending powers of the weight factor $\lambda \in [0, 1)$, \textit{i.e.},  $\bm{\Lambda} = \mathrm{diag}\left(\lambda^{T-n}, \ldots, \lambda^2, \lambda^1 \right)$.
 The weight factor $\lambda$ is a data selection forgetting factor since it enables to apply different weights to the residuals $\widetilde{\mathbf{y}} - \widetilde{\mathbf{K}} \bm{\theta}$.
 
-The EWRLS solution to the problem (\ref{eqn:min_ewrls}) is implemented to facilitate the online implementation of the affine input estimation method.
-When $\lambda=1$, the EWRLS solution is identical to that of the RLS.
+The exponentially weighted RLS solution to the problem (\ref{eqn:min_ewrls}) is implemented to facilitate the online implementation of the affine input estimation method.
+When $\lambda=1$, the exponentially weighted RLS solution is identical to that of the RLS.
 When $\lambda<1$, the older residuals are weighted with lower values than the residuals of recent observations.
 In this way, the solution of the minimization problem depends more on newer data, and less on older data. 
 
@@ -207,7 +206,7 @@ The offset $\tau$ is explained by the parameter $m$ in the sensor representation
 This is the mass of the sensor itself, that is added to the mass of the object under measurement.	
 From the point of view of the subspace method, the value of $m$ is unknown, and there is no interest in its estimation.
 
-The EWRLS solution to the problem (\ref{eqn:min_ewrls}) provides an affine input  estimation $\widehat{\mathbf{u}}$. 
+The exponentially weighted RLS solution to the problem (\ref{eqn:min_ewrls}) provides an affine input  estimation $\widehat{\mathbf{u}}$. 
 The affine input parameters $a$ and $b$ are estimated, in a second step, by fitting $\widehat{\mathbf{u}}$ to a straight line using linear regression, as follows
 \begin{equation} 
   \begin{bmatrix} 1 & 1  \\ \vdots & \vdots \\ T & 1 \end{bmatrix} 
@@ -689,4 +688,4 @@ The empirical mean squared errors of the subspace method estimation is two order
 
 Future work of this research is the practical implementation of the subspace method for real-time measurements.
 
-\newpage
+%\newpage

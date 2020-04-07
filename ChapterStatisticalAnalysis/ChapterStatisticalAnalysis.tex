@@ -1,12 +1,11 @@
-%!TEX root = ..\Thesis.tex
-
+%!TEX root = ..\Gus-thesis.tex
 \glsresetall
 
 \chapter{Statistical Analysis} \label{chap:StatisticalAnalysis}
 
 
 \begin{quote}
-\vspace{-0.5cm}
+%\vspace{-0.5cm}
 \emph{The results of this chapter were published in Quintana Carapia, G., Markovsky, I. Pintelon, R., Csurcsia, P.Z., and Verbeke, D., "Bias and covariance of the least-squares estimate in a structured errors-in-variables problem", Computational Statistics & Data Analysis journal, Vol. 144, 2020, ISSN 0167-9473, doi:10.1016/j.csda.2019.106893. \nocite{QuintanaCSDA} }\vfill{}
 \end{quote}
 
@@ -142,7 +141,7 @@ The correlation is a consequence of the construction of the block-Hankel matrix 
 
 The mathematical expectation operator is applied to the Taylor series expansion of the LS estimate (\ref{eqn:xhatexp}).
 After removing the terms with negligible expected value, and considering the structure of matrix $\mathbf{K}$, the estimation bias (\ref{eqn:biasdef}) is approximated by 
-\begin{equation} \begin{aligned} \mathbf{b}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \mathbf{Q}^{-1} \left( \left( \mathbf{K}^\top \mathbf{B}_1 - \mathbf{B}_2 \right) x - \left( \mathbf{K}^\top \mathbf{B}_3 - \mathbf{B}_4 \right) \right) , \end{aligned} \label{eqn:biasE} \end{equation}
+\begin{equation} \begin{aligned} \mathbf{b}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \mathbf{Q}^{-1} \left( \left( \mathbf{K}^\top \mathbf{B}_1 - \mathbf{B}_2 \right) \mathbf{x} - \left( \mathbf{K}^\top \mathbf{B}_3 - \mathbf{B}_4 \right) \right) , \end{aligned} \label{eqn:biasE} \end{equation}
 whereas, the estimation covariance (\ref{eqn:covdef}) is approximated by 
 \begin{equation} \begin{aligned} \mathbf{C}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \mathbf{K}^\dagger \left( \sigma_{\bm{\epsilon}}^2 \mathbf{I}_{T-n} + \mathbf{C}_1 - \mathbf{C}_2 - \mathbf{C}_2^\top \right) \mathbf{K}^{\dagger \top} - \mathbf{b}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) \mathbf{b}_{\mathrm{p}}^\top \left( \widehat{\bm{\theta}} \right) , \end{aligned} \label{eqn:varE} \end{equation}
 where $\mathbf{B}_1 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \mathbf{E} \Big\}$, $\mathbf{B}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{P}_\perp \mathbf{E} \Big\}$, $\mathbf{B}_3 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \bm{\epsilon} \Big\}$, $\mathbf{B}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \mathbf{P}_\perp \bm{\epsilon} \Big\}$, $\mathbf{C}_1 = \mathbb{E} \Big\{ \mathbf{E} \bm{\theta} \bm{\theta}^\top \mathbf{E}^\top \Big\}$, $\mathbf{C}_2 = \mathbb{E} \Big\{ \mathbf{E} \bm{\theta} \bm{\epsilon}^\top \Big\}$, $\mathbf{P} = \mathbf{K} \mathbf{K}^\dagger$, and $\mathbf{P}_\perp = \mathbf{I} - \mathbf{P}$. 
@@ -404,7 +403,7 @@ The mean squared errors of the LS estimate are close to the Cram\'er-Rao lower b
 
 \section{Conclusions}
 
- We conducted a statistical analysis of a structured errors-in-variables (EIV) estimation problem with correlation to find the first and second moments of its least-squares solution.
+We conducted a statistical analysis of a structured errors-in-variables (EIV) estimation problem with correlation to find the first and second moments of its least-squares solution.
 This estimation problem occurs in metrology when we estimate the value of a measurand directly from the sensor transient response.
 The data-driven estimation of the physical quantity is formulated as a structured EIV problem with correlation that uses the observed transient response to construct both the regression matrix and the regressor.
 The real-time implementation of the method uses a recursive least-squares algorithm that is simple and has low computational complexity.
@@ -426,11 +425,8 @@ The methodology presented in this chapter can be applied to estimate the uncerta
 The bias and variance expressions obtained after the statistical analysis depend on each specific structure.
 
 
-
 \begin{comment}
-
 \section{STATISTICAL ANALYSIS - Ramp input}
-
 
 \subsubsection{Statistical analysis of the subspace method}
 
@@ -600,7 +596,4 @@ The Cram\'er-Rao lower bound for an biased estimator of the minimization problem
 and for an unbiased estimator it is $\mathrm{CRB}_{\mathrm{ub}}(\bm{\theta}) = \mathbf{Fi}^{-1}(\bm{\theta})$
 \end{comment}
 
-
-
-\newpage
-
+%\newpage

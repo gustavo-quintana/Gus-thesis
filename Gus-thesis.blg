@@ -2,10 +2,9 @@ This is BibTeX, Version 0.99d (TeX Live 2019/W32TeX)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: Gus-thesis.aux
 The style file: plainnat.bst
-A level-1 auxiliary file: Extras/Acknowledgements.aux
 A level-1 auxiliary file: Extras/Abbreviations.aux
 A level-1 auxiliary file: config/CustomCommands.aux
-A level-1 auxiliary file: Summary/Summary.aux
+A level-1 auxiliary file: Extras/Summary.aux
 A level-1 auxiliary file: ChapterIntroduction/ChapterIntroduction.aux
 A level-1 auxiliary file: ChapterPreliminaries/ChapterPreliminaries.aux
 A level-1 auxiliary file: ChapterStatisticalAnalysis/ChapterStatisticalAnalysis.aux
@@ -17,7 +16,7 @@ A level-1 auxiliary file: Extras/ListofPublications.aux
 Database file #1: Gus-thesis.bib
 You've used 75 entries,
             2773 wiz_defined-function locations,
-            1180 strings with 19601 characters,
+            1179 strings with 19574 characters,
 and the built_in function-call counts, 38410 in all, are:
 = -- 3618
 > -- 2231

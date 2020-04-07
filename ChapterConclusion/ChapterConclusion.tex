@@ -1,4 +1,4 @@
-%!TEX root = ..\Thesis.tex
+%!TEX root = ..\Gus-thesis.tex
 \glsresetall
 
 \chapter[Conclusions and future work]{Conclusions and \linebreak future work} \label{chap:concl}
@@ -21,7 +21,7 @@ The improvement in speed estimation makes the data-driven method suitable for re
 Quantifying the estimation uncertainty was necessary to convince the metrology community of the data-driven method advantages.
 The uncertainty assessment is not straightforward.
 The data-driven method formulates a minimization problem that is a block-Hankel structured and correlated errors-in-variables (EIV) problem.
-The recursive least-squares (LS) solution to the minimization problem enables the online implementation of the method.
+The recursive least-squares (RLS) solution to the minimization problem enables the online implementation of the method.
 The structure and correlation of the EIV problem required research to find the first and second statistical moments of the LS solution.
 
 
@@ -53,8 +53,8 @@ The estimation method showed robustness against non-white noise and provided acc
 
 A third aspect of the conducted research included the exploration of estimating inputs based on different models with signal processing methods. 
 A first choice is the affine input model, which is one complexity level higher than the step input.
-The exploration demonstrated that the adaptation of the data-driven method with the exponentially weighted recursive LS (EWRLS) is useful to estimate the affine input.
-More general than the recursive LS estimator, the EWRLS uses a tuning parameter to select the data samples relevant for the solution computation.
+The exploration demonstrated that the adaptation of the data-driven method with the exponentially weighted RLS is useful to estimate the affine input.
+More general than the RLS estimator, the exponentially weighted RLS uses a tuning parameter to select the data samples relevant for the solution computation.
 
 The affine input estimation problem became more interesting because the application of the affine input to a weighing sensor turns the LTI system into a time-varying (TV) system. 
 The adaptive data-driven affine input estimation method was simulated under different assumptions and showed robustness when processing time-varying sensor responses.
@@ -75,8 +75,6 @@ A topic for future research is the efficiency increase, perhaps by designing fas
 On the other hand, for model-based estimation methods, such as the described ML method that has a high computational cost, there is a need also for efficient implementations to enable online optimization in receding-horizon schemes. 
 With such efficient methods, the practical implementation of the ML methods can become feasible for real-time measurements.
 
-
-\newpage
 
 
 \begin{comment}
@@ -146,3 +144,4 @@ The empirical mean squared errors of the subspace method estimation is two order
 Future work of this research is the practical implementation of the subspace method for real-time measurements.
 \end{comment}
 
+%\newpage
