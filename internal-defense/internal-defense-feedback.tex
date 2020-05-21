@@ -1,0 +1,131 @@
+% Compile with: 
+% cd C:\GusDocs\org\thesis\Gus-thesis\internal-defense\
+% pdflatex --shell-escape -synctex=1 -interaction=nonstopmode internal-defense-feedback.tex 
+
+\documentclass[12pt,english]{article}
+\title{Feedback given during the \linebreak internal-defence presentation rehearsal}
+\author{Gustavo Quintana Carapia}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[normalem]{ulem}
+\usepackage{algorithm, algorithmic, amsfonts, amsmath, amssymb, amsthm, amsbsy, array, babel, booktabs, bm, capt-of, circuitikz, color, float, graphicx, grffile, hyperref, lineno, longtable, mathdots, mathptmx, mathtools, minted, pgf, rotating, subfigure, textcomp, tikz, times, units, verbatim, wrapfig, xcolor} % 
+\usepackage[outdir=./]{epstopdf}
+\usetikzlibrary{shapes, arrows, calc, patterns, decorations.pathmorphing, decorations.markings, positioning}
+
+\usepackage[a4paper,bindingoffset=0.2in,%
+            left=1in,right=1in,top=1in,bottom=1in,%
+            footskip=.25in]{geometry}
+\DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
+
+\date{\today}
+% Hint: \title{what ever}, \author{who care} and \date{when ever} could stand 
+% before or after the \begin{document} command 
+% BUT the \maketitle command MUST come AFTER the \begin{document} command! 
+\begin{document}
+
+\maketitle
+
+
+
+\section{General comments}
+
+
+\paragraph{Figures}
+Reduce information, there is no time to describe everything. Consider the key results. Describe all the shown elements.
+
+\paragraph{Introduction slides}
+Reduce the time spent in them.
+
+\paragraph{Presentation}
+Rehearse several times and find out what I am doing wrong to correct myself. 
+The repetition of the presentation should help me to foresee next slide/topic of the speech and to make it sound more natural. Reduce the artificial voices like 'ah', 'mmm'. Take care on the words articulation. Pay attention to these details.
+
+The pros and cons should be very clear.
+
+Attention getter is not good.
+
+It would be nice to show the Lego implementation  results.
+
+\section{Slides} 
+
+\paragraph{1}
+$\epsilon$ is not mentioned.
+Emphasize why it is important to have bias and variance estimation
+Uncertainty bounds are necessary in metrology.
+Giving a value without bias/variance bounds is unacceptable in metrology.
+
+\paragraph{3}
+Mention the pros and cons of avoiding model approach. Compensator still exhibits transient.
+
+\paragraph{6}
+Why do you jump immediately to discrete system? How do you get the discrete time sensor model? For which class of inputs is this method valid?
+
+%\newgeometry{left=0.8in,right=0.8in}
+
+If the input $\mathbf{u}$ belongs to the class of piecewise constant signals
+\begin{equation*} \mathbf{u} (t) = \mathbf{u} (kT), \quad \text{where} \quad kT \leq t < (k+1)T \end{equation*}
+where $T$ is the sampling time, then, the state-space representation of a linear time-invariant system in continuous time
+\begin{equation*} \dot{ \mathbf{x} } = \mathbf{F} \mathbf{x} + \mathbf{G} \mathbf{u}, \quad \mathbf{y} = \mathbf{C} \mathbf{x} + \mathbf{D} \mathbf{u}, \end{equation*} 
+corresponds to the discrete-time representation
+\begin{equation*}  \mathbf{x} ((k+1)T) = \mathbf{A} \mathbf{x}(kT) + \mathbf{B} \mathbf{u}(kT), \quad \mathbf{y}(kT) = \mathbf{C} \mathbf{x}(kT) + \mathbf{D} \mathbf{u}(kT) , \end{equation*} 
+where the matrices $\mathbf{A}$ and $\mathbf{B}$ are given by 
+\begin{equation*}  \mathbf{A}  = e^{\mathbf{F}T}, \quad \mathbf{B} = \int_0^T {e^{\mathbf{A} \tau} \mathbf{G} d \tau}. \end{equation*} 
+Therefore, when the input $\mathbf{u}$ belongs to the class of piecewise constant signals, the discrete-time state-space equation is an exact representation of the continuous-time system.
+
+%\newgeometry{left=1in,right=1in}
+
+\paragraph{7-8}
+Why is D not involved in the equation?
+
+\textit{In the illustration examples, $D$ is a scalar}
+
+\paragraph{10}
+Emphasize that the noise makes its way into the matrix K by removing the parametric model. 
+This is the price we pay from converting the OE probem into an EIV problem.
+
+\paragraph{14}
+Mention that it is a second order Taylor series expansion.
+
+\paragraph{15, 21 and 23}
+If you dont mention a variable in the plots, don't show it. Redo figures if necessary. 
+
+\paragraph{24}
+Mention that the estimation MSE is smallest for orders $n$ larger than the true order. Why is this happening?
+
+\textit{The estimation MSE is smallest for orders $n$ larger than the true order because increasing the order increases
+\begin{itemize}
+	\item the number of columns in the regression matrix,
+	\item the complexity of the problem, and  
+	\item the risk for the problem to become ill-posed.
+\end{itemize}
+The models with order higher than the true order describes all the dynamics of the sensor plus extra dynamics. 
+Thus, my hypothesis is that increasing the model order above the true order would increase the variability and reduce the impact of the bias due to disturbing noise.
+The results support this hypothesis. }
+
+\paragraph{28}
+What is the high level contribution of the ML method?
+
+\paragraph{30, Conclusions}
+Focus on the inportant aspects of the work.
+\begin{itemize}
+	\item the data driven has a price to pay: the noise makes its way into the regression matrix,
+	\item the bias and variance are needed to describe the uncertainty of the method,   
+	\item the MSE is smaller when the data-driven method assumes an order higher than the true model. Even if the LTI behaves well, the bias due to disturbing noise is captured by increasing the model order beyond the true value.
+\end{itemize}
+
+\paragraph{30, Questions}
+\begin{itemize}
+	\item What is the class of inputs for which the method would work?
+	\item What is the most important figure of merit? -> MSE
+	\item nothing is said about the confidence bounds for the user,
+	\item an important topic has not been mentioned: the statistical analysis has been validated in simulation but there is no sufficient mathematical support to check the error introduced by the substitutions. However, the current state-of-the-art in statistics does not allow the determination of this results for finite sample size. The best we can do, as it has been of common acceptance in the community, is to trust in the results of empirical studies such as the Monte Carlo simulation. There is a rule of thumb: the asymptotic results can be used for finite sample size provided that the number of samples is ten times larger than the number of to-be-estimated parameters.
+	\item add to the presentation the two latter 
+	\item could you estimate the model parameters given the step input and the step response? No, the step input does not provide enough persistency of excitation to support the identification from input-output.
+	\item read the Torsten S\"oderstr\"om paper \& book to have it in perspective and say how the presented work relates to his work  
+	\item say how the data-driven approach can be generalized to other identification problems: my idea is to emphasize that the methodology can be followed to find the MSE for solutions to other problems.    
+
+\end{itemize}
+
+
+\end{document}

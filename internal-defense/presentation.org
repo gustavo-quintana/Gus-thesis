@@ -1,0 +1,477 @@
+#+TITLE:  Implementation and validation of \linebreak dynamic measurements estimation methods.
+#+AUTHOR: Gustavo Quintana-Carapia.
+#+DATE:   
+
+* Preamble                                                         :noexport:
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:2 num:nil ^:{} toc:nil 
+#+LaTeX_CLASS_OPTIONS: [presentation]
+#+BEAMER_THEME: 
+#+BEAMER_COLOR_THEME: 
+#+EXCLUDE_TAGS: noexport
+#+PROPERTY:  header-args :eval no
+
+#+STARTUP: beamer
+#+LaTeX_CLASS: beamer
+#+BEAMER_FRAME_LEVEL: 1
+
+#+LATEX_HEADER: \titlegraphic{\includegraphics[width=5cm]{/home/gq/org/texinputs/vublogo/RGB/vublogo.eps}}
+
+#+LATEX_HEADER: \usepackage{tikz,circuitikz, mathtools}
+#+LATEX_HEADER: \usetikzlibrary{shapes,arrows,calc,patterns,decorations.pathmorphing,decorations.markings,positioning}
+
+#+LATEX_HEADER: \input{/home/gq/org/texinputs/mystyle-beamer-org}
+#+LATEX_HEADER: \usepackage{amsmath, mathdots, amsthm, subfigure}
+#+BEAMER_HEADER_EXTRA: \setbeamersize{text margin left=1.5em,text margin right=1em} 
+
+#+LATEX_HEADER: \useinnertheme{circles}
+#+BEAMER_HEADER_EXTRA: \setbeamertemplate{caption}[numbered] \useinnertheme{circles}
+#+BEAMER_HEADER_EXTRA: \setbeamertemplate{itemize items}{\normalsize$\bullet$} 
+
+#+LATEX_HEADER: \setbeamertemplate{navigation symbols}{} 
+#+LATEX_HEADER: \setbeamertemplate{footline}{\hfill \usebeamertemplate***{navigation symbols} \hspace*{0.3cm} \vspace*{0.3cm} \leavevmode \hbox{\begin{beamercolorbox}[wd=0.9\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot} \insertframenumber{} \hspace*{1ex} \end{beamercolorbox}} \vskip0pt}
+#+LATEX_HEADER: \setbeamerfont{footline}{size=\fontsize{8}{9}}
+#+LATEX_HEADER: \addtocounter{framenumber}{-1}
+#+LATEX_HEADER: \thispagestyle{empty}
+
+# +LaTeX_HEADER: \usepackage{algorithm}
+# +LaTeX_HEADER: \usepackage[noend]{algpseudocode}
+# +LATEX_HEADER: \renewcommand{\algorithmicrequire}{\textbf{Input:}}
+# +LATEX_HEADER: \renewcommand{\algorithmicensure}{\textbf{Output:}}
+# +LATEX_HEADER: \renewcommand{\algorithmicreturn}{\textbf{Initialize:}}
+
+# +LATEX_HEADER: \newcommand{\argmin}{\arg\!\min}
+
+* The assignment is: :noexport:
+
+Give a short presentation to the reading group members, audience: high level, philosohical, such as phd jury.
+
+Say:
+
+1) What I aim to.
+
+2) What I have done and what I want to do.
+
+It is a pratice for a real defense
+
+* Attention getter / grabber
+* Need
+** Dynamic measurement: estimation of the input \linebreak from sensor transient response.
+
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 0.35
+    :BEAMER_env: block
+    :END:
+\begin{figure}[htb!]
+\centering
+
+\begin{tikzpicture}[every node/.style={draw,outer sep=0pt,thick}]
+
+\node (M) [minimum width=1.618cm,minimum height=1.0cm] {$sensor$};
+
+\node[draw=none,fill=none] at (-1.6cm,0.5cm) {$u = ?$};
+\node[draw=none,fill=none] at (1.7cm,0.5cm) {\color{blue} $y$ \color{black} $= y_0 + \epsilon$};
+\draw [-latex,thick] (M.east) ++(0.0,0.0) -- +(1.0cm,0cm);
+\draw [-latex,thick] (M.west) ++(-1.0,0) -- +(1.0cm,0);
+
+\end{tikzpicture}
+\end{figure}
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 0.65
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width=\textwidth
+    [[./ytilde.eps]]
+
+** Methods for step input estimation.
+
+*** Known model                                                
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+Kalman filter.
+
+State space recursions.
+
+*** Unknown model                                                
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+Data-driven.
+
+Local optimization.    
+
+* Task
+
+* Main message
+** Objectives of my work.
+
+*** Validate the step input estimation methods.
+
+Data-driven and local optimization.
+
+Implementation in real life applications.
+
+*** Extend the methods. 
+    
+Estimate a ramp excitation $r = a t + b$.
+
+* Preview
+
+* Point 1
+** The data-driven step input estimation method \linebreak solves a system of equations.
+
+\begin{equation*} \underbrace{\begin{bmatrix} y(n+1) \\ \vdots \\ y(T) \end{bmatrix}}_{y} = \underbrace{\begin{bmatrix}
+  G \otimes 1 & \mathcal{H}( \Delta y) \end{bmatrix}}_K \underbrace{\begin{bmatrix} u \\ \ell \end{bmatrix}}_x  \end{equation*}
+
+*** where
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+$\Delta y(k) = y(k) - y(k-1)$
+
+ $n$: order,
+
+ $G$: dc-gain.
+
+ $\ell$: related to initial conditions.
+
+*** noise enters in $K$
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+$y &= y_0 + \epsilon$,
+
+$K = K_0 + E$.
+
+** Temperature measurements in Lego EV3
+    #+ATTR_LATEX: :width=\textwidth
+    [[./Temp_dd_kf_100.eps]]
+
+** Mass measurements using a load cell sensor
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: width=0.01\textwidth
+    [[./setup.jpg]]
+
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+\begin{figure}[h]
+\centering
+
+\begin{tikzpicture}[every node/.style={draw,outer sep=0pt,thick}]
+\tikzstyle{spring}=[thick,decorate,decoration={zigzag,pre length=0.3cm,post length=0.3cm,segment length=6}]
+\tikzstyle{damper}=[thick,decoration={markings,  
+  mark connection node=dmp,
+  mark=at position 0.5 with 
+  {
+    \node (dmp) [thick,inner sep=0pt,transform shape,rotate=-90,minimum width=15pt,minimum height=3pt,draw=none] {};
+    \draw [thick] ($(dmp.north east)+(2pt,0)$) -- (dmp.south east) -- (dmp.south west) -- ($(dmp.north west)+(2pt,0)$);
+    \draw [thick] ($(dmp.north)+(0,-5pt)$) -- ($(dmp.north)+(0,5pt)$);
+  }
+}, decorate]
+\tikzstyle{ground}=[fill,pattern=north east lines,draw=none,minimum width=0.63cm,minimum height=0.3cm]
+
+\node (M) [minimum width=2.5cm,minimum height=0.05cm] {$m$};
+\node (Mu) [minimum width=2.5cm,minimum height=0.75cm,yshift=0.57cm] {$M(t)$};
+
+\node (ground1) at (M.south) [ground,yshift=-1.5cm,xshift=-0.625cm,anchor=north] {};
+\draw (ground1.north west) -- (ground1.north east);
+\draw [spring] (ground1.north) -- ($(M.south east)!(ground1.north)!(M.south west)$);
+
+\node (groundc) at (M.south) [ground,yshift=-1.5cm,anchor=north] {}; 
+\draw (groundc.north west) -- (groundc.north east);
+
+\node (ground2) at (M.south) [ground,yshift=-1.5cm,xshift=0.625cm,anchor=north] {};
+\draw (ground2.north west) -- (ground2.north east);
+\draw [damper] (ground2.north) -- ($(M.south east)!(ground2.north)!(M.south west)$);
+
+\node[draw=none,fill=none] at (-0.9cm,-1cm) {$k$};
+\node[draw=none,fill=none] at (0.15cm,-1cm) {$d$};
+\node[draw=none,fill=none] at (2.0cm,1.0cm) {$y$};
+\draw [-latex,thick]  ++(2.2cm,-1cm) -- +(0cm,2.25cm);
+
+\draw [-latex,thick] (M.east) ++(0,0) -- +(1cm,0);
+\draw [line width=0.25mm] (2.2cm,-1cm) -- (2.2cm,1cm);
+\draw [line width=0.25mm] (2.1cm,-1cm) -- (2.3cm,-1cm);
+\draw [line width=0.25mm] (2.1cm,1cm) -- (2.3cm,1cm);
+\draw [line width=0.25mm] (2.1cm,-0.5cm) -- (2.3cm,-0.5cm);
+\draw [line width=0.25mm] (2.1cm,0.5cm) -- (2.3cm,0.5cm);
+\draw [line width=0.25mm] (2.15cm,-0.25cm) -- (2.25cm,-0.25cm);
+\draw [line width=0.25mm] (2.15cm,0.25cm) -- (2.25cm,0.25cm);
+\draw [line width=0.25mm] (2.15cm,-0.75cm) -- (2.25cm,-0.75cm);
+\draw [line width=0.25mm] (2.15cm,0.75cm) -- (2.25cm,0.75cm);
+\draw [line width=0.25mm] (2.1cm,0cm) -- (2.3cm,0cm);
+
+\end{tikzpicture}
+\end{figure}
+** Mass measurements using a load cell sensor.
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width=\textwidth
+    [[./uh_dd_kf.eps]]
+
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width=\textwidth
+    [[./uh_dd_kf_err.eps]]
+
+** Mass measurements using a load cell sensor.
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 1
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width=\textwidth
+    [[./estimate_error.eps]]
+
+
+* Transition
+
+* Point 2
+
+** The data-driven step input estimation \linebreak can estimate the parameters of a linear input.
+
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 0.4
+    :BEAMER_env: block
+    :END:
+\begin{figure}[h]
+\centering
+
+\begin{tikzpicture}[every node/.style={draw,outer sep=0pt,thick}]
+\tikzstyle{spring}=[thick,decorate,decoration={zigzag,pre length=0.3cm,post length=0.3cm,segment length=6}]
+\tikzstyle{damper}=[thick,decoration={markings,  
+  mark connection node=dmp,
+  mark=at position 0.5 with 
+  {
+    \node (dmp) [thick,inner sep=0pt,transform shape,rotate=-90,minimum width=15pt,minimum height=3pt,draw=none] {};
+    \draw [thick] ($(dmp.north east)+(2pt,0)$) -- (dmp.south east) -- (dmp.south west) -- ($(dmp.north west)+(2pt,0)$);
+    \draw [thick] ($(dmp.north)+(0,-5pt)$) -- ($(dmp.north)+(0,5pt)$);
+  }
+}, decorate]
+\tikzstyle{ground}=[fill,pattern=north east lines,draw=none,minimum width=0.63cm,minimum height=0.3cm]
+
+\node (M) [minimum width=2.5cm,minimum height=0.05cm] {$m$};
+\node (Mu) [minimum width=2.5cm,minimum height=0.75cm,yshift=0.57cm] {$M(t)=at+b$};
+
+\node (ground1) at (M.south) [ground,yshift=-1.5cm,xshift=-0.625cm,anchor=north] {};
+\draw (ground1.north west) -- (ground1.north east);
+\draw [spring] (ground1.north) -- ($(M.south east)!(ground1.north)!(M.south west)$);
+
+\node (groundc) at (M.south) [ground,yshift=-1.5cm,anchor=north] {}; 
+\draw (groundc.north west) -- (groundc.north east);
+
+\node (ground2) at (M.south) [ground,yshift=-1.5cm,xshift=0.625cm,anchor=north] {};
+\draw (ground2.north west) -- (ground2.north east);
+\draw [damper] (ground2.north) -- ($(M.south east)!(ground2.north)!(M.south west)$);
+
+\node[draw=none,fill=none] at (-0.9cm,-1cm) {$k$};
+\node[draw=none,fill=none] at (0.15cm,-1cm) {$d$};
+\node[draw=none,fill=none] at (2.0cm,1.0cm) {$y$};
+\draw [-latex,thick]  ++(2.2cm,-1cm) -- +(0cm,2.25cm);
+
+\draw [-latex,thick] (M.east) ++(0,0) -- +(1cm,0);
+\draw [line width=0.25mm] (2.2cm,-1cm) -- (2.2cm,1cm);
+\draw [line width=0.25mm] (2.1cm,-1cm) -- (2.3cm,-1cm);
+\draw [line width=0.25mm] (2.1cm,1cm) -- (2.3cm,1cm);
+\draw [line width=0.25mm] (2.1cm,-0.5cm) -- (2.3cm,-0.5cm);
+\draw [line width=0.25mm] (2.1cm,0.5cm) -- (2.3cm,0.5cm);
+\draw [line width=0.25mm] (2.15cm,-0.25cm) -- (2.25cm,-0.25cm);
+\draw [line width=0.25mm] (2.15cm,0.25cm) -- (2.25cm,0.25cm);
+\draw [line width=0.25mm] (2.15cm,-0.75cm) -- (2.25cm,-0.75cm);
+\draw [line width=0.25mm] (2.15cm,0.75cm) -- (2.25cm,0.75cm);
+\draw [line width=0.25mm] (2.1cm,0cm) -- (2.3cm,0cm);
+
+\end{tikzpicture}
+\end{figure}
+
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :BEAMER_env: block
+    :END:
+\begin{equation*} \begin{matrix*}[l] \dot{x} = \begin{bmatrix} 0 & 1 \\ \frac{-k}{at+b+m} & \frac{-(d+a)}{at+b+m} \end{bmatrix} x + \begin{bmatrix} 0 \\ g \end{bmatrix} \\ \\y = \begin{bmatrix} 1 & 0  \end{bmatrix} x \end{matrix*} \end{equation*}
+
+
+** The linear input estimated with $\lambda=0.75$ is
+
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width=\textwidth
+    [[./y.eps]]
+
+
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width=\textwidth
+    [[./uh_dd.eps]]
+
+** The parameters of the linear input \linebreak are estimated from $\hat{u}$
+\begin{equation*}
+  \begin{bmatrix} 1 & 1  \\ \vdots & \vdots \\ T & 1 \end{bmatrix} 
+  \begin{bmatrix} a \\ b  \end{bmatrix} = 
+  \begin{bmatrix} \hat{u}(1) \\ \vdots \\ \hat{u}(T) \end{bmatrix}
+\end{equation*} 
+
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width=\textwidth
+    [[./ah_dd.eps]]
+
+
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width=\textwidth
+    [[./bh_dd.eps]]
+
+** In the weighing case, local optimization method \linebreak needs model parameters to estimate linear input.
+
+ \begin{equation*} \begin{aligned}
+  & \text{Minimize} \quad \text{over} \ a,b,x_{\text{ini}} \quad \epsilon^T\epsilon \text{, subject to:} \\ & \quad \dot{x} = \begin{bmatrix} 0 & 1 \\ \frac{-k}{at+b+m} & \frac{-(d+a)}{at+b+m} \end{bmatrix} x + \begin{bmatrix} 0 \\ g \end{bmatrix}, \quad \hat{y} = \begin{bmatrix} 1 & 0  \end{bmatrix} x .  
+ \end{aligned} \end{equation*}
+*** 
+$\hat{y}$ is simulated response of a model 
+
+$\epsilon = \hat{y}-y$ is residual error 
+
+$m$, $d$, and $k$ are model parameters.
+
+$x_1$, $x_2$ are position and speed.
+
+$x_{\text{ini}}$ are model initial conditions.
+
+** Estimated linear input parameters \linebreak with local optimization method.
+
+
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width=\textwidth
+    [[./ah_lo_010_60dB.eps]]
+
+
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width=\textwidth
+    [[./bh_lo_010_60dB.eps]]
+
+
+** Estimated initial conditions \linebreak with local optimization method.
+
+
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width=\textwidth
+    [[./xini1h_lo_010_60dB.eps]]
+
+
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width=\textwidth
+    [[./xini2h_lo_010_60dB.eps]]
+
+
+** Analytic versus numeric Jacobian  \linebreak for local optimization method.
+
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width=\textwidth
+    [[./Jacobian_cmp.eps]]
+
+
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width=\textwidth
+    [[./Jacobian_err.eps]]
+
+
+** Local optimization method is slow.
+
+***                                                 
+    :PROPERTIES:
+    :BEAMER_col: 1
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width=\textwidth
+    [[./etime_lo_010_60dB.eps]]
+
+
+* Transition
+
+
+* Point 3
+
+** Pending work
+*** Writing
+
+*** What is the impact of the model order selection for the sensor?
+
+*** Can the local optimization method be faster?
+
+Restart optimization and use last result to update next.
+
+*** Interface circuit for connecting sensors to Lego
+
+Use of other sensors.
+
+* Review
+* Conclusions
+** Conclusions
+*** Data driven step input estimation method can estimate the parameters of a linear input
+from LTI and from \color{red} LTV!!! \color{black}
+
+*** 
+*** 
+*** 
+* Closing

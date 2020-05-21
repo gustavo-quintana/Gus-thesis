@@ -81,7 +81,7 @@ In the next sections the input is modeled as a multiple of the unit step functio
 
 With a step input ${u} = \bar{{u}} s$, where $s(k) = 1$, for $k \geq 0$, and $s(k) = 0$, for $k < 0$, the discrete-time state-space representation of the LTI sensor is equivalent to an augmented autonomous system  
 \begin{equation} \begin{aligned} \mathbf{x}_\text{a}(k+1) &= \underbrace{ \begin{bmatrix} \mathbf{A} & \mathbf{B} \\ 0 & 1 \end{bmatrix} }_{\mathbf{A}_\text{a}} \mathbf{x}_\text{a}(k) , \quad \text{where} \ \ \mathbf{x}_\text{a}(k) = \begin{bmatrix} \mathbf{x}(k) \\ {u}(k) \end{bmatrix}, \ \ \mathbf{x}_{\text{ini}} = \mathbf{x}(0) \\
-{y}(k) &= \underbrace{ \begin{bmatrix} \mathbf{C} & \mathbf{D} \end{bmatrix} }_{\mathbf{C}_\text{a}} \mathbf{x}_\text{a}(k) . \label{eqn:augmented} \end{aligned} \end{equation}
+{y}(k) &= \underbrace{ \begin{bmatrix} \mathbf{C} & D \end{bmatrix} }_{\mathbf{C}_\text{a}} \mathbf{x}_\text{a}(k) . \label{eqn:augmented} \end{aligned} \end{equation}
 The eigenvalues $\lambda$ of the augmented autonomous system are found using
 \[ \left| \lambda \mathbf{I} - \mathbf{A}_\text{a} \right| = \left| \lambda \mathbf{I} - \begin{bmatrix} \mathbf{A} & \mathbf{B} \\ 0 & 1 \end{bmatrix} \right| = \left| \lambda \mathbf{I} - \mathbf{A} \right| \left( \lambda - 1 \right) = 0.\]
 Therefore, the eigenvalues, poles, of the augmented autonomous system (\ref{eqn:augmented}) are the eigenvalues, poles, of the LTI system, with the additional eigenvalue $\lambda = 1$, pole at $(1,0)$.  
@@ -134,11 +134,11 @@ where $\sigma$ is the shift operator, defined as $(\sigma^\tau y) (k) = y(k + \t
 $\Delta {u}(k) = \mathbf{0}$, for $k \geq 0$, and
 $\Delta \mathbf{x}(0) = (\mathbf{A} - \mathbf{I}) \mathbf{x}(0) + \mathbf{B} \bar{{u}}$.
 The resulting system (\ref{eqn:ssalti}) is autonomous.
-When the response $\Delta {y}$ is persistingly exciting of order $L$, i.e., when the rank of the Hankel matrix $\mathbfcal{H}_{L+1}(\Delta {y})$ of $L+1$ block rows constructed from $\Delta {y}$ satisfies
+When the response $\Delta {y}$ is persistently exciting of order $L$, i.e., when the rank of the Hankel matrix $\mathbfcal{H}_{L+1}(\Delta {y})$ of $L+1$ block rows constructed from $\Delta {y}$ satisfies
 \begin{equation} \mathrm{rank} \left( \mathbfcal{H}_{L+1} \left( \Delta {y} \right) \right) \leq L,  \end{equation}
 the Hankel matrix $\mathbfcal{H}_{L+1}(\Delta {y})$ provides a linear map to the free responses of the augmented autonomous system (\ref{eqn:augmented}).  
 In this case, the total response of the system is given by 
-\[ \mathbf{y} = G \ \bar{{u}} + \mathbfcal{H}(\Delta {y}) \ \bm\ell} \]
+\begin{equation*} \mathbf{y} = G \bar{u} + \mathbfcal{H}\left(\Delta {y}\right) \bm{\ell} \end{equation*}
 that is equivalent to
 \begin{equation} \underbrace{ \begin{bmatrix} y(n+1) \\ \vdots \\ y(T) \end{bmatrix}}_{\mathbf{y}} = \underbrace{ \begin{bmatrix} G & \Delta y(1) & \Delta y(2) & \cdots & \Delta y(n) \\ G & \Delta y(2) & \Delta y(3) & \cdots & \Delta y(n+1) \\ \vdots & \iddots & \iddots & \iddots \\ G & \Delta y(T-n) & \Delta y(T-n+1) & \cdots & \Delta y(T-1) \end{bmatrix}}_{\mathbf{K}} \underbrace{ \begin{bmatrix} \bar{{u}} \\ \bm{\ell} \end{bmatrix} }_{\bm{\theta}} , \label{eqn:ddsiemexd} \end{equation}
 where $T$ is the number of samples, and the vector $\bm{\ell}$ is a linear transformation of the system initial conditions \citep{Markovsky15cep}.  
