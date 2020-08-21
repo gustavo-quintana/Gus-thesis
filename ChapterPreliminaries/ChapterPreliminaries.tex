@@ -33,14 +33,22 @@ The discrete-time state-space representation of a single-input single output (SI
 {y}(k) &= \mathbf{C} \mathbf{x}(k) + {D} {u}(k) + {\epsilon}(k),  \label{eqn:dtsslti} \end{aligned} \end{equation}
 where $\mathbf{A} \in \mathbb{R}^{n \times n}$, $\mathbf{B} \in \mathbb{R}^{n}$, $\mathbf{C} \in \mathbb{R}^{1 \times n}$, and ${D} \in \mathbb{R}$, are the model matrices, $\epsilon$ is the measurement noise, and $n$ is the system order. % $m$ is the number of inputs, and $p$ is the number of outputs.
 
+\color{blue}
+Under certain conditions on the input, a discrete-time representation of the continuous-time dynamics $H(s)$ is exact without any approximation.
+It is demonstrated in \citet{Ljung87Book} and in \citet{MiddletonGoodwinBook} that when the input is piecewise constant, then the step-invariant transformation
+\begin{equation} \mathbf{H}(z) = \left( 1- z^{-1} \right) \mathcal{Z} \left\{ \mathcal{L}^{-1} \left\{ \dfrac{\mathbf{H}(s)}{s} \right\} \right\}   \end{equation}
+is a zero-order hold sampling of the continuous time step response that leads to an exact representation of the system dynamics in discrete time with the transfer function $\mathbf{H}(z)$.
+It worths stating this fact here since the method studied in this thesis estimates the true value of a step input by processing samples of a sensor step response. 
+\color{black}
+
 The methodology presented in this work is explained with SISO LTI systems, but can also be generalized to systems with multiple inputs and outputs.
-An example of SISO LTI sensor is the temperature sensor, but there are sensors that have single input and multiple outputs, like the gas sensors described in \citep{Munther19}, and sensors that have multiple inputs and multiple outputs, like the three-axis accelerometers \citep{DEmilia16}, the radio-frequency intruder-detection sensors \citep{Ushiki13}, and the radar sensors \citep{Kueppers17}. 
+An example of SISO LTI sensor is the temperature sensor, but there are sensors that have single input and multiple outputs, like the gas sensors described in \citet{Munther19}, and sensors that have multiple inputs and multiple outputs, like three-axis accelerometers \citet{DEmilia16}, radio-frequency intruder-detection sensors \citet{Ushiki13}, and radar sensors \citet{Kueppers17}. 
 
 The discrete-time state-space representation suggests that, when the model and the initial conditions are known, and in absence of measurement noise, it is sufficient to solve the system of equations 
 \begin{equation} 
-\underbrace{ \begin{bmatrix} y(0) \\ y(1) \\ y(2) \\ \vdots \\ y(T) \end{bmatrix} }_{\mathbf{y}}
- = \underbrace{ \begin{bmatrix} \mathbf{C} \\ \mathbf{C} \mathbf{A} \\ \mathbf{C} \mathbf{A}^2 \\ \vdots \\ \mathbf{C} \mathbf{A}^T \end{bmatrix} }_{\mathbfcal{O}} \mathbf{x}(0) +
- \underbrace{ \begin{bmatrix} \mathbf{D} \\ \mathbf{C} \mathbf{B} & \mathbf{D} \\ \mathbf{C} \mathbf{A} \mathbf{B} & \mathbf{C} \mathbf{B} & \mathbf{D} \\ \vdots & \ddots \\ \mathbf{C} \mathbf{A}^{T-1} \mathbf{B} & \cdots  &  \mathbf{C} \mathbf{A} \mathbf{B} & \mathbf{C} \mathbf{B} & \mathbf{D} \end{bmatrix} }_{\mathbfcal{T}} \underbrace{ \begin{bmatrix} u(0) \\ u(1) \\ u(2) \\ \vdots \\ u(T) \end{bmatrix} }_{\mathbf{u}} ,
+\underbrace{ \begin{bmatrix} y(0) \\ y(1) \\ y(2) \\ \vdots \\ y(\color{blue}N\color{black}) \end{bmatrix} }_{\mathbf{y}}
+ = \underbrace{ \begin{bmatrix} \mathbf{C} \\ \mathbf{C} \mathbf{A} \\ \mathbf{C} \mathbf{A}^2 \\ \vdots \\ \mathbf{C} \mathbf{A}^{\color{blue}N\color{black}} \end{bmatrix} }_{\mathbfcal{O}} \mathbf{x}(0) +
+ \underbrace{ \begin{bmatrix} \color{blue}D\color{black} \\ \mathbf{C} \mathbf{B} & \color{blue}D\color{black} \\ \mathbf{C} \mathbf{A} \mathbf{B} & \mathbf{C} \mathbf{B} & \color{blue}D\color{black} \\ \vdots & \ddots \\ \mathbf{C} \mathbf{A}^{\color{blue}N\color{black}-1} \mathbf{B} & \cdots  &  \mathbf{C} \mathbf{A} \mathbf{B} & \mathbf{C} \mathbf{B} & \color{blue}D\color{black} \end{bmatrix} }_{\mathbfcal{T}} \underbrace{ \begin{bmatrix} u(0) \\ u(1) \\ u(2) \\ \vdots \\ u(\color{blue}N\color{black}) \end{bmatrix} }_{\mathbf{u}} ,
  \label{eqn:knownmodel} \end{equation}
 to find the input. 
 This system of equations $\mathbf{y} = \mathbfcal{O} \mathbf{x}(0) + \mathbfcal{T} \mathbf{u}$ is constructed from the recursions of (\ref{eqn:dtsslti}), where $\mathbfcal{O}$ is the observability matrix of the system, and $\mathbfcal{T}$ is a Toeplitz matrix of the Markov parameters of the system.
@@ -72,19 +80,19 @@ This system is called compensator because the transient time of the input estima
  \node[draw=none,fill=none] [right=of NB2,xshift=-0.5cm,yshift=0.25cm] {$\widehat{{u}}$};
 
  \end{tikzpicture}
- \caption{Input estimation using a compensator that processes the sensor response ${y}$. The compensator is an additional system that reverts the dynamics of the sensor.} \label{fig:compensator}
+ \caption{Input estimation using a compensator that processes the sensor response ${y}$. The compensator is an additional system that \color{blue} inverts \color{black} the dynamics of the sensor.} \label{fig:compensator}
  \end{figure}
 
 In the next sections the input is modeled as a multiple of the unit step function, to describe methods for estimating the input step level in two conditions: when the model of the sensor is a-priori given and when the method is not available. 
 
 \section{Step input estimation with system model}
 
-With a step input ${u} = \bar{{u}} s$, where $s(k) = 1$, for $k \geq 0$, and $s(k) = 0$, for $k < 0$, the discrete-time state-space representation of the LTI sensor is equivalent to an augmented autonomous system  
+With a step input ${u}$, where $u(k) = u$, for $k \geq 0$, and $u(k) = 0$, for $k < 0$, the discrete-time state-space representation of the LTI sensor is equivalent to an augmented autonomous system  
 \begin{equation} \begin{aligned} \mathbf{x}_\text{a}(k+1) &= \underbrace{ \begin{bmatrix} \mathbf{A} & \mathbf{B} \\ 0 & 1 \end{bmatrix} }_{\mathbf{A}_\text{a}} \mathbf{x}_\text{a}(k) , \quad \text{where} \ \ \mathbf{x}_\text{a}(k) = \begin{bmatrix} \mathbf{x}(k) \\ {u}(k) \end{bmatrix}, \ \ \mathbf{x}_{\text{ini}} = \mathbf{x}(0) \\
 {y}(k) &= \underbrace{ \begin{bmatrix} \mathbf{C} & D \end{bmatrix} }_{\mathbf{C}_\text{a}} \mathbf{x}_\text{a}(k) . \label{eqn:augmented} \end{aligned} \end{equation}
 The eigenvalues $\lambda$ of the augmented autonomous system are found using
 \[ \left| \lambda \mathbf{I} - \mathbf{A}_\text{a} \right| = \left| \lambda \mathbf{I} - \begin{bmatrix} \mathbf{A} & \mathbf{B} \\ 0 & 1 \end{bmatrix} \right| = \left| \lambda \mathbf{I} - \mathbf{A} \right| \left( \lambda - 1 \right) = 0.\]
-Therefore, the eigenvalues, poles, of the augmented autonomous system (\ref{eqn:augmented}) are the eigenvalues, poles, of the LTI system, with the additional eigenvalue $\lambda = 1$, pole at $(1,0)$.  
+Therefore, the eigenvalues (poles) of the augmented autonomous system (\ref{eqn:augmented}) are the eigenvalues, poles, of the LTI system, with the additional eigenvalue $\lambda = 1$, pole at $(1,0)$.  
 
 Since the input ${u}(k+1) = {u}(k)$, for $k \geq 0$, is an augmented state of the autonomous system, and the system is known, a state estimator is sufficient to estimate the input.
 In these conditions, the Kalman filter estimates recursively the input value.  
@@ -98,14 +106,14 @@ However, the input is unknown and the model should be identified using only the 
 
 A feasible method can be one that identifies a model of the sensor from the step response, assuming we have exact data, and later estimates the input step level using the identified sensor model.
 The model identification consists in the estimation of the matrices $\widehat{\mathbf{A}}_\text{a}$ and $\widehat{\mathbf{C}}_\text{a}$, and the initial conditions $\widehat{\mathbf{x}}(0)$.
-To do this, consider that a Hankel matrix $\mathbfcal{H}({y}) \in \mathbb{R}^{n \times n}$, constructed from any linearly independent $n$ autonomous responses from the sensor initial conditions, is full column rank.
-We can express 
-\[ \underbrace{ \begin{bmatrix} y(1) & y(2) & \cdots & y(n) \\ y(2) & y(3) & \cdots & y(n+1) \\ \iddots & \iddots & \iddots \\ y(n) & y(n+1) & \cdots & y(2n-1) \end{bmatrix} }_{ \mathbfcal{H}({y}) }= \underbrace{ \begin{bmatrix} \widehat{\mathbf{C}}_\text{a} \\ \widehat{\mathbf{C}}_\text{a} \widehat{\mathbf{A}}_\text{a} \\ \vdots \\ \widehat{\mathbf{C}}_\text{a} \widehat{\mathbf{A}}_\text{a}^{n} \end{bmatrix} }_{ \mathbfcal{O}_\text{a} }  \underbrace{ \begin{bmatrix} \mathbf{x}_\text{a}(0) & \mathbf{x}_\text{a}(1) & \cdots & \mathbf{x}_\text{a}(n) \end{bmatrix} }_{ \mathbf{X}_\text{ini} } , \]
+To do this, consider that \color{blue}the \color{black} Hankel matrix $\mathbfcal{H}({y}) \in \mathbb{R}^{n \times n}$, constructed from any linearly independent $n$ autonomous responses from the sensor's initial conditions, is full column rank.
+\color{blue}Then, \color{black} we can express \color{blue}the following equality\color{black}  
+\begin{equation} \underbrace{ \begin{bmatrix} y(\color{blue}0\color{black}) & y(\color{blue}1\color{black}) & \cdots & y(\color{blue}n-1\color{black}) \\ y(\color{blue}1\color{black}) & y(\color{blue}2\color{black}) & \cdots & y(\color{blue}n\color{black}) \\ \iddots & \iddots & \iddots \\ y(\color{blue}n-1\color{black}) & y(\color{blue}n\color{black}) & \cdots & y(\color{blue}2n-2\color{black}) \end{bmatrix} }_{ \mathbfcal{H}({y}) }= \underbrace{ \begin{bmatrix} {\mathbf{C}}_\text{a} \\ {\mathbf{C}}_\text{a} {\mathbf{A}}_\text{a} \\ \vdots \\ {\mathbf{C}}_\text{a} {\mathbf{A}}_\text{a}^{n-1} \end{bmatrix} }_{ \mathbfcal{O}_\text{a} }  \underbrace{ \begin{bmatrix} \mathbf{x}_\text{a}(0) & \mathbf{x}_\text{a}(1) & \cdots & \mathbf{x}_\text{a}(n-1) \end{bmatrix} }_{ \mathbf{X}_\text{ini} } , \end{equation}
 where $\mathbf{X}_\text{ini}$ is a matrix with the initial conditions of the $n$ free responses. 
 A singular value decomposition of $\mathbfcal{H}({y})$ 
-\[ \mathbf{U} \bm{\Sigma} \mathbf{V} = \mathbfcal{H}({y}), \]
+\begin{equation} \mathbf{U} \bm{\Sigma} \mathbf{V} = \mathbfcal{H}({y}), \end{equation}
 permits the estimation of the observability matrix $\mathbfcal{O}_\text{a}$ and the initial conditions $\mathbf{X}_\text{ini}$, for example, by choosing
-\[ \widehat{\mathbfcal{O}}_\text{a} = \mathbf{U} \sqrt{\bm{\Sigma}}, \quad \text{and} \quad \widehat{\mathbf{X}}_\text{ini} = \sqrt{\bm{\Sigma}} \mathbf{V} . \]
+\begin{equation} \widehat{\mathbfcal{O}}_\text{a} = \mathbf{U} \sqrt{\bm{\Sigma}}, \quad \text{and} \quad \widehat{\mathbf{X}}_\text{ini} = \sqrt{\bm{\Sigma}} \mathbf{V} . \end{equation}
 The matrices $\widehat{\mathbf{A}}_\text{a}$ and $\widehat{\mathbf{C}}_\text{a}$ can be estimated, from $\widehat{\mathbfcal{O}}_\text{a}$, by solving a system of equations.
 In order to estimate the input, it is necessary to find a minimal representation of the autonomous system, by doing a linear transformation that removes the pole at $(1,0)$, and recovers the matrices $\widehat{\mathbf{A}}, \widehat{\mathbf{B}}, \widehat{\mathbf{C}}$, and $\widehat{\mathbf{D}}$.  
 
@@ -113,37 +121,41 @@ In order to estimate the input, it is necessary to find a minimal representation
 %\subsubsection{Identification of the model followed by input estimation}
 
 A second method can estimate the step input when the model of the LTI sensor is unknown but its static gain $G$ is given.
-Using the static gain $G$, we can express $\bar{{y}} = G \bar{{u}}$, where $\bar{{u}}$ is the input exact value and $\bar{{y}}$ is the sensor steady state response.
+Using the static gain $G$, we can express ${{y}} = G {{u}}$, where ${{u}}$ is the input exact value and ${{y}}$ is the \color{blue} exact \color{black} sensor steady state response.
 The total response of the system is the sum of the transient and the steady-state responses.
 Thus, considering the augmented autonomous model, we can write
-\[ {y} = G \ \bar{{u}} \ + \ \mathbfcal{O}_\text{a} \ \mathbf{x}(0) , \]
-that in matrix form is
-\[ \underbrace{ \begin{bmatrix}y(0) \\ y(1) \\ \vdots \\ y(T) \end{bmatrix}}_{\mathbf{y}} = \underbrace{ \begin{bmatrix} G & \mathbf{C}_\text{a} \\ G & \mathbf{C}_\text{a} \mathbf{A}_\text{a} \\ \vdots & \vdots \\ G & \mathbf{C}_\text{a} \mathbf{A}_\text{a}^T \end{bmatrix}}_{\mathbf{K}} \begin{bmatrix} \bar{{u}} \\ \mathbf{x}(0) \end{bmatrix} .\]
-Then, it is necessary to estimate the observability matrix of the augmented system, followed by the estimation of the input  ${u}$, and the initial conditions $\mathbf{x}_{\text{ini}}$, using least-squares
-\[ \begin{bmatrix} \widehat{{u}} \\ \widehat{\mathbf{x}}_{\text{ini}} \end{bmatrix} = \left( \mathbf{K}^\top \mathbf{K} \right)^{-1} \mathbf{K}^\top \mathbf{y}. \]
+\begin{equation} {y} = G \ {{u}} \ + \ \mathbfcal{O}_\text{a} \ \mathbf{x}_{\color{blue}\text{a}\color{black}}(0) , \end{equation}
+\color{blue} which \color{black} in matrix form is
+\begin{equation} \underbrace{ \begin{bmatrix}y(0) \\ y(1) \\ \vdots \\ y(\color{blue}N\color{black}) \end{bmatrix}}_{\mathbf{y}} = \underbrace{ \begin{bmatrix} G & \mathbf{C}_\text{a} \\ G & \mathbf{C}_\text{a} \mathbf{A}_\text{a} \\ \vdots & \vdots \\ G & \mathbf{C}_\text{a} \mathbf{A}_\text{a}^{\color{blue}N\color{black}} \end{bmatrix}}_{\mathbf{K}} \begin{bmatrix} {{u}} \\ \mathbf{x}_{\color{blue}\text{a}\color{black}}(0) \end{bmatrix} .\end{equation}
+Then, it is necessary to estimate the observability matrix of the augmented system, followed by the estimation of the input  ${u}$, and the initial conditions, using least-squares
+\begin{equation} \begin{bmatrix} \widehat{{u}} \\ \widehat{\mathbf{x}}_{\color{blue}\text{a}(0)\color{black}} \end{bmatrix} = \left( \mathbf{K}^\top \mathbf{K} \right)^{-1} \mathbf{K}^\top \mathbf{y}. \end{equation}
 
 
 %\subsubsection{Data-driven estimation of an unknown step input given a sensor step response}
 %Another alternative to performing model identification is presented, it is a direct estimation of the input without model identification.
 %# The suitability of data-driven methods on-line implementation is higher because there is no need for high computational power to identify the system.
 
-A third method can directly estimate the input step level from the step response, without the identification of a sensor model.
-Applying the first difference operator, $\Delta = \sigma - 1$, to the system state-space representation (\ref{eqn:dtsslti}), we have
+A third method can directly estimate the input step level from the step response, without identifying a sensor model.
+To derive this method, we use the first difference operator $\Delta$, defined as $\Delta y(k) = y(k + 1) - y(k)$.
+Applying the first difference operator to the system state-space representation (\ref{eqn:dtsslti}) results in the autonomous system
 \begin{equation} \begin{aligned} \Delta \mathbf{x}(k+1) = \mathbf{A} \Delta \mathbf{x}(k), \quad \Delta {y}(k) = \mathbf{C} \Delta \mathbf{x}(k), \quad \text{with} \quad \Delta \mathbf{x}_{\text{ini}} = \Delta \mathbf{x}(0) , \label{eqn:ssalti} \end{aligned} \end{equation}
-where $\sigma$ is the shift operator, defined as $(\sigma^\tau y) (k) = y(k + \tau)$, and
-$\Delta {u}(k) = \mathbf{0}$, for $k \geq 0$, and
-$\Delta \mathbf{x}(0) = (\mathbf{A} - \mathbf{I}) \mathbf{x}(0) + \mathbf{B} \bar{{u}}$.
-The resulting system (\ref{eqn:ssalti}) is autonomous.
-When the response $\Delta {y}$ is persistently exciting of order $L$, i.e., when the rank of the Hankel matrix $\mathbfcal{H}_{L+1}(\Delta {y})$ of $L+1$ block rows constructed from $\Delta {y}$ satisfies
-\begin{equation} \mathrm{rank} \left( \mathbfcal{H}_{L+1} \left( \Delta {y} \right) \right) \leq L,  \end{equation}
-the Hankel matrix $\mathbfcal{H}_{L+1}(\Delta {y})$ provides a linear map to the free responses of the augmented autonomous system (\ref{eqn:augmented}).  
-In this case, the total response of the system is given by 
-\begin{equation*} \mathbf{y} = G \bar{u} + \mathbfcal{H}\left(\Delta {y}\right) \bm{\ell} \end{equation*}
+where $\Delta {u}(k) = \mathbf{0}$, for $k \geq 0$, and
+$\Delta \mathbf{x}(0) = (\mathbf{A} - \mathbf{I}) \mathbf{x}(0) + \mathbf{B} {{u}}$.
+
+If the response $\Delta {y}$ \color{blue} of this autonomous system \color{black}  is persistently exciting of order $L$, then the rank of the Hankel matrix $\mathbfcal{H}_{L+1}(\Delta {y})$ of $L+1$ block rows constructed from $\Delta {y}$ satisfies
+\begin{equation} \mathrm{rank} \left( \mathbfcal{H}_{L+1} \left( \Delta {y} \right) \right) = \color{blue} \mathrm{rank} \left( \begin{bmatrix} \Delta y(1) & \Delta y(2) & \cdots & \Delta y(n) \\ \Delta y(2) & \Delta y(3) & \cdots & \Delta y(n+1) \\ \iddots & \iddots & \iddots \\ \Delta y(L+1) & \Delta y(L+2) & \cdots & \Delta y(L+n) \end{bmatrix} \right) \color{black} \leq L.  \end{equation}
+\color{blue}If we assume that the autonomous response $\Delta {y}$ is persistently exciting with a suficiently high order, then the image of the columns of the Hankel matrix $\mathbfcal{H}_{N-n}(\Delta {y})$ is a linear space that contains all the natural responses of the augmented autonomous system (\ref{eqn:augmented}) 
+\begin{equation} \mathbf{y}_{\mathrm{natural}} = \mathbfcal{H}_{N-n}\left(\Delta {y}\right) \bm{\ell}, \end{equation}
+for any vector $\bm{\ell} \in \mathbb{R}^{n}$.
+Since the autonomous system was derived from the LTI system by augmenting a state and considering that the step input is part of the inital conditions,
+then the total response of the LTI system is the sum of the forced response, due to the applied input ${u}$ and the natural response spanned from the Hankel matrix
+\begin{equation} \mathbf{y} = \mathbf{y}_{\mathrm{forced}}+ \mathbf{y}_{\mathrm{natural}} =G {u} + \mathbfcal{H}\left(\Delta {y}\right) \bm{\ell} ,  \end{equation} \color{black}
 that is equivalent to
-\begin{equation} \underbrace{ \begin{bmatrix} y(n+1) \\ \vdots \\ y(T) \end{bmatrix}}_{\mathbf{y}} = \underbrace{ \begin{bmatrix} G & \Delta y(1) & \Delta y(2) & \cdots & \Delta y(n) \\ G & \Delta y(2) & \Delta y(3) & \cdots & \Delta y(n+1) \\ \vdots & \iddots & \iddots & \iddots \\ G & \Delta y(T-n) & \Delta y(T-n+1) & \cdots & \Delta y(T-1) \end{bmatrix}}_{\mathbf{K}} \underbrace{ \begin{bmatrix} \bar{{u}} \\ \bm{\ell} \end{bmatrix} }_{\bm{\theta}} , \label{eqn:ddsiemexd} \end{equation}
-where $T$ is the number of samples, and the vector $\bm{\ell}$ is a linear transformation of the system initial conditions \citep{Markovsky15cep}.  
+\begin{equation} \underbrace{ \begin{bmatrix} y(n+1) \\ \vdots \\ y(\color{blue}N\color{black}) \end{bmatrix}}_{\mathbf{y}} = \underbrace{ \begin{bmatrix} G & \Delta y(1) & \Delta y(2) & \cdots & \Delta y(n) \\ G & \Delta y(2) & \Delta y(3) & \cdots & \Delta y(n+1) \\ \vdots & \iddots & \iddots & \iddots \\ G & \Delta y(\color{blue}N\color{black}-n) & \Delta y(\color{blue}N\color{black}-n+1) & \cdots & \Delta y(\color{blue}N\color{black}-1) \end{bmatrix} }_{\mathbf{K}} \underbrace{ \begin{bmatrix} {{u}} \\ \bm{\ell} \end{bmatrix} }_{\bm{\theta}} , \label{eqn:ddsiemexd} \end{equation}
+where $\color{blue}N\color{black}$ is the number of samples.
+\color{blue} From this point of view, the vector $\bm{\ell}$ is a linear transformation of the system's initial conditions\color{black}.  
 The solution to this system of equations exist and is unique when we have exact data.
-Nevertheless, in the practice, the observations of the sensor step response are perturbed by noise.
+Nevertheless, in practice, the observations of the sensor step response are perturbed by noise.
 
 
 %\subsection{Data-driven step input estimation in presence of noise}
@@ -151,36 +163,52 @@ Nevertheless, in the practice, the observations of the sensor step response are 
 Assuming that the observations of the vector $\mathbf{y}$ are perturbed by measurement noise $\bm{\epsilon}$ of zero mean and given variance $\sigma_{\bm{\epsilon}}^2$, we can express 
 \begin{equation} \widetilde{\mathbf{y}} = \mathbf{y} + \bm{\epsilon} , \label{eqn:y0plusnoise} \end{equation} 
 and
-\begin{equation} \widetilde{\mathbf{K}} = \mathbf{K} + \mathbf{E} . \label{eqn:K0plusnoise} \end{equation}The matrix $\mathbf{E}$ is constructed with the noise data, and is given as
-\begin{equation} \mathbf{E} = \begin{bmatrix} 0 & \Delta \epsilon(1) & \Delta \epsilon(2) & \cdots & \Delta \epsilon(n) \\ 0 & \Delta \epsilon(2) & \Delta \epsilon(3) & \cdots & \Delta \epsilon(n+1) \\ \vdots & \vdots & \vdots & & \vdots \\ 0 & \Delta \epsilon(T-n) & \Delta \epsilon(T-n+1) & \cdots & \Delta \epsilon(T-1) \end{bmatrix} . \label{eqn:matrixE} \end{equation}
+\begin{equation} \widetilde{\mathbf{K}} = \mathbf{K} + \mathbf{E} . \label{eqn:K0plusnoise} \end{equation}
+The matrix $\mathbf{E}$ is constructed with the noise data, and is given as
+\begin{equation} \mathbf{E} = \begin{bmatrix} 0 & \Delta \epsilon(1) & \Delta \epsilon(2) & \cdots & \Delta \epsilon(n) \\ 0 & \Delta \epsilon(2) & \Delta \epsilon(3) & \cdots & \Delta \epsilon(n+1) \\ \vdots & \vdots & \vdots & & \vdots \\ 0 & \Delta \epsilon(\color{blue}N\color{black}-n) & \Delta \epsilon(\color{blue}N\color{black}-n+1) & \cdots & \Delta \epsilon(\color{blue}N\color{black}-1) \end{bmatrix} . \label{eqn:matrixE} \end{equation}
 Therefore, the matrix $\widetilde{\mathbf{K}}$ is expressed as
-\begin{equation} \widetilde{\mathbf{K}} = \begin{bmatrix} G & \Delta \widetilde{y}(1) & \Delta \widetilde{y}(2) & \cdots & \Delta \widetilde{y}(n) \\ G & \Delta \widetilde{y}(2) & \Delta \widetilde{y}(3) & \cdots & \Delta \widetilde{y}(n+1) \\ \vdots & \vdots & \vdots & & \vdots \\ G & \Delta \widetilde{y}(T-n) & \Delta \widetilde{y}(T-n+1) & \cdots & \Delta \widetilde{y}(T-1) \end{bmatrix} . \label{eqn:matrixK} \end{equation}
+\begin{equation} \widetilde{\mathbf{K}} = \begin{bmatrix} G & \Delta \widetilde{y}(1) & \Delta \widetilde{y}(2) & \cdots & \Delta \widetilde{y}(n) \\ G & \Delta \widetilde{y}(2) & \Delta \widetilde{y}(3) & \cdots & \Delta \widetilde{y}(n+1) \\ \vdots & \vdots & \vdots & & \vdots \\ G & \Delta \widetilde{y}(\color{blue}N\color{black}-n) & \Delta \widetilde{y}(\color{blue}N\color{black}-n+1) & \cdots & \Delta \widetilde{y}(\color{blue}N\color{black}-1) \end{bmatrix} . \label{eqn:matrixK} \end{equation}
 
 The underlying system of equations 
 \begin{equation} \widetilde{\mathbf{y}} = \widetilde{\mathbf{K}} \bm{\theta} \label{eqn:ddsiemnd} \end{equation}
 is another representation of the minimization problem
 \begin{equation} \widehat{\bm{\theta}} = \underset{\bm{\theta}}{\mathrm{argmin}} \ \left\Vert  \widetilde{\mathbf{y}} - \widetilde{\mathbf{K}} \bm{\theta} \right\Vert^2_2 . \label{eqn:min_seiv} \end{equation}
-where $\widetilde{\mathbf{y}} = \begin{bmatrix} \widetilde{y}(n+1) & \ldots & \widetilde{y}(T) \end{bmatrix}^\top$, and
+where $\widetilde{\mathbf{y}} = \begin{bmatrix} \widetilde{y}(n+1) & \ldots & \widetilde{y}(\color{blue}N\color{black}) \end{bmatrix}^\top$, and
 $\widehat{\bm{\theta}} = \begin{bmatrix} \widehat{{u}} & \widehat{\bm{\ell}}^\top \end{bmatrix}^\top$. 
 This minimization problem is an errors-in-variables (EIV) problem with Hankel structure, and correlation between the regression matrix $\widetilde{\mathbf{K}}$ and the regressor vector $\widetilde{\mathbf{y}}$.
 
 The data-driven step input estimation method converts the output-error simultaneous model identification and input estimation problem into an errors-in-variables (EIV) input estimation problem.
 The cost of avoiding the parametric sensor modeling is to deal with a more difficult stochastic framework.
 
-For metrology applications, it is desired to have a fast online solution of the problem(\ref{eqn:ddsiemnd}).
-The least-squares (LS) approximate solution of this system of equations offers a simple alternative, in its recursive form, to implement the estimation method in real-time.
-Least-squares admit a recursive implementation that avoids the inversion of matrix $\widetilde{\mathbf{K}}$ that increases its size with respect to the sample size $T$.
-Instead, the recursive least-squares (RLS) updates the solution of the system of equations considering the previous value of the estimation.
+
+The problem (\ref{eqn:ddsiemnd}) admits a least-squares (LS) solution \color{blue} with normal equations given by
+\begin{equation} \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{K}} \bm{\theta} = \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{y}}.  \label{eqn:neq_seiv} \end{equation} 
+The closed form of the LS solution can be expressed as
+\begin{equation} \widehat{\bm{\theta}} = \widetilde{\mathbf{K}}^\dagger \widetilde{\mathbf{y}} = ( \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{K}} )^{-1} \widetilde{\mathbf{K}}^\top \widetilde{\mathbf{y}} , \label{eqn:xhat} \end{equation}
+where $\widetilde{\mathbf{K}}^\dagger$ is the pseudo-inverse matrix of $\widetilde{\mathbf{K}}$.
+As the number of samples $N$ increases, the number of rows of the matrix $\widetilde{\mathbf{K}}$ grows, making the pseudo-inverse computation inefficient since it requires larger flops, memory and time.
+
+For metrology applications, it is desired to have a fast solution that can be obtained in real-time. 
+The recursive algorithm (RLS) is a least-squares alternative to implement the step input estimation method in real-time.
+The RLS recursively updates the solution of the system of equations, for each newly acquired sensor response sample, considering the previous value of the estimation, instead of performing a matrix inversion.
+An expression of the RLS equations is given in \citet{Kailath00book} as
+\begin{equation} \begin{aligned} \widehat{\bm{\theta}}(k) &= \widehat{\bm{\theta}}(k-1) + \bm{\kappa}_{k} \left( \widetilde{y}(k) - \widetilde{\mathbf{k}}_{k} \widehat{\bm{\theta}}(k-1) \right) , \\  \bm{\kappa}_{k} &= \bm{\Psi}(k-1) \widetilde{\mathbf{k}}_{k}^\top / \left( 1 + \widetilde{\mathbf{k}}_{k} \bm{\Psi}(k-1) \widetilde{\mathbf{k}}_{k}^\top  \right) \\ \bm{\Psi}(k) &= \left( \mathbf{I} - \bm{\kappa}_{k} \widetilde{\mathbf{k}}_{k} \right) \bm{\Psi}(k-1), \label{eqn:RLS} \end{aligned} \end{equation}
+for $k = 2n+1, 2n+2, \ldots$, where $\widetilde{\mathbf{k}}_{k}$ represents the row of $\widetilde{\mathbf{K}}$ that corresponds to the $k\mathrm{-th}$ sample, $\bm{\kappa}_{k}$ is a gain scalar, and $\Psi(k)$ is a covariance matrix.
+The estimates and the covariance matrix are initialized using the first $n+1$ samples, i.e.,  $\widehat{\bm{\theta}} (2n+1) = \left( \widetilde{\mathbf{K}}_{n+1}^\top \widetilde{\mathbf{K}}_{n+1} \right)^{-1} \widetilde{\mathbf{K}}_{n+1}^\top \widetilde{\mathbf{y}}_{n+1}$ and $\Psi(2n+1) = \left( \widetilde{\mathbf{K}}_{n+1}^\top \widetilde{\mathbf{K}}_{n+1} \right)^{-1}$, where $\widetilde{\mathbf{K}}_{n+1}$ is the matrix $\widetilde{\mathbf{K}}$ with the first $n+1$ rows, and $\widetilde{\mathbf{y}}_{n+1}$ is the vector $\widetilde{\mathbf{y}}$ with the first $n+1$ elements.
+Since the RLS is a recursive implementation of the least-squares computation, the RLS solution is equivalent to the LS solution.
+Moreover, the statistical analysis of the LS solution is valid also for the RLS solution, and is preferred since it is simpler to express the statistics using the closed form of the LS solution. 
+
+The computational complexity of the RLS algorithm solution to the system of equations (\ref{eqn:ddsiemexd}) is $O \left( \left( n+1 \right)^2 \right)$.
+The largest computational requirement is for the initialization of the algorithm, where a matrix inverse is required when the number of samples is just enough to have a square matrix $\widetilde{\mathbf{K}}_{n+1}$.
+From there on, the RLS algorithm updates the solution with linear complexity.
+Therefore, even though a large number of samples $N$ makes the matrix in the system of equations (\ref{eqn:ddsiemexd}) increase in the number of rows, the estimation of the solution does not increase in complexity. 
+The data-driven step input estimation method is then scalable for any sensor of order $n$, and can be executed in devices with limited computational resources, provided that the computation of the  $(n+1) \times (n+1)$ inverse matrix is feasible.
+\color{black}	
 
 The LS solution is used even though it might exhibit bias due to the correlation of the perturbation in $\widetilde{\mathbf{K}}$ with the perturbation in $\widetilde{\mathbf{y}}$.
 To conduct the statistical analysis of the step input estimation method, it is more convenient to use the standard least-squares terminology.
 The statistical analysis results obtained from LS treatment are fully compatible with the RLS estimation results.
 The well known bias and covariance results for the LS estimator cannot be invoked because they assume that the additive perturbation only affects the regressor, and that there is no correlation between the regressor and the regression matrix.
-
-
-
-
-
 
  
 
@@ -241,7 +269,7 @@ The structure of the EIV problem is due to the presence of the Hankel matrix in 
 The measurement noise $\bm{\epsilon}$ enters in the regression matrix $\mathbf{K}$ and we can express 
 \begin{equation} \mathbf{K} = \widebar{\mathbf{K}} + \mathbf{E}, \label{eqn:K0plusnoise} \end{equation} 
 where $\widebar{\mathbf{K}}$ is exact data information and $\mathbf{E}$ is the corresponding perturbation noise.
-Details of the method formulation are described in \citep{Markovsky15cep}.
+Details of the method formulation are described in \citet{Markovsky15cep}.
 
 The recursive least squares (RLS) algorithm provides a solution to the structured EIV problem and enables real-time implementations of the estimation method.
 The RLS has an exponential forgetting factor that selects the observations of the transient response to perform the estimation.
@@ -265,7 +293,7 @@ $\mathbf{x} = \Big( u, \ \bm{\ell}^\top \Big)^\top$ is the step input level,
 the vector $\bm{\ell}$ is linked to the system initial conditions,
 and the matrix
 \begin{equation} \widetilde{\mathbf{K}} = \begin{bmatrix} g & \Delta \widetilde{y}(1) & \Delta \widetilde{y}(2) & \cdots & \Delta \widetilde{y}(n) \\ g & \Delta \widetilde{y}(2) & \Delta \widetilde{y}(3) & \cdots & \Delta \widetilde{y}(n+1) \\ \vdots & \vdots & \vdots & & \vdots \\ g & \Delta \widetilde{y}(T-n) & \Delta \widetilde{y}(T-n+1) & \cdots & \Delta \widetilde{y}(T-1) \end{bmatrix} , \label{eqn:matrix} \end{equation}
-is a Hankel matrix of $(T - n)-\text{block rows}$, constructed from consecutive differences $\Delta \widetilde{y}(t) = \widetilde{y}(t) - \widetilde{y}(t-1)$ of the observed transient response, augmented in the left side with a $(T - n)\text{-vector}$ of elements equal to the known dc-gain $g$, (see \citep{Markovsky15cep}).
+is a Hankel matrix of $(T - n)-\text{block rows}$, constructed from consecutive differences $\Delta \widetilde{y}(t) = \widetilde{y}(t) - \widetilde{y}(t-1)$ of the observed transient response, augmented in the left side with a $(T - n)\text{-vector}$ of elements equal to the known dc-gain $g$, (see \citet{Markovsky15cep}).
 The perturbations $\bm{\epsilon}$ enter in matrix $\widetilde{\mathbf{K}}$ and we can express 
 \begin{equation} \widetilde{\mathbf{K}} = \mathbf{K} + \mathbf{E}, \label{eqn:K0plusnoise} \end{equation} 
 where $K$ is exact data information and $E$ is the additive perturbation noise given as
@@ -277,7 +305,7 @@ For metrology applications, the least-squares (LS) approximate solution of this 
 The LS solution is examined even when it may have some bias because the perturbation errors in $\widetilde{\mathbf{K}}$ are correlated to the perturbations in $\widetilde{\mathbf{y}}$.
 The classical LS results for the bias and the covariance cannot be invoked because LS assumes that the additive perturbation only affects the regressor, and that there is no correlation between the regressor and the regression matrix.
 The recursive LS method allows for a real-time implementation of the step input estimation method.
-Details of the step input estimation method are described in \citep{Markovsky15cep}.
+Details of the step input estimation method are described in \citet{Markovsky15cep}.
 
 
 \subsection{Step input estimation method - Experimental validation}
@@ -294,7 +322,7 @@ and $T$ is the number of samples.
 The exact sensor response $\mathbf{y}$ is affected by additive Gaussian white measurement noise $\bm{\epsilon}$ with zero mean and given variance $\sigma_{\bm{\epsilon}}^2$.  
 The response of the sensor is a step-invariant discretization of the continuous-time response.
 
-The estimation of the step input level is obtained as the solution of the minimization problem \citep{Markovsky15ieee, Markovsky15cep} 
+The estimation of the step input level is obtained as the solution of the minimization problem \citet{Markovsky15ieee, Markovsky15cep} 
 \begin{equation} \widehat{\mathbf{x}} = \underset{\mathbf{x}}{\mathrm{argmin}} \ \left\Vert  \widetilde{\mathbf{y}} - \widetilde{\mathbf{K}} \mathbf{x} \right\Vert^2_2 \label{eqn:min_ls} \end{equation}
 where $\widetilde{\mathbf{y}} = \begin{bmatrix} \widetilde{y}(n+1) & \ldots & \widetilde{y}(T) \end{bmatrix}^\top$, 
 the first element of the vector

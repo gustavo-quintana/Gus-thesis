@@ -15,23 +15,37 @@ ISSN 0263-2241, doi:10.1016/j.measurement.2019.107418. \nocite{QuintanaMEAS} }\v
 
 %\section{Introduction}
 
-The goal of any measurement is accurately estimating the input using the response of the sensor in the transient regime.
-Here we consider the case where the input varies during the measurement.
-The simplest case is when the input changes with a constant rate, such as being described with an affine function.
-The inputs that vary at a constant rate activate the sensor gradually. 
-An affine input estimation method is needed to estimate the slope and the intercept parameters of the affine function.
+\color{blue} 
+In this thesis document we have discussed that a measurement estimates the unknown value of a physical quantity, also called measurand.
+The physical quantity of interest is applied as an input signal to a dynamic system, the sensor, and its state changes from the initial conditions into a transient state.
+The input value is estimated using the sensor response in transient state.
+A dynamic measurement occurs when the input fluctuations impacts on the input value estimation.
+A typical example of a dynamic measurement problem is a low-bandwidth sensor excited with a fast changing input as is explained in \citet{Dienstfrey14}.
+In this case, the sensor transient response is slower than the variation of the input, making it difficult to track the input evolution.
+The variation of some input characteristics, like the minimum or maximum or the effects of the environment, are considered in applications such as measurements of temperature in \citet{Saggin01}, pressure in \citet{Matthews14}, acceleration in \citet{Link07}, force in \citet{Vlajic16, Hessling08a}, and mass in \cite{Shu93, Boschetti13}.
 
-This chapter describes two signal processing methods for estimating affine input parameters.
-These methods are a data-driven subspace method and a maximum-likelihood (ML) estimation method based on local optimization.
-The subspace is a recursive method independent of the sensor model, and the ML method iteratively minimizes a cost function using a simulated sensor response in a receding time horizon.
+The data-driven step input estimation method, introduced by \citet{Markovsky15cep} and described in Chapter \ref{chap:Preliminaries},
+estimates the unknown step level of an input directly from the sensor step response.
+Since most inputs have variations, contrary to the step response that is constant after its application, sets the need for methods for estimating more input models.
+One of such input models are affine inputs that vary at a constant rate, and they are found in applications where the measurand activates the sensor gradually. 
+An example of gradual activation is the mass measurement of objects in motion, that exists in along conveyor belts.
 
-In this chapter, the dynamic weighing is an implementation example.
-The dynamic weighing of an affine input is a demanding metrology application because the affine excitation turns the linear time-invariant weighing sensor into a time-varying system.
-Then, the affine input estimation methods provide insight into the properties of the dynamic measurement of time-varying inputs.
+Current solutions to the weighing in motion are low pass filters that estimate the mass using a saturated ramp as it is proposed by \citet{Tasaki07}, and by \citet{Niedzwiecki16b}, and also time varying filters are developed in \citet{Piskorowski08} and in \citet{Pietrzak14}.
+Nevertheless, the signal processing affine input estimation methods are motivated by the need to obtain the mass of the object from the ramp before it reaches saturation.
+The ramp is parameterized as a straight line model where the slope and the interception are the parameters of interest of an affine input model.
+This chapter describes two methods for the estimation of the affine input parameters.
 
-The effectiveness and uncertainty of the proposed methods are evaluated with simulation studies.
-The uncertainty is assessed, for the adaptive data-driven method, using a Taylor series expansion of the exponentially weighted recursive least-squares estimate, and
-for the ML method, using the derivatives of the residual error obtained from the to-be-minimized cost function.
+One method is an extension of the data-driven step input estimation method, and then it is a recursive algorithm of low computational cost that can be implemented in real-time.
+The second method is a maximum-likelihood (ML) estimation method based on local-optimization that is proposed for off-line processing of the sensor transient response.
+The ML method is similar to the model predictive control approach, as discussed in \cite{Mayne14}, because a cost function is minimized iteratively to optimize the parameters of a sensor model using the observed sensor response in a receding time horizon.
+The difference is that the ML method aims to estimate the unknown value of the affine input parameters instead of identifying a model and controlling the dynamic system.
+Nevertheless, the ML method can estimate the parameters of the affine input, the parameters of a sensor model, and the initial conditions of the sensor.
+
+The uncertainty of the subspace method is assessed in \cite{QuintanaCSDA} using a Taylor expansion of the estimate and Monte Carlo random sampling approach.
+The Monte Carlo approach requires a large set of generated random samples, and according to \citet{Cox06}, for simple systems it is the recommended method.
+The uncertainty of the ML method is assessed using the derivatives of the residual error that constructs the to-be-minimized cost function.
+The covariance of the optimization method estimate is found in \cite{Pintelon12Book} using the inverse of the Hessian matrix.
+\color{black}
 
 \begin{comment}
 Measurements estimate the unknown value of a physical quantity, namely the measurand.
@@ -97,8 +111,8 @@ The affine input is modeled as a straight line $u(t) = {a} t + {b}$ with paramet
 The affine input estimation problem is formulated as a signal processing problem as follows. 
 
 \paragraph{Problem} 
-Given the sequence of measured output observations $\widetilde{\mathbf{y}} = \left( \widetilde{y}(1),\ldots, \widetilde{y}(T)\right)$, with $\widetilde{y}(t) \in {\rm I\!R}$, of a stable linear time-invariant system of order $n$, and static gain $\mathbf{G}$, generated by an affine input $u(t) = \widebar{a} t + \widebar{b}$, estimate the parameters of the affine input, \textit{i.e.,} find the values of the parameters $\widehat{a}, \widehat{b} \in {\rm I\!R}$ such that $\widehat{u}(t) = \widehat{a} t + \widehat{b}$ approximates $u$(t).
-The measured observations $\widetilde{\mathbf{y}} = \widebar{\mathbf{y}} + \bm{\epsilon}$ are exact sensor responses $\widebar{\mathbf{y}}$ perturbed by additive noise  $\bm{\epsilon}$ assumed to be independent and normally distributed of zero mean and given variance $\sigma_{\epsilon}^2$.
+Given the sequence of measured output observations $\widetilde{\mathbf{y}} = \left( \widetilde{y}(1),\ldots, \widetilde{y}(\color{blue}N\color{black})\right)$, with $\widetilde{y}(t) \in \mathbb{R}$, of a stable linear time-invariant system of order $n$, and static gain ${G}$, generated by an affine input $u(t) = {a} t + {b}$, estimate the parameters of the affine input, \textit{i.e.,} find the values of the parameters $\widehat{a}, \widehat{b} \in {\rm I\!R}$ such that $\widehat{u}(t) = \widehat{a} t + \widehat{b}$ approximates $u$(t).
+The measured observations $\widetilde{\mathbf{y}} = {\mathbf{y}} + \bm{\epsilon}$ are exact sensor responses ${\mathbf{y}}$ perturbed by additive noise  $\bm{\epsilon}$ assumed to be independent and normally distributed of zero mean and given variance $\sigma_{\epsilon}^2$.
 
 \paragraph{Motivating example}
 Dynamic weighing is an application example where the affine input can be observed.
@@ -163,12 +177,12 @@ Consider the weighing scale modeled as a second order mass-spring-damper system,
 \end{figure}
 
 The application of an affine input turns the linear time-invariant system into a linear time-varying system, whose
-dynamics depends on the input $u(t) = \widebar{a} t + \widebar{b}$, as it is described by the differential equation:
-\begin{equation} \dfrac{d}{dt} \left( \left( \widebar{a} t + \widebar{b} + m \right) \dfrac{dy}{dt} \right) + k_{\mathrm{d}} \dfrac{dy}{dt} + k_{\mathrm{s}} y = \left( \widebar{a} t + \widebar{b} + m \right) g \end{equation}
+dynamics depends on the input $u(t) = {a} t + {b}$, as it is described by the differential equation:
+\begin{equation} \dfrac{d}{dt} \left( \left( {a} t + {b} + m \right) \dfrac{dy}{dt} \right) + k_{\mathrm{d}} \dfrac{dy}{dt} + k_{\mathrm{s}} y = \left( {a} t + {b} + m \right) g \end{equation}
 where $m$ is the mass of the scale, $k_{\mathrm{d}}$ is the damping constant, $k_{\mathrm{s}}$ is the elasticity constant, and $g = 9.81$ $\mathrm{m/s}^2$ is the gravitational acceleration. 
 
 The weighing system admits a state-space representation where the states $x_1=y$ and $x_2=\dot{y}$ are the position and the speed of the weighing scale: 
-\begin{equation} \dot{\mathbf{x}} = \begin{bmatrix} 0 & 1 \\ \dfrac{-k_{\mathrm{s}}}{\widebar{a} t + \widebar{b} + m} & \dfrac{-(k_{\mathrm{d}} + \widebar{a})}{\widebar{a} t + \widebar{b} + m} \end{bmatrix} \mathbf{x} + \begin{bmatrix} 0 \\ g \end{bmatrix}, \quad y = \begin{bmatrix} 1 & 0  \end{bmatrix} \mathbf{x} . \label{eqn:ltvsystem} \end{equation}
+\begin{equation} \dot{\mathbf{x}} = \begin{bmatrix} 0 & 1 \\ \dfrac{-k_{\mathrm{s}}}{{a} t + {b} + m} & \dfrac{-(k_{{d}} + {a})}{{a} t + {b} + m} \end{bmatrix} \mathbf{x} + \begin{bmatrix} 0 \\ g \end{bmatrix}, \quad y = \begin{bmatrix} 1 & 0  \end{bmatrix} \mathbf{x} . \label{eqn:ltvsystem} \end{equation}
 
 In this chapter we use the dynamic weighing example to illustrate the implementation of the affine input estimation methods.
 
@@ -190,42 +204,51 @@ This TV filter is also used to compare the results of the proposed subspace meth
 % \linebreak
 The errors-in-variables (EIV) minimization problem (\ref{eqn:min_seiv}) is extended to estimate the affine input parameters.
 The profile of an affine input excitation can be reconstructed by solving the structured EIV problem  
-\begin{equation} \widehat{\bm{\theta}} = \underset{\bm{\theta}}{\mathrm{argmin}} \ \left\Vert \bm{\Lambda}^{1/2} \left( \widetilde{\mathbf{y}} - \widetilde{\mathbf{K}} \bm{\theta} \right) \right\Vert^2_2 . \label{eqn:min_ewrls} \end{equation}
+\begin{equation} \widehat{\bm{\theta}} = \underset{\bm{\theta}}{\mathrm{argmin}} \ \left\Vert \bm{\Omega}^{1/2} \left( \widetilde{\mathbf{y}} - \widetilde{\mathbf{K}} \bm{\theta} \right) \right\Vert^2_2 . \label{eqn:min_ewrls} \end{equation}
 where $\widetilde{\mathbf{y}}$ is the observed affine response, $\widetilde{\mathbf{K}}$ is defined in (\ref{eqn:K0plusnoise}), and
-the matrix $\bm{\Lambda} \in \mathbb{R}^{(T-n) \times (T-n)}$ is a diagonal matrix of descending powers of the weight factor $\lambda \in [0, 1)$, \textit{i.e.},  $\bm{\Lambda} = \mathrm{diag}\left(\lambda^{T-n}, \ldots, \lambda^2, \lambda^1 \right)$.
-The weight factor $\lambda$ is a data selection forgetting factor since it enables to apply different weights to the residuals $\widetilde{\mathbf{y}} - \widetilde{\mathbf{K}} \bm{\theta}$.
+the matrix $\bm{\Omega} \in \mathbb{R}^{(\color{blue}N\color{black}-n) \times (\color{blue}N\color{black}-n)}$ is a diagonal matrix of descending powers of the weight factor $\omega \in [0, 1)$, \textit{i.e.},  $\bm{\Omega} = \mathrm{diag}\left(\omega^{\color{blue}N\color{black}-n}, \ldots, \omega^2, \omega^1 \right)$.
+The weight factor $\omega$ is a data selection forgetting factor since it enables to apply different weights to the residuals $\widetilde{\mathbf{y}} - \widetilde{\mathbf{K}} \bm{\theta}$.
 
 The exponentially weighted RLS solution to the problem (\ref{eqn:min_ewrls}) is implemented to facilitate the online implementation of the affine input estimation method.
-When $\lambda=1$, the exponentially weighted RLS solution is identical to that of the RLS.
-When $\lambda<1$, the older residuals are weighted with lower values than the residuals of recent observations.
+\color{blue}
+The exponentially weighted recursive least-squares (RLS) can solve recursively the estimation problem (\ref{eqn:min_seiv}).
+In \citet{Kailath00book} the exponentially weighted RLS algorithm is described as follows
+
+\begin{equation} \begin{aligned} \widehat{\bm{\theta}}(k) &= \widehat{\bm{\theta}}(k-1) + \bm{\kappa}_{k} \left( \widetilde{y}(k) - \widetilde{\mathbf{k}}_{k} \widehat{\bm{\theta}}(k-1) \right) , \\  \bm{\kappa}_{k} &= \omega^{-1} \bm{\Psi}(k-1) \widetilde{\mathbf{k}}_{k}^\top / \left( 1 + \omega^{-1} \widetilde{\mathbf{k}}_{k} \bm{\Psi}(k-1) \widetilde{\mathbf{k}}_{k}^\top  \right) \\ \bm{\Psi}(k) &= \omega^{-1} \left( \mathbf{I} - \bm{\kappa}_{k} \widetilde{\mathbf{k}}_{k} \right) \bm{\Psi}(k-1), \label{eqn:RLS} \end{aligned} \end{equation}
+for $k = 2n+1, 2n+2, \ldots$, where $\widetilde{\mathbf{k}}_{k}$ represents the row of $\widetilde{\mathbf{K}}$ that corresponds to the $k\mathrm{-th}$ sample, $\bm{\kappa}_{k}$ is a gain scalar, and $\Psi(k)$ is a covariance matrix.
+The estimates and the covariance matrix are initialized using the first $n+1$ samples, i.e.,  
+\begin{equation} \begin{aligned} \widehat{\bm{\theta}} (2n+1) &= \left( \widetilde{\mathbf{K}}_{n+1}^\top  \bm{\Omega} \widetilde{\mathbf{K}}_{n+1} \right)^{-1} \widetilde{\mathbf{K}}_{n+1}^\top \bm{\Omega}  \widetilde{\mathbf{y}}_{n+1}, \quad \mathrm{and} \\ \Psi(2n+1) &= \left( \widetilde{\mathbf{K}}_{n+1}^\top \bm{\Omega} \widetilde{\mathbf{K}}_{n+1} \right)^{-1} , \end{aligned} \end{equation} 
+where $\widetilde{\mathbf{K}}_{n+1}$ is the matrix $\widetilde{\mathbf{K}}$ with the first $n+1$ rows, and $\widetilde{\mathbf{y}}_{n+1}$ is the vector $\widetilde{\mathbf{y}}$ with the first $n+1$ elements\color{black}.
+When $\omega=1$, the exponentially weighted RLS solution is identical to that of the RLS.
+When $\omega<1$, the older residuals are weighted with lower values than the residuals of recent observations.
 In this way, the solution of the minimization problem depends more on newer data, and less on older data. 
 
 In Figure \ref{fig:sensor_response} we can see an example of the affine input $\mathbf{u}$ that excites a weighing sensor, and the generated response $\widetilde{\mathbf{y}}$.
-After the transient effects have diminished, the sensor response is a ramp of the same slope as the input, but with a different intercept due to an offset $\tau$.
-The offset $\tau$ is explained by the parameter $m$ in the sensor representation given in Figure \ref{fig:msd_system}.
+After the transient effects have diminished, the sensor response is a ramp of the same slope as the input, but with a different intercept due to an offset $\omicron$.
+The offset $\omicron$ is explained by the parameter $m$ in the sensor representation given in Figure \ref{fig:msd_system}.
 This is the mass of the sensor itself, that is added to the mass of the object under measurement.	
 From the point of view of the subspace method, the value of $m$ is unknown, and there is no interest in its estimation.
 
 The exponentially weighted RLS solution to the problem (\ref{eqn:min_ewrls}) provides an affine input  estimation $\widehat{\mathbf{u}}$. 
 The affine input parameters $a$ and $b$ are estimated, in a second step, by fitting $\widehat{\mathbf{u}}$ to a straight line using linear regression, as follows
 \begin{equation} 
-  \begin{bmatrix} 1 & 1  \\ \vdots & \vdots \\ T & 1 \end{bmatrix} 
+  \begin{bmatrix} 1 & 1  \\ \vdots & \vdots \\ \color{blue}N\color{black} & 1 \end{bmatrix} 
   \begin{bmatrix} \widehat{a} \\ \widehat{b}  \end{bmatrix} = 
-  \begin{bmatrix} \widehat{u}(1)-\tau \\ \vdots \\ \widehat{u}(T)-\tau \end{bmatrix}, \label{eqn:LS}
+  \begin{bmatrix} \widehat{u}(1)-\omicron \\ \vdots \\ \widehat{u}(\color{blue}N\color{black})-\omicron \end{bmatrix}, \label{eqn:LS}
 \end{equation}
-where it is considered the existance of the offset $\tau$.   
+where it is considered the existance of the offset $\omicron$.   
 
 For each new observation $y(t)$, the estimation $\widehat{\mathbf{u}}$ is updated followed by the RLS update of the slope $\widehat{a}$ and the intercept $\widehat{b}$.
-The values of the tuning parameters $\lambda$ and $\tau$ can be obtained in the calibration of the method using the response of the sensor.
+The values of the tuning parameters $\omega$ and $\omicron$ can be obtained in the calibration of the method using the response of the sensor.
 
 The calibration procedure consists in the measurement of an object with a reference mass.
-During the calibration, $\lambda$ and $\tau$ are tuned by changing their values aiming to reduce the estimation errors of $\widehat{a}$ and $\widehat{b}$.
+During the calibration, $\omega$ and $\omicron$ are tuned by changing their values aiming to reduce the estimation errors of $\widehat{a}$ and $\widehat{b}$.
 This reduction of the estimation errors is observed in the convergence of the affine input parameters towards their true values.
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=1\columnwidth]{./ChapterRampInput/fig/Fig_2_1.pdf} 
-\caption{ \label{fig:sensor_response} When the transient part of the sensor response $\widetilde{\mathbf{y}}$ asymptotically decreases, a ramp with the same slope $a$ of the  affine input $u(t) = at+b$ predominates. The intercept of the prevailing ramp is the intercept $b$ added to and offset $\tau$.}
+\includegraphics[width=0.69\columnwidth]{./ChapterRampInput/fig/Fig_2_1.pdf} 
+\caption{ \label{fig:sensor_response} When the transient part of the sensor response $\widetilde{\mathbf{y}}$ asymptotically decreases, a ramp with the same slope $a$ of the  affine input $u(t) = at+b$ predominates. The intercept of the prevailing ramp is the intercept $b$ added to and offset $\omicron$.}
 \end{figure}
 
 
@@ -238,58 +261,69 @@ The method  tracks any arbitrary time-varying input and can estimate the paramet
 \subsubsection{Statistical analysis of the subspace method}
 
 To obtain the first and second moments of the step input estimate $\widehat{\mathbf{u}}$, we need to study the solution
-\begin{equation} \widehat{\bm{\theta}} = ( \widetilde{\mathbf{K}}^\top \bm{\Lambda} \widetilde{\mathbf{K}}  )^{-1} \widetilde{\mathbf{K}}^\top \bm{\Lambda} \widetilde{\mathbf{y}} , \label{eqn:xhatW} \end{equation}
+\begin{equation} \widehat{\bm{\theta}} = ( \widetilde{\mathbf{K}}^\top \bm{\Omega} \widetilde{\mathbf{K}}  )^{-1} \widetilde{\mathbf{K}}^\top \bm{\Omega} \widetilde{\mathbf{y}} , \label{eqn:xhatW} \end{equation}
 of the overdetermined structured errors-in-variables EIV problem (\ref{eqn:min_ewrls}).
 Using a second order Taylor series expansion of the inverse matrix we can approximate the LS solution as
-\begin{equation} \widehat{\bm{\theta}} \approx \left( \mathbf{I} - \mathbf{M} + \mathbf{M}^2 \right) \mathbf{C}^{-1} (\mathbf{K} + \mathbf{E})^\top \bm{\Lambda} (\mathbf{y} + \bm{\epsilon}). \label{eqn:xhatexpW} \end{equation} 
+\begin{equation} \widehat{\bm{\theta}} \approx \left( \mathbf{I} - \mathbf{M} + \mathbf{M}^2 \right) \mathbf{C}^{-1} (\mathbf{K} + \mathbf{E})^\top \bm{\Omega} (\mathbf{y} + \bm{\epsilon}). \label{eqn:xhatexpW} \end{equation} 
 where 
-\begin{equation} \mathbf{C} = \mathbf{K}^\top \bm{\Lambda} \mathbf{K}, \quad \text{and} \quad \mathbf{M} = \mathbf{C}^{-1} ( \mathbf{K}^\top \bm{\Lambda} \mathbf{E} + \mathbf{E}^\top \bm{\Lambda} \mathbf{K} + \mathbf{E}^\top \bm{\Lambda} \mathbf{E} ). \end{equation} 
+\begin{equation} \mathbf{C} = \mathbf{K}^\top \bm{\Omega} \mathbf{K}, \quad \text{and} \quad \mathbf{M} = \mathbf{C}^{-1} ( \mathbf{K}^\top \bm{\Omega} \mathbf{E} + \mathbf{E}^\top \bm{\Omega} \mathbf{K} + \mathbf{E}^\top \bm{\Omega} \mathbf{E} ). \end{equation} 
 
 The Taylor series approximation of $\widehat{\bm{\theta}}$ enables the calculation of the estimation bias and covariance since the measurement noise $\bm{\epsilon}$ and $\mathbf{E}$ are no more subject to matrix inversion. 
 The bias and the covariance of the estimate $\widehat{\bm{\theta}}$ are obtained from the definitions (\ref{eqn:biasdef}), and (\ref{eqn:covdef}). %The bias and the covariance of the estimate $\widehat{\bm{\theta}}$ are obtained from \begin{equation}  \mathbf{b} \left(\widehat{\bm{\theta}} \right) = \mathbf{\mu} - \widebar{\bm{\theta}}, \label{eqn:biasdef} \end{equation}  \begin{equation} \begin{aligned} \mathrm{\mathbf{Cov}} \left( \widehat{\bm{\theta}} \right) & = \mathbb{E} \left\{ \left( \widehat{\bm{\theta}} - \mathbf{\mu} \right)  \left( \widehat{\bm{\theta}} - \mathbf{\mu} \right)^\top \right\} . \end{aligned} \label{eqn:covdef} \end{equation} where $\mathbf{\mu} = \mathbb{E} \left\{ \widehat{\bm{\theta}} \right\}$ is the expected value of the estimate and $\widebar{\bm{\theta}}$ is the true value. 
 Considering the structure of the EIV problem, the bias and the covariance of the estimate approximation (\ref{eqn:xhatexpW}) can be expressed as
-\begin{equation} \begin{aligned} \mathbf{b}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \mathbf{C}^{-1} \left(  \left( \mathbf{K}^\top \bm{\Lambda} \mathbf{B}_1 - \mathbf{B}_2 \right) \bm{\theta} - \left( \mathbf{K}^\top \bm{\Lambda} \mathbf{B}_3 - \mathbf{B}_4 \right) \right), \end{aligned} \label{eqn:biasEW} \end{equation}
-\begin{equation} \begin{aligned} \mathbf{C}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \mathbf{K}^\dagger \bm{\Lambda} \left( \sigma_{\epsilon}^2 \mathbf{I}_{T-n} + \mathbf{C}_1 - \mathbf{C}_2 - \mathbf{C}_2^\top \right) \bm{\Lambda} \mathbf{K}^{\dagger \top} - \mathbf{b}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) \mathbf{b}_{\mathrm{p}}^\top \left( \widehat{\bm{\theta}} \right), \end{aligned} \label{eqn:varEW} \end{equation}
-where $\mathbf{B}_1 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \bm{\Lambda} \mathbf{E} \Big\}$, $\mathbf{B}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \bm{\Lambda} \mathbf{P}_\perp \mathbf{E} \Big\}$, $\mathbf{B}_3 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \bm{\Lambda} \bm{\epsilon} \Big\}$, $\mathbf{B}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \bm{\Lambda} \mathbf{P}_\perp \bm{\epsilon} \Big\}$, $\mathbf{C}_1 = \mathbb{E} \Big\{ \mathbf{E} \bm{\theta} \bm{\theta}^\top \mathbf{E}^\top \Big\}$, $\mathbf{C}_2 = \mathbb{E} \Big\{ \mathbf{E} \bm{\theta} \bm{\epsilon}^\top \Big\}$, $\mathbf{P}_\perp = \mathbf{I} - \mathbf{K} \mathbf{K}^\dagger \bm{\Lambda}$, and $\mathbf{K}^\dagger$ is the pseudo-inverse matrix of $\mathbf{K}$. 
+\begin{equation} \begin{aligned} \mathbf{b}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \mathbf{C}^{-1} \left(  \left( \mathbf{K}^\top \bm{\Omega} \mathbf{B}_1 - \mathbf{B}_2 \right) \bm{\theta} - \left( \mathbf{K}^\top \bm{\Omega} \mathbf{B}_3 - \mathbf{B}_4 \right) \right), \end{aligned} \label{eqn:biasEW} \end{equation}
+\begin{equation} \begin{aligned} \mathbf{C}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \mathbf{K}^\dagger \bm{\Omega} \left( \sigma_{\epsilon}^2 \mathbf{I}_{\color{blue}N\color{black}-n} + \mathbf{C}_1 - \mathbf{C}_2 - \mathbf{C}_2^\top \right) \bm{\Omega} \mathbf{K}^{\dagger \top} - \mathbf{b}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) \mathbf{b}_{\mathrm{p}}^\top \left( \widehat{\bm{\theta}} \right), \end{aligned} \label{eqn:varEW} \end{equation}
+where $\mathbf{B}_1 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \bm{\Omega} \mathbf{E} \Big\}$, $\mathbf{B}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \bm{\Omega} \mathbf{P}_\perp \mathbf{E} \Big\}$, $\mathbf{B}_3 = \mathbb{E} \Big\{ \mathbf{E} \mathbf{K}^\dagger \bm{\Omega} \bm{\epsilon} \Big\}$, $\mathbf{B}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \bm{\Omega} \mathbf{P}_\perp \bm{\epsilon} \Big\}$, $\mathbf{C}_1 = \mathbb{E} \Big\{ \mathbf{E} \bm{\theta} \bm{\theta}^\top \mathbf{E}^\top \Big\}$, $\mathbf{C}_2 = \mathbb{E} \Big\{ \mathbf{E} \bm{\theta} \bm{\epsilon}^\top \Big\}$, $\mathbf{P}_\perp = \mathbf{I} - \mathbf{K} \mathbf{K}^\dagger \bm{\Omega}$, and $\mathbf{K}^\dagger$ is the pseudo-inverse matrix of $\mathbf{K}$. 
 
 The bias and covariance given by expressions (\ref{eqn:biasEW}) and (\ref{eqn:varEW}) depend on the unobservable true values $\bm{\theta}$ and $\mathbf{K}$.
 The measured observations are in the sensor step response $\widetilde{\mathbf{y}}$, and from its observations we construct $\widetilde{\mathbf{K}}$ and compute $\widehat{\bm{\theta}}$.
 The substitution of the measured data in the expressions gives an approximation of the estimation bias and covariance. 
 We have then
-\begin{equation} \begin{aligned} \widetilde{\mathbf{b}}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \widetilde{\mathbf{C}}^{-1} \left(  \left( \widetilde{\mathbf{K}}^\top \bm{\Lambda} \widetilde{\mathbf{B}}_1 - \widetilde{\mathbf{B}}_2 \right) \widehat{\bm{\theta}} - \left( \widetilde{\mathbf{K}}^\top \bm{\Lambda} \widetilde{\mathbf{B}}_3 - \widetilde{\mathbf{B}}_4 \right) \right), \end{aligned} \label{eqn:biasSTW} \end{equation}
-  \begin{equation} \begin{aligned} \widetilde{\mathbf{C}}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \widetilde{\mathbf{K}}^\dagger \bm{\Lambda} \left( \sigma_{\epsilon}^2 \mathbf{I}_{T-n} + \widetilde{\mathbf{C}}_1 - \widetilde{\mathbf{C}}_2 - \widetilde{\mathbf{C}}_2^\top \right) \bm{\Lambda} \widetilde{\mathbf{K}}^{\dagger \top} - \widetilde{\mathbf{b}}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) \widetilde{\mathbf{b}}_{\mathrm{p}}^\top \left( \widehat{\bm{\theta}} \right), \end{aligned} \label{eqn:varSTW} \end{equation}
-  where $\widetilde{\mathbf{B}}_1 = \mathbb{E} \Big\{ \mathbf{E} \widetilde{\mathbf{K}}^\dagger \bm{\Lambda} \mathbf{E} \Big\}$, $\widetilde{\mathbf{B}}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \bm{\Lambda} \widetilde{\mathbf{P}}_\perp \mathbf{E} \Big\}$, $\widetilde{\mathbf{B}}_3 = \mathbb{E} \Big\{ \mathbf{E} \widetilde{\mathbf{K}}^\dagger \bm{\Lambda} \bm{\epsilon} \Big\}$, $\widetilde{\mathbf{B}}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \bm{\Lambda} \widetilde{\mathbf{P}}_\perp \bm{\epsilon} \Big\}$, $\widetilde{\mathbf{C}}_1 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\bm{\theta}} \widehat{\bm{\theta}}^\top \mathbf{E}^\top \Big\}$, $\widetilde{\mathbf{C}}_2 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\bm{\theta}} \bm{\epsilon}^\top \Big\}$, and $\widetilde{\mathbf{P}}_\perp = \mathbf{I} - \widetilde{\mathbf{K}} \widetilde{\mathbf{K}}^\dagger \bm{\Lambda}$. 
+\begin{equation} \begin{aligned} \widetilde{\mathbf{b}}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \widetilde{\mathbf{C}}^{-1} \left(  \left( \widetilde{\mathbf{K}}^\top \bm{\Omega} \widetilde{\mathbf{B}}_1 - \widetilde{\mathbf{B}}_2 \right) \widehat{\bm{\theta}} - \left( \widetilde{\mathbf{K}}^\top \bm{\Omega} \widetilde{\mathbf{B}}_3 - \widetilde{\mathbf{B}}_4 \right) \right), \end{aligned} \label{eqn:biasSTW} \end{equation}
+  \begin{equation} \begin{aligned} \widetilde{\mathbf{C}}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) & \approx \widetilde{\mathbf{K}}^\dagger \bm{\Omega} \left( \sigma_{\epsilon}^2 \mathbf{I}_{\color{blue}N\color{black}-n} + \widetilde{\mathbf{C}}_1 - \widetilde{\mathbf{C}}_2 - \widetilde{\mathbf{C}}_2^\top \right) \bm{\Omega} \widetilde{\mathbf{K}}^{\dagger \top} - \widetilde{\mathbf{b}}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right) \widetilde{\mathbf{b}}_{\mathrm{p}}^\top \left( \widehat{\bm{\theta}} \right), \end{aligned} \label{eqn:varSTW} \end{equation}
+  where $\widetilde{\mathbf{B}}_1 = \mathbb{E} \Big\{ \mathbf{E} \widetilde{\mathbf{K}}^\dagger \bm{\Omega} \mathbf{E} \Big\}$, $\widetilde{\mathbf{B}}_2 = \mathbb{E} \Big\{ \mathbf{E}^\top \bm{\Omega} \widetilde{\mathbf{P}}_\perp \mathbf{E} \Big\}$, $\widetilde{\mathbf{B}}_3 = \mathbb{E} \Big\{ \mathbf{E} \widetilde{\mathbf{K}}^\dagger \bm{\Omega} \bm{\epsilon} \Big\}$, $\widetilde{\mathbf{B}}_4 = \mathbb{E} \Big\{ \mathbf{E}^\top \bm{\Omega} \widetilde{\mathbf{P}}_\perp \bm{\epsilon} \Big\}$, $\widetilde{\mathbf{C}}_1 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\bm{\theta}} \widehat{\bm{\theta}}^\top \mathbf{E}^\top \Big\}$, $\widetilde{\mathbf{C}}_2 = \mathbb{E} \Big\{ \mathbf{E} \widehat{\bm{\theta}} \bm{\epsilon}^\top \Big\}$, and $\widetilde{\mathbf{P}}_\perp = \mathbf{I} - \widetilde{\mathbf{K}} \widetilde{\mathbf{K}}^\dagger \bm{\Omega}$. 
 
 The results of the expected values $\mathbf{B}_1$, $\mathbf{B}_2$, $\mathbf{B}_3$, $\mathbf{B}_4$, $\mathbf{C}_1$, and $\mathbf{C}_2$ can be found using Lemma \ref{lem:lemma1}, on page \pageref{lem:lemma1}.
-The bias and covariance were obtained to extend the previous analysis conducted on EIV estimation problems without an imposed structure \citep{Vaccaro94, Stewart90SPT}.
+The bias and covariance were obtained to extend the previous analysis conducted on EIV estimation problems without an imposed structure in \citet{Vaccaro94} and \citet{Stewart90SPT}.
 It was shown that the bias and variance expressions (\ref{eqn:biasSTW}) and (\ref{eqn:varSTW}) are valid predictions of the first and second moments of the LS estimate of a Hankel structured EIV problem.
 The problem formulated by the step input estimation method belongs to this type of structured EIV problems and we can use the derived expressions to find the bias and variance of the input estimate $\widehat{u}$.
 The bias of the estimate $\widehat{\mathbf{u}}$ is the fist element of $\widetilde{\mathbf{b}}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right)$ and the variance of $\widehat{\mathbf{u}}$ is the first element in the main diagonal of $\widetilde{\mathbf{C}}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right)$.
 
 
 \subsection{Maximum-likelihood method}
-Using a model of the sensor, the ML method simultaneously estimates the parameters of the applied affine input $u(t) = at + b$, and some of the sensor model parameters.
-This means that the ML method implementation depends on the problem under study and not always can be estimated all the sensor model parameters.  
-The identifiability conditions of each sensor model parameter is the requirement to fulfill in order to be estimated with the ML method. %The affine input parameters $a$ and $b$ are the slope and the intercept of the straight line model $u(t) = at + b$.
 
-The ML method is an iterative minimization method, described in Algorithm \ref{Alg1}, that minimizes the residual $\mathbf{r}(\bm{\theta}) = \widetilde{\mathbf{y}} - \widehat{\mathbf{y}}(\bm{\theta})$.
-This residual is the difference between the measured sensor response $\widetilde{\mathbf{y}}$ and a simulated response $\widehat{\mathbf{y}}(\bm{\theta})$, that depends on the optimization variables $\bm{\theta}$.
-The ML method uses the Jacobian matrix of the residual $\mathbf{r}$ to search the direction in which the residual decreases.
-The Jacobian matrix $\partial \mathbf{r} / \partial \bm{\theta}$ can be analytically obtained using the sensor mathematical model.
+% This means that the ML method implementation depends on the problem under study and not always can be estimated all the sensor model parameters.  
+% The identifiability conditions of each sensor model parameter is the requirement to fulfill in order to be estimated with the ML method. %The affine input parameters $a$ and $b$ are the slope and the intercept of the straight line model $u(t) = at + b$.
 
-\begin{algorithm}
+Using a model of the sensor, the maximum-likelihood ML method simultaneously estimates the parameters of the applied affine input $u(t) = at + b$, and some of the sensor model parameters, \color{blue} using the observed sensor response $\widetilde{\mathbf{y}}$\color{black}.
+\color{blue} This method fits iteratively the response of the model $\widehat{\mathbf{y}}(\bm{\theta})$ to the sensor response by searching for the parameters $\bm{\theta}$ that reduce the error difference between both responses.
+%the residual $\mathbf{r}(\bm{\theta}) = \widetilde{\mathbf{y}} - \widehat{\mathbf{y}}(\bm{\theta})$ 
+Algorithm \ref{Alg1} describes the formulation of an objective function $f = \mathbf{r}^\top \mathbf{r}$, where $\mathbf{r}$ is the residual $\mathbf{r}(\bm{\theta}) = \widetilde{\mathbf{y}} - \widehat{\mathbf{y}}(\bm{\theta})$, that is minimized through the iterations.
+The objective function is the sum of the squares of the differences between the samples of both responses.
+Since the measurement noise is assumed Gaussian distributed with zero mean and variance $\sigma_{\bm{\epsilon}}^2$, where the samples of this perturbation are independent and identically distributed, the minimization of the objective function $f$ maximizes the likelihood of fitting the actual sensor response with the model response.
+
+
+The Jacobian matrix of the residual $\mathbf{J}\bm{\theta} = \partial \mathbf{r}(\bm{\theta}) / \partial \bm{\theta}$ can be analytically derived using the sensor model.
+With the Jacobian matrix, the ML method searches the direction in which the residual decreases towards a local minimum.
+Unfortunately, this ML method cannot guarantee the global minimum since it depends strongly on the initialization of the optimization parameters, as it is discussed in \citet{Nocedal06}.
+Therefore, it is proposed to initialize the to-be-optimized parameters $a$ and $b$ using the results of the subspace method obtained after a convenient number of samples so that the affine input parameters are set close to the optimal values.
+The initialization of the remaining model parameters under study can be done using the sensor model representation.
+An illustrative example of the ML will be provided in a posterior subsection.  
+\color{black}
+
+\begin{algorithm} \tag{6.1}
 \caption{ML Affine input estimation.}\label{Alg1}
 \begin{algorithmic}
   \REQUIRE{$\widetilde{\mathbf{y}}$, and required sensor model parameters}{}
-  \STATE {Initialize $\bm{\theta} = (a, b, \mathrm{and the to-be-estimated \ model \ parameters})$}{}
-  \FOR{each $N$ observations of $\widetilde{\mathbf{y}}$}{}
+  \STATE {Initialize $\bm{\theta} = (a, b, \text{and \ the \ to-be-estimated \ model \ parameters})$}{}
+  \FOR{each $N_{\mathrm{s}}$ observations of $\widetilde{\mathbf{y}}$}{}
   \STATE {Simulate model response $\widehat{\mathbf{y}}(\bm{\theta})$}{}
-  \STATE {Compute error $\mathbf{r}(\bm{\theta}) = \widetilde{\mathbf{y}} - \widehat{\mathbf{y}}(\bm{\theta})$}{}
-  \STATE {Minimize $\mathbf{r}^\top \mathbf{r}$ over $\bm{\theta}$}{}
-  \STATE {\hspace{0.5cm}  using analytic Jacobian matrix $\mathbf{J} = \partial \mathbf{r}(\bm{\theta}) / \partial \bm{\theta}$}{}
+  \STATE {Obtain residual $\mathbf{r}(\bm{\theta}) = \widetilde{\mathbf{y}} - \widehat{\mathbf{y}}(\bm{\theta})$}{}
+  \STATE {Minimize $f = \mathbf{r}^\top \mathbf{r}$ over $\bm{\theta}$}{}
+  \STATE {\hspace{0.5cm}  using analytic Jacobian matrix $\mathbf{J}\bm{\theta} = \partial \mathbf{r}(\bm{\theta}) / \partial \bm{\theta}$}{}
   \STATE {Update $\bm{\theta}$}{}
 \ENDFOR
-\ENSURE {Optimized parameters $\widehat{a}, \widehat{b}$, and estimated model parameters.} }{}
+\ENSURE {Optimized parameters $\widehat{a}, \ \widehat{b}$, \ and estimated model parameters.} {}
 
 \end{algorithmic}
 \end{algorithm}
@@ -300,8 +334,8 @@ The Jacobian matrix $\partial \mathbf{r} / \partial \bm{\theta}$ can be analytic
 
 The ML method simulates a dynamic system, and computes the Jacobian of the residual error in each iteration.
 The analytic formulation of the Jacobian benefits the estimation method in two ways: it speeds up the minimization and gives direct access to the variance of the estimates.
-The covariance matrix of the ML estimates can be expressed as \citep{Pintelon12Book}
-\begin{equation} \mathbf{Cov} \left( \widehat{\bm{\theta}} \right) = \sigma_{\bm{\epsilon}}^2 \left( \left( \dfrac{\partial \mathbf{r} }{ \partial \bm{\theta} } \right)^\top \left( \dfrac{\partial \mathbf{r} }{ \partial \bm{\theta} } \right) \right)^{-1}. \label{eqn:covOpt} \end{equation}
+The covariance matrix of the ML estimates can be expressed as in \citet{Pintelon12Book}
+\begin{equation} \mathbf{C} \left( \widehat{\bm{\theta}} \right) = \sigma_{\bm{\epsilon}}^2 \left( \left( \dfrac{\partial \mathbf{r} }{ \partial \bm{\theta} } \right)^\top \left( \dfrac{\partial \mathbf{r} }{ \partial \bm{\theta} } \right) \right)^{-1}. \label{eqn:covOpt} \end{equation}
 
 The ML estimation method is asymptotically efficient, and the ML estimation variance values are the mininum values that any estimator can attain.
 Therefore, the variance of the ML method estimates should be smaller than the CRLB of the structured EIV minimization problem (\ref{eqn:FIM}).
@@ -311,9 +345,9 @@ Therefore, the variance of the ML method estimates should be smaller than the CR
 The previously described dynamic weighing system is used to illustrate the ML method implementation.
 In this case, the problem can be formulated as: 
  \begin{equation} \begin{aligned}
-     & \text{Minimize} \quad \text{over} \ a, b, \mathbf{x}_{\text{ini}} \quad \mathbf{r}^T \mathbf{r} \text{, subject to:} \\ & \ \dot{\mathbf{x}} = \begin{bmatrix} 0 & 1 \\ \frac{-k_{\mathrm{s}}}{a t + b + m} & \frac{-(a + k_{\mathrm{d}})}{a t + b + m} \end{bmatrix} \mathbf{x} + \begin{bmatrix} 0 \\ g \end{bmatrix}, \\ & \ \widehat{\mathbf{y}} = \begin{bmatrix} 1 & 0  \end{bmatrix} \mathbf{x} .  
+     & \text{Minimize} \quad \text{over} \ a, b, \mathbf{x}_{\text{ini}} \quad \mathbf{r}^\top \mathbf{r} \text{, subject to:} \\ & \ \dot{\mathbf{x}} = \begin{bmatrix} 0 & 1 \\ \frac{-k_{\mathrm{s}}}{a t + b + m} & \frac{-(a + k_{\mathrm{d}})}{a t + b + m} \end{bmatrix} \mathbf{x} + \begin{bmatrix} 0 \\ g \end{bmatrix}, \\ & \ \widehat{\mathbf{y}} = \begin{bmatrix} 1 & 0  \end{bmatrix} \mathbf{x} .  
  \label{eqn:ltv_abxini} \end{aligned} \end{equation}
-where the optimization variables $\bm{\theta} = \left(a, b, \mathbf{x}_{\mathrm{ini}} \right)$ are the affine input parameters $a$, $b$, and the sensor model initial conditions.
+where the optimization variables $\bm{\theta} = \left(a, b, \mathbf{x}_{\mathrm{ini}} \right)$ are the affine input parameters $a$, $b$, and the sensor model's initial conditions.
 
 The model parameters $m$, $k_{\mathrm{d}}$, and $k_{\mathrm{s}}$ cannot be estimated simultaneously due to identifiability issues.
 In the state equation of the time-varying sensor model, the parameters $k_{\mathrm{d}}$ and $a$ are entangled and cannot be explicitly separated.
@@ -322,8 +356,8 @@ The same occurs for the parameters $m$ and $b$, and for $k_{\mathrm{s}}$ with re
 To define the initial value of the optimization variables $a$, $b$,
 the subspace estimation method can be used with, at least, the first $2n+2$ transient response samples, where $n=2$ is the order of the sensor model.
 With the initial affine input parameters, a sensor response can be simulated, and, since we are using few samples, the first samples of the simulated response also are an approximation of the initial conditions $\mathbf{x}_{\mathrm{ini}}$.
-The optimization variables are updated every $N$ new observations.
-The minimization algorithm can be, for example, the Levenberg-Marquardt algorithm \citep{Nocedal06}. 
+The optimization variables are updated every $N_{\mathrm{s}}$ new observations.
+The minimization algorithm can be, for example, the Levenberg-Marquardt algorithm described in \citet{Nocedal06}. 
 
 The analytic Jacobian matrix $\mathbf{J}$ of the residual $\mathbf{r}(\bm{\theta})$ can be obtained from the first derivative of the state-space representation (\ref{eqn:ltv_abxini}), with respect to the optimization variables $\bm{\theta}$. 
 The residual $\mathbf{r}(\bm{\theta}) = \widetilde{\mathbf{y}} - \widehat{\mathbf{y}}(\bm{\theta})$ is the error difference between the observed sensor response $\widetilde{\mathbf{y}}$ and the simulated sensor response $\widehat{\mathbf{y}}(\bm{\theta})$ to the affine input. 
@@ -332,22 +366,22 @@ More details of the Jacobian matrix calculation, for the sensor model under stud
 
 \subsection{Time-varying compensation filter}
 
-The time-varying (TV) filter described in \citep{Pietrzak14} was designed to compensate the measured responses of a conveyor weighing system, considering they are modeled as a saturated ramp.
+The time-varying (TV) filter described in \citet{Pietrzak14} was designed to compensate the measured responses of a conveyor weighing system, considering they are modeled as a saturated ramp.
 The TV filter consists of three low-pass infinite impulse response (IIR) filters in cascade, where the $i-\mathrm{th}$ IIR filter is given by
 \begin{equation} \widehat{y}_i(t) + k_1(t) \widehat{y}_i(t-1) = k_2(t) \left( \widehat{y}_{i-1}(t) + \widehat{y}_{i-1}(t-1) \right) \end{equation}
-for $i = 1,\ldots,3$ and $t=0,\ldots,T$.
+for $i = 1,\ldots,3$ and $t=0, \ldots, \color{blue}N\color{black}$.
 The sensor response is fed to the filter, then $\widehat{y}_0(t) = \widetilde{y}(t)$, and the output of the TV filter $\widehat{u}_\mathrm{ltv}(t) = \widehat{y}_3(t)$ is an estimation of the affine input.
 Since in our case we are processing only the ramp without the saturation, the estimates $\widehat{a}_\mathrm{ltv}$ and $\widehat{b}_\mathrm{ltv}$ of the input parameters are obtained by fitting a straight line to the estimated input $\widehat{u}_\mathrm{ltv}$ using linear regression.
 
-The time-varying coefficients $k_1(t)$ and $k_2(t)$ are computed from \citep{Pietrzak14}
+The time-varying coefficients $k_1(t)$ and $k_2(t)$ are computed in \citet{Pietrzak14} from 
 \begin{equation} k_1(t) = \frac{f_c(t) - \frac{k_3}{\pi T_s}}{f_c(t) + \frac{k_3}{\pi T_s}}, \quad k_2(t) = \frac{1 + k_1(t)}{2} , \quad k_3 = \sqrt{ \sqrt[3]{2}  - 1} \end{equation}
 where $T_s$ is the sampling time and $f_c(t)$ is a heuristic "cutoff" frequency
-\begin{equation} f_c(t) = f_u + \left( f_l - f_u \right) \beta^{\frac{t-1}{\alpha \left( T-1 \right)} } \end{equation}
+\begin{equation} f_c(t) = f_u + \left( f_l - f_u \right) \beta^{\frac{t-1}{\alpha \left( \color{blue}N\color{black}-1 \right)} } \end{equation}
 that changes between the lower $f_l$ and upper $f_u$ limits, where the coefficient $\beta$ is lower than one, and $\alpha$ is the decay rate. 
 The lower frequency value $f_l$ and the coefficient $\beta$ are fixed and the variables $f_u$ and $\alpha$ are optimized off-line by solving the minimization problem 
-\begin{equation} \mathrm{minimize} \ \quad \ \mathrm{over} \ f_u, \alpha \ \quad \ \mathrm{max} \left( \dfrac{\mu_{\widetilde{a}_{\mathrm{ltv}}}}{\mu_{\mathrm{spec}}}, \dfrac{\mu_{\widetilde{b}_{\mathrm{ltv}}}}{\mu_{\mathrm{spec}}}, \dfrac{\sigma_{\widetilde{a}_{\mathrm{ltv}}}}{\sigma_{\mathrm{spec}}}, \dfrac{\sigma_{\widetilde{b}_{\mathrm{ltv}}}}{\sigma_{\mathrm{spec}}} \right) + \mathrm{max} \left( \dfrac{\eta_{i}}{T} \right) \label{eqn:tv_optim} \end{equation}
-where $\mu_{\widetilde{a}_\mathrm{ltv}}$, $\mu_{\widetilde{b}_\mathrm{ltv}}$, $\sigma_{\widetilde{a}_\mathrm{ltv}}$ and $\sigma_{\widetilde{b}_\mathrm{ltv}}$ are the mean values and the standard deviations of the estimation errors $\widetilde{a}_\mathrm{ltv} = \widehat{a}_\mathrm{ltv} - \widebar{a}$, and $\widetilde{a}_\mathrm{ltv} = \widehat{b}_\mathrm{ltv} - \widebar{b}$, and where $\widebar{a}$ and $\widebar{b}$ are the true values of the input parameters.
-The values $\mu_{\mathrm{spec}}$ and $\sigma_{\mathrm{spec}}$ are specified in the OIML recommendation R51 \citep{OIML_R51_1} for mass measurements that use a conveyor belt.
+\begin{equation} \mathrm{minimize} \ \quad \ \mathrm{over} \ f_u, \alpha \ \quad \ \mathrm{max} \left( \dfrac{\mu_{\widetilde{a}_{\mathrm{ltv}}}}{\mu_{\mathrm{spec}}}, \dfrac{\mu_{\widetilde{b}_{\mathrm{ltv}}}}{\mu_{\mathrm{spec}}}, \dfrac{\sigma_{\widetilde{a}_{\mathrm{ltv}}}}{\sigma_{\mathrm{spec}}}, \dfrac{\sigma_{\widetilde{b}_{\mathrm{ltv}}}}{\sigma_{\mathrm{spec}}} \right) + \mathrm{max} \left( \dfrac{\eta_{i}}{\color{blue}N\color{black}} \right) \label{eqn:tv_optim} \end{equation}
+where $\mu_{\widetilde{a}_\mathrm{ltv}}$, $\mu_{\widetilde{b}_\mathrm{ltv}}$, $\sigma_{\widetilde{a}_\mathrm{ltv}}$ and $\sigma_{\widetilde{b}_\mathrm{ltv}}$ are the mean values and the standard deviations of the estimation errors $\widetilde{a}_\mathrm{ltv} = \widehat{a}_\mathrm{ltv} - {a}$, and $\widetilde{a}_\mathrm{ltv} = \widehat{b}_\mathrm{ltv} - {b}$, and where ${a}$ and ${b}$ are the true values of the input parameters.
+The values $\mu_{\mathrm{spec}}$ and $\sigma_{\mathrm{spec}}$ are specified in the OIML recommendation R51 defined in \citet{OIML_R51_1} for mass measurements that use a conveyor belt.
 
 
 \section{Simulation results}
@@ -356,7 +390,7 @@ We performed a simulation study using the weighing system presented as an exampl
 We compared the performance of the proposed subspace method to a conventional time-varying (TV) filter, that was conceived for weighing applications, and to the maximum-likelihood (ML) method.
 
 A second order weighing system was excited with an affine input to get the transient response.
-The parameters of the weighing system are $m$ = 15 g, $k_{\mathrm{d}$ = 5.5 Ns/m and $kg_{\mathrm{s}$ = 10250 N/m.
+The parameters of the weighing system are $m$ = 15 g, $k_{\mathrm{d}}$ = 5.5 Ns/m and $kg_{\mathrm{s}}$ = 10250 N/m.
 The applied affine input $u(t) = 100 t + 10$ represents a mass that changes from $10$ g to $110$ g, at a constant rate, in a time interval of $0.1$ s.
 This change of mass represents one example of the weighing input in a conveyor weighing system when an object of 100 g is measured while it is moving at constant speed.
 A total of 1000 samples of the sensor response are acquired with sampling time $T_s = 0.1$ ms.
@@ -365,23 +399,21 @@ In Figure \ref{fig:sensor_weight} the input $\mathbf{u}$ is represented with the
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=1\columnwidth]{./ChapterRampInput/fig/Fig_2.pdf} 
-\caption{ \label{fig:sensor_weight} The sensor transient response $\widetilde{\mathbf{y}}$ to an affine input excitation $u(t) = at+b$ is processed by the estimation methods to estimate the parameters $a$ and $b$. In the figure we observe an example of the input estimate $\widehat{\mathbf{u}}$ obtained with the subspace method. The input parameters are calculated from $\widehat{\mathbf{u}} - \tau$ using linear regression.}
+\includegraphics[width=0.69\columnwidth]{./ChapterRampInput/fig/Fig_2.pdf} 
+\caption{ \label{fig:sensor_weight} The sensor transient response $\widetilde{\mathbf{y}}$ to an affine input excitation $u(t) = at+b$ is processed by the estimation methods to estimate the parameters $a$ and $b$. In the figure we observe an example of the input estimate $\widehat{\mathbf{u}}$ obtained with the subspace method. The input parameters are calculated from $\widehat{\mathbf{u}} - \omicron$ using linear regression.}
 \end{figure}
 
 In each simulation, the sensor response was perturbed with an independent realization of additive normally distributed measurement noise.
 The added perturbation noise has signal-to-noise ratio (SNR) in the interval [20 dB, 60 dB].
 These SNR values are realistic in practical applications.
-The SNR is defined as the ratio of signal power to the noise power, that is equivalent to the root-mean-square (RMS) value of the true signal to the standard deviation of the perturbation noise, and in dB is given as
-
-\begin{equation} \mathrm{SNR} = 20 \log_{10}{\dfrac{ \sqrt{ \dfrac{1}{T}\int\limits_0^T{\widebar{y}(t)^2 d t} } } { \sigma_{\bm{\epsilon}}}} \end{equation}  
+The SNR is defined as the ratio of signal power to the noise power, that is equivalent to the root-mean-square (RMS) value of the true signal to the standard deviation of the perturbation noise, and in dB is given by \color{blue}(\ref{eqn:SNR})\color{black}.
 
 
 \subsection{Results of the subspace method}
 
 The subspace method processed online the sensor transient response.
 The first estimation was obtained with $2n+1$ samples, where $n=2$ is the assumed order of the sensor.
-The method updated recursively the value of the estimated parameters for each new collected sample, using the forgetting factor $\lambda$ listed in Table \ref{table:lambdas}.
+The method updated recursively the value of the estimated parameters for each new collected sample, using the forgetting factor $\omega$ listed in Table \ref{table:lambdas}.
 In Figure \ref{fig:rele_dd_40dB_s1} we observe the relative errors of the estimates $\widehat{a}$ and $\widehat{b}$ obtained when SNR = 40 dB. 
 The relative errors are smaller than 5 \% after 400 and 500 samples are processed, i.e., 0.04 s and 0.05 s, respectively.
 As more samples are collected, the parameter estimation improves.
@@ -390,13 +422,13 @@ The relative errors are smaller than 2 \% regardless of the measurement noise le
 
 \begin{table}[h!]
 \centering
-\caption{Here are listed the selected values of the forgetting factor $\lambda$ and the offset $\tau$ that configure the subspace method for the different values of SNR. These values were obtained after calibration of the method and were fixed during the simulation study.}
+\caption{Here are listed the selected values of the forgetting factor $\omega$ and the offset $\omicron$ that configure the subspace method for the different values of SNR. These values were obtained after calibration of the method and were fixed during the simulation study.}
 \begin{tabular}{c| c c c c c} 
  \hline
  SNR \ [dB] & 20 & 30 & 40 & 50 & 60 \\ [0.5ex] 
  \hline
- $\lambda$ & 0.939 & 0.940 & 0.955 & 0.959 & 0.959 \\ % forgetting factor
- $\tau$ [g] \  & 15 & 15 & 17 & 14 & 20 \\ [0.5ex] % [\mathrm{samples}]
+ $\omega$ & 0.939 & 0.940 & 0.955 & 0.959 & 0.959 \\ % forgetting factor
+ $\omicron$ [g] \  & 15 & 15 & 17 & 14 & 20 \\ [0.5ex] % [\mathrm{samples}]
  \hline
 \end{tabular}
 \label{table:lambdas}
@@ -405,14 +437,14 @@ The relative errors are smaller than 2 \% regardless of the measurement noise le
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=1\columnwidth]{./ChapterRampInput/fig/Fig_3.pdf} 
+\includegraphics[width=0.69\columnwidth]{./ChapterRampInput/fig/Fig_3.pdf} 
 \caption{ \label{fig:rele_dd_40dB_s1} The relative errors of the affine input parameters estimates decrease as the subspace method processes more samples. The relative errors of the estimates $\widehat{a}$ and $\widehat{b}$ are smaller than 5 \% after 400 and 500 samples, respectively ($T_s = 0.1$ ms). }
 \end{figure}
 
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=1\columnwidth]{./ChapterRampInput/fig/Fig_4.pdf} 
+\includegraphics[width=0.69\columnwidth]{./ChapterRampInput/fig/Fig_4.pdf} 
 \caption{ \label{fig:rele_SNR_dd_10000} The minimum value of the estimation relative errors obtained with the subspace method is less than 2  \% regardless of the SNR between 20 dB and 60 dB. }
 \end{figure}
 
@@ -437,14 +469,14 @@ The used sampling frequency constrains the estimation method effectiveness for t
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=1\columnwidth]{./ChapterRampInput/fig/Fig_5.pdf} 
+\includegraphics[width=0.69\columnwidth]{./ChapterRampInput/fig/Fig_5.pdf} 
 \caption{ \label{fig:CRLB_MSE_ab_dd_40dB_MC_10000} When the SNR of the sensor response is 40 dB, the mean squared errors of the slope estimate $\widehat{a}$ and the intercept estimate $\widehat{b}$, obtained by the subspace method, are two orders of magnitude above the theoretical minimum variance given by the Cram\'er-Rao lower bound.}
 \end{figure}
 
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=1\columnwidth]{./ChapterRampInput/fig/Fig_6.pdf} 
+\includegraphics[width=0.69\columnwidth]{./ChapterRampInput/fig/Fig_6.pdf} 
 \caption{ \label{fig:CRLB_MSE_SNR_ab_dd_MC_10000} The Cram\'er-Rao lower bounds of the estimates $\mathrm{CRLB}_a$ and $\mathrm{CRLB}_b$ determine the minimum uncertainty that can be achieved and increases with the measurement noise. 
 The empirical mean squared errors $\mathrm{MSE}_{\hat{a}}$ and $\mathrm{MSE}_{\hat{b}}$ are near to the Cram\'er-Rao lower bounds within one order of magnitude for SNR smaller than 30 dB, and within two orders of magnitude for SNR between 40 dB and 60 dB. }
 \end{figure}
@@ -505,32 +537,35 @@ $\sigma_{{a},{b}}$ & $\sigma_{\mathrm{s}}$: \ 0\% & 5\% & 10\% \\ [0.5ex]
 
 
 \subsection{Results of the maximum-likelihood method}
-
-The maximum-likelihood (ML) method processed off-line the sensor transient response, perturbed with measurement noise of 40 dB SNR.
-The ML method used the first 50 samples to initialize the optimization variables and updated the variables every $N = 5$ samples.
-In Figure \ref{fig:rele_dd_40dB_s1} are shown the relative errors of the estimates $\widehat{a}$, $\widehat{b}$, $\widehat{x}_{\mathrm{ini,1}}$, and $\widehat{x}_{\mathrm{ini,2}}$.
+\color{blue} 
+The maximum-likelihood (ML) method estimates the affine input parameters from the sensor model transient response.
+A total of 100 runs of the method were obtained, using different realizations of the measurement noise.
+The measurement noise variance was set to have an SNR of 40 dB.
+The ML method used the first 50 samples to initialize the optimization variables and updated the variables every $N_{\mathrm{s}} = 5$ samples.
+Figure \ref{fig:rele_lo_40dB_s10} shows the average of the observed relative errors in the estimation of the parameters $\widehat{a}$, $\widehat{b}$, $\widehat{x}_{\mathrm{ini,1}}$, and $\widehat{x}_{\mathrm{ini,2}}$\color{black}.
 The convergence of the ML estimates gives relative errors below 5 \% after three iterations.
 The largest relative error observed is in the scale velocity $\widehat{x}_{\mathrm{ini,2}}$ estimate, which is more sensitive than the other optimization variables.
 
+
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=1\columnwidth]{./ChapterRampInput/fig/Fig_7.pdf} 
-\caption{ \label{fig:rele_lo_40dB_s10} The affine input parameters and the sensor initial conditions are estimated with the ML method. After three iterations the relative errors of the estimates are smaller than 5 \%.  }
+\includegraphics[width=0.69\columnwidth]{./ChapterRampInput/fig/Fig_7.pdf} 
+\caption{ \label{fig:rele_lo_40dB_s10} The affine input parameters and the sensor's initial conditions are estimated with the ML method. After three iterations, \color{blue} the average of the relative error is smaller than 5 \% for each and every of the estimates. The estimate $\widehat{x}_{\mathrm{ini,2}}$ has the larger relative error near to 1 \%. \color{black} }
 \end{figure}
 
-The estimation covariance was computed using the analytic Jacobian and Equation (\ref{eqn:covOpt}).
-Figure \ref{fig:cov_lo_40dB_s1} shows the variances of the optimization variables, that are on the diagonal of the covariance matrix $\mathbm{J}$. 
-We can see that the estimation variance decrease as more samples are processed.
+The estimation covariance was computed using the analytic Jacobian and the Equation (\ref{eqn:covOpt}).
+Figure \ref{fig:cov_lo_40dB_s1} shows \color{blue} the average \color{black} of the variances that were observed on the diagonal of the covariance matrix $\mathbf{J}$. 
+We can see that the estimation variances decrease as more samples are processed.
 Moreover, the estimation variances of $\widehat{a}$ and $\widehat{b}$ obtained with the ML method are lower than 
 the corresponding estimation MSE errors obtained from a Monte Carlo simulation of the subspace method (see Figure \ref{fig:CRLB_MSE_SNR_ab_dd_MC_10000}).
   
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=1\columnwidth]{./ChapterRampInput/fig/Fig_8.pdf} 
-\caption{ \label{fig:cov_lo_40dB_s1} The variances of the ML estimates are calculated using the information provided by the analytic Jacobian. The variances of the affine input parameters estimates decrease faster than the variances of the initial conditions estimates.  }
+\includegraphics[width=0.69\columnwidth]{./ChapterRampInput/fig/Fig_8.pdf} 
+\caption{ \label{fig:cov_lo_40dB_s1} The variances of the ML estimates are calculated using the information provided by the analytic Jacobian. \color{blue} The estimates $\widehat{x}_{\mathrm{ini,1}}$ and $\widehat{a}$ have the smaller and larger variances, respectively. \color{black}  }
 \end{figure}
 
-The ML method is computationally more expensive than the subspace method because the ML method simulates the response of a sensor model to optimize the input parameters and the sensor initial conditions.
+The ML method is computationally more expensive than the subspace method because the ML method simulates the response of a sensor model to optimize the input parameters and the sensor's initial conditions.
 
 A typical run of the ML method takes 30 s to complete.
 With this execution time, the ML estimation can only be performed offline.
@@ -599,7 +634,7 @@ $\sigma_{{a},{b}}$ & $\sigma_{\mathrm{s}}$: \ 0\% & 5\% & 10\% \\ [0.5ex]
 
 We fixed the frequency lower value $f_l=0.01$ Hz and the base $\beta = 0.01$. 
 The upper value $f_u$ and the decay rate $\alpha$ were found using optimization (\ref{eqn:tv_optim}). 
-We chose the values $\mu_{\mathrm{spec}}=0.5$ and $\sigma_{\mathrm{spec}}=0.24$ as they are specified in the OIML recommendation \citep{OIML_R51_1} for a mass of 100 g measured in a conveyor belt.
+We chose the values $\mu_{\mathrm{spec}}=0.5$ and $\sigma_{\mathrm{spec}}=0.24$ as they are specified in the OIML recommendation defined in \citet{OIML_R51_1} for a mass of 100 g measured in a conveyor belt.
 The optimized values of the frequency upper value and the decay rate, using a dataset of 100 transient responses, were $f_u = 26.94$ Hz and $\alpha = 5.71$.
 
 Figure \ref{fig:rele_tv_40dB_s1} shows the relative errors of the estimates $\widehat{a}$ and $\widehat{b}$ computed with the TV filter after processing the sensor transient response.
@@ -608,7 +643,7 @@ The convergence rate of the estimate $\widehat{a}$ was similar to that of the su
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=1\columnwidth]{./ChapterRampInput/fig/Fig_9.pdf} 
+\includegraphics[width=0.69\columnwidth]{./ChapterRampInput/fig/Fig_9.pdf} 
 \caption{ \label{fig:rele_tv_40dB_s1} The relative errors of the time-varying filter estimation converge slower than with the subspace method. 
 The relative errors of $\widehat{a}$ and $\widehat{b}$ are smaller than 5 \% only after 800 and 950 samples, respectively.
 With the subspace method the relative errors are below 5 \% after 400 and 500 samples. }
@@ -632,9 +667,9 @@ It was shown that the time-varying (TV) compensation filter can be modified to e
 The modified TV filter can be implemented in real-time as the subspace method after a previous off-line coefficients optimization stage with sensor measured data.
 Nevertheless, the estimation results of the subspace method are better than the TV filter since they are twice as fast and one order of magnitude more acurate.
 
-The subspace method can estimate the affine input parameters from the sensor response using few parameters, the sensor order $n$, the sensor static gain $\mathbf{G}$, and the RLS forgetting factor $\lambda$.
-The subspace method does not necessarily requires optimization of $\lambda$ using a dataset of measured sensor responses.
-It is required to tune $\lambda$ online during the calibration of the system and later $\lambda$ remains fixed during the measurements.
+The subspace method can estimate the affine input parameters from the sensor response using few parameters, the sensor order $n$, the sensor static gain ${G}$, and the RLS forgetting factor $\omega$.
+The subspace method does not necessarily requires optimization of $\omega$ using a dataset of measured sensor responses.
+It is required to tune $\omega$ online during the calibration of the system and later $\omega$ remains fixed during the measurements.
 
 The results of the sensitivity analysis show how the uncertainty of the subspace method estimates is affected when the ramp input is subject to perturbation.
 The impact on the uncertainty on the slope $\widehat{a}$ and the intercept $\widehat{b}$ parameters is different.

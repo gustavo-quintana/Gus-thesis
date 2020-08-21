@@ -1,0 +1,105 @@
+% I made my list of abbreviations manually because the glosseries didn't work
+\chapter*{Nomenclature}
+
+\color{blue}
+A list of the symbols used in this thesis is found in the following list.
+\begin{longtable}[c]{>{\raggedleft}p{0.2\columnwidth}>{\raggedright}p{0.7\columnwidth}}
+${a}, {b}$  &  true parameters an affine input model \tabularnewline
+$\widehat{a}, \widehat{b}$  &  estimated parameters an affine input model \tabularnewline
+$\mathbf{A}, \mathbf{B}, \mathbf{C}, D$  &   matrices of an LTI dynamic system state space representation  \tabularnewline
+$\widehat{\mathbf{A}}, \widehat{\mathbf{B}}, \widehat{\mathbf{C}}, \widehat{D}$  &   estimated matrices of an LTI dynamic system state space representation  \tabularnewline
+$\widehat{\mathbf{A}}_\text{a}, \widehat{\mathbf{C}}_\text{a}$  &  estimated matrices of an autonomous LTI dynamic system state space representation \tabularnewline
+$\mathbf{A}_\text{a}, \mathbf{C}_\text{a}$  &  matrices of an autonomous LTI dynamic system state space representation \tabularnewline
+$\mathbf{b} \left(\widehat{\bm{\theta}} \right)$  &  bias of the estimate $\bm{\theta}$  \tabularnewline
+$\mathbf{b}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right)$  &  predicted bias of the estimate $\bm{\theta}$ obtained from exact data \tabularnewline
+$\widetilde{\mathbf{b}}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right)$  &  predicted bias of the estimate $\bm{\theta}$ obtained from measured data \tabularnewline
+$\mathbf{b}_{\widetilde{\mathrm{p}} \left[1\right]}$   &  first element of the estimation predicted bias obtained from measured data \tabularnewline
+$b_\mathrm{e}$  &  empirical bias of the step input estimate  \tabularnewline
+$b_{\mathrm{p}}$  &  bias prediction computed using exact data   \tabularnewline
+$b_{\widetilde{\mathrm{p}}}$  &  sample mean of the step input estimation bias, computed  from observed data predictions   \tabularnewline
+$\mathbf{B}_1, \mathbf{B}_2, \mathbf{B}_3, \mathbf{B}_4$  &  matrices of the bias prediction formulas computed from exact data  \tabularnewline
+$\widetilde{\mathbf{B}}_1, \widetilde{\mathbf{B}}_2, \widetilde{\mathbf{B}}_3, \widetilde{\mathbf{B}}_4$  &  matrices of the bias prediction formulas computed from measured data  \tabularnewline
+$\mathbf{C} \left( \widehat{\bm{\theta}} \right)$  &  covariance matrix of the estimate $\bm{\theta}$  \tabularnewline
+$\mathbf{C}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right)$  &  predicted covariance of the estimate $\bm{\theta}$ obtained from exact data \tabularnewline
+$\widetilde{\mathbf{C}}_{\mathrm{p}} \left( \widehat{\bm{\theta}} \right)$  &  predicted covariance of the estimate $\bm{\theta}$ obtained from measured data \tabularnewline
+$\mathbf{C}_{\widetilde{\mathrm{p}} \left[1,1\right]}$  &  first element of the estimation predicted covariance obtained from measured data \tabularnewline
+$\mathbf{C}_1, \mathbf{C}_2$  &  matrices of the covariance prediction formulas computed from exact data  \tabularnewline
+$\widetilde{\mathbf{C}}_1, \widetilde{\mathbf{C}}_2$  &  matrices of the covariance prediction formulas computed from measured data  \tabularnewline
+$\mathbf{C}_{\mathbf{z}}$  &  covariance matrix of a linear in the measurements problem $e (\widehat{\bm{\theta}}, \widetilde{\mathbf{z}}) = \mathbf{M}_1( \widehat{\bm{\theta}} ) \ \widetilde{\mathbf{z}}$ \tabularnewline
+$\mathrm{CRLB}(\bm{\theta})$  &  Cram\'er-Rao lower bound of the estimate $\bm{\theta}$  \tabularnewline
+$\mathbf{D}_{r \times c}^{1,d}$ and $\mathbf{D}_{r \times c}^{2,d}$  &  first and second-order finite differences matricial operators of dimensions $r \times c$ starting from the subdiagonal $d$  \tabularnewline
+$\Delta$  &  signals first difference operator, defined as $\Delta y(k) = y(k + 1) - y(k)$  \tabularnewline
+$\Delta \mathbf{x}(k)$ &   autonomous system state vector at time $k$ \tabularnewline
+$\Delta y(k)$ &   sample of an autonomous system response at time $k$ \tabularnewline
+$\mathbf{E}$  &  measurement noise that is added to the regression matrix in a system of linear equations  \tabularnewline
+$\bm{\epsilon}$  &   measurement noise that is added to the system response  \tabularnewline
+$\bm{\epsilon}(k)$  &   samples of the measurement noise at time $k$  \tabularnewline
+$\bm{\epsilon}_{\mathbf{z}}$  &  perturbation noise of a linear in the measurements problem $e (\widehat{\bm{\theta}}, \widetilde{\mathbf{z}}) = \mathbf{M}_1( \widehat{\bm{\theta}} ) \ \widetilde{\mathbf{z}}$ \tabularnewline
+$\mathbb{E} \left\{ \cdot \right\}$  &  mathematical expectancy operator  \tabularnewline
+$\mathbf{Fi}(\theta)$  &  Fisher information matrix  \tabularnewline
+$\mathbf{G}$  &   static gain matrix of an LTI dynamic system  \tabularnewline
+$\mathbf{H}(s)$, $\mathbf{H}(z)$  & continuous and discrete time transfer functions of a dynamic system, respectively \tabularnewline
+$\mathbfcal{H}({y})$ and $\bm{\mathcal{H}}(\bm{\epsilon})$  &  $n \times n$ Hankel matrices constructed from the system response $y$ and the measurement noise $\bm{\epsilon}$, respectively  \tabularnewline
+$\mathbfcal{H}_{L+1}(\Delta {y})$  &  Hankel matrix of $L+1$ block rows constructed from $\Delta {y}$  \tabularnewline
+$\mathbf{I}_n$  & $n \times n$ identity matrix   \tabularnewline
+$\mathbf{J} = \partial \mathbf{r} / \partial \bm{\theta}$  &  Jacobian matrix of the residual $\mathbf{r}$   \tabularnewline
+$k$  &  $k\mathrm{-th}$ instant of time  \tabularnewline
+$\mathbf{K}$  &  regression matrix in a system of linear equations constructed from exact data  \tabularnewline
+$\widetilde{\mathbf{K}}$  &  regression matrix in a system of linear equations constructed from measured data  \tabularnewline
+$\widetilde{\mathbf{k}}_{k}$  &  row of matrix $\widetilde{\mathbf{K}}$ that corresponds to the $k\mathrm{-th}$ sample of the measured response  \tabularnewline
+$\mathbf{K}^\dagger$  &  pseudo-inverse of the matrix $\mathbf{K}$  \tabularnewline
+$k_{\mathrm{T}}$  &   temperature coefficienct of a first-order thermometer model  \tabularnewline
+$\bm{\kappa}$  &  scalar gain in the recursive least-squares algorithm  \tabularnewline
+$l$  &  likelihood function of an estimation problem  \tabularnewline
+$\bm{\ell}$  &   linear transformation of the initial conditions in the data-driven step input estimation method  \tabularnewline
+$\lambda$  &  eigenvalues of a dynamic system  \tabularnewline
+$m, k_{\mathrm{s}}, k_{\mathrm{d}}$  &  mass, stiffness and damping coefficients of a second-order weighing system model  \tabularnewline
+$\bm{\mu}\left(\widehat{\bm{\theta}} \right)$  &  expected value of the estimate $\bm{\theta}$  \tabularnewline
+$\mathrm{MSE}_{\mathrm{e}}$  &  mean-squared error computed using the empirical results in the Monte Carlo simulation  \tabularnewline
+$\mathrm{MSE}_{\mathrm{p}}$  &  mean-squared error computed using the predictions from exact data  \tabularnewline
+$\mathrm{MSE}_{\widetilde{\mathrm{p}}}$  &  mean-squared error computed using the predictions from observed data  \tabularnewline
+$n$  &  order of a dynamic system  \tabularnewline
+$N$  &  maximum number of available system response samples   \tabularnewline
+$N_{\mathrm{MC}}$  &  number of Monte Carlo runs   \tabularnewline
+$\mathbfcal{O}$  &  observability matrix of an LTI dynamic system  \tabularnewline
+$\mathbfcal{O}_\text{a}$  &  observability matrix of an autonomous LTI dynamic system  \tabularnewline
+$\omega$   &  weighing factor of the recursive least-squares algorithm  \tabularnewline
+$\bm{\Omega}$   &  diagonal matrix of descending powers of the weight factor $\omega$  \tabularnewline
+$\mathbf{P}_\perp = \mathbf{I} - \mathbf{K} \mathbf{K}^\dagger$  &  orthogonal matrix computed from exact data  \tabularnewline
+$\widetilde{\mathbf{P}}_\perp = \mathbf{I} - \widetilde{\mathbf{K}} \widetilde{\mathbf{K}}^\dagger$  &  orthogonal matrix computed from measured data  \tabularnewline
+$\bm{\Psi}$  &  covariance matrix of the recursive least-squares algorithm algorithm  \tabularnewline
+$\mathbf{r}(\bm{\theta}) = \widetilde{\mathbf{y}} - \widehat{\mathbf{y}}(\bm{\theta})$  &  residual difference between the measured response $\widetilde{\mathbf{y}}$ and the simulated response $\widehat{\mathbf{y}}(\bm{\theta})$  \tabularnewline
+$\mathbf{R}_n$  &  $n \times n$ reversal matrix   \tabularnewline
+$\rho(\mathbf{M})$  &   spectral radius of matrix $\mathbf{M}$ \tabularnewline
+$s(t)$ &  unit step input \tabularnewline
+$\sigma_\mathrm{e}^2$  &  empirical variance of the step input estimate  \tabularnewline
+$\sigma_\mathrm{e,err}$  &  standard error associated to the the estimation empirical bias in the Monte Carlo simulation  \tabularnewline
+$\sigma_{\mathbf{E}}^2$  &    variance of the measurement noise matrix $\mathbf{E}$, assuming its columns are stacked in a vector  \tabularnewline
+$\sigma_{\widetilde{\mathrm{p}}, \mathrm{err}}$  &  standard error of the of the empirical estimate Monte Carlo simulation  \tabularnewline
+$\sigma_{\bm{\epsilon}}^2$  &  variance of the measurement noise $\bm{\epsilon}$ \tabularnewline
+$\mathbfcal{T}$  &  Markov parameters matrix of an LTI dynamic system  \tabularnewline
+$\bm{\theta}$  &   true value of the to-be-estimated parameters in a linear regression problem  \tabularnewline
+$\widehat{\bm{\theta}}$  &   estimated parameters in a linear regression problem  \tabularnewline
+$u(t)$ &   input signal applied to a dynamic systems \tabularnewline
+$\widehat{u}$ &   estimated input signal \tabularnewline
+$u(k)$ &  sample of the input signal at time $k$  \tabularnewline
+$\mathbf{u}$  &  vector constructed from samples of the input signal  \tabularnewline
+$\mathbf{U}, \bm{\Sigma}, \mathbf{V}$  &    singular value decomposition matrices  \tabularnewline
+$v_{{\mathrm{p}}}$  &  variance prediction computed using exact data   \tabularnewline
+$v_{\widetilde{\mathrm{p}}}$  &  sample mean of the step input estimation variance, computed  from observed data predictions   \tabularnewline
+$\mathbf{x}(k)$ &   system state vector at time $k$ \tabularnewline
+$\mathbf{x}_{\text{ini}}$  &  initial conditions of a dynamic system  \tabularnewline
+$\mathbf{x}_{\text{ini,c}}$  &  initial conditions of a compensator dynamic system  \tabularnewline
+$\mathbf{X}_{\text{ini}}$  &  matrix of the initial conditions of a dynamic system at different instant of time  \tabularnewline
+$\mathbf{x}_\text{a}(0)$  &  initial conditions of an autonomous dynamic system  \tabularnewline
+$\mathbf{x}_\text{a}(k)$  &   autonomous system state vector at time $k$ \tabularnewline
+$y(t)$  &  exact response of a dynamic system\tabularnewline
+$\widehat{y}$  &   simulated exact response signal \tabularnewline
+$\widetilde{\mathbf{y}} = \mathbf{y} + \bm{\epsilon}$  &  observed system response afected by measurement noise  \tabularnewline
+$y(k)$  &  sample of the exact response signal at time $k$\tabularnewline
+$\mathbf{y}$  &  vector constructed from samples of the system response signal   \tabularnewline
+$\widetilde{\mathbf{z}} = \mathbf{z} + \epsilon_{\mathbf{z}}$   &  vector constructed by stacking the perturbation noise of the regressor and the regression matrix of the EIV problem \tabularnewline
+$\widetilde{\mathbf{Z}}$  &  instrumental variable constructed from measured data  \tabularnewline
+% \tabularnewline
+\end{longtable}
+\color{black}

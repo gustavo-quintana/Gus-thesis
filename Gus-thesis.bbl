@@ -1,9 +1,19 @@
-\begin{thebibliography}{75}
+\begin{thebibliography}{90}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[{Alaziz} et~al.(2017){Alaziz}, {Jia}, {Howard}, {Lin}, and
+  {Zhang}]{Alaziz17}
+M.~{Alaziz}, Z.~{Jia}, R.~{Howard}, X.~{Lin}, and Y.~{Zhang}.
+\newblock {MotionTree: A Tree-Based In-Bed Body Motion Classification System
+  Using Load-Cells}.
+\newblock In \emph{{2017 IEEE/ACM International Conference on Connected Health:
+  Applications, Systems and Engineering Technologies (CHASE)}}, pages 127--136,
+  2017.
+\newblock \doi{10.1109/CHASE.2017.71}.
 
 \bibitem[Angrisani and Napolitano(2010)]{Angrisani10}
 L.~Angrisani and A.~Napolitano.
@@ -30,6 +40,14 @@ F.~Ballo, M.~Gobbi, G.~Mastinu, and G.~Previati.
 \newblock \emph{Measurement}, 90:\penalty0 309--317, 2016.
 \newblock ISSN 0263-2241.
 \newblock \doi{10.1016/j.measurement.2016.04.047}.
+
+\bibitem[Beck and Eldar(2010)]{Beck10}
+A.~Beck and Y.~C. Eldar.
+\newblock Structured total maximum likelihood: An alternative to structured
+  total least squares.
+\newblock \emph{SIAM Journal on Matrix Analysis and Applications}, 31\penalty0
+  (5):\penalty0 2623--2649, 2010.
+\newblock \doi{10.1137/090756338}.
 
 \bibitem[BIPM et~al.(2008)BIPM, IEC, IFCC, ILAC, ISO, IUPAC, IUPAP, and
   OIML]{GUM08}
@@ -103,13 +121,21 @@ A.~Diniz, M.~de~Almeida, J.~Vianna, A.~Oliveira, and A.~Fabro.
   Engineering}, 39\penalty0 (3):\penalty0 1053--1060, 2017.
 \newblock ISSN 1678-5878.
 
-\bibitem[Eichst{\"a}dt et~al.(2010)Eichst{\"a}dt, Elster, T.J., and
-  J.P.]{Eichstadt10}
-S.~Eichst{\"a}dt, C.~Elster, Esward T.J., and Hessling J.P.
+\bibitem[Eichst{\"a}dt et~al.(2010)Eichst{\"a}dt, Elster, Esward, and
+  Hessling]{Eichstadt10}
+S.~Eichst{\"a}dt, C.~Elster, T.J. Esward, and J.P. Hessling.
 \newblock {Deconvolution filters for the analysis of dynamic measurement
   processes: a tutorial}.
 \newblock \emph{Metrologia}, 47\penalty0 (5):\penalty0 522--533, 2010.
 \newblock \doi{10.1088/0026-1394/47/5/003}.
+
+\bibitem[Eichst{\"a}dt et~al.(2012)Eichst{\"a}dt, Link, P., and
+  Elster]{Eichstadt12}
+S.~Eichst{\"a}dt, A.~Link, Harris P., and C.~Elster.
+\newblock {Deconvolution filters for the analysis of dynamic measurement
+  processes: a tutorial}.
+\newblock \emph{Metrologia}, 49\penalty0 (3):\penalty0 401--410, 2012.
+\newblock \doi{10.1088/0026-1394/49/3/401}.
 
 \bibitem[Eichst{\"a}dt et~al.(2016)Eichst{\"a}dt, Makarava, and
   Elster]{Eichstadt16b}
@@ -162,6 +188,21 @@ A.~Ferrero and S.~Salicone.
   (3):\penalty0 44--51, 2006.
 \newblock ISSN 1094-6969.
 \newblock \doi{10.1109/MIM.2006.1637979}.
+
+\bibitem[Fraden(2016)]{Fraden16Book}
+J.~Fraden.
+\newblock \emph{{Handbook of Modern Sensors}}.
+\newblock Springer, San Diego, CA, 5 edition, 2016.
+\newblock ISBN 978-3-319-19302-1.
+
+\bibitem[Guo et~al.(2018)Guo, Zhong, and Yao]{Guo18}
+G.~Guo, S.~Zhong, and L.~Yao.
+\newblock Sensitivity effect of single load cell on total output of a
+  combinatorial structure.
+\newblock In L.~Yao, S.~Zhong, H.~Kikuta, J.-G. Juang, and M.~Anpo, editors,
+  \emph{Advanced Mechanical Science and Technology for the Industrial
+  Revolution 4.0}, pages 105--111. Springer, 2018.
+\newblock ISBN 978-981-10-4109-9.
 
 \bibitem[Hack and ten Caten(2012)]{daSilva12}
 P.~da~Silva Hack and C.S. ten Caten.
@@ -225,6 +266,15 @@ J.P. Hessling.
   105105, 2011.
 \newblock \doi{10.1088/0957-0233/22/10/105105}.
 
+\bibitem[Hessling(2013)]{Hessling13b}
+J.P. Hessling.
+\newblock {Deterministic Sampling for Quantification of Modeling Uncertainty of
+  Signals}.
+\newblock In F.P. {Garc\'{\i}a M{\'a}rquez} and N.~Zaman, editors,
+  \emph{{Digital Filters and Signal Processing}}, chapter~3, pages 53--79.
+  IntechOpen, Rijeka, 2013.
+\newblock \doi{10.5772/52193}.
+
 \bibitem[Huang et~al.(2016)Huang, Teng, Tang, Lin, and Wen]{Huang16}
 Q.~Huang, Z.~Teng, X.~Tang, H.~Lin, and H.~Wen.
 \newblock {Mass Measurement Method for the Electronic Balance Based on
@@ -265,6 +315,20 @@ Y.Q. Jing, Q.H. Meng, P.F. Qi, M.~Zeng, and Y.J. Liu.
   015105, 2016.
 \newblock \doi{10.1088/1361-6501/28/1/015105}.
 
+\bibitem[Kailath et~al.(2000)Kailath, Sayed, and Hassibi]{Kailath00book}
+T.~Kailath, H.~Sayed, and B.~Hassibi.
+\newblock \emph{{Linear Estimation}}.
+\newblock Prentice Hall, NJ, 1 edition, 2000.
+\newblock ISBN 0-13-022464-2.
+
+\bibitem[Kesilmi{\c{s}} and Baran(2016)]{Kesilmis16}
+Z.~Kesilmi{\c{s}} and T.~Baran.
+\newblock A geometric approach to beam type load cell response for fast
+  weighing.
+\newblock \emph{MAPAN}, 31\penalty0 (2):\penalty0 153--158, 2016.
+\newblock ISSN 0974-9853.
+\newblock \doi{10.1007/s12647-016-0168-2}.
+
 \bibitem[Kiviet and Phillips(2012)]{Kiviet12high}
 J.~Kiviet and G.~Phillips.
 \newblock {Higher-order asymptotic expansions of the least-squares estimation
@@ -299,6 +363,15 @@ W.~Lee, H.~Yoon, C.~Han, K.~Joo, and K.~Park.
 \newblock ISSN 1424-8220.
 \newblock \doi{10.3390/s16030409}.
 
+\bibitem[Lemmerling and Van~Huffel(2002)]{Lemmerling02}
+P.~Lemmerling and S.~Van~Huffel.
+\newblock Structured total least squares.
+\newblock In S.~Van~Huffel and P.~Lemmerling, editors, \emph{Total Least
+  Squares and Errors-in-Variables Modeling: Analysis, Algorithms and
+  Applications}, pages 79--91. Springer, 2002.
+\newblock ISBN 978-94-017-3552-0.
+\newblock \doi{10.1007/978-94-017-3552-0_8}.
+
 \bibitem[Link and Elster(2009)]{Link09}
 A.~Link and C.~Elster.
 \newblock {Uncertainty evaluation for IIR (infinite impulse response) filtering
@@ -315,6 +388,12 @@ A.~Link, A.~T{\"a}ubner, W.~Wabinski, T.~Bruns, and C.~Elster.
 \newblock \emph{Measurement}, 40\penalty0 (9--10):\penalty0 928--935, 2007.
 \newblock ISSN 0263-2241.
 \newblock \doi{10.1016/j.measurement.2006.10.011}.
+
+\bibitem[{Ljung}(1987)]{Ljung87Book}
+L.~{Ljung}.
+\newblock \emph{{System Identification - Theory for the User}}.
+\newblock Prentice-Hall, Englewood Cliffs, NJ, 1987.
+\newblock ISBN 0-13-881640.
 
 \bibitem[Markovsky(2015{\natexlab{a}})]{Markovsky15cep}
 I.~Markovsky.
@@ -363,6 +442,12 @@ D.Q. Mayne.
 \newblock \emph{Automatica}, 50\penalty0 (12):\penalty0 2967--2986, 2014.
 \newblock ISSN 0005-1098.
 \newblock \doi{10.1016/j.automatica.2014.10.128}.
+
+\bibitem[{Middleton} and {Goodwin}(1990)]{MiddletonGoodwinBook}
+R.~{Middleton} and G.C. {Goodwin}.
+\newblock \emph{{Digital control and estimation: a unified approach}}.
+\newblock Prentice-Hall, Englewood Cliffs, NJ, 1990.
+\newblock ISBN 0‐13‐211798‐3.
 
 \bibitem[Munther et~al.(2019)Munther, Moon, Kim, Han, Davami, and
   Meyyappan]{Munther19}
@@ -432,6 +517,12 @@ Y.~{Pan}, G.Q. {Luo}, H.~{Jin}, and W.~{Cao}.
 \newblock ISSN 2169-3536.
 \newblock \doi{10.1109/ACCESS.2018.2828799}.
 
+\bibitem[Papoulis and Pillai(2002)]{Papoulis02Book}
+A.~Papoulis and S.~U. Pillai.
+\newblock \emph{{Probability, Random Variables, and Stochastic Processes}}.
+\newblock McGraw Hill, New York, 4 edition, 2002.
+\newblock ISBN 0-07-112256-7.
+
 \bibitem[Pietrzak et~al.(2014)Pietrzak, Meller, and
   Nied{\'z}wiecki]{Pietrzak14}
 P.~Pietrzak, M.~Meller, and M.~Nied{\'z}wiecki.
@@ -456,6 +547,15 @@ R.~{Pintelon}, Y.~{Rolain}, M.~V. {Bossche}, and J.~{Schoukens}.
   39\penalty0 (1):\penalty0 116--120, 1990.
 \newblock ISSN 0018-9456.
 \newblock \doi{10.1109/19.50428}.
+
+\bibitem[Piskorowski and Barcinski(2008)]{Piskorowski08}
+J.~Piskorowski and T.~Barcinski.
+\newblock {Dynamic compensation of load cell response: A time-varying
+  approach}.
+\newblock \emph{Mechanical Systems and Signal Processing}, 22\penalty0
+  (7):\penalty0 1694--1704, 2008.
+\newblock ISSN 0888-3270.
+\newblock \doi{10.1016/j.ymssp.2008.01.001}.
 
 \bibitem[Quintana-Carapia and Markovsky(2020)]{QuintanaMEAS}
 G.~Quintana-Carapia and Markovsky.
@@ -493,12 +593,12 @@ S.~Rhode, K.~Usevich, I.~Markovsky, and F.~Gauterin.
 \newblock ISSN 1053-587X.
 \newblock \doi{10.1109/TSP.2014.2350959}.
 
-\bibitem[Rossander et~al.(2015)Rossander, Dyachuk, Apelfr\¨ojd, Trolin, Goude,
-  Bernhoff, and Eriksson]{Rossander15}
-M.~Rossander, E.~Dyachuk, S.~Apelfr\¨ojd, K.~Trolin, A.~Goude, H.~Bernhoff,
+\bibitem[Rossander et~al.(2015)Rossander, Dyachuk, Apelfr{\"o}jd, Trolin,
+  Goude, Bernhoff, and Eriksson]{Rossander15}
+M.~Rossander, E.~Dyachuk, S.~Apelfr{\"o}jd, K.~Trolin, A.~Goude, H.~Bernhoff,
   and S.~Eriksson.
-\newblock Evaluation of a blade force measurement system for a vertical axis
-  wind turbine using load cells.
+\newblock {Evaluation of a Blade Force Measurement System for a Vertical Axis
+  Wind Turbine Using Load Cells}.
 \newblock \emph{Energies}, 8\penalty0 (6):\penalty0 5973--5996, 2015.
 \newblock ISSN 1996-1073.
 \newblock \doi{10.3390/en8065973}.
@@ -524,6 +624,13 @@ T.~S{\"o}derstr{\"o}m.
 \newblock \emph{Automatica}, 43\penalty0 (6):\penalty0 939--958, 2007.
 \newblock ISSN 0005-1098.
 \newblock \doi{10.1016/j.automatica.2006.11.025}.
+
+\bibitem[S{\"o}derstr{\"o}m(2018)]{Soderstrom18}
+T.~S{\"o}derstr{\"o}m.
+\newblock \emph{{Errors-in-Variables Methods in System Identification}}.
+\newblock Springer, 2018.
+\newblock ISBN 978-3-319-75001-9.
+\newblock \doi{10.1007/978-3-319-75001-9}.
 
 \bibitem[Stewart(1990)]{Stewart90SPT}
 G.~Stewart.
@@ -589,6 +696,11 @@ L.~Wang, Y.~Yan, Y.~Hu, and X.~Qian.
   63\penalty0 (5):\penalty0 1190--1199, 2014.
 \newblock ISSN 0018-9456.
 \newblock \doi{10.1109/TIM.2013.2292283}.
+
+\bibitem[Wiklund and Peluso(2002)]{Wiklund02}
+D.~Wiklund and M.~Peluso.
+\newblock {Quantifying and specifying the dynamic response of flowmeters}.
+\newblock In \emph{{ISA2002 Technical Conference}}, pages 463--476, 2002.
 
 \bibitem[Yeredor and {De Moor}(2004)]{Yeredor04homogeneous}
 A.~Yeredor and B.~{De Moor}.

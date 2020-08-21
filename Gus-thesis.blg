@@ -3,6 +3,7 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: Gus-thesis.aux
 The style file: plainnat.bst
 A level-1 auxiliary file: Extras/Abbreviations.aux
+A level-1 auxiliary file: Extras/Nomenclature.aux
 A level-1 auxiliary file: config/CustomCommands.aux
 A level-1 auxiliary file: Extras/Summary.aux
 A level-1 auxiliary file: ChapterIntroduction/ChapterIntroduction.aux
@@ -14,44 +15,44 @@ A level-1 auxiliary file: ChapterConclusion/ChapterConclusion.aux
 A level-1 auxiliary file: ChapterAppendices/ChapterAppendices.aux
 A level-1 auxiliary file: Extras/ListofPublications.aux
 Database file #1: Gus-thesis.bib
-You've used 75 entries,
+You've used 90 entries,
             2773 wiz_defined-function locations,
-            1179 strings with 19574 characters,
-and the built_in function-call counts, 38410 in all, are:
-= -- 3618
-> -- 2231
-< -- 39
-+ -- 756
-- -- 679
-* -- 3386
-:= -- 6020
-add.period$ -- 336
-call.type$ -- 75
-change.case$ -- 447
-chr.to.int$ -- 73
-cite$ -- 150
-duplicate$ -- 1557
-empty$ -- 2976
-format.name$ -- 794
-if$ -- 7954
+            1287 strings with 22244 characters,
+and the built_in function-call counts, 45788 in all, are:
+= -- 4310
+> -- 2598
+< -- 56
++ -- 879
+- -- 787
+* -- 3943
+:= -- 7141
+add.period$ -- 402
+call.type$ -- 90
+change.case$ -- 522
+chr.to.int$ -- 88
+cite$ -- 180
+duplicate$ -- 1920
+empty$ -- 3600
+format.name$ -- 931
+if$ -- 9555
 int.to.chr$ -- 3
 int.to.str$ -- 1
-missing$ -- 79
-newline$ -- 492
-num.names$ -- 302
-pop$ -- 710
+missing$ -- 100
+newline$ -- 585
+num.names$ -- 368
+pop$ -- 867
 preamble$ -- 1
-purify$ -- 376
+purify$ -- 439
 quote$ -- 0
-skip$ -- 1181
+skip$ -- 1458
 stack$ -- 0
-substring$ -- 1731
-swap$ -- 100
-text.length$ -- 3
+substring$ -- 2013
+swap$ -- 160
+text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 795
+type$ -- 930
 warning$ -- 0
-while$ -- 348
+while$ -- 418
 width$ -- 0
-write$ -- 1197
+write$ -- 1434

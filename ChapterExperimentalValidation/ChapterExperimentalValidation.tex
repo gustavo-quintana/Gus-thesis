@@ -6,30 +6,42 @@
 
 \begin{quote}
 \vspace{-0.75cm}
-\emph{The results of this chapter were published in Quintana Carapia, G., Markovsky, I. Pintelon, R., Csurcsia, P.Z., and Verbeke, D., "Experimental validation of a data-driven step input estimation method for dynamic measurements", IEEE Transactions on Instrumentation and Measurement Journal, 2019, doi: 10.1109/TIM.2019.2951865. \nocite{QuintanaTIM} }\vfill{}
+\emph{The results of this chapter were published in Quintana Carapia, G., Markovsky, I. Pintelon, R., Csurcsia, P.Z., and Verbeke, D., "Experimental validation of a data-driven step input estimation method for dynamic measurements", IEEE Transactions on Instrumentation and Measurement Journal, \color{blue} vol. 69, no. 7, pp. 4843-4851, July 2020, \color{black} doi: 10.1109/TIM.2019.2951865. \nocite{QuintanaTIM} }\vfill{}
 \end{quote}
 
 %\vfill{}
 
 % \section{Introduction}
 
-A measurement is a dynamic process. 
-The sensor is a dynamic system that experiments changes after an input excitation.
-The sensor output is first a transient response followed by a steady regime response.
-
-The input excitation influences the sensor output, and thus it makes sense to estimate the input using the sensor response.
-When the sensor reaches its steady-state, the input is a straightforwardly estimated from the sensor output making use of the sensor static gain.
-The sensor transient response must be considered, instead of the steady state response, to obtain a fast input estimation.
+A measurement is a dynamic process \color{blue} and a sensor is a dynamic system that is excited by the unknown and to-be-measured input.
+The input application drives the sensor into a transient regime response.
+The input excitation influences the sensor output, and the input has to be estimated using the sensor transient response.
+If the sensor reached its steady-state, the input would be straightforwardly estimated from the sensor output making use of the sensor static gain.
+As is discussed in \citet{Dienstfrey14}, the lower is the sensor bandwidth, the higher is the need for methods based on processing the sensor transient response to obtain fast input estimation.
 
 A common approach is to filter the sensor transient response with another dynamic system that inverts the sensor dynamics, aiming to compensate the sensor transient time.
-It is necessary to have a sensor model to design a compensator system. 
-A different approach uses digital signal processing methods that are independent of the sensor model.
-One of these methods is the data-driven method that estimates the unknown level of step inputs by processing the sensor step response. 
-To assess the uncertainty of the data-driven step input estimation method, it processed step responses in a real-life metrology application. 
-This chapter describes the measurement experiments with a weighing sensor system and discusses the results observed.
-The results are put in perspective to simulations and consider the measurement noise that is additive to the response of the sensor. 
+Examples of this compensation approach are the FIR filter described in \citet{Elster07}, the time-varying continuous-time filter conceived in \citet{Piskorowski08}, and the IIR filters presented in \citet{Link09} and \citet{Eichstadt10}. 
+The main drawback of these approaches is that the compensator design is based on a sensor model.
+The sensor model requirement implies that the uncertainty on the parameters contributes to the uncertainty budget, as it is explained in \citet{Hessling11}.
+The uncertainty propagation through the compensation systems has been studied in \citet{Elster07, Link07} for the estimated model parameters, in \citet{Eichstadt16b} for a Kalman filter estimator, and in \citet{DEmilia16} considering the models of the different elements in the measurement system\color{black}.
 
-The experimental results validate the data-driven step input estimation method and indicate in which intervals of SNR and sample size the method is reliable.
+
+An approach different to compensation uses digital signal processing methods that are independent of the sensor model.
+\color{blue} This is especially relevant when the measurement system is inaccessible as the temperature sensor on board of a spatial probe described in \citet{Saggin01}, or when the formulation of the estimation method bypasses the model identification and estimates directly the input as in the method introduced in \citet{Markovsky15cep} that estimates the unknown level of step inputs. 
+This data-driven method step input estimation method did not have a metric to describe its uncertainty, but in the previous chapter of this work a methodology is described to obtain the bias and the variance of the step input estimation.
+The methodology yields expressions for the bias and variance, and the expressions are validated via Monte Carlo simulation as is suggested in the work of \citet{Cox06}. 
+The estimation uncertainty is then described with the estimation first two statistical moments.
+This chapter describes the experiments performed to assess the uncertainty of the data-driven step input estimation method under real life data. 
+The estimation method processed step responses from a  weighing sensor experimental setup. 
+The experimental results are put in perspective to the simulations and validate the data-driven step input estimation method, showing which intervals of SNR and sample size ensure the reliability of the method.
+
+The weighing system is constructed using a load cell as the sensing element.
+The load cell is a popular and versatile device that has been used in weighing systems in the works of \citet{Piskorowski08}, \citet{Boschetti13}, \citet{Kesilmis16}, and \citet{Guo18}.
+Other magnitudes can also be measured with a load cell, examples of these are found in the works of \citet{Rossander15} that measure forces in the blades of a wind turbine, \citet{Hernandez06} that improve the quality of confort of bus seats measuring the forces they are subjet to, \citet{Alaziz17} and \citet{Zahradka18} that monitor the quality of sleep by sensing the body motion on the bed, \citet{Ballo16} that measure accelerations on a dummy in frontal impact tests. 
+
+
+\color{black}
+
 
 
 
@@ -42,26 +54,26 @@ The steady-state response of the sensor, that exists after the stabilization of 
 A compensator is an additional dynamic system that acts on the transient response aiming to reduce the sensor transient time.
 The compensation is motivated by the need of inverting the sensor dynamic effects to recreate the input.
 The convolution of the compensator impulse response with the sensor transient response yields the input estimate.
-Therefore, the design of a compensator is based on the sensor model and requires a deconvolution \citep{Eichstadt10}.
-Examples of input estimation using compensation of the sensor transient response include a recursive estimation of the compensator parameters \citep{Shu93}, 
-finite impulse response (FIR) \citep{Elster07, Niedzwiecki16b} filters and 
-infinite impulse response (IIR) filters \citep{Pintelon90, Elster08}.
+Therefore, the design of a compensator is based on the sensor model and requires a deconvolution \citet{Eichstadt10}.
+Examples of input estimation using compensation of the sensor transient response include a recursive estimation of the compensator parameters \citet{Shu93}, 
+finite impulse response (FIR) \citet{Elster07, Niedzwiecki16b} filters and 
+infinite impulse response (IIR) filters \citet{Pintelon90, Elster08}.
 The filters in these works estimate in real-time the unknown input value.
 
 An alternative to the compensation approach is to use digital signal processing methods that are independent of the sensor model.
-A data-driven method that estimates the unknown level of step inputs by processing the sensor step response was introduced in \citep{Markovsky15ieee}. 
+A data-driven method that estimates the unknown level of step inputs by processing the sensor step response was introduced in \citet{Markovsky15ieee}. 
 This data-driven input estimation method avoids the sensor modeling stage and estimates directly the input.
 This method reduces the estimation time compared to a conventional compensator.
-The step input estimation method performance was demonstrated by simulations and experiments on a digital signal processor (DSP) of low cost \citep{Markovsky15cep}.
+The step input estimation method performance was demonstrated by simulations and experiments on a digital signal processor (DSP) of low cost \citet{Markovsky15cep}.
 The uncertainty of the step input estimation method has not been assessed before.
 
-To validate the input estimation methods it is necessary to assess the uncertainty associated with their estimates \citep{daSilva12, Ferrero06}.
-There are uncertainty propagation studies for model-based compensators such as the FIR and IIR filters for acceleration measurements where the uncertainty is computed in real time \citep{Elster07, Elster08, Link09}.
+To validate the input estimation methods it is necessary to assess the uncertainty associated with their estimates \citet{daSilva12, Ferrero06}.
+There are uncertainty propagation studies for model-based compensators such as the FIR and IIR filters for acceleration measurements where the uncertainty is computed in real time \citet{Elster07, Elster08, Link09}.
 In these works, the uncertainty expression is based on the transfer function or state space representations of the LTI sensor and filter systems.
-Another way to assess the measurement uncertainty is by observing the results of multiple practical measurements as it is described in \citep{Pietrzak14} for mass and in \citep{Ogorevc16} for temperature sensors.
-A deconvolution method is implemented to estimate the input waveform in \citep{Hale09} and the uncertainty is obtained from the input estimate covariance. 
-The impact that the signal processing data-driven dynamic error correction has on the uncertainty is investigated in \citep{Saggin01}. 
-A statistical analysis of the data-driven step input estimation method \citep{Markovsky15cep} was investigated in \citep{Quintana19} and the method uncertainty was obtained with a Monte Carlo simulation study. 
+Another way to assess the measurement uncertainty is by observing the results of multiple practical measurements as it is described in \citet{Pietrzak14} for mass and in \citet{Ogorevc16} for temperature sensors.
+A deconvolution method is implemented to estimate the input waveform in \citet{Hale09} and the uncertainty is obtained from the input estimate covariance. 
+The impact that the signal processing data-driven dynamic error correction has on the uncertainty is investigated in \citet{Saggin01}. 
+A statistical analysis of the data-driven step input estimation method \citet{Markovsky15cep} was investigated in \citet{Quintana19} and the method uncertainty was obtained with a Monte Carlo simulation study. 
 
 This paper provides an uncertainty assessment of the data-driven step input estimation method in a real-life application.
 The measurements were conducted in a weighing system based on a load cell sensor.
@@ -70,7 +82,7 @@ We found that the mean squared error of the input estimate is near the Cram\'er-
 A confidence interval is provided for the input estimate in terms of the number of samples required to satisfy the accuracy specifications of the user. 
 
 The novelty of the paper is threefold.
-First, using the results of \citep{Quintana19}, that describes a statistical analysis of structured errors in variables (EIV) problems, in this paper we describe the statistical properties of a the data-driven step input estimation method in both simulation and a real-life experiments.
+First, using the results of \citet{Quintana19}, that describes a statistical analysis of structured errors in variables (EIV) problems, in this paper we describe the statistical properties of a the data-driven step input estimation method in both simulation and a real-life experiments.
 Second, this manuscript also presents the Cram\'er-Rao lower bound for unbiased estimators of the structured and correlated EIV problem that the step input estimation method formulates.
 Using this bound we have the minimum mean-squared error (MSE) for this estimation problem that we use compare with the MSE computed from the predictions obtained after the statistical analysis.
 The third novelty in this manuscript is the model order selection for the step input estimation method where we use the MSE to select the order that provides the smaller MSE with the lowest computational complexity.
@@ -82,7 +94,7 @@ The third novelty in this manuscript is the model order selection for the step i
 
 A Monte Carlo (MC) simulation was conducted to test the bias and covariance expressions (\ref{eqn:biasST}) and (\ref{eqn:varST}).
 The MC simulation performed $N_{MC} = 10^4$ runs of the data-driven step input estimation with different realizations of the measurement noise $\bm{\epsilon}$.
-The MC simulation was conducted processing $T = 5000$ samples of a simulated transient step response $\widehat{\mathbf{y}}$ generated by a stable linear time-invariant (LTI) system of order $n = 5$, with a sampling frequency of $f_s=4$ kHz.
+The MC simulation was conducted processing $\color{blue}N\color{black} = 5000$ samples of a simulated transient step response $\widehat{\mathbf{y}}$ generated by a stable linear time-invariant (LTI) system of order $n = 5$, with a sampling frequency of $f_s=4$ kHz.
 This system is a state-space model obtained with the System Identification Toolbox using the measured step response of the actual sensor described in the Practical Implementation Section.
 This model represents a weighing sensor, and in the simulations the sensor is excited with a mass of 138.32 g following a step input profile. 
 As can be seen in Figure \ref{fig:uh_sim}, the steady state response of the weighing sensor model is practically reached after 500 samples because from there on the relative error between the transient response and the steady-state response is smaller than 0.2\%.
@@ -144,7 +156,7 @@ As can be seen in Figure \ref{fig:uh_sim}, the steady state response of the weig
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=1.0\columnwidth]{./ChapterExperimentalValidation/fig/Fig_1.pdf} 
+\includegraphics[width=0.69\columnwidth]{./ChapterExperimentalValidation/fig/Fig_1.pdf} 
 \caption{ \label{fig:uh_sim} 
 Above: example of a simulated response $\widehat{\mathbf{y}}$ and its step input estimation $\widehat{u}$ assuming measurement Gaussian noise with 50 dB of SNR. 
 Below: the relative error $|\widehat{u} - u| / u$ is below 1\% after 100 samples. 
@@ -154,8 +166,7 @@ We take the estimate at 500 samples because there the relative error is smaller 
 A sensor is a dynamic system, therefore, a fast measurement process must necessarily cope with the system transient response. In that respect we must distinguish between the transient response of the system under test, and the transient phase of the measurement process (i.e. before the process has settled on a final measurement outcome). Notice that the transient phase of the measurement process is considerably smaller than the settling time of the system under test, and this is a major advantage of the step input estimation method.
 
 We are interested in the first element of $\widehat{\bm{\theta}}$, which is the input estimate $\widehat{u}$.
-The measurement noise variance was selected to have a signal-to-noise ratio (SNR) in the interval [30 dB, 80 dB], according to
-\begin{equation} \mathrm{SNR} = 20 \log_{10}{ \dfrac{ \sqrt{ \dfrac{1}{T} \int\limits_{0}^{T}{ y(\tau)^2  \mathrm{d} \tau } } }{ \sigma_{ \epsilon }} } \end{equation} 
+The measurement noise variance was selected to have a signal-to-noise ratio (SNR) in the interval [30 dB, 80 dB], according to \color{blue}(\ref{eqn:SNR})\color{black}. 
 
 The difference between the sample mean $\widehat{\mu}_u$ of the step input estimates and the true value $u$ is the empirical bias $b_\mathrm{e}$.
 \begin{equation} {b}_\mathrm{e} = \frac{1}{N_{MC}} \sum_{i=1}^{N_{MC}}{ \widehat{u}_i - u } = \widehat{\mu}_u - u.  \end{equation}
@@ -164,8 +175,8 @@ The sample variance $\widehat{\sigma}_u^2$ of the step input estimates is used t
 \begin{equation}  \sigma_\mathrm{e} = \frac{\widehat{\sigma}_u}{\sqrt{N_{MC}}}, \ \mathrm{where} \ \ \widehat{\sigma}_u^2 = \frac{1}{N_{MC}-1} \sum_{i=1}^{N_{MC}}{ \left( \widehat{u}_i - \widehat{\mu}_u \right)^2 } . \end{equation}
 
 In each of the $N_{MC}$ runs, we compute the predictions of the step input estimation bias and variance from measured data using Equations (\ref{eqn:biasST}) and (\ref{eqn:varST}). 
-The step input bias and variance predictions from observed data $b_{\widetilde{\mathrm{p}}}$ and $v_{\widetilde{\mathrm{p}}}$, and the associated standard error $\sigma_{\widetilde{\mathrm{p}}}$, are obtained from
-\begin{equation} \begin{aligned} & b_{\widetilde{\mathrm{p}}} = \frac{1}{N_{MC}} \sum_{i=1}^{N_{MC}}{ \mathbf{b}_{\widetilde{\mathrm{p}}}^i \left( \widehat{\bm{\theta}} \right) \big|_{\left[1\right]} }, \ v_{\widetilde{\mathrm{p}}} = \frac{1}{N_{MC}} \sum_{i=1}^{N_{MC}}{ \mathrm{\mathbf{C}}_{\widetilde{\mathrm{p}}}^i \left( \widehat{\bm{\theta}} \right) \big|_{\left[1,1\right]} },  \\ & \mathrm{and} \quad \sigma_{\widetilde{\mathrm{p}}} = \sqrt{   \frac{ \sum_{i=1}^{N_{MC}}{ \left( \mathbf{b}_{\widetilde{\mathrm{p}}}^i \left( \widehat{\bm{\theta}} \right) \big|_{\left[1\right]} - b_{\widetilde{\mathrm{p}}} \right)^2 } }{N_{MC}\left( N_{MC}-1 \right)}  } , \end{aligned} \end{equation}
+The step input bias and variance predictions from observed data $b_{\widetilde{\mathrm{p}}}$ and $v_{\widetilde{\mathrm{p}}}$, and the associated standard error $\sigma_{\widetilde{\mathrm{p}}\mathrm{,err}}$, are obtained from
+\begin{equation} \begin{aligned} & b_{\widetilde{\mathrm{p}}} = \frac{1}{N_{MC}} \sum_{i=1}^{N_{MC}}{ \mathbf{b}_{\widetilde{\mathrm{p}}}^i \left( \widehat{\bm{\theta}} \right) \big|_{\left[1\right]} }, \ v_{\widetilde{\mathrm{p}}} = \frac{1}{N_{MC}} \sum_{i=1}^{N_{MC}}{ \mathrm{\mathbf{C}}_{\widetilde{\mathrm{p}}}^i \left( \widehat{\bm{\theta}} \right) \big|_{\left[1,1\right]} },  \\ & \mathrm{and} \quad \sigma_{\widetilde{\mathrm{p}}\mathrm{,err}} = \sqrt{   \frac{ \sum_{i=1}^{N_{MC}}{ \left( \mathbf{b}_{\widetilde{\mathrm{p}}}^i \left( \widehat{\bm{\theta}} \right) \big|_{\left[1\right]} - b_{\widetilde{\mathrm{p}}} \right)^2 } }{N_{MC}\left( N_{MC}-1 \right)}  } , \end{aligned} \end{equation}
 where $\widetilde{\mathbf{b}}_{\mathrm{p}}^i \left( \widehat{\bm{\theta}} \right) \big|_{\left[1\right]}$ is the first element in the bias vector and $\widetilde{\mathbf{C}}_{\mathrm{p}}^i \left( \widehat{\bm{\theta}} \right) \big|_{\left[1,1\right]}$ is the first element in the covariance matrix obtained in the $i-\mathrm{th}$ approximations.
 The predicted bias and variance from exact data are obtained with one evaluation of the expressions
 (\ref{eqn:biasE}) and (\ref{eqn:varE})
@@ -173,46 +184,46 @@ The predicted bias and variance from exact data are obtained with one evaluation
 The uncertainty of the step input estimate is defined as the spread of the estimates that is given by the predicted variance $v_{\mathrm{p}}$.
 
 Figure \ref{bias_sigma_sim_unstr_str_n2} shows the empirical bias, the bias predictions and the standard errors of the MC simulation.
-It can be seen that the empirical bias $b_\mathrm{e}$ and the predicted bias $b_{\widetilde{\mathrm{p}}}$ are proportional to the perturbation noise variance while the standard errors $\sigma_\mathrm{e}$ and $\sigma_{\widetilde{\mathrm{p}}}$ are proportional to the perturbation noise standard deviation.
+It can be seen that the empirical bias $b_\mathrm{e}$ and the predicted bias $b_{\widetilde{\mathrm{p}}}$ are proportional to the perturbation noise variance while the standard errors $\sigma_\mathrm{e,err}$ and $\sigma_{\widetilde{\mathrm{p}}\mathrm{,err}}$ are proportional to the perturbation noise standard deviation.
 For SNR below 40 dB there is a difference of a small order of magnitude between the empirical bias $b_\mathrm{e}$ and the bias prediction $b_{\widetilde{\mathrm{p}}}$. 
 
-The standard errors of the MC simulation $\sigma_\mathrm{e}$ and $\sigma_{\widetilde{\mathrm{p}}}$ are smaller than  $b_\mathrm{e}$ and $b_{\widetilde{\mathrm{p}}}$.
+The standard errors of the MC simulation $\sigma_\mathrm{e,err}$ and $\sigma_{\widetilde{\mathrm{p}}\mathrm{,err}}$ are smaller than  $b_\mathrm{e}$ and $b_{\widetilde{\mathrm{p}}}$.
 The estimates are spread near the sample mean and the uncertainty is smaller than the bias. 
 Therefore, the empirical bias of the MC simulation is meaningful.
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=1.0\columnwidth]{./ChapterExperimentalValidation/fig/Fig_2.pdf} 
+\includegraphics[width=0.69\columnwidth]{./ChapterExperimentalValidation/fig/Fig_2.pdf} 
 \caption{ \label{bias_sigma_sim_unstr_str_n2} 
-The results of the Monte Carlo simulation of the step input estimation method are the empirical bias $b_{\mathrm{e}}$, the predicted bias using exact data $b_{\mathrm{p}}$, the predicted bias using measured data $b_{\widetilde{\mathrm{p}}}$, the empirical standard error $\sigma_{\mathrm{e}}$, and the predicted standard error $\sigma_{\widetilde{\mathrm{p}}}$. The estimation biases are proportional to the perturbation variance and the estimation standard errors are proportional to the perturbation standard deviation. Since the standard errors are smaller than the biases, the MC simulation is meaningful.  }
+The results of the Monte Carlo simulation of the step input estimation method are the empirical bias $b_{\mathrm{e}}$, the predicted bias using exact data $b_{\mathrm{p}}$, the predicted bias using measured data $b_{\widetilde{\mathrm{p}}}$, the empirical standard error $\sigma_{\mathrm{e,err}}$, and the predicted standard error $\sigma_{\widetilde{\mathrm{p}}\mathrm{,err}}$. The estimation biases are proportional to the perturbation variance and the estimation standard errors are proportional to the perturbation standard deviation. Since the standard errors are smaller than the biases, the MC simulation is meaningful.  }
 \end{figure}
 
 The mean squared error (MSE) of the step input estimate, defined as
 \begin{equation} \mathrm{MSE} = b^2 + v,   \end{equation}
-where $b$ and $v$ are the bias and the variance of the step input estimate, can be applied to the obtained empirical and predicted results and can be compared to the Cram\'er-Rao lower bound (CRB).
-Figure \ref{fig:MSE_CRB} shows that $\mathrm{MSE}_\mathrm{e} = b_\mathrm{e}^2 + v_\mathrm{e}$ and $\mathrm{MSE}_{\widetilde{\mathrm{p}}}  = b_{\widetilde{\mathrm{p}}}^2 + v_{\widetilde{\mathrm{p}}}$ have the same proportionality with respect to the measurement noise variance as the bound for an unbiased estimator $\mathrm{CRB_{ub}}$.
+where $b$ and $v$ are the bias and the variance of the step input estimate, can be applied to the obtained empirical and predicted results and can be compared to the Cram\'er-Rao lower bound (CRLB).
+Figure \ref{fig:MSE_CRLB} shows that $\mathrm{MSE}_\mathrm{e} = b_\mathrm{e}^2 + v_\mathrm{e}$ and $\mathrm{MSE}_{\widetilde{\mathrm{p}}}  = b_{\widetilde{\mathrm{p}}}^2 + v_{\widetilde{\mathrm{p}}}$ have the same proportionality with respect to the measurement noise variance as the bound for an unbiased estimator $\mathrm{CRLB_{ub}}$.
 For SNR above 35 dB, $\mathrm{MSE}_\mathrm{e}$ and $\mathrm{MSE}_{\widetilde{\mathrm{p}}}$ are equivalent, and below 35 dB the difference between them is of less than a factor of 10.
 
-We obtained an approximation of the $\mathrm{CRB}_{\mathrm{b}}$ for our biased estimator using the partial derivative of the bias in expression (\ref{eqn:biasST}).
-Figure \label{fig:MSE_CRB} shows that the bounds for the unbiased and biased estimators are almost equal because the partial derivatives of the bias are negligible w.r.t. 1 in Equation (\ref{eqn:CRB_EIV}).
-By adding the square of the predicted bias to the biased estimator bound $\mathrm{CRB_{b}}$ we obtain an approximation of the minimum MSE that the biased estimator can achieve.
-This minimum MSE is close to the CRBs for large SNR but the square of the bias causes an increase of the MSE around 35 dB.
-The differences between the CRBs and $\mathrm{MSE}_\mathrm{e}$ and $\mathrm{MSE}_{\widetilde{\mathrm{p}}}$ are of one order of magnitude for large SNR and become small for SNR lower than 40 dB.
+We obtained an approximation of the $\mathrm{CRLB}_{\mathrm{b}}$ for our biased estimator using the partial derivative of the bias in expression (\ref{eqn:biasST}).
+Figure \label{fig:MSE_CRLB} shows that the bounds for the unbiased and biased estimators are almost equal because the partial derivatives of the bias are negligible w.r.t. 1 in Equation (\ref{eqn:CRLB_EIV}).
+By adding the square of the predicted bias to the biased estimator bound $\mathrm{CRLB_{b}}$ we obtain an approximation of the minimum MSE that the biased estimator can achieve.
+This minimum MSE is close to the CRLBs for large SNR but the square of the bias causes an increase of the MSE around 35 dB.
+The differences between the CRLBs and $\mathrm{MSE}_\mathrm{e}$ and $\mathrm{MSE}_{\widetilde{\mathrm{p}}}$ are of one order of magnitude for large SNR and become small for SNR lower than 40 dB.
 This difference is the cost of solving a structured EIV problem with a simple LS method.
-%Therefore, for large measurement noise variance, the step input estimation method produces results that are comparable to maximum-likelihood estimation, since $\mathrm{MSE}_{\widetilde{\mathrm{p}}} \approx \mathrm{CRB_{b}} + b_{\widetilde{\mathrm{p}}}^2$.
+%Therefore, for large measurement noise variance, the step input estimation method produces results that are comparable to maximum-likelihood estimation, since $\mathrm{MSE}_{\widetilde{\mathrm{p}}} \approx \mathrm{CRLB_{b}} + b_{\widetilde{\mathrm{p}}}^2$.
 
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=1.0\columnwidth]{./ChapterExperimentalValidation/fig/Fig_3.pdf}
-\caption{\label{fig:MSE_CRB} The observation instant is fixed at 500 samples.
+\includegraphics[width=0.69\columnwidth]{./ChapterExperimentalValidation/fig/Fig_3.pdf}
+\caption{\label{fig:MSE_CRLB} The observation instant is fixed at 500 samples.
 The bias and the MSEs decrease for large SNR. 
 The empirical $\mathrm{MSE_e}$ and the predicted $\mathrm{MSE}_{\widetilde{\mathrm{p}}}$ of the step input estimation are one order of magnitude larger than the Cram\'er-Rao lower bound.
-Adding the CRB for a biased estimator with the predicted bias squared we have the minimum MSE, that grows in the interval [25 dB, 45 dB].
-Below 35 dB the difference between $\mathrm{MSE}_{\widetilde{\mathrm{p}}}$ and the CRB is less than a factor of 10.}
+Adding the CRLB for a biased estimator with the predicted bias squared we have the minimum MSE, that grows in the interval [25 dB, 45 dB].
+Below 35 dB the difference between $\mathrm{MSE}_{\widetilde{\mathrm{p}}}$ and the CRLB is less than a factor of 10.}
 \end{figure}
 
-There are two features of the system step response that make the CRB small.
+There are two features of the system step response that make the CRLB small.
 One is the measurement noise variance and the second is sample size.
 The estimation from step response perturbed with small noise variance has lower uncertainty.
 Also, using larger sample size to perform the estimation boils down to smaller estimation uncertainty.
@@ -264,7 +275,7 @@ order at second minimum & 40 & 35 & 40 & 31 \\
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=\columnwidth]{./ChapterExperimentalValidation/fig/Fig_4.pdf} 
+\includegraphics[width=0.69\columnwidth]{./ChapterExperimentalValidation/fig/Fig_4.pdf} 
 \caption{ \label{fig:msee_vs_n_sim} 
 The simulated step responses of a $\mathrm{5-}th$ order system are processed by the step input estimation method using different orders $n$ and independent noise realizations. 
 The perturbation of the step responses is Gaussian white noise with SNRs of 30, 40, 50, and 60 dB.
@@ -282,7 +293,7 @@ These results suggest that, during the setup of the estimation method, we have t
 
 \section{Practical implementation} 
 An experimental setup was constructed to test the step input estimation method.
-The implementation is a weighing system that uses a load cell Tedea Huntleigh 1004 \citep{tedea1004}.
+The implementation is a weighing system that uses a load cell Tedea Huntleigh 1004, whose specifications are found in  \citet{tedea1004}.
 The maximum rating of the load cell is 600 g.
 A cylindrical aluminium object of 138.32 g of mass was used to excite the load cell.
 This value was found by calibration using a balance KERN PCB 200-2 that has an uncertainty of 0.01 g.
@@ -349,12 +360,13 @@ The low-pass filter prevents the aliasing noise in the measured transient respon
 The signal obtained from the conditioning amplifier is considered to be the response of the sensor.
 The sensor responses to step excitations were sampled with a frequency of $f_s=4$ kHz, and therefore the Nyquist frequency is 2 kHz.
 The step responses were collected and stored as datasets for further analysis.
+\color{blue}The datasets, and the code used to generate the results in this section \href{https://drive.google.com/drive/folders/1EfQb4nccg6x4kGcZropKRug3WkeNGX-m?usp=sharing}{\color{blue}are publicly available} in the sense of reproducible research research in the following url: \href{https://drive.google.com/drive/folders/1EfQb4nccg6x4kGcZropKRug3WkeNGX-m?usp=sharing}{https://drive.google.com/drive/folders/1EfQb4nccg6x4kGcZropKRug3WkeNGX-m?usp=sharing}\color{black}.  
 The number of samples collected for each step response is $N=20000$.
 For practical purposes, we consider that the last 10000 samples correspond to the steady state response.
 %The datasets are available in the following repository: %[[https://www.dropbox.com/sh/0dlam0rqqiynyiq/AAAq0H9rFxpkQON4zkmPXPXXa?dl=0][dropbox folder]]. 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=1.0\columnwidth]{./ChapterExperimentalValidation/fig/Fig_6.pdf} 
+\includegraphics[width=0.69\columnwidth]{./ChapterExperimentalValidation/fig/Fig_6.pdf} 
 \caption{ \label{fig:uh_exp} 
 Above: a typical measured sensor transient response $\widetilde{y}$ takes more than 1.25 s (5000 samples, $f_s = 4$ kHz) to converge to the steady state response. 
 Below: the relative error of the input estimate $\widehat{u}$ is smaller than 0.2\% from 300 samples.
@@ -364,8 +376,8 @@ We consider that at $500$ samples the relative error of the estimate $\widehat{u
 The step input estimation method processed 100 measured sensor step responses, assuming the sensor is of $\mathrm{7-}th$ order.
 Figure \ref{fig:uh_exp} shows a typical measured transient response $\widetilde{y}$ and an example of the estimated input $\widehat{u}$.
 
-The empirical bias $b_{\mathrm{e}}$ is the difference between the average of the 100 estimates $\widehat{u}$ and the mass calibration value $u = 138.32$ g, at each instant of time, and the standard error $\sigma_\mathrm{e}$ is the standard deviation of the mean estimate of the responses processed, i.e.,
-\begin{equation} \begin{aligned} \widehat{\mu}_{e} &= \frac{1}{100} \sum_{i=1}^{100}{ \widehat{u}_{i} }, \quad {b}_{\mathrm{e}} = \widehat{\mu}_{e} - u, \quad \mathrm{and} \\  \sigma_{\mathrm{e}} &= \frac{\widehat{\sigma}}{\sqrt{100}}, \quad \mathrm{where} \ \widehat{\sigma}^2 = \frac{1}{99} \sum_{i=1}^{100}{ \left( \widehat{u}_i - \widehat{\mu}_{e} \right)^2 } . \end{aligned} \end{equation}
+The empirical bias $b_{\mathrm{e}}$ is the difference between the average of the 100 estimates $\widehat{u}$ and the mass calibration value $u = 138.32$ g, at each instant of time, and the standard error $\sigma_\mathrm{e,err}$ is the standard deviation of the mean estimate of the responses processed, i.e.,
+\begin{equation} \begin{aligned} \widehat{\mu}_{\mathrm{e}} &= \frac{1}{100} \sum_{i=1}^{100}{ \widehat{u}_{i} }, \quad {b}_{\mathrm{e}} = \widehat{\mu}_{\mathrm{e}} - u, \quad \mathrm{and} \\  \sigma_{\mathrm{e,err}} &= \frac{\widehat{\sigma_\mathrm{e}}}{\sqrt{100}}, \quad \mathrm{where} \ \widehat{\sigma_\mathrm{e}}^2 = \frac{1}{99} \sum_{i=1}^{100}{ \left( \widehat{u}_i - \widehat{\mu}_{\mathrm{e}} \right)^2 } . \end{aligned} \end{equation}
 
 
 The bias $\widetilde{b}_{\mathrm{p}}$ and variance $\widetilde{v}_{\mathrm{p}}$ predictions from the measured data were obtained by processing off-line the 100 measured sensor transient step responses with expressions (\ref{eqn:biasST}) and (\ref{eqn:varST}).
@@ -376,12 +388,12 @@ Computing the noise variance from the steady state response we observed that the
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=1.0\columnwidth]{./ChapterExperimentalValidation/fig/Fig_7.pdf}
+\includegraphics[width=0.69\columnwidth]{./ChapterExperimentalValidation/fig/Fig_7.pdf}
 \caption{ \label{fig:y_ss} 
 From the sensor steady-state response an estimation of the measurement noise variance is obtained.}
 \end{figure}
 
-Figure \ref{fig:b_sigma_exp_str} shows the empirical bias $b_{\mathrm{e}}$ and the standard error $\sigma_{\mathrm{e}}$ that result after processing the first $T=500$ samples of the 100 measured step responses $\widetilde{\mathbf{y}}$.
+Figure \ref{fig:b_sigma_exp_str} shows the empirical bias $b_{\mathrm{e}}$ and the standard error $\sigma_{\mathrm{e,err}}$ that result after processing the first $\color{blue}N\color{black}=500$ samples of the 100 measured step responses $\widetilde{\mathbf{y}}$.
 The standard error is smaller than the bias.
 As it was observed in the MC simulation, this is the uncertainty of the estimation method.
 The oscillations observed in the bias are mainly due to the transient response and not to the measurement noise.
@@ -394,9 +406,9 @@ The estimation errors decrease as more data is processed.
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=1.0\columnwidth]{./ChapterExperimentalValidation/fig/Fig_8.pdf} 
+\includegraphics[width=0.69\columnwidth]{./ChapterExperimentalValidation/fig/Fig_8.pdf} 
 \caption{ \label{fig:b_sigma_exp_str} 
-The results of estimating the step input level after processing 100 measured step responses are the empirical bias $b_{\mathrm{e}}$ and the empirical standard error $\sigma_{\mathrm{e}}$. 
+The results of estimating the step input level after processing 100 measured step responses are the empirical bias $b_{\mathrm{e}}$ and the empirical standard error $\sigma_{\mathrm{e,err}}$. 
 The estimation bias and the estimation standard error decrease as more samples are processed. 
 The estimation bias is affected by the transient effects of the sensor response.  
 The values of $b_{\mathrm{e}}$ and $\sigma_{\mathrm{e}}$ provide the estimate accuracy and uncertainty for a given sample size.
@@ -417,7 +429,7 @@ The vibrations captured from the environment explain the accumulation of energy 
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=1.0\columnwidth]{./ChapterExperimentalValidation/fig/Fig_9.pdf}
+\includegraphics[width=0.69\columnwidth]{./ChapterExperimentalValidation/fig/Fig_9.pdf}
 \caption{ \label{fig:YYhR_n7} 
 The power spectra of a measured response $\widetilde{\mathbf{Y}}_\mathrm{dB}$, a simulated response $\widehat{\mathbf{Y}}_\mathrm{dB}$, and the residual $\mathbf{R}_\mathrm{dB}$ is not flat and then the measurement noise is not white. 
 The average of the residual power spectrum provides a conservative estimate of the measurement noise variance $\widehat{\sigma}_\epsilon^2$, represented with the dotted line.}
@@ -436,33 +448,33 @@ Therefore, we assume that the SNR of the measured transient responses is 50 dB i
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=1.0\columnwidth]{./ChapterExperimentalValidation/fig/Fig_10.pdf}
+\includegraphics[width=0.69\columnwidth]{./ChapterExperimentalValidation/fig/Fig_10.pdf}
 \caption{ \label{fig:meas_SNR} 
 The mean value of the signal-to-noise ratios estimated from the residual power spectra is 50 dB.
 We consider that this is the estimated SNR of the measured step responses.}
 \end{figure}
 
 The 5 dB difference provides a conservative bound since the bias and variance computed from 50 dB of SNR are higher than those obtained using the variance estimation from the steady-state response. 
-Figure \ref{fig:b_sigma_exp_str2} shows a comparison of the results obtained with both measurement noise variance estimations after processing the first $T=500$ samples of the step response $\widetilde{\mathbf{y}}$.
+Figure \ref{fig:b_sigma_exp_str2} shows a comparison of the results obtained with both measurement noise variance estimations after processing the first $\color{blue}N\color{black}=500$ samples of the step response $\widetilde{\mathbf{y}}$.
 Using expression (\ref{eqn:biasST}), the bias prediction  $b_{\widetilde{\mathrm{p}}2}$ obtained using an SNR of 50 dB approximates more closely the empirical bias than $b_{\widetilde{\mathrm{p}}1}$ obtained using an SNR of 55dB.
-In accordance, the standard error of the bias predictions $\sigma_{\widetilde{\mathrm{p}}2}$ is larger than $\sigma_{\widetilde{\mathrm{p}}1}$ and is a conservative measure of the input estimation uncertainty.
+In accordance, the standard error of the bias predictions $\sigma_{\widetilde{\mathrm{p}}\mathrm{,err2}}$ is larger than $\sigma_{\widetilde{\mathrm{p}}\mathrm{,err1}}$ and is a conservative measure of the input estimation uncertainty.
 In conclusion, using the noise variance estimated from the residual prevents underestimating the step input estimation uncertainty.
 
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=1.0\columnwidth]{./ChapterExperimentalValidation/fig/Fig_11.pdf} 
+\includegraphics[width=0.69\columnwidth]{./ChapterExperimentalValidation/fig/Fig_11.pdf} 
 \caption{ \label{fig:b_sigma_exp_str2} 
 Comparative view of the bias prediction using two different noise variance estimations. 
-Estimating the variance from the step response residual gives a bias prediction $b_{\widetilde{\mathrm{p}}2}$ and a standard error $\sigma_{\widetilde{\mathrm{p}}2}$ that are slightly higher than using the noise variance estimated from the steady state response $\sigma_{\widetilde{\mathrm{p}}1}$ and $\sigma_{\widetilde{\mathrm{p}}1}$. 
+Estimating the variance from the step response residual gives a bias prediction $b_{\widetilde{\mathrm{p}}2}$ and a standard error $\sigma_{\widetilde{\mathrm{p}}\mathrm{,err2}}$ that are slightly higher than $b_{\widetilde{\mathrm{p}}1}$ and $\sigma_{\widetilde{\mathrm{p}}\mathrm{,err1}}$ which correspond to computations that use the noise variance estimated from the steady state response. 
 The bias prediction $b_{\widetilde{\mathrm{p}}2}$ approximates better the empirical bias. 
-The standard error $\sigma_{\widetilde{\mathrm{p}}2}$ provides a conservative value of the input estimation uncertainty. }
+The standard error $\sigma_{\widetilde{\mathrm{p}}\mathrm{,err2}}$ provides a conservative value of the input estimation uncertainty. }
 \end{figure}
 
 
 We investigated another aspect of the step input estimation method performance when processing measured step responses.
 The step input estimation method requires an assumption of the generating system order in the formulation of the estimation problem (\ref{eqn:min_seiv}).
-The estimation method performance is assessed under different assumptions of the values of $n$ in the interval from 2 to 10. 
+The estimation method performance is assessed under different assumptions of the values of $n$ in the interval from 2 to 100. 
 For each value of $n$, 100 step input estimations are computed from measured transient responses and the empirical MSEs are compared.
 Figure \ref{fig:msee_vs_n_exp} shows that, similar to the observations made in the simulation study, the MSEs have two local minima at $n=7$ and $n=48$.
 It is recommended to use $n = 7$ in the estimation method to provide a small estimation MSE without the higher computational complexity that $n=48$ implies.
@@ -470,7 +482,7 @@ It is recommended to use $n = 7$ in the estimation method to provide a small est
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=1.0\columnwidth]{./ChapterExperimentalValidation/fig/Fig_12.pdf} 
+\includegraphics[width=0.69\columnwidth]{./ChapterExperimentalValidation/fig/Fig_12.pdf} 
 \caption{ \label{fig:msee_vs_n_exp} 
 The hundred measured sensor step responses are processed by the step input estimation method for different values of the order $n$. 
 The empirical squared bias (solid) and the empirical variance (dashed) are shown on the left and the empirical MSE on the right.
