@@ -87,14 +87,14 @@ For illustration purposes, Figures \ref{fig:thermometer} and \ref{fig:scale} sho
 \centering
 \includegraphics[width=0.69\columnwidth]{./ChapterIntroduction/fig/Fig_2.pdf} 
 \caption{ \label{fig:thermometer} 
-\color{blue} This simulation shows an example of the temperature change experimented by a thermometer, with $k_{\mathrm{T}}=0.5 s^{-1}$, caused by a step input of 67 $^{\circ} \mathrm{C}$  when the thermometer was initially at 23 $^{\circ} \mathrm{C}$. In this example, we should wait 10 s to have an estimation of the input with a relative error lower than 0.5 \%. \color{black} }
+\color{blue} This simulation shows an example of the temperature change experimented by a thermometer, with $k_{\mathrm{T}}=0.5 s^{-1}$, caused by a step input of 67 $^{\circ} \mathrm{C}$  when the thermometer was initially at 23 $^{\circ} \mathrm{C}$. In this example, we should wait 10 s to have an estimation of the input with a relative error lower than 0.5\%. \color{black} }
 \end{figure}
 
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.69\columnwidth]{./ChapterIntroduction/fig/Fig_3.pdf} 
 \caption{ \label{fig:scale} 
-\color{blue} This simulation illustrates the displacement observed when a constant input $u=1 \mathrm{kg}$ is applied to a weighing sensor in equilibrium. The sensor parameters are $k_{\mathrm{d}} = 5 \ \mathrm{N \ s/m}$, $m = 5 \ \mathrm{g}$, and $k_{\mathrm{s}} = 10250 \ \mathrm{N/m}$. In this conditions, the user has to wait more that 2 s to observe a stabilization on the scale and to estimate the mass from reading the final value of the displacement with a relative error smaller than 0.72 \%. \color{black}  }
+\color{blue} This simulation illustrates the displacement observed when a constant input $u=1 \mathrm{kg}$ is applied to a weighing sensor in equilibrium. The sensor parameters are $k_{\mathrm{d}} = 5 \ \mathrm{N \ s/m}$, $m = 5 \ \mathrm{g}$, and $k_{\mathrm{s}} = 10250 \ \mathrm{N/m}$. In this conditions, the user has to wait more that 2 s to observe a stabilization on the scale and to estimate the mass from reading the final value of the displacement with a relative error smaller than 0.72\%. \color{black}  }
 \end{figure}
 
 In \citet{Eichstadt12} an illustration on a force measurement sensor can be found. 
@@ -109,7 +109,7 @@ The response of this sensor to a unit step input, shown in Figure \ref{fig:force
 \centering
 \includegraphics[width=0.69\columnwidth]{./ChapterIntroduction/fig/Fig_4.pdf} 
 \caption{ \label{fig:force} 
-\color{blue} The simulation of a force sensor based on a double mass-spring system in cascade also shows that the stabilization after a unit step input is not instantaneous. In the plot we infer that the user has to wait 5 s to estimate the force from the sensor response that is 0.25 \% far from its value in equilibrium. \color{black}  }
+\color{blue} The simulation of a force sensor based on a double mass-spring system in cascade also shows that the stabilization after a unit step input is not instantaneous. In the plot we infer that the user has to wait 5 s to estimate the force from the sensor response that is 0.25\% far from its value in equilibrium. \color{black}  }
 \end{figure}
 
 The handbook of sensors written by \citet{Fraden16Book} describes a pressure sensor that detects sudden changes in the pressure inside a room.
@@ -120,7 +120,7 @@ An experimental identification of such a flowmeter is described in \citet{Wiklun
 \end{equation}  
 where $\tau_{delay} = 0.07$ s is the dead time, and $\tau_{1} = 0.01$ s and $\tau_{2} = 1.6$ s are two time constants.
 The step response simulation of this dynamic model results in the sensor step response shown in Figure \ref{fig:pressure}.  
-We have a response to a unit step function that is mostly and increasing exponential that requires 7 s approximately to reach a value that is 98.7 \% ot its maximum value.
+We have a response to a unit step function that is mostly and increasing exponential that requires 7 s approximately to reach a value that is 98.7\% of its maximum value.
 
 \begin{figure}[!htbp]
 \centering
@@ -242,22 +242,18 @@ All these works propagate the uncertainty through the filter, but it is also nec
 
 
 
-\section{Original contributions}
+\section{Original contributions \color{blue}and organization of the thesis\color{black}}
 
 % Preview of the thesis contents and location of the developed topics in relation to the state of the art 
 
 This thesis describes research work initiated after the data-driven step input estimation method proposed by \citet{Markovsky15cep}.
 This method aims for metrology applications but it lacked an uncertainty assessment, and, therefore, its appropriateness was questionable.
-The first research work conducted was a statistical analysis to elucidate the bias and the covariance of the estimate that the data-driven step input estimation method provides.
-After obtaining these statistical moments, the estimation uncertainty was assessed, and thus, the effectiveness of the method was appraised.
-The second research work was a series of experiments conducted to validate the data-driven step input estimation method in real-life applications.
-The experiments were realizations of the step input excitation using temperature and mass sensors.
-The step input estimation method showed robustness when the measurement noise is not Gaussian and white, as it was assumed in the theoretical analyses.
-The third research work conducted was the estimation of affine input parameters following the data-driven approach for real-time applications. 
-The data-driven method uses exponential weighing in the recursive least-squares solution of a structured errors-in-variables problem, to give preference to recent samples over the older samples.
-The methodology and performance of the data-driven affine input estimation method were compared to those of a maximum-likelihood method.
+\color{blue}A description of the data-driven step input estimation method is presented in Chapter 3\color{black}.
 
 \subsection{Statistical analysis}
+
+\color{blue}Chapter 4 describes \color{black} the first research work conducted that is a statistical analysis of the data-driven step input estimation method, aiming to elucidate the bias and the covariance of the input estimation.
+After obtaining these statistical moments, the estimation uncertainty was assessed, and thus, the effectiveness of the method was appraised.
 
 The data-driven step input estimation method formulates a structured errors-in-variables (EIV) problem.
 In linear estimation EIV problems, the measurement noise perturbs the regression matrix and the regressor, as it is detailed in \citet{VanHuffel91Book} and \citet{Markovsky07overview}.
@@ -269,13 +265,29 @@ The perturbations in the formulated EIV problem come from the sensor output, sin
 The structure in the regression matrix is block-Hankel.
 The data-driven direct estimation methodology  estimates the input faster than the classical two-stage approach described in \citet{Azam15} and \citet{Niedzwiecki16a}, which first identifies a sensor model and later estimates the input using the sensor model.
 
-Instead of using a total least-squares (TLS) solution of the structured EIV problem, the step input estimation method uses the recursive least-squares solution (RLS). 
+Instead of using a total least-squares (TLS), \color{blue} or an intrumental variables \color{black}, solution of the structured EIV problem, the step input estimation method uses the recursive least-squares solution (RLS). 
 In the review conducted by \citet{Markovsky07overview} it is shown that the TLS solution of unstructured EIV problems is consistent when the perturbations have zero mean with a given positive definite covariance, and
-the TLS solution is equivalent to the maximum likelihood (ML) solution when the disturbances of the EIV problems are i.i.d. normally distributed . 
-However, the studies of structured EIV problems presented in \citet{VanHuffel07TLSeditorial} demonstrate that the TLS estimator does not give general results since each structure requires a specific treatment. 
-Moreover, \citet{Rhode14recursive} found that the ML estimator leads to non-convex optimization when applied to structured EIV problems, and the global optimum is not guaranteed.
-Also, the computational complexity of TLS and ML inhibits their real-time implementation.
-Thus, the least-squares (LS) estimator is a suboptimal but simple solution to structured EIV problems that admits a recursive form (RLS) suitable for real-time implementation.
+the TLS solution is equivalent to the maximum likelihood (ML) solution when the disturbances of the EIV problems are i.i.d. normally distributed. 
+\color{blue} The classical TLS solution is obtained using singular value decomposition of the augmented matrix built from the regression matrix and the regressor as additional columns\color{black}.
+However, the studies presented in \citet{VanHuffel07TLSeditorial} demonstrate that the structured TLS solutions cannot be generalized since each structure in an EIV problem requires a specific treatment. 
+Moreover, the ML estimator of structured EIV problems leads to non-convex optimization, and the global optimum is not guaranteed \cite{Beck10}.
+\color{blue} On the other hand, the instrumental variable (IV) solution of EIV problems use an additional variable.
+The additional variable is an instrument with the purpose of removing the bias of the estimate.
+To do this, the construction of the instrumental variable has to be done in such a way that it is uncorrelated with the perturbations and correlated with the regressor, as it is described in \citet{Soderstrom18}. 
+\color{black} 
+Unfortunately, the computational complexity of the TLS, ML, and IV solutions inhibits their real-time implementation.
+
+\color{blue} 
+The solution of the step input estimation problem is preferred to be online, since its applications are in the field of metrology.
+In the literature there are references for online implementations of TLS, ML or IV methods, which are are mainly recursive versions of the solution methods.
+These recursive versions are developed to solve EIV problems for system identification and fault detection.
+We have, for example, the generalized recursive TLS solutions introduced in \citet{Rhode14recursive} and \citet{Rhode14recursivecov}, and the recursive IV solutions developed in \citet{Djouambi12}, \citet{Shang16} and \citet{Gil15}.
+These methods cannot be used as off-the-shelf solutions to the step input estimation EIV problem because they need to be adapted to the specific requirements of the problem.
+One is that the sensor output is the only measured signal, since the input is to-be estimated, and the solution should be simpler, preferable with a linear complexity $O(n)$, instead of the cubic $O(n^3)$ or cuadratic $O(n^2)$ complexities of the mentioned recursive methods, where $n$ is the sensor order.
+The proposal of the data-driven step input estimation method includes the recursive least-squares (RLS) solution.
+Compared with recursive TLS or recursive IV solutions, RLS is a suboptimal but more simple solution to the structured EIV problem with lower computational complexity,  suitable for real-time implementation.
+\color{black} 
+
 
 The previously published works that propose LS estimators to solve structured EIV problems do not study the required statistical moments to know the uncertainty of the data-driven step input estimation method.
 In the literature we find 
@@ -296,8 +308,11 @@ Using Monte Carlo simulations, we validated the accuracy of the bias and covaria
 These expressions estimate the bias and covariance that the data-driven step input estimation method will exhibit for a given sample size and perturbation level.
 We compared in \citet{QuintanaCSDA} the mean squared error of the LS estimate to the minimum variance specified by the Cram\'er-Rao lower bound of the structured EIV problem, to determine the conditions under which the data-driven step input estimation method is appropriate for practical applications.
 
-
 \subsection{Experimental validation}
+
+\color{blue}Chapter 5 describes \color{black} the second research work that consisted in a series of experiments conducted to validate the data-driven step input estimation method in real-life applications.
+The experiments were realizations of the step input excitation using a mass sensor.
+The step input estimation method showed robustness when the measurement noise is not Gaussian and white, as it was assumed in the theoretical analyses.
 
 The validation of the data-driven step input estimation method in a practical application was necessary to demonstrate the usefulness of the method.
 The method performance was studied in \citet{Markovsky15cep} using simulations and temperature experiments on a digital signal processor (DSP) of low cost.
@@ -358,6 +373,10 @@ We found that the mean squared error (MSE) of the step input estimate is near th
  
 \subsection{Affine input estimation}
 
+\color{blue}Chapter 6 describes \color{black} the third research work conducted to estimate the parameters of an affine input, following the data-driven approach for real-time applications. 
+The data-driven method uses exponential weighing in the recursive least-squares solution of a structured errors-in-variables problem, to give preference to recent samples over the older samples.
+The methodology and performance of the data-driven affine input estimation method were compared to those of a maximum-likelihood method.
+
 A dynamic measurement is present when the fluctuations of the measurand impact on the input estimation, such as when a low-bandwidth sensor is excited with a fast changing input.
 The detection of input characteristics is of interest in several scientific and industrial applications, such as those described for measuring temperature in \citet{Saggin01}, pressure in \citet{Matthews14}, acceleration in \citet{Link07}, force in \citet{Vlajic16}, \citet{Hessling08a}, and mass in \citet{Shu93}, \citet{Boschetti13}.
 
@@ -384,6 +403,40 @@ The ML method is more appropriate for off-line processing of the sensor transien
 it can estimate also the parameters of a sensor model, and the initial conditions of the sensor.
 The main drawback of the ML method is the need of high computational resources.
 
+\subsection{\color{blue}Main findings\color{black}}
+\color{blue}Chapter 7 concludes this thesis work and summarizes the main results obtained in the conducted research. 
 
- 
+The data-driven step input estimation method reduces the input estimation time compared with formulations based on models of the sensor.
+This is because the estimation method does not require to invert the sensor dynamics.
+Instead, an algorithm in a digital signal processor finds directly the step input value from the sensor response.  
+Since the method is not rescricted to a particular sensor model, the method can process the step response of any sensor, and provides the input estimation in different applications. 
+Moreover, the method requires relatively low computational power to process the signal of the sensor.
+For these reasons, the data-driven method is suitable for real-time measurements.
+
+After studying the statistical properties of the step input estimation, we know the accuracy (bias) and the precision (variance) of the results.
+This knowlewdge allows one to understand what is the uncertainty on the step input value that the method estimates.
+We have derived formulas to quantify the bias and the variance of the step input estimation.
+With these formulas we can foresee the bias and standard deviation we will obtain with the method given the number of samples processed and the level of the measurement noise.
+
+The implementation of the bias and variance calculation is illustrated with a real life sensor.
+A weighing system, that uses a load cell sensor, is used to generate real life sensor step responses. 
+The measurement noise observed from this weighing sensor is not Gaussian white noise.
+The study of the estimation method performance with real data suggests what is the method order required to set a proper implementation. 
+
+It was explored the applicability of data-driven methods to estimate an affine input from the sensor response.
+This input model is observed in measurements where the input changes with a constant rate. 
+The signal processing algorithm, studied in the previous stages of the research, was extended to solve the affine input estimation problem.   
+The performance results of the extended method is compared with a maximum-likelihood method that solves the affine input estimation problem using optimization.
+
+We learnt that the data-driven input estimation methods are simple-to-use methods that run on digital signal processors with few computational resources and estimate the unknown inputs in real time, where the estimation uncertainty can be deduced from the amount of data processed and measurement noise variance.  
+
+
+
+
+
+
+\color{black}
+
+
+
 %\newpage

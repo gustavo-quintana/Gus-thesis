@@ -6,11 +6,10 @@
 
 \begin{quote}
 %\vspace{-0.5cm}
-\emph{The results of this chapter were published in Quintana Carapia, G., Markovsky, I. Pintelon, R., Csurcsia, P.Z., and Verbeke, D., "Bias and covariance of the least-squares estimate in a structured errors-in-variables problem", Computational Statistics \& Data Analysis journal, Vol. 144, 2020, ISSN 0167-9473, doi:10.1016/j.csda.2019.106893. \nocite{QuintanaCSDA} }\vfill{}
+\emph{The results of this chapter were published in Quintana Carapia, G., Markovsky, I. Pintelon, R., Csurcsia, P.Z., and Verbeke, D., "Bias and covariance of the least-squares estimate in a structured errors-in-variables problem", Computational Statistics \& Data Analysis journal, Vol. 144, 2020, ISSN 0167-9473, doi:10.1016/j.csda.2019.106893. \nocite{QuintanaCSDA} }%\vfill{}
 \end{quote}
 
-
-%\vfill{}
+\vfill{}
 
 %\section{Introduction}
 
@@ -190,7 +189,7 @@ The expected values $\mathbf{B}_1$, $\mathbf{B}_2$, $\mathbf{B}_3$, $\mathbf{B}_
 \begin{lem} \label{lem:lemma1}
 Let $\mathbf{E} \in \mathbb{R}^{\left(\color{blue}N\color{black}-n\right) \times \left(n+1\right)}$ be the partitioned matrix 
 \[ \mathbf{E} = \begin{bmatrix} \mathbf{0}_{\color{blue}N\color{black}-n \times 1} & \bm{\mathcal{H}}(\bm{\epsilon}) \mathbf{D}_{n+1 \times n}^{1,0} \end{bmatrix}, \]
- where $\bm{\mathcal{H}}(\bm{\epsilon}) \in {\rm I\!R}^{\left(\color{blue}N\color{black}-n\right) \times \left(n+1\right)}$ is the block-Hankel matrix of $\color{blue}N\color{black}-n$ rows and $n$ columns
+ where $\bm{\mathcal{H}}(\bm{\epsilon}) \in \mathbb{R}^{\left(\color{blue}N\color{black}-n\right) \times \left(n+1\right)}$ is the block-Hankel matrix of $\color{blue}N\color{black}-n$ rows and $n$ columns
 \[ \bm{\mathcal{H}}(\bm{\epsilon}) = \begin{bmatrix} \epsilon(0) & \epsilon(1) & \cdots & \epsilon(n) \\ \epsilon(1) & \epsilon(2) & \cdots & \epsilon(n+1) \\ \vdots & \vdots & & \vdots \\ \epsilon(\color{blue}N\color{black}-n-1) & \epsilon(\color{blue}N\color{black}-n) & \cdots & \epsilon(\color{blue}N\color{black}-1) \end{bmatrix} , \]
 constructed from samples of the i.i.d. normally distributed random variable $\bm{\epsilon} \sim \mathcal{N}(0, \sigma_{\bm{\epsilon}}^2)$.
 Let $\mathbf{D}_{r \times c}^{1,d}$ and $\mathbf{D}_{r \times c}^{2,d}$ be the first and second-order finite differences matricial operators of dimensions $r \times c$ starting from the subdiagonal $d$, for example, 
@@ -413,7 +412,7 @@ The standard error of the bias prediction $b_{\widetilde{\mathrm{p}}}$ is given 
 
 The predicted bias $b_{\mathrm{p}} = \mathbf{b}_{\mathrm{p} \left[1\right]}$ and variance $v_{\mathrm{p}} = \mathbf{C}_{\mathrm{p} \left[1,1\right]}$ from exact data are obtained with one evaluation of the expressions (\ref{eqn:biasEu}) and (\ref{eqn:varEu}). %for unstructured EIV problems, or expressions (\ref{eqn:biasST}) and (\ref{eqn:varST}) for the structured EIV problem.
 
-Figure \ref{bias_sigma_NMC_unstr_str_n2} shows the empirical bias and the bias predictions, with their corresponding standard errors, \color{blue} for the unstructured EIV problem\color{black}.
+Figure \ref{fig:bias_sigma_NMC_unstr_str_n2} shows the empirical bias and the bias predictions, with their corresponding standard errors, \color{blue} for the unstructured EIV problem\color{black}.
 The simulation settings for the structured and correlated EIV problem are described in the following subsection.
 In the figure, it can be observed that the empirical bias $b_\mathrm{e}$ is proportional to the perturbation noise variance while the standard error $\sigma_\mathrm{e, err}$ is proportional to the perturbation noise standard deviation.
 The bias predictions $b_\mathrm{p}$ and $b_{\widetilde{\mathrm{p}}}$ are accurate since they coincide with the empirical bias $b_\mathrm{e}$ in all the SNR interval for unstructured EIV problems. 
@@ -424,7 +423,7 @@ The uncertainty is smaller than the bias, therefore, the MC simulation is meanin
 \begin{figure}[htb!]
  \centering
  \includegraphics[width=0.69\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_2.pdf} 
-  \caption{ \label{bias_sigma_NMC_unstr_str_n2} 
+  \caption{ \label{fig:bias_sigma_NMC_unstr_str_n2} 
   We observe the results of the LS solutions \color{blue} for the unstructured EIV problem\color{black}. These results are the empirical bias $b_{\mathrm{e}}$, the predicted bias from exact data $b_{\mathrm{p}}$, the predicted bias from observed data $b_{\widetilde{\mathrm{p}}}$, the empirical standard error $\sigma_{\mathrm{e, err}}$, and the standard error from the estimations using observed data $\sigma_{\widetilde{\mathrm{p}}, \mathrm{err}}$. The estimation biases are proportional to the perturbation variance and the estimation standard errors are proportional to the perturbation standard deviation. Since the standard errors are smaller than the biases, the MC simulation is meaningful. }
 \end{figure}
 
@@ -490,7 +489,7 @@ The empirical bias is the sample mean of the $N_{\mathrm{MC}}$ estimates minus t
 The standard error associated to this empirical bias estimation is defined in \citet{Hammersley75} as 
 \begin{equation} \sigma_\mathrm{e, err} = \frac{\sigma_\mathrm{e} \left( \widehat{u} \right) }{\sqrt{N_{\mathrm{MC}}}}, \quad \mathrm{where} \quad \sigma_\mathrm{e}^2 \left( \widehat{u} \right) = \frac{1}{N_{\mathrm{MC}}-1} \sum_{i=1}^{N_{\mathrm{MC}}}{ \left( { \widehat{u}}_i - \mu \left( \widehat{u} \right) \right)^2 } . \end{equation} 
 
-The plots \color{blue} in \color{black} Figure \ref{bias_sigma_NMC_str_str_n2} show the empirical bias, the bias predictions (\ref{eqn:biasE}) and (\ref{eqn:biasST}), and their corresponding standard errors, for the structured EIV problem.
+The plots \color{blue} in \color{black} Figure \ref{fig:bias_sigma_NMC_str_str_n2} show the empirical bias, the bias predictions (\ref{eqn:biasE}) and (\ref{eqn:biasST}), and their corresponding standard errors, for the structured EIV problem.
 The empirical bias $b_\mathrm{e}$ is proportional to the perturbation noise variance, and
 the bias predictions $b_\mathrm{p}$ and $b_{\widetilde{\mathrm{p}}}$ coincide with the empirical bias $b_\mathrm{e}$ only for SNR above 40 dB.
 This indicates that the SNR drops to a point where the constraint $\| \mathbf{M} \| < 1$ is no longer satisfied.
@@ -499,7 +498,7 @@ At an SNR of 30 dB the perturbation noise affects the bias prediction from obser
 \begin{figure}[htb!]
  \centering
  \includegraphics[width=0.69\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_7.pdf} 
-  \caption{ \label{bias_sigma_NMC_str_str_n2} 
+  \caption{ \label{fig:bias_sigma_NMC_str_str_n2} 
   We observe the results of the LS solutions \color{blue} for the structured EIV problem\color{black}. These results are the empirical bias $b_{\mathrm{e}}$, the predicted bias from exact data $b_{\mathrm{p}}$, the predicted bias from observed data $b_{\widetilde{\mathrm{p}}}$, the standard error $\sigma_{\mathrm{e,err}}$ of the empirical bias, and the standard error $\sigma_{\widetilde{\mathrm{p}} \mathrm{,err}}$ of the the estimations bias computed using observed data. The estimation biases are proportional to the perturbation variance and the estimation standard errors are proportional to the perturbation standard deviation. Since the standard errors are smaller than the biases, the MC simulation is meaningful. }
 \end{figure}
 
@@ -541,7 +540,7 @@ In practical applications it is common to have SNRs of 40 dB and the user needs 
 We measure this prediction error with the mean squared error (MSE), defined as
 \begin{equation} \mathrm{MSE} = \sigma^2 + b^2. \end{equation}
  By comparing the different MSEs to the CRLB of the structured EIV problem,
-Figure \ref{fig:MSE_CRLB} shows that the MSEs has the same proportionality as the CRLB with respect to the disturbing noise variance.
+Figure \ref{fig:MSE_CRLB_str_stat} shows that the MSEs has the same proportionality as the CRLB with respect to the disturbing noise variance.
 The MSEs are three times larger than the CRLB.
 Since the difference between $\mathrm{MSE}_{\widetilde{\mathrm{p}}}$ and the CRLB is lower than one order of magnitude, 
 the LS estimation of the structured EIV problem produces results that are comparable to the ML estimation.
@@ -552,11 +551,37 @@ This is due to the constraint violation of the Taylor series expansion.
 \begin{figure}[!htpb]
   \centering
   \includegraphics[width=0.69\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_11.pdf}
-  \caption{\label{fig:MSE_CRLB}
+  \caption{\label{fig:MSE_CRLB_str_stat}
 The mean squared errors of the LS estimate are close to the Cram\'er-Rao lower bound. This is a positive indication of the goodness of the LS estimator for the structured EIV problem. The mean squared error of the empirical estimates is represented by $\mathrm{MSE}_{\mathrm{e}}$, and those of the predictions are $\mathrm{MSE}_{\mathrm{p}}$ and $\mathrm{MSE}_{\widetilde{\mathrm{p}}}$. The $\mathrm{MSE}_{\widetilde{\mathrm{p}}}$ is smaller than CRLB below 40 dB of SNR because of the introduced bias error, but the difference between $\mathrm{MSE}_{\widetilde{\mathrm{p}}}$ and the CRLB is lower than one order of magnitude.}
 \end{figure}
 
 \color{blue}
+
+\subsection{Simulation results observed when the perturbation noise does not concord with the type of perturbation assumed by the derived expressions}
+
+In this section, the numerical study of the expressions that calculate the step input estimation bias and variance considers the situation when the perturbation noise is not in agreement with the assumptions made during the analysis and the derivation of the predicting expressions.  
+In other words, the unstructured perturbation is used in the expressions derived for the structured case, and the structured perturbation is used in the expressions derived for the unstructured case. 
+Two Monte Carlo simulations, each one with $N_{MC} = 10^6$ runs, were conducted and the relevant results are illustrated in Figures \ref{fig:unstrFormula_strData} and \ref{fig:strFormula_unstrData}. 
+It is expected that the performance in these conditions is very far from that obtained when using the expressions in concordance with the perturbation type they were derived for.
+The results confirm this argument, since the relative errors are in general close to 100\%.
+An exception is the variance prediction computed with the formulas derived for the unstructured case, but using structured perturbation. 
+Only in this combination, the relative error of the variance prediction is aroun 10\% for SNR below 70 dB.
+
+
+\begin{figure}[!htpb]
+  \centering
+  \includegraphics[width=0.69\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_12.pdf}
+  \caption{\label{fig:unstrFormula_strData} \color{blue} We observe the results obtained from the Monte Carlo simulation, when the perturbation noise is structured and we use the predicting expressions that were derived assuming the perturbation noise is unstructured. A comparison of the empirical and the predicted bias and variance of the input estimation shows that the prediction formulas fail, since the relative errors between the empirical and the predicted statistical moments are larger than 10\%.}
+\end{figure}
+
+\begin{figure}[!htpb]
+  \centering
+  \includegraphics[width=0.69\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_13.pdf}
+  \caption{\label{fig:strFormula_unstrData} \color{blue} We observe the results obtained from the Monte Carlo simulation, when the perturbation noise is unstructured and we use the prediction expressions that were derived assuming the perturbation noise is structured. A comparison of the empirical and the predicted bias and variance of the input estimation shows that in these conditions, the derived expressions fail to predict the statistical moments. If the perturbation noise does not have the structure assumed by the prediction expressions, the relative error remains high above 10\% in all the SNR interval. }
+\end{figure}
+
+
+
 \subsection{Simulation results for the structured IV solution}
 
 The structured IV problem, with instrumental variable (\ref{eqn:matrixZ_t}), and normal equations (\ref{eqn:neq_siv}), admits also a recursive least-squares solution. 
@@ -569,9 +594,9 @@ Nevertheless, the empirical variance of the two solutions are very close togethe
 
 \begin{figure}[!htpb]
   \centering
-  \includegraphics[width=0.69\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_12.pdf}
-  \includegraphics[width=0.69\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_13.pdf}
   \includegraphics[width=0.69\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_14.pdf}
+  \includegraphics[width=0.69\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_15.pdf}
+  \includegraphics[width=0.69\columnwidth]{./ChapterStatisticalAnalysis/fig/Fig_16.pdf}
   \caption{\label{fig:bvMSE_IV} \color{blue} In a simulation, the solutions of the structured EIV and IV problems are empirically compared. The bias from solving the IV problem is noticeable smaller, by two orders of magnitude, than the one from solving the EIV problem. This argument is valid for SNRs higher that 35 dB. The obtained variances, on the other hand, are very similar in the same SNR interval. As a consequence, the mean-squared errors almost coincide.}
 \end{figure}
 

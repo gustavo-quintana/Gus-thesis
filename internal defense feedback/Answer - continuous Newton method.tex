@@ -1,0 +1,118 @@
+\documentclass[11pt]{article}
+\date{\vspace{-10ex}}
+
+\usepackage{lineno,hyperref}
+\modulolinenumbers[5]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Added lines by Gustavo Quintana to facilitate internal review process
+\usepackage{amsmath, amsfonts, mathtools, hyperref, tikz, pgf, subcaption, mathdots}
+\usepackage[a4paper, total={6.5in, 9in}]{geometry}
+\usepackage{setspace}
+\usetikzlibrary{shapes, arrows, calc, patterns, decorations.pathmorphing, decorations.markings, positioning, external}
+\tikzexternalize
+\tikzset{external/system call={pdflatex \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource" && pdftops -eps "\image.pdf"}}
+\tikzexternalize[shell escape=-enable-write18]
+\usepackage{algorithm, algorithmic, bm}
+%\usepackage[noend]{algpseudocode}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+%\renewcommand{\algorithmicreturn}{\textbf{Initialize:}}
+
+\makeatletter
+\newcommand*\rel@kern[1]{\kern#1\dimexpr\macc@kerna}
+\newcommand*\widebar[1]{%
+  \begingroup
+  \def\mathaccent##1##2{%
+    \rel@kern{0.8}%
+    \overline{\rel@kern{-0.8}\macc@nucleus\rel@kern{0.2}}%
+    \rel@kern{-0.2}%
+  }%
+  \macc@depth\@ne
+  \let\math@bgroup\@empty \let\math@egroup\macc@set@skewchar
+  \mathsurround\z@ \frozen@everymath{\mathgroup\macc@group\relax}%
+  \macc@set@skewchar\relax
+  \let\mathaccentV\macc@nested@a
+  \macc@nested@a\relax111{#1}%
+  \endgroup
+}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% `Elsevier LaTeX' style
+\bibliographystyle{elsarticle-num}
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+  \newenvironment{#1}[1]
+  {%
+   \renewcommand\customgenericname{#2}%
+   \renewcommand\theinnercustomgeneric{##1}%
+   \innercustomgeneric
+  }
+  {\endinnercustomgeneric}
+}
+\newcustomtheorem{customthm}{Theorem}
+\newcustomtheorem{customlemma}{Lemma}
+
+\DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
+
+\begin{document}
+
+
+\title{Question raised during the private PhD defense of \linebreak Gustavo Quintana-Carapia} 
+
+\maketitle
+
+{\bfseries Concerning other sorts of prior estimations, e.g., given by explicit function theorems. I wonder if you could get something and apply this bound in order to control the bound of the 2nd order expansion. There exist some good results that could help you devise something a priori which can control the error you are making. Neuberger's results (quite old now) but may be handy for this kind of problem. This can be investigated further.}
+
+\vspace{0.7cm}
+The investigation of the error bounds for the second order Taylor expansion can be conducted using the continuous Newton method. This is proposed as future research work in Chapter 7.
+\vspace{0.7cm}
+
+\color{blue}
+	Neuberger's paper \cite{Neuberger07} introduces five theorems that are consequence of the continuous Newton method.
+	The Newton method aims to find a zero of the function $F: R^n \rightarrow R^n$ by iterating
+	\begin{equation} z_{k+1} = z_k - \left(F' (z_k) \right)^{-1} F(z_k) \end{equation}
+	for $k=0,1,2,\ldots$, and for a given initial $z_0$, assuming that $\left(F' (y) \right)^{-1}$ exists for some $y \in R^n$.
+	A domain of attraction is the set of all initial values $z_0$ that lead to a root of $F$ after the convergence $z_0, z_1, z_2,\ldots$.
+	The damped Newton method  
+	\begin{equation} z_{k+1} = z_k - \delta_k \left(F' (z_k) \right)^{-1} F(z_k) \end{equation}
+	prevents convergence issues, such as chaotic domains of attraction, with $\delta_1, \delta_2, \ldots \in (0, 1)$. 
+	The continuous Newton method is a sequence of damped Newton methods. To implement the continuous Newton method, select $T>0$ and perfom $m$ runs of the damped Newton method with $\delta_k = T/m$, for $k=1,2,\ldots, m$.
+	The result $z_{k+1}$ is the zero estimation $x_m$, and if the sequence of estimates $x_1, x_2, \ldots$ converges, then it converges to the result of the continuous Newton method.
+	
+	The objective of the continuous Newton method is to find a function $z: [0, \infty) \rightarrow R^n$, so that
+    \begin{equation} z(0) = x \in R^n, \quad z' (t) = - \left(F' (z(t)) \right)^{-1} F(z(t)), \quad t \geq 0, \label{eqn:contNewton}\end{equation}
+    subject to the existence of the limit $u=\mathrm{lim}_{t \rightarrow \infty}{z(t)}$, that satisfies $F(u)=0$.
+    This implies 
+    \begin{equation}  F' (z(t)) z' (t) = - F(z(t)) , \end{equation}
+    that is equivalent to
+    \begin{equation}  \left(F \circ z\right)' (t) = - F(z(t)) , \end{equation}
+    from where we get
+    \begin{equation}  F(z(t)) = e^{-t} F(z(0)) . \end{equation}
+    Thus, the residual $F(z(t))$ only changes in magnitude and not in direction.
+    This property is essential for the results of the theorems in \cite{Neuberger07}. 
+    In particular, Theorem 5 gives the conditions for the continuous Newton method to ensure finding a root of the function.
+    
+    \begin{customthm}{5} \label{thm:five}
+    Suppose that each of $H$, $J$, and $K$ is a Banach space, with $H$ compactly embedded in $J$, that $r>0$, and that $G:B_r(0) \rightarrow K$ is continuous as a function on $J$. Suppose also that $g$ belongs to $K$ and that for each $y$ in $b_r(0)$ there is an $h$ in $B_r(0)$, where $b_r(0)$ and $B_r(0)$ are open and closed balls in $H$ of radius $r$ centered at 0, such that
+    \begin{equation} \lim\limits_{t \to 0+} -{\dfrac{1}{t} \left(G(y+th) - G(y)\right) = g}. \end{equation}
+    Then, there exists $u$ in $B_r(0)$ such that $G(u)=g$.
+    \end{customthm}
+    %$F:B_r(0) \rightarrow K$
+    
+    The theorem implies that $u$ is a zero of the function  defined as $F(y) = G(y) - g$.  
+    Since $G$ is a continuous function and if $\left(G' (y) \right)^{-1}$ exists for each $y$ in $B_r(0)$, a metric for the validity of the Theorem (\ref{thm:five}) hypothesis is the inequality $\left\Vert  \left( G' (y) \right)^{-1} g \right\Vert \leq r$.
+    
+    To link the data-driven step-input estimation problem with this theorem, we can take the system of linear equations $\widetilde{\mathbf{y}} = \widetilde{\mathbf{K}} \bm{\theta}$, then define $G(y) = \widetilde{\mathbf{K}} \bm{\theta}$, and $g = \widetilde{\mathbf{y}}$, so that we have $F(\bm{\theta}) = G(\bm{\theta}) - g$. The derivative of the function $G(\bm{\theta})$ is given by $G'(\bm{\theta}) = \widetilde{\mathbf{K}} \mathbf{I}$. Using the pseudo-inverse of $\widetilde{\mathbf{K}}$, the metric $\left\Vert  \widetilde{\mathbf{K}}^{\dagger} \widetilde{\mathbf{y}} \right\Vert \leq r$ indicates that the estimate $\hat{\bm{\theta}}$ is found inside a ball of radius $r$.
+    The questions that remain open are how large can $r$ be?, and how is the radius $r$ related to the perturbation noise variance? 
+\color{black}
+	
+
+\bibliography{../Gus-thesis.bib}
+
+
+\end{document}

@@ -75,6 +75,87 @@ A topic for future research is the efficiency increase, perhaps by designing fas
 On the other hand, for model-based estimation methods, such as the described ML method that has a high computational cost, there is a need also for efficient implementations to enable online optimization in receding-horizon schemes. 
 With such efficient methods, the practical implementation of the ML methods can become feasible for real-time measurements.
 
+\color{blue}
+\subsection*{Continuous Newton method and the error of the Taylor series expansion}
+
+The investigation of the error bounds for the second order Taylor expansion can be conducted using the continuous Newton method. 
+This is proposed as future research and the motivation is as follows. 
+	
+Neuberger's paper \cite{Neuberger07} introduces five theorems that are a consequence of the continuous Newton method.
+The Newton method aims to find a zero of the function $F: R^n \rightarrow R^n$ by iterating
+\begin{equation} z_{k+1} = z_k - \left(F' (z_k) \right)^{-1} F(z_k) \end{equation}
+for $k=0,1,2,\ldots$, and for a given initial $z_0$, assuming that $\left(F' (y) \right)^{-1}$ exists for some $y \in R^n$.
+A domain of attraction is the set of all initial values $z_0$ that lead to a root of $F$ after the convergence $z_0, z_1, z_2,\ldots$.
+The damped Newton method  
+\begin{equation} z_{k+1} = z_k - \delta_k \left(F' (z_k) \right)^{-1} F(z_k) \end{equation}
+prevents convergence issues, such as chaotic domains of attraction, with $\delta_1, \delta_2, \ldots \in (0, 1)$. 
+The continuous Newton method is a sequence of damped Newton methods. 
+To implement the continuous Newton method, select $0<T<1$ and perfom $m$ runs of the damped Newton method with $\delta_k = T/m$, for $k=1,2,\ldots, m$.
+The result $z_{k+1}$ is the zero estimation $x_m$, and if the sequence of estimates $x_1, x_2, \ldots$ converges, then it converges to the result of the continuous Newton method.
+	
+The objective of the continuous Newton method is to find a function $z: [0, \infty) \rightarrow R^n$, so that
+\begin{equation} z(0) = x \in R^n, \quad z' (t) = - \left(F' (z(t)) \right)^{-1} F(z(t)), \quad t \geq 0, \label{eqn:contNewton}\end{equation}
+subject to the existence of the limit $u=\mathrm{lim}_{t \rightarrow \infty}{z(t)}$, that satisfies $F(u)=0$.
+This implies 
+\begin{equation}  F' (z(t)) z' (t) = - F(z(t)) , \end{equation}
+that is equivalent to
+\begin{equation}  \left(F \circ z\right)' (t) = - F(z(t)) , \end{equation}
+from where we get
+\begin{equation}  F(z(t)) = e^{-t} F(z(0)) . \end{equation}
+Thus, the residual $F(z(t))$ only changes in magnitude and not in direction.
+This property is essential for the results of the theorems in \cite{Neuberger07}. 
+In particular, Theorem 5 gives the conditions for the continuous Newton method to ensure finding a root of the function.
+    
+\begin{customthm}{5} \label{thm:five}
+Suppose that each of $H$, $J$, and $K$ is a Banach space, with $H$ compactly embedded in $J$, that $r>0$, and that $G:B_r(0) \rightarrow K$ is continuous as a function on $J$. Suppose also that $g$ belongs to $K$ and that for each $y$ in $b_r(0)$ there is an $h$ in $B_r(0)$, where $b_r(0)$ and $B_r(0)$ are open and closed balls in $H$ of radius $r$ centered at 0, such that
+\begin{equation} \lim\limits_{t \to 0+} -{\dfrac{1}{t} \left(G(y+th) - G(y)\right) = g}. \end{equation}
+Then, there exists $u$ in $B_r(0)$ such that $G(u)=g$.
+\end{customthm}
+%$F:B_r(0) \rightarrow K$
+    
+The theorem implies that $u$ is a zero of the function  defined as $F(y) = G(y) - g$.  
+Since $G$ is a continuous function and if $\left(G' (y) \right)^{-1}$ exists for each $y$ in $B_r(0)$, a metric for the validity of the Theorem (\ref{thm:five}) hypothesis is the inequality $\left\Vert  \left( G' (y) \right)^{-1} g \right\Vert \leq r$.
+    
+To link the data-driven step-input estimation problem with this theorem, we can take the system of linear equations $\widetilde{\mathbf{y}} = \widetilde{\mathbf{K}} \bm{\theta}$, then define $G(y) = \widetilde{\mathbf{K}} \bm{\theta}$, and $g = \widetilde{\mathbf{y}}$, so that we have $F(\bm{\theta}) = G(\bm{\theta}) - g$. The derivative of the function $G(\bm{\theta})$ is given by $G'(\bm{\theta}) = \widetilde{\mathbf{K}} \mathbf{I}$. Using the pseudo-inverse of $\widetilde{\mathbf{K}}$, the metric $\left\Vert  \widetilde{\mathbf{K}}^{\dagger} \widetilde{\mathbf{y}} \right\Vert \leq r$ indicates that the estimate $\hat{\bm{\theta}}$ is found inside a ball of radius $r$.
+
+The questions that remain open are how large can $r$ be?, and how is the radius $r$ related to the perturbation noise variance? 
+
+
+\subsection*{The data-driven input estimation methods with missing data}
+
+The implementation of the data-driven step input estimation method can be compromised when one or more step response samples are not properly acquired.
+The missing data in the construction of the Hankel matrix may be due to sample transference errors, or due to sensor saturation problems.
+The saturation values in the sensor response are not valid for the computation of the step input level because they violate the linearity assumption of the sensor.
+The solution to the most powerful unfalsified model identification problem in presence of missing data was provided in \citet{Markovsky16}. 
+The methods presented in this work are formulated as a matrix completion with the constraint that the to-be-completed matrix must be a rank deficient Hankel matrix.
+The low-rank approximation of Hankel structured matrices with missing data has been studied in \citet{Markovsky13}, where the proposed solution is based on a variable-projection method that requires optimization.
+The software for this method, including a link to obtain it, is described in \citet{Markovsky14}. 
+This method is applicable in matrix completion and system identification problems and has inspired the development of the signal recovery method in for nuclear magnetic resonance spectroscopy described in \citet{Ying18}, and data compression and feature recognition in \citet{Hou17} based on sparse low-rank matrix approximation.
+
+The solutions of the low-rank approximation with missing data problems are found by iterative optimization and, therefore, require large amount of computational power.
+In order to implement data-driven input estimation methods with missing data, there is a need for efficient methods of small complexity $O(n)$ that solve online the optimization problem.
+This is an open problem for future research. 
+
+
+	
+	\subsection*{Compressed sensing methods for recovering missing data}
+	
+	Compressed sensing is a methodology that is being developed quite fast and that can offer an alternative to perform measurements with missing data. 
+	The aim of compressed sensing is the recovery of the missing samples of a signal by computing a sparse coefficient vector, under the assumption that the signal belongs to a generating system of larger order. 
+	The missing data estimation problem can be expressed as an overdetermined system of equations with a sparse regression matrix. 
+	The review presented in \cite{Eldar2012compressed} provides an introduction of the mathematical modeling of compressed sensing, and gives the conditions for sparse recovery. 
+	The recovery algorithms include convex optimization, greedy and combinatorial algorithms, to name a few.
+    
+    According to \cite{Rani18}, compressed sensing is applied when we cannot afford buying enough sensors like in non-visible wavelengths applications, when the measurements themselves are expensive as in neutron-scattering imaging, when measurements take a lot of time as in medical imaging, and when a constrain of the measurement is the power consumption.
+    A particular field of application for compressed sensing is the recovery of bioelectrical signals, as it is detailed in \cite{Craven15}.
+	 
+    Another good review of compressed sensing is found in \cite{Duarte11}, where it is explained that the  research community is splitted into a group that studies the problems in which the compressed sensing matrices exhibit structure due to the measurement system modeling, and another group which considers that the signal structured representations not only depend on sparsity but instead assume that the signals belong to continuous time and have infinite-dimensional representations. The solutions provided exploit these structures in the development of the algorithms. Some examples of these structure matrices are described in \cite{Kezhi15} including Gaussian, Toeplitz, Hadamard, and structurally random matrices.
+	 
+    It might be interesting to compare the solutions of the low-rank approximation methods with compressed sensing in terms of computational complexity and feasibility for online implementations. 
+    Therefore, it is proposed as a future research to develop a compressed sensing algorithm, that can estimate directly the input true value by processing the sensor response to the unknown input, and in presence of missing data. 
+	
+
+\color{black}
 
 
 \begin{comment}

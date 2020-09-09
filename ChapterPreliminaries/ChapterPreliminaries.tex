@@ -4,6 +4,15 @@
 \chapter{Preliminaries} \label{chap:Preliminaries}
 
 %\vfill{}
+\color{blue}
+The dynamic systems in the real world are non linear. 
+Under certain intervals of operation, the linear approximations can explain the dynamics of the systems. 
+The linear and time invariant systems have been studied in depth and the linear theory is a solid collection of tools to analyze and explain the behaviour of dynamic systems in a wide range of applications. 
+On the other hand, the study of non-linear systems is more complex and strongly depends on the type of non-linearity that each particular systems exhibit. 
+When the non-linear modeling does not apport a big amount of benefits into the application study, such as significative accuracy improvement or supporting wide ranges of operation, then is better to resort to the utilization of LTI representations. 
+A sensor is a dynamic system whose operation range is preferred to be linear, to facilitate the repeatability and reproducibility of the measurements.
+This means that every time the sensor must deliver identical responses for the same input excitations.   
+\color{black}
 
 In metrology, we use the concepts of linear systems theory to estimate the value of an unknown quantity.
 A sensor is considered to be a causal linear time-invariant (LTI) system.
@@ -39,6 +48,16 @@ It is demonstrated in \citet{Ljung87Book} and in \citet{MiddletonGoodwinBook} th
 \begin{equation} \mathbf{H}(z) = \left( 1- z^{-1} \right) \mathcal{Z} \left\{ \mathcal{L}^{-1} \left\{ \dfrac{\mathbf{H}(s)}{s} \right\} \right\}   \end{equation}
 is a zero-order hold sampling of the continuous time step response that leads to an exact representation of the system dynamics in discrete time with the transfer function $\mathbf{H}(z)$.
 It worths stating this fact here since the method studied in this thesis estimates the true value of a step input by processing samples of a sensor step response. 
+\color{black}
+
+\color{blue} 
+The process noise is the representation of the uncertainty in the system state due to unmodeled perturbations that affect the state evolution. 
+The process noise is modeled as an additional input to the system excitation. 
+For a linear time invariant (LTI) system, the response to a sum of two input excitations is the sum of the two responses that correspond to the individual inputs.
+It is demonstrated in \citet{Gubner06} and \citet{Smith11} that the response of an LTI system to a white noise input is colored noise, since the power spectral density of the response is not constant, but instead proportional to the squared magnitude of the system impulse response.
+Nevertheless, in the bandwidth operation of a properly designed measurement system, processing white noise results in approximately white noise output. 
+Moreover, in the present work the measurement noise exists only in the system response signal, because the input is not direcly observed, and the system is not subject to external perturbation. 
+Under these conditions, the mean and variance of the measurement noise $\epsilon$ describe implicitly the process noise entering the system. 
 \color{black}
 
 The methodology presented in this work is explained with SISO LTI systems, but can also be generalized to systems with multiple inputs and outputs.
@@ -210,9 +229,16 @@ To conduct the statistical analysis of the step input estimation method, it is m
 The statistical analysis results obtained from LS treatment are fully compatible with the RLS estimation results.
 The well known bias and covariance results for the LS estimator cannot be invoked because they assume that the additive perturbation only affects the regressor, and that there is no correlation between the regressor and the regression matrix.
 
- 
+\color{blue}
+{\bfseries Note.} The formulation of the data-driven step input estimation method is based on the behavioral theory introduced in \citet{Willems86I}.
+A behaviour of a dynamical system is any set of input-output trajectories that belongs to the system. 
+It is demonstrated in \citet{Willems05} that when an input-output trajectory is persistently exciting enough, a Hankel matrix constructed from this trajectory represents the most powerful unfalsified model.
+This model is unfalsified because it describes exactly all possible trayectories of the system, and is the most powerful because it is the system representation with the minimal complexity.     
+The rank of the Hankel matrix constructed from a trajectory is a metric used to find the order of persistency of the trajectory.
+The rank-deficient Hankel matrix with the smaller number of block rows indicates the trajectory order of persistency. %
+When the system is excited by a step input, the system is equivalent to an autonomous augmented system, and a model for it can be obtained from the Hankel matrix constructed only from the step response.  
 
-
+\color{black}
 
 \begin{comment}
 

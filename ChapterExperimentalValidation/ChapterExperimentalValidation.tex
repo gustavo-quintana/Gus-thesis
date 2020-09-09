@@ -5,11 +5,11 @@
 
 
 \begin{quote}
-\vspace{-0.75cm}
-\emph{The results of this chapter were published in Quintana Carapia, G., Markovsky, I. Pintelon, R., Csurcsia, P.Z., and Verbeke, D., "Experimental validation of a data-driven step input estimation method for dynamic measurements", IEEE Transactions on Instrumentation and Measurement Journal, \color{blue} vol. 69, no. 7, pp. 4843-4851, July 2020, \color{black} doi: 10.1109/TIM.2019.2951865. \nocite{QuintanaTIM} }\vfill{}
+%\vspace{-0.75cm}
+\emph{The results of this chapter were published in Quintana Carapia, G., Markovsky, I. Pintelon, R., Csurcsia, P.Z., and Verbeke, D., "Experimental validation of a data-driven step input estimation method for dynamic measurements", IEEE Transactions on Instrumentation and Measurement Journal, \color{blue} vol. 69, no. 7, pp. 4843-4851, July 2020, \color{black} doi: 10.1109/TIM.2019.2951865. \nocite{QuintanaTIM} } %\vfill{}
 \end{quote}
 
-%\vfill{}
+\vfill{}
 
 % \section{Introduction}
 
@@ -91,6 +91,14 @@ The third novelty in this manuscript is the model order selection for the step i
 
 
 \section{Simulation results} 
+
+\color{blue} 
+The simulations described in Chapter 4 were conducted with an illustrative example that is assumed to be a second order weighing sensor.
+A weighing sensor was implemented to relate experimental results with the simulations. 
+As it will be detailed later, the order of the practical sensor is at least is fifth order. 
+Thus, the simulations presented in this section are useful to get insight on the impact of that increasing the model order has on the accuracy of the bias and variance predictions.    
+\color{black}
+
 
 A Monte Carlo (MC) simulation was conducted to test the bias and covariance expressions (\ref{eqn:biasST}) and (\ref{eqn:varST}).
 The MC simulation performed $N_{MC} = 10^4$ runs of the data-driven step input estimation with different realizations of the measurement noise $\bm{\epsilon}$.
@@ -201,11 +209,11 @@ The results of the Monte Carlo simulation of the step input estimation method ar
 The mean squared error (MSE) of the step input estimate, defined as
 \begin{equation} \mathrm{MSE} = b^2 + v,   \end{equation}
 where $b$ and $v$ are the bias and the variance of the step input estimate, can be applied to the obtained empirical and predicted results and can be compared to the Cram\'er-Rao lower bound (CRLB).
-Figure \ref{fig:MSE_CRLB} shows that $\mathrm{MSE}_\mathrm{e} = b_\mathrm{e}^2 + v_\mathrm{e}$ and $\mathrm{MSE}_{\widetilde{\mathrm{p}}}  = b_{\widetilde{\mathrm{p}}}^2 + v_{\widetilde{\mathrm{p}}}$ have the same proportionality with respect to the measurement noise variance as the bound for an unbiased estimator $\mathrm{CRLB_{ub}}$.
+Figure \ref{fig:MSE_CRLB_str_exp} shows that $\mathrm{MSE}_\mathrm{e} = b_\mathrm{e}^2 + v_\mathrm{e}$ and $\mathrm{MSE}_{\widetilde{\mathrm{p}}}  = b_{\widetilde{\mathrm{p}}}^2 + v_{\widetilde{\mathrm{p}}}$ have the same proportionality with respect to the measurement noise variance as the bound for an unbiased estimator $\mathrm{CRLB_{ub}}$.
 For SNR above 35 dB, $\mathrm{MSE}_\mathrm{e}$ and $\mathrm{MSE}_{\widetilde{\mathrm{p}}}$ are equivalent, and below 35 dB the difference between them is of less than a factor of 10.
 
 We obtained an approximation of the $\mathrm{CRLB}_{\mathrm{b}}$ for our biased estimator using the partial derivative of the bias in expression (\ref{eqn:biasST}).
-Figure \label{fig:MSE_CRLB} shows that the bounds for the unbiased and biased estimators are almost equal because the partial derivatives of the bias are negligible w.r.t. 1 in Equation (\ref{eqn:CRLB_EIV}).
+Figure \ref{fig:MSE_CRLB_str_exp} shows that the bounds for the unbiased and biased estimators are almost equal because the partial derivatives of the bias are negligible w.r.t. 1 in Equation (\ref{eqn:CRLB_EIV}).
 By adding the square of the predicted bias to the biased estimator bound $\mathrm{CRLB_{b}}$ we obtain an approximation of the minimum MSE that the biased estimator can achieve.
 This minimum MSE is close to the CRLBs for large SNR but the square of the bias causes an increase of the MSE around 35 dB.
 The differences between the CRLBs and $\mathrm{MSE}_\mathrm{e}$ and $\mathrm{MSE}_{\widetilde{\mathrm{p}}}$ are of one order of magnitude for large SNR and become small for SNR lower than 40 dB.
@@ -216,7 +224,7 @@ This difference is the cost of solving a structured EIV problem with a simple LS
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=0.69\columnwidth]{./ChapterExperimentalValidation/fig/Fig_3.pdf}
-\caption{\label{fig:MSE_CRLB} The observation instant is fixed at 500 samples.
+\caption{\label{fig:MSE_CRLB_str_exp} The observation instant is fixed at 500 samples.
 The bias and the MSEs decrease for large SNR. 
 The empirical $\mathrm{MSE_e}$ and the predicted $\mathrm{MSE}_{\widetilde{\mathrm{p}}}$ of the step input estimation are one order of magnitude larger than the Cram\'er-Rao lower bound.
 Adding the CRLB for a biased estimator with the predicted bias squared we have the minimum MSE, that grows in the interval [25 dB, 45 dB].
@@ -489,6 +497,29 @@ The empirical squared bias (solid) and the empirical variance (dashed) are shown
 The MSE has a local minimum at $n=7$ and another at $n=48$.
 It is recommended to use the estimation method with $n=7$ because at $n=48$ the decrement of the MSE is not significant.  }
 \end{figure}
+
+\color{blue}
+	
+	There exist methods for estimating the performance of different models that are useful to choose among the models.
+	The model selection methods can be analytical, such as the Akaike information criterion (AIC) introduced in the paper of \citet{Akaike74}, the minimum description length (MDL) iniciated by the work of \citet{Rissanen78}, or numerical such as crossvalidation.
+	The AIC is defined for a class of models fit by maximum likelihood. 
+	For the linear regression problem with Gaussian perturbation (3.20), the AIC is given by
+	\begin{equation} \mathrm{AIC} = 2 \left( n+1 \right) - \mathrm{ln} \left( \widehat{L} \right) \label{eqn:AIC} \end{equation}
+	where $n+1$ is the number of estimated parameters, and $\widehat{L}$ is the maximum value of the likelihood function of the model.
+	The AIC rewards the goodness of fit by considering the maximum likelihood value, and adds a penalty term that increases the cost with respect to the number of parameters to prevent overfitting.
+	In the opinion of \citet{McElreath20}, the AIC is reliable when the priors overwhelmed by the likelihood, the posterior distribution is approximately multivariate Gaussian, and the sample size is much larger than the number of parameters.
+	Using this criterion for model selection is simple, \citet{Hastie09} suggest just picking the model that provides the smallest AIC value.
+
+	The MDL approach is motivated from an optimal coding viewpoint, aiming to choose the most parsimonious model, that, according to \citet{Hastie09}, is the shortest model that can encode the data for transmision of messages.
+	If we have a model with parameters $\theta$, and data $(K, y)$, with the conditional probability of the outputs $\mathrm{P}(y | \theta, K)$, and assuming the receiver knows the inputs and we transmit the outputs, then the message length required to transmit the outputs is
+    \begin{equation} \mathrm{length} = - \mathrm{ln} \left( \mathrm{P}( \theta ) \right) - \mathrm{ln} \left( \mathrm{P}(y | \theta, K) \right) . \label{eqn:MDL} \end{equation}
+    The length is the sum of the code length required for transmitting the model parameters with the code length required for transmitting the discrepancy between the model and the actual target values. 
+    The recommended model is the one that minimizes (\ref{eqn:MDL}).
+	\citet{McElreath20} arguments that model fitting is a form of data compression, where parameters explain the relationships among the data. 
+	The parameters compress the data into a simpler form, with some loss of information about the sample, and 
+	can be used to generate new data by decompression.
+	Learning about the data requires using a simpler model that achieves some compression, but not too much.
+    \color{black}
 
 \section{Conclusions}
 
